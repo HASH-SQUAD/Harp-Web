@@ -1,5 +1,6 @@
 {
 	"compilerOptions": {
+		"allowImportingTsExtensions": true,
 		"typeRoots": ["./node_modules/@types"],
 		"target": "es5",
 		"lib": ["dom", "dom.iterable", "esnext"],
@@ -15,7 +16,8 @@
 		"resolveJsonModule": true,
 		"isolatedModules": true,
 		"noEmit": true,
-		"jsx": "react-jsx"
+		"jsx": "react-jsx",
+		"baseUrl": "src"
 	},
-	"include": ["src"]
+	"include": ["src", "src/custom.d.ts"]
 }
