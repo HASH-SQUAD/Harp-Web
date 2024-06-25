@@ -1,12 +1,10 @@
-import React from 'react';
-
-export const Harp_Logo: React.FC = () => (
+export const Harp_Logo = ({ width = '200', height = '981' }) => (
 	<svg
-		width='200'
-		height='981'
+		width={width}
+		height={height}
 		viewBox='0 0 1200 981'
 		fill='none'
-		xmlns='http://www.w3.org/2000/svg'
+		xmlns='http://www.w3.org/svg'
 	>
 		<path
 			d='M0 250C0 111.929 111.929 0 250 0H950C1088.07 0 1200 111.929 1200 250C1200 388.071 1088.07 500 950 500H250C111.929 500 0 388.071 0 250Z'

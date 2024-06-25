@@ -8,6 +8,3 @@ export const Splash_Container = styled.div`
   justify-content: center;
   align-items: center;
 `;
-
-export const Splash_Logo = styled.div`
-`;

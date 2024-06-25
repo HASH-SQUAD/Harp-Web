@@ -8,9 +8,7 @@ import { Harp_Logo } from 'assets/image/HARP_LOGO.tsx';
 const Splash = () => {
 	return (
 		<_.Splash_Container>
-			<_.Splash_Logo>
-        <Harp_Logo /> 
-      </_.Splash_Logo>
+			<Harp_Logo />
 		</_.Splash_Container>
 	);
 };
