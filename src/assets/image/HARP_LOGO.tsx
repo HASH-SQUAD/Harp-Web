@@ -2,7 +2,7 @@ import React from 'react';
 
 export const Harp_Logo: React.FC = () => (
 	<svg
-		width='1200'
+		width='200'
 		height='981'
 		viewBox='0 0 1200 981'
 		fill='none'
