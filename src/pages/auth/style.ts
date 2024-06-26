@@ -50,3 +50,4 @@ export const Auth_Button_Ballon_SVG = styled.div`
   position: absolute;
   top: 40px;
 `;
+

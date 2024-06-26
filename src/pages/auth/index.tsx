@@ -5,6 +5,8 @@ import React from "react";
 import * as _ from "./style";
 import useStatusBarHeight from "../../hooks/useStatusBarHeight";
 import RoundedTriangle from "assets/image/RoundedTriangle";
+import AuthButton from "components/AuthButton";
+import KakaoTalk from "assets/image/KakaoTalk";
 
 const Auth = () => {
   const statusBarHeight = useStatusBarHeight();
@@ -26,6 +28,11 @@ const Auth = () => {
           <_.Auth_Button_Ballon_SVG>
             <RoundedTriangle />
           </_.Auth_Button_Ballon_SVG>
+          <AuthButton
+            background="#FEE500"
+            icon={<KakaoTalk />}
+            content="카카오 로그인"
+          />
         </_.Auth_Button_Layout>
       </_.Auth_Layout>
     </_.Auth_Container>
