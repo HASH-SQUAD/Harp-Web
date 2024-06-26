@@ -40,7 +40,7 @@ export const Auth_Bubble_3 = styled.div`
   height: 310px;
   border-radius: 100%;
   bottom: -24px;
-  left: -52px;
+  left: -40px;
   background: rgba(255, 255, 255, 0.2);
 `;
 
