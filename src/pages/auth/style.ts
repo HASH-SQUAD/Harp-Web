@@ -5,6 +5,7 @@ export const Auth_Container = styled.div`
   width: 100vw;
   height: 100vh;
   background: ${theme.special[4]};
+  position: relative;
 `;
 
 export const Auth_Layout = styled.div<{ StatusBarSize?: string }>`
@@ -13,6 +14,34 @@ export const Auth_Layout = styled.div<{ StatusBarSize?: string }>`
   height: 100%;
   flex-direction: column;
   justify-content: space-between;
+`;
+
+export const Auth_Bubble_1 = styled.div`
+  position: absolute;
+  width: 381px;
+  height: 381px;
+  border-radius: 100%;
+  top: -64px;
+  left: 164px;
+  background: rgba(255, 255, 255, 0.2);
+`;
+export const Auth_Bubble_2 = styled.div`
+  position: absolute;
+  width: 70px;
+  height: 70px;
+  border-radius: 100%;
+  top: 204px;
+  left: 28px;
+  background: rgba(255, 255, 255, 0.2);
+`;
+export const Auth_Bubble_3 = styled.div`
+  position: absolute;
+  width: 310px;
+  height: 310px;
+  border-radius: 100%;
+  bottom: -20px;
+  left: -52px;
+  background: rgba(255, 255, 255, 0.2);
 `;
 
 export const Auth_Title_Layout = styled.div`

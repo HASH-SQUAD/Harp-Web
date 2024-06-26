@@ -17,6 +17,9 @@ const Auth = () => {
     <_.Auth_Container>
       <_.Auth_Layout StatusBarSize={`${statusBarHeight}px`}>
         <_.Auth_Title_Layout>
+          <_.Auth_Bubble_1 />
+          <_.Auth_Bubble_2 />
+          <_.Auth_Bubble_3 />
           <_.Auth_Title_Big>{title}</_.Auth_Title_Big>
           <_.Auth_Title_Small>하프와 함께하는 여행 계획</_.Auth_Title_Small>
         </_.Auth_Title_Layout>
