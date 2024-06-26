@@ -34,20 +34,39 @@ export const Auth_Title_Small = styled.p`
 export const Auth_Button_Layout = styled.div`
   display: flex;
   flex-direction: column;
+  justify-content: center;
   align-items: center;
   position: relative;
+  gap: 16px;
 `;
 
 export const Auth_Button_Ballon = styled.div`
   background-color: white;
   padding: 10px 16px;
   border-radius: 30px;
+  display: flex;
+  justify-content: center;
+  margin-bottom: 8px;
 `;
 
-export const Auth_Button_Ballon_Title = styled.p``;
+export const Auth_Button_Ballon_Title = styled.p`
+  color: #1a1e27;
+  text-align: center;
+  font-size: 15px;
+  font-style: normal;
+  font-weight: 500;
+  line-height: normal;
+`;
 
 export const Auth_Button_Ballon_SVG = styled.div`
   position: absolute;
-  top: 40px;
+  top: 36px;
 `;
 
+export const Auth_Button_Hint = styled.p`
+  color: #505866;
+  font-size: 15px;
+  font-style: normal;
+  font-weight: 400;
+  line-height: normal;
+`;
