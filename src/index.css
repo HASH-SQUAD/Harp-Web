@@ -10,6 +10,7 @@
 	src: url('./assets/font/Pretendard-Bold.otf') format('otf');
 	font-style: normal;
 	font-size: 50px;
+	font-weight: 700;
 }
 
 @font-face {
@@ -17,6 +18,7 @@
 	src: url('./assets/font/Pretendard-SemiBold.otf') format('otf');
 	font-style: normal;
 	font-size: 34px;
+	font-weight: 600;
 }
 
 @font-face {
@@ -24,6 +26,7 @@
 	src: url('./assets/font/Pretendard-Medium.otf') format('otf');
 	font-style: normal;
 	font-size: 28px;
+	font-weight: 500;
 }
 
 @font-face {
@@ -31,24 +34,28 @@
 	src: url('./assets/font/Pretendard-Regular.otf') format('otf');
 	font-style: normal;
 	font-size: 22px;
+	font-weight: 400;
 }
 
 @font-face {
 	font-family: 'Pretendard-Bold';
 	src: url('./assets/font/Pretendard-Bold.otf') format('otf');
 	font-style: normal;
+	font-weight: 700;
 }
 
 @font-face {
 	font-family: 'Pretendard-SemiBold';
 	src: url('./assets/font/Pretendard-SemiBold.otf') format('otf');
 	font-style: normal;
+	font-weight: 600;
 }
 
 @font-face {
 	font-family: 'Pretendard-Regular';
 	src: url('./assets/font/Pretendard-Regular.otf') format('otf');
 	font-style: normal;
+	font-weight: 400;
 }
 
 @font-face {
@@ -56,6 +63,7 @@
 	src: url('./assets/font/Pretendard-SemiBold.otf') format('otf');
 	font-style: normal;
 	font-size: 16px;
+	font-weight: 600;
 }
 
 @font-face {
@@ -63,6 +71,7 @@
 	src: url('./assets/font/Pretendard-Medium.otf') format('otf');
 	font-style: normal;
 	font-size: 16px;
+	font-weight: 500;
 }
 
 @font-face {
@@ -70,4 +79,5 @@
 	src: url('./assets/font/Pretendard-Medium.otf') format('otf');
 	font-style: normal;
 	font-size: 14px;
+	font-weight: 500;
 }
