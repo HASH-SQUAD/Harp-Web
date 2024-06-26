@@ -3,3 +3,71 @@
 	margin: 0;
 	box-sizing: border-box;
 }
+
+/* 프리텐다드 */
+@font-face {
+	font-family: 'Big-Section';
+	src: url('./assets/font/Pretendard-Bold.otf') format('otf');
+	font-style: normal;
+	font-size: 50px;
+}
+
+@font-face {
+	font-family: 'Large-Title';
+	src: url('./assets/font/Pretendard-SemiBold.otf') format('otf');
+	font-style: normal;
+	font-size: 34px;
+}
+
+@font-face {
+	font-family: 'Title1';
+	src: url('./assets/font/Pretendard-Medium.otf') format('otf');
+	font-style: normal;
+	font-size: 28px;
+}
+
+@font-face {
+	font-family: 'Title2';
+	src: url('./assets/font/Pretendard-Regular.otf') format('otf');
+	font-style: normal;
+	font-size: 22px;
+}
+
+@font-face {
+	font-family: 'Pretendard-Bold';
+	src: url('./assets/font/Pretendard-Bold.otf') format('otf');
+	font-style: normal;
+}
+
+@font-face {
+	font-family: 'Pretendard-SemiBold';
+	src: url('./assets/font/Pretendard-SemiBold.otf') format('otf');
+	font-style: normal;
+}
+
+@font-face {
+	font-family: 'Pretendard-Regular';
+	src: url('./assets/font/Pretendard-Regular.otf') format('otf');
+	font-style: normal;
+}
+
+@font-face {
+	font-family: 'Button1';
+	src: url('./assets/font/Pretendard-SemiBold.otf') format('otf');
+	font-style: normal;
+	font-size: 16px;
+}
+
+@font-face {
+	font-family: 'Button2';
+	src: url('./assets/font/Pretendard-Medium.otf') format('otf');
+	font-style: normal;
+	font-size: 16px;
+}
+
+@font-face {
+	font-family: 'Button3';
+	src: url('./assets/font/Pretendard-Medium.otf') format('otf');
+	font-style: normal;
+	font-size: 14px;
+}
