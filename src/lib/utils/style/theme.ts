@@ -25,9 +25,9 @@ export const theme = {
     black: "#1A1E27",
   },
   sub: {
-    red: "#F2F4F6",
-    green: "#F2F4F6",
-    yellow: "#F2F4F6",
+    red: "#FF2C20",
+    green: "#3CD456",
+    yellow: "#FFB931",
     0: "#FAFBFB",
     1: "#F2F4F6",
     2: "#D9DFE0",
