@@ -9,6 +9,7 @@ import FalseCircleCheck from 'assets/image/FalseCircleCheck';
 import TrueCircleCheck from 'assets/image/TrueCircleCheck';
 import TermsContent from 'components/TermsContent';
 import TermsData from '../../data/Terms';
+import NextButton from 'components/NextButton';
 
 const Terms = () => {
   const statusBarHeight = useStatusBarHeight();
@@ -65,6 +66,8 @@ const Terms = () => {
             />
           ))}
         </_.Terms_Deatil>
+
+        <NextButton text="다음" state={true} />
       </_.Terms_Layout>
     </_.Terms_Container>
   );
