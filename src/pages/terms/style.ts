@@ -63,5 +63,6 @@ export const TrueCircleCheckIcon = styled.div`
   align-items: center;
   justify-content: center;
   border-radius: 100%;
-`
+`;
 
+export const Terms_Deatil = styled.div``;
