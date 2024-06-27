@@ -1,6 +1,5 @@
 //라이브러리
 import React from 'react';
-import ProgressBar from '@ramonak/react-progress-bar';
 
 //파일
 import * as _ from './style';
