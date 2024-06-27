@@ -12,7 +12,16 @@ const Terms = () => {
 	return (
 		<_.Terms_Container>
 			<_.Terms_Layout StatusBarSize={`${statusBarHeight}px`}>
-				<Header StatusBar={1} />
+				<_.Header_Layout>
+					<Header
+						StatusBar={0}
+						title='일정'
+						buttonState='닫기'
+						onClickMethod={() => {
+							return 0;
+						}}
+					/>
+				</_.Header_Layout>
 			</_.Terms_Layout>
 		</_.Terms_Container>
 	);
