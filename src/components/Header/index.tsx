@@ -1,11 +1,21 @@
-import BackIcon from 'assets/image/BackIcon';
+//라이브러리
 import React from 'react';
+import ProgressBar from '@ramonak/react-progress-bar';
 
-const Header = () => {
+//파일
+import * as _ from './style';
+import BackIcon from 'assets/image/BackIcon';
+import StatusBar1 from 'assets/image/StatusBar1';
+
+const Header = (StatusBar: boolean) => {
 	return (
-		<div>
+		<_.Header_Container>
 			<BackIcon />
-		</div>
+
+			<_.Header_ProgressBar>
+				<StatusBar1 />
+			</_.Header_ProgressBar>
+		</_.Header_Container>
 	);
 };
 
