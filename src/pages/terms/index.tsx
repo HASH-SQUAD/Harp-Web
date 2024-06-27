@@ -1,7 +1,4 @@
-//라이브러리
-import React, { useState } from 'react';
-
-//파일
+import React, { useState, useEffect } from 'react';
 import useStatusBarHeight from 'hooks/useStatusBarHeight';
 import * as _ from './style';
 import Header from 'components/Header';
@@ -11,9 +8,46 @@ import TermsContent from 'components/TermsContent';
 import TermsData from '../../data/Terms';
 import NextButton from 'components/NextButton';
 
+interface CheckState {
+  [key: number]: boolean;
+}
+
 const Terms = () => {
   const statusBarHeight = useStatusBarHeight();
-  const [successAll, setSuccessAll] = useState(false);
+  const [successAll, setSuccessAll] = useState<boolean>(false);
+  const [check, setCheck] = useState<CheckState>({
+    1: false,
+    2: false,
+    3: false,
+    4: false,
+    5: false
+  });
+  const [nextButtonState, setNextButtonState] = useState<boolean>(false);
+
+  useEffect(() => {
+    const allChecked = Object.values(check).every(Boolean);
+    setSuccessAll(allChecked);
+
+    const necessaryChecked = check[1] && check[2] && check[3];
+    setNextButtonState(necessaryChecked);
+  }, [check]);
+
+  const handleAllCheck = () => {
+    const newState = !successAll;
+    setSuccessAll(newState);
+    const updatedChecks: CheckState = Object.keys(check).reduce((acc, key) => {
+      acc[Number(key)] = newState;
+      return acc;
+    }, {} as CheckState);
+    setCheck(updatedChecks);
+  };
+
+  const handleSingleCheck = (id: number) => {
+    setCheck((prevCheck) => ({
+      ...prevCheck,
+      [id]: !prevCheck[id]
+    }));
+  };
 
   return (
     <_.Terms_Container>
@@ -38,19 +72,11 @@ const Terms = () => {
 
         <_.Terms_SuccessAll>
           {successAll ? (
-            <_.TrueCircleCheckIcon
-              onClick={() => {
-                setSuccessAll(!successAll);
-              }}
-            >
+            <_.TrueCircleCheckIcon onClick={handleAllCheck}>
               <TrueCircleCheck />
             </_.TrueCircleCheckIcon>
           ) : (
-            <_.TrueCircleCheckIcon
-              onClick={() => {
-                setSuccessAll(!successAll);
-              }}
-            >
+            <_.TrueCircleCheckIcon onClick={handleAllCheck}>
               <FalseCircleCheck />
             </_.TrueCircleCheckIcon>
           )}
@@ -60,14 +86,17 @@ const Terms = () => {
         <_.Terms_Deatil>
           {TermsData.map((item) => (
             <TermsContent
-              key={item.title}
+              key={item.id}
+              id={item.id}
               title={item.title}
               detail={item.desc}
+              state={check[item.id]}
+              setState={handleSingleCheck}
             />
           ))}
         </_.Terms_Deatil>
 
-        <NextButton text="다음" state={true} />
+        <NextButton text="다음" state={nextButtonState} />
       </_.Terms_Layout>
     </_.Terms_Container>
   );

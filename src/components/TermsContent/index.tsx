@@ -1,7 +1,4 @@
-//라이브러리
 import React, { useState } from 'react';
-
-//파일
 import * as _ from './style';
 import FalseCheck from 'assets/image/FalseCheck';
 import TrueCheck from 'assets/image/TrueCheck';
@@ -9,28 +6,36 @@ import RightArrow from 'assets/image/RightArrow';
 import DownArrow from 'assets/image/DownArrow';
 
 interface TermsContentProps {
+  id: number;
   title: string;
   detail: string;
+  state: boolean;
+  setState: (id: number) => void;
 }
 
-const TermsContent = ({ title, detail }: TermsContentProps) => {
-  const [ruleState, setRuleState] = useState(false);
-  const [checkState, setCheckState] = useState(false);
+const TermsContent = ({
+  id,
+  title,
+  detail,
+  state,
+  setState
+}: TermsContentProps) => {
+  const [ruleState, setRuleState] = useState<boolean>(false);
 
   return (
     <_.TermsContent_Container>
       <_.TermsContent_Layout>
         <_.TermsContent_CheckIcon
           onClick={() => {
-            setCheckState(!checkState);
+            setState(id);
           }}
         >
-          {checkState ? <TrueCheck /> : <FalseCheck />}
+          {state ? <TrueCheck /> : <FalseCheck />}
         </_.TermsContent_CheckIcon>
 
         <_.TermsContent_Title
           onClick={() => {
-            setCheckState(!checkState);
+            setState(id);
           }}
         >
           {title}
