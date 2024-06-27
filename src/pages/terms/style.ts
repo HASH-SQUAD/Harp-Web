@@ -43,8 +43,25 @@ export const Terms_SubTitle_Highlight = styled.div`
 
 export const Terms_SuccessAll = styled.div`
   width: 100%;
-  height: 60px;
+  height: 64px;
   padding: 15px 20px;
   margin-top: 22px;
   background-color: ${theme.sub[1]};
+  border-radius: 5px;
+
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  gap: 16px;
+  font-weight: 600;
+  font-size: 18px;
+`;
+
+export const TrueCircleCheckIcon = styled.div`
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: center;
+  border-radius: 100%;
 `
+

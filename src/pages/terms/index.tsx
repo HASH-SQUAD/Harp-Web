@@ -1,13 +1,17 @@
 //라이브러리
-import React from 'react';
+import React, { useState } from 'react';
 
 //파일
 import useStatusBarHeight from 'hooks/useStatusBarHeight';
 import * as _ from './style';
 import Header from 'components/Header';
+import FalseCircleCheck from 'assets/image/FalseCircleCheck';
+import TrueCircleCheck from 'assets/image/TrueCircleCheck';
 
 const Terms = () => {
   const statusBarHeight = useStatusBarHeight();
+
+  const [successAll, setSuccessAll] = useState(false);
 
   return (
     <_.Terms_Container>
@@ -15,8 +19,8 @@ const Terms = () => {
         <_.Header_Layout>
           <Header
             StatusBar={0}
-            title="일정"
-            buttonState="닫기"
+            title=""
+            buttonState=""
             onClickMethod={() => {
               return 0;
             }}
@@ -30,10 +34,26 @@ const Terms = () => {
           가 필요합니다.
         </_.Terms_SubTitle>
 
-				<_.Terms_SuccessAll>
-					
-				</_.Terms_SuccessAll>
-
+        <_.Terms_SuccessAll>
+          {successAll ? (
+            <_.TrueCircleCheckIcon
+              onClick={() => {
+                setSuccessAll(!successAll);
+              }}
+            >
+              <TrueCircleCheck />
+            </_.TrueCircleCheckIcon>
+          ) : (
+            <_.TrueCircleCheckIcon
+              onClick={() => {
+                setSuccessAll(!successAll);
+              }}
+            >
+              <FalseCircleCheck />
+            </_.TrueCircleCheckIcon>
+          )}
+          약관 전체 동의
+        </_.Terms_SuccessAll>
       </_.Terms_Layout>
     </_.Terms_Container>
   );
