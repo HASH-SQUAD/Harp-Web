@@ -15,25 +15,41 @@ interface TermsContentProps {
 
 const TermsContent = ({ title, detail }: TermsContentProps) => {
   const [ruleState, setRuleState] = useState(false);
+  const [checkState, setCheckState] = useState(false);
+
   return (
-    <_.TermsContent_Container
-      onClick={() => {
-        setRuleState(!ruleState);
-      }}
-    >
+    <_.TermsContent_Container>
       <_.TermsContent_Layout>
-        <_.TermsContent_CheckIcon>
-          {ruleState ? <TrueCheck /> : <FalseCheck />}
+        <_.TermsContent_CheckIcon
+          onClick={() => {
+            setCheckState(!checkState);
+          }}
+        >
+          {checkState ? <TrueCheck /> : <FalseCheck />}
         </_.TermsContent_CheckIcon>
 
-        <_.TermsContent_Title>{title}</_.TermsContent_Title>
+        <_.TermsContent_Title
+          onClick={() => {
+            setCheckState(!checkState);
+          }}
+        >
+          {title}
+        </_.TermsContent_Title>
 
         {ruleState ? (
-          <_.TermsContent_ArrowIcon>
+          <_.TermsContent_ArrowIcon
+            onClick={() => {
+              setRuleState(!ruleState);
+            }}
+          >
             <DownArrow />
           </_.TermsContent_ArrowIcon>
         ) : (
-          <_.TermsContent_ArrowIcon>
+          <_.TermsContent_ArrowIcon
+            onClick={() => {
+              setRuleState(!ruleState);
+            }}
+          >
             <RightArrow />
           </_.TermsContent_ArrowIcon>
         )}

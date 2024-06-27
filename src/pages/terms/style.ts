@@ -65,4 +65,9 @@ export const TrueCircleCheckIcon = styled.div`
   border-radius: 100%;
 `;
 
-export const Terms_Deatil = styled.div``;
+export const Terms_Deatil = styled.div`
+  margin-top: 20px;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+`;

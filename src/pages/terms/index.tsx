@@ -8,11 +8,12 @@ import Header from 'components/Header';
 import FalseCircleCheck from 'assets/image/FalseCircleCheck';
 import TrueCircleCheck from 'assets/image/TrueCircleCheck';
 import TermsContent from 'components/TermsContent';
+import TermsData from '../../data/Terms';
 
 const Terms = () => {
   const statusBarHeight = useStatusBarHeight();
-
   const [successAll, setSuccessAll] = useState(false);
+
   return (
     <_.Terms_Container>
       <_.Terms_Layout StatusBarSize={`${statusBarHeight}px`}>
@@ -56,10 +57,13 @@ const Terms = () => {
         </_.Terms_SuccessAll>
 
         <_.Terms_Deatil>
-          <TermsContent
-            title="(필수) 하프 서비스 이용 및 정보제공 동의"
-            detail={`asdfasdfsdfdsfdsdf`}
-          />
+          {TermsData.map((item) => (
+            <TermsContent
+              key={item.title}
+              title={item.title}
+              detail={item.desc}
+            />
+          ))}
         </_.Terms_Deatil>
       </_.Terms_Layout>
     </_.Terms_Container>
