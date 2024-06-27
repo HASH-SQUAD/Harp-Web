@@ -7,13 +7,17 @@ import * as _ from './style';
 import BackIcon from 'assets/image/BackIcon';
 import StatusBar1 from 'assets/image/StatusBar1';
 
-const Header = (StatusBar: boolean) => {
+interface HeaderProps {
+	StatusBar: number;
+}
+
+const Header = ({ StatusBar }: HeaderProps) => {
 	return (
 		<_.Header_Container>
 			<BackIcon />
 
 			<_.Header_ProgressBar>
-				<StatusBar1 />
+				{StatusBar == 1 ? <StatusBar1 /> : ''}
 			</_.Header_ProgressBar>
 		</_.Header_Container>
 	);

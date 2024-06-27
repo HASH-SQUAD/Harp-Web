@@ -12,7 +12,7 @@ const Terms = () => {
 	return (
 		<_.Terms_Container>
 			<_.Terms_Layout StatusBarSize={`${statusBarHeight}px`}>
-				<Header />
+				<Header StatusBar={1} />
 			</_.Terms_Layout>
 		</_.Terms_Container>
 	);
