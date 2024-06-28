@@ -5,6 +5,7 @@ import React, { useState } from 'react';
 import * as _ from './style';
 import useStatusBarHeight from 'hooks/useStatusBarHeight';
 import Header from 'components/Header';
+import Birthday from 'components/BottomSheet/Birthday';
 
 const Info = () => {
   const [isModalOpened, setIsModalOpened] = useState(false);
@@ -13,6 +14,7 @@ const Info = () => {
 
   return (
     <_.Info_Container>
+      {isModalOpened && <Birthday handleOutsideClick={setIsModalOpened} />}
       <_.Info_Layout StatusBarSize={`${statusBarHeight}px`}>
         <Header
           StatusBar={0}
@@ -36,6 +38,19 @@ const Info = () => {
             <_.Info_Input_Box
               type="text"
               placeholder="2글자 이상 입력해주세요."
+            />
+          </_.Info_Input_Layout>
+          <_.Info_Input_Layout>
+            <_.Info_Input_Title>
+              생년월일 <_.Info_Input_Title_Star>*</_.Info_Input_Title_Star>
+            </_.Info_Input_Title>
+            <_.Info_Input_Box
+              onClick={() => {
+                setIsModalOpened(true);
+              }}
+              type="text"
+              placeholder="2024/01/01"
+              readOnly={true}
             />
           </_.Info_Input_Layout>
         </_.Info_Inputs>
