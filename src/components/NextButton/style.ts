@@ -8,6 +8,7 @@ export const NextButton_Container = styled.div<{ State?: boolean }>`
   flex-direction: row;
   justify-content: center;
   position: absolute;
+  z-index: 9999;
   bottom: 0;
   background-color: ${(props) =>
     props.State ? theme.primary[7] : theme.gray['2.5']};
