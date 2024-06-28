@@ -7,7 +7,7 @@ export const NextButton_Container = styled.div<{ State?: boolean }>`
   display: flex;
   flex-direction: row;
   justify-content: center;
-  position: absolute;
+  position: fixed;
   z-index: 9999;
   bottom: 0;
   background-color: ${(props) =>
