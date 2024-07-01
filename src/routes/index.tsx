@@ -4,6 +4,7 @@ import Splash from '../pages/splash/';
 import Auth from 'pages/auth';
 import Terms from 'pages/terms';
 import SurveyEnd from '../pages/surveyEnd';
+import SurveyStyle from 'pages/surveyStyle';
 
 export default function Router() {
   return useRoutes([
@@ -13,7 +14,8 @@ export default function Router() {
         { path: 'splash', element: <Splash /> },
         { path: 'auth', element: <Auth /> },
         { path: 'terms', element: <Terms /> },
-        { path: 'surveyend', element: <SurveyEnd /> }
+        { path: 'surveyend', element: <SurveyEnd /> },
+        { path: 'surveystyle', element: <SurveyStyle /> }
       ]
     }
   ]);
