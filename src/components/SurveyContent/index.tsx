@@ -17,7 +17,6 @@ const SurveyContent = ({ width, text, img }: SurveyContentProps) => {
     <_.SurveyContent_Container>
       <_.SurveyContent_Layout ContentWidth={`${width}px`}>
         <_.SurveyContent_Img src='../../assets/image/SurveyStyle/Mood.png' />
-        {img}
 
         <_.SurveyContent_Text>{text}</_.SurveyContent_Text>
       </_.SurveyContent_Layout>
