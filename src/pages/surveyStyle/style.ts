@@ -27,3 +27,7 @@ export const SurveyStyle_SubText = styled.div`
   font-weight: 400;
   font-size: 16px;
 `;
+
+export const SurveyStyle_Contents = styled.div`
+  
+`
