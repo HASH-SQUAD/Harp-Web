@@ -14,9 +14,9 @@ const SurveyContent = ({ width, text, img }: SurveyContentProps) => {
   return (
     <_.SurveyContent_Container>
       <_.SurveyContent_Layout ContentWidth={`${width}px`}>
-        <_.SurveyContent_Img src={img} />
+        <img src={img} />
       </_.SurveyContent_Layout>
-        <_.SurveyContent_Text>{text}</_.SurveyContent_Text>
+      <_.SurveyContent_Text>{text}</_.SurveyContent_Text>
     </_.SurveyContent_Container>
   );
 };

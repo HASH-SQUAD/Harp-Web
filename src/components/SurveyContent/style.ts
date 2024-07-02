@@ -20,8 +20,6 @@ export const SurveyContent_Layout = styled.div<{ ContentWidth?: string }>`
   gap: 2px;
 `;
 
-export const SurveyContent_Img = styled.img``;
-
 export const SurveyContent_Text = styled.div`
   font-weight: 400;
   font-size: 14px;
