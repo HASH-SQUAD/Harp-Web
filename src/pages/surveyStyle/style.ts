@@ -13,7 +13,7 @@ export const SurveyStyle_Layout = styled.div<{ StatusBarSize?: string }>`
 export const SurveyStyle_ProgressText = styled.div`
   color: var(--gray-300, #a5a5a5);
   font-weight: 400;
-  font-size: 16px;
+  font-size: 14px;
   text-align: right;
 `;
 
@@ -29,5 +29,8 @@ export const SurveyStyle_SubText = styled.div`
 `;
 
 export const SurveyStyle_Contents = styled.div`
-  
-`
+  margin-top: 7px;
+  display: grid;
+  gap: 8px;
+  grid-template-columns: repeat(3, 2fr);
+`;

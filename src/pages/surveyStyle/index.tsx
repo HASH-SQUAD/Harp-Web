@@ -6,9 +6,10 @@ import * as _ from './style';
 import useStatusBarHeight from 'hooks/useStatusBarHeight';
 import Header from 'components/Header';
 import SurveyContent from 'components/SurveyContent';
+import SurveyStyleData from 'data/SurveyStyle';
 
-//이미지들
-const Mood = 'assets/image/SurveyStyle/Mood.png'
+import Mood from 'assets/image/SurveyStyle/Mood.png';
+import NextButton from 'components/NextButton';
 
 const SurveyStyle = () => {
   const statusBarHeight = useStatusBarHeight();
@@ -35,8 +36,16 @@ const SurveyStyle = () => {
         </_.SurveyStyle_MainText>
 
         <_.SurveyStyle_Contents>
-          <SurveyContent width={100} text="분위기" img={Mood} />
+          {SurveyStyleData.map((item) => (
+            <SurveyContent
+              key={item.id}
+              width={100}
+              text={item.text}
+              img={item.img}
+            />
+          ))}
         </_.SurveyStyle_Contents>
+      <NextButton text='다음' state={true} />
       </_.SurveyStyle_Layout>
     </_.SurveyStyle_Container>
   );
