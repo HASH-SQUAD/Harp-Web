@@ -4,11 +4,12 @@ import { theme } from '../../lib/utils/style/theme';
 export const Header_Container = styled.div`
   width: 100vw;
   height: 40px;
+  position: relative;
   display: flex;
   flex-direction: row;
+  justify-content: center;
   align-items: center;
-  gap: 28vw;
-  justify-content: space-between;
+  right: 30px;
 `;
 
 export const Header_BackIcon = styled.div`
@@ -17,6 +18,8 @@ export const Header_BackIcon = styled.div`
   flex-direction: row;
   align-items: center;
   justify-content: start;
+  position: absolute;
+  left: 30px;
 `;
 
 export const Header_ProgressBar = styled.div`
@@ -27,18 +30,17 @@ export const Header_ProgressBar = styled.div`
 `;
 
 export const Header_Title = styled.div`
-  width: 33%;
   font-weight: 600;
   font-size: 17px;
-`;
-
-export const Header_Button_Margin = styled.div`
-  width: 33%;
+  position: absolute;
+  left: 50vw;
+  transform: translateX(-50%);
 `;
 
 export const Header_Button = styled.div`
-  width: 33%;
   color: ${theme.sub.red};
   font-size: 15px;
   font-weight: 500;
-`
+  position: absolute;
+  right: 30px;
+`;
