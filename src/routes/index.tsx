@@ -12,7 +12,7 @@ export default function Router() {
       children: [
         { path: 'splash', element: <Splash /> },
         { path: 'auth', element: <Auth /> },
-        { path: 'Terms', element: <Terms /> },
+        { path: 'terms', element: <Terms /> },
         { path: 'info', element: <Info /> }
       ]
     }

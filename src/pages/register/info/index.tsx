@@ -6,15 +6,16 @@ import * as _ from './style';
 import useStatusBarHeight from 'hooks/useStatusBarHeight';
 import Header from 'components/Header';
 import Birthday from 'components/BottomSheet/Birthday';
+import NextButton from 'components/NextButton';
 
 const Info = () => {
-  const [isModalOpened, setIsModalOpened] = useState(false);
+  const [isModalOpened, setIsModalOpened] = useState(true);
   const statusBarHeight = useStatusBarHeight();
   const title = '환영합니다!\n회원정보를 입력해주세요.';
 
   return (
     <_.Info_Container>
-      {isModalOpened && <Birthday handleOutsideClick={setIsModalOpened} />}
+      {isModalOpened && <Birthday />}
       <_.Info_Layout StatusBarSize={`${statusBarHeight}px`}>
         <Header
           StatusBar={0}
@@ -54,6 +55,7 @@ const Info = () => {
             />
           </_.Info_Input_Layout>
         </_.Info_Inputs>
+        <NextButton text="다음" state={false} />
       </_.Info_Layout>
     </_.Info_Container>
   );
