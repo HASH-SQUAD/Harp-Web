@@ -5,6 +5,7 @@ import Auth from 'pages/auth';
 import Terms from 'pages/terms';
 import SurveyEnd from '../pages/surveyEnd';
 import SurveyStyle from 'pages/surveyStyle';
+import SurveyFood from 'pages/surveyFood';
 
 export default function Router() {
   return useRoutes([
@@ -15,7 +16,8 @@ export default function Router() {
         { path: 'auth', element: <Auth /> },
         { path: 'terms', element: <Terms /> },
         { path: 'surveyend', element: <SurveyEnd /> },
-        { path: 'surveystyle', element: <SurveyStyle /> }
+        { path: 'surveystyle', element: <SurveyStyle /> },
+        { path: 'surveyfood', element: <SurveyFood /> }
       ]
     }
   ]);
