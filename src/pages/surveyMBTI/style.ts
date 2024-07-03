@@ -33,3 +33,47 @@ export const SurveyMBTI_SubText = styled.div`
   font-size: 16px;
   color: var(--gray-400, #424242);
 `;
+
+export const SurveyMBTI_Contents = styled.div`
+  display: flex;
+  flex-direction: column;
+  gap: 30px;
+  margin-top: 30px;
+  cursor: pointer;
+`;
+
+export const SurveyMBTI_Contents_Select = styled.div`
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  cursor: pointer;
+`;
+
+export const SurveyMBTI_Content = styled.div<{
+  State?: boolean;
+}>`
+  width: 100px;
+  height: 100px;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: center;
+  color: var(--gray-400, #424242);
+  font-size: 56px;
+  font-weight: 700;
+  border: ${(props) =>
+    props.State
+      ? '1.5px solid var(--p-700, #7e50ff)'
+      : '1px solid var(--gray-100, #e7e7e7)'};
+  border-radius: 5px;
+`;
+
+export const SurveyMBTI_Contents_Arrow = styled.div`
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  color: var(--gray-250, #bcbcbc);
+  font-size: 10px;
+  font-weight: 400;
+`;
