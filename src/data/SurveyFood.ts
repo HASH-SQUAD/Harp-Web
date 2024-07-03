@@ -3,7 +3,7 @@ import ChinaFood from 'assets/image/SurveyFood/ChinaFood.png';
 import JapanFood from 'assets/image/SurveyFood/JapanFood.png';
 import UsFood from 'assets/image/SurveyFood/UsFood.png';
 
-const SurveyStyleData = [
+const SurveyFoodData = [
   {
     id: 1,
     img: KoreaFood,
@@ -26,4 +26,4 @@ const SurveyStyleData = [
   }
 ];
 
-export default SurveyStyleData;
+export default SurveyFoodData;
