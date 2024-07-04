@@ -39,7 +39,7 @@ export const TMI_Title_Small = styled.p`
 export const TMI_Textarea = styled.textarea`
   margin-top: 15px;
   width: 100%;
-  height: 250px;
+  height: 200px;
   font-size: 16px;
   border-radius: 5px;
   border: 1.5px solid ${theme.gray[1]};
@@ -51,6 +51,10 @@ export const TMI_Textarea = styled.textarea`
   padding: 13px 15px;
   caret-color: ${theme.primary[7]};
   position: relative;
+  &::placeholder {
+    color: ${theme.gray['2.5']};
+    font-weight: 400;
+  }
 `;
 
 export const TMI_Text_Limit = styled.p`
@@ -58,6 +62,6 @@ export const TMI_Text_Limit = styled.p`
   font-size: 13px;
   font-weight: 400;
   position: absolute;
-  top: 55%;
+  top: 49%;
   right: 11%;
 `;

@@ -30,6 +30,7 @@ const SurveryTMI = () => {
             setTmi(e.currentTarget.value);
           }}
           maxLength={200}
+          placeholder="ex) 고등어를 싫어해요"
         />
         <_.TMI_Text_Limit>{tmi.length}/200</_.TMI_Text_Limit>
         <NextButton text="다음" state={true} />
