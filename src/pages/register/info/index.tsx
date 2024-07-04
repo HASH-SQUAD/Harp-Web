@@ -1,5 +1,5 @@
 // 라이브러리
-import React from 'react';
+import React, { ChangeEvent, useRef, useState } from 'react';
 
 // 파일
 import * as _ from './style';
@@ -10,6 +10,25 @@ import NextButton from 'components/NextButton';
 const Info = () => {
   const statusBarHeight = useStatusBarHeight();
   const title = '환영합니다!\n회원정보를 입력해주세요.';
+
+  const [birthday, setBirthday] = useState('');
+  const birthdayRef = useRef<HTMLInputElement | null>(null);
+
+  const handleBirthday = (e: ChangeEvent<HTMLInputElement>) => {
+    const value = e.target.value.replace(/\D+/g, '');
+    const maxBirthdayLength = 8;
+
+    let result = '';
+
+    for (let i = 0; i < value.length && i < maxBirthdayLength; i++) {
+      if (i === 4 || i === 6) {
+        result += '/';
+      }
+      result += value[i];
+    }
+
+    setBirthday(result);
+  };
 
   return (
     <_.Info_Container>
@@ -42,10 +61,16 @@ const Info = () => {
             <_.Info_Input_Title>
               생년월일 <_.Info_Input_Title_Star>*</_.Info_Input_Title_Star>
             </_.Info_Input_Title>
-            <_.Info_Input_Box type="text" placeholder="2024/01/01" />
+            <_.Info_Input_Box
+              type="tel"
+              placeholder="2024/01/01"
+              value={birthday}
+              onChange={handleBirthday}
+              ref={birthdayRef}
+            />
           </_.Info_Input_Layout>
         </_.Info_Inputs>
-        <NextButton text="다음" state={false} />
+        <NextButton text="다음" state={!!birthday} />
       </_.Info_Layout>
     </_.Info_Container>
   );
