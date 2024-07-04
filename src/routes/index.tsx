@@ -16,10 +16,15 @@ export default function Router() {
       children: [
         { path: 'splash', element: <Splash /> },
         { path: 'auth', element: <Auth /> },
-        { path: 'terms', element: <Terms /> },
+        { path: 'terms', element: <Terms /> }
+      ]
+    },
+    {
+      path: '/register',
+      children: [
         { path: 'info', element: <Info /> },
-        { path: 'surveyend', element: <SurveyEnd /> },
         { path: 'surveystyle', element: <SurveyStyle /> },
+        { path: 'surveyend', element: <SurveyEnd /> },
         { path: 'surveyfood', element: <SurveyFood /> },
         { path: 'surveymbti', element: <SurveyMBTI /> }
       ]
