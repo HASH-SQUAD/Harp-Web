@@ -22,6 +22,10 @@ const Info = () => {
     male: false
   });
 
+  const handleUserName = (e: ChangeEvent<HTMLInputElement>) => {
+    setInfos({ ...infos, username: e.target.value });
+  };
+
   const handleBirthday = (e: ChangeEvent<HTMLInputElement>) => {
     const formattedBirthday = formatBirthday(e.target.value);
     setInfos({ ...infos, birthday: formattedBirthday });
@@ -33,6 +37,11 @@ const Info = () => {
       female: selectedGender === '여성',
       male: selectedGender === '남성'
     });
+  };
+
+  const isFormValid = () => {
+    const { username, birthday, gender } = infos;
+    return username.length >= 2 && birthday && gender;
   };
 
   return (
@@ -60,6 +69,7 @@ const Info = () => {
             <_.Info_Input_Box
               type="text"
               placeholder="2글자 이상 입력해주세요."
+              onChange={handleUserName}
             />
           </_.Info_Input_Layout>
           <_.Info_Input_Layout>
@@ -94,7 +104,7 @@ const Info = () => {
             </_.Info_Gender_Box>
           </_.Info_Input_Layout>
         </_.Info_Inputs>
-        <NextButton text="다음" state={!infos} />
+        <NextButton text="다음" state={!!isFormValid()} />
       </_.Info_Layout>
     </_.Info_Container>
   );
