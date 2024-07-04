@@ -1,5 +1,5 @@
 // 라이브러리
-import React, { ChangeEvent, useRef, useState } from 'react';
+import React, { ChangeEvent, useEffect, useRef, useState } from 'react';
 
 // 파일
 import * as _ from './style';
@@ -11,19 +11,16 @@ import { formatBirthday } from 'lib/utils/formatBirthday';
 const Info = () => {
   const statusBarHeight = useStatusBarHeight();
   const title = '환영합니다!\n회원정보를 입력해주세요.';
-
+  const birthdayRef = useRef<HTMLInputElement | null>(null);
   const [infos, setInfos] = useState({
     username: '',
     birthday: '',
     gender: ''
   });
-  
   const [isSelected, setIsSelected] = useState({
     female: false,
     male: false
   });
-
-  const birthdayRef = useRef<HTMLInputElement | null>(null);
 
   const handleBirthday = (e: ChangeEvent<HTMLInputElement>) => {
     const formattedBirthday = formatBirthday(e.target.value);

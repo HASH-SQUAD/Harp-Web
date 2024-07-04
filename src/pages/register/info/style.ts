@@ -81,10 +81,13 @@ export const Info_Gender_Box = styled.div`
   display: flex;
   width: 100%;
   justify-content: space-between;
+  gap: 10px;
 `;
 
 export const Info_Gender = styled.div<{ isSelected?: boolean }>`
   padding: 14px 60px;
+  width: 100%;
+  text-align: center;
   color: ${(props) => (props.isSelected ? theme.gray.white : theme.gray[4])};
   font-size: 16px;
   font-weight: 400;
