@@ -4,6 +4,7 @@ import React, { useState, useEffect } from 'react';
 // 파일
 import * as _ from './style';
 import useStatusBarHeight from 'hooks/useStatusBarHeight';
+import Search from 'assets/image/Search';
 
 interface DateData {
   id: number;
@@ -54,7 +55,12 @@ const Home = () => {
           ))}
         </_.Home_Calendar>
 
-        
+        <_.Home_SearchBar>
+          <Search />
+          <_.Home_SearchBar_Input placeholder='목적지를 입력해보세요.' />
+        </_.Home_SearchBar>
+
+          
 
       </_.Home_Layout>
     </_.Home_Container>
