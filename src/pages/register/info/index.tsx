@@ -1,6 +1,5 @@
 // 라이브러리
 import React, { ChangeEvent, useEffect, useRef, useState } from 'react';
-
 // 파일
 import * as _ from './style';
 import useStatusBarHeight from 'hooks/useStatusBarHeight';
@@ -12,6 +11,7 @@ const Info = () => {
   const statusBarHeight = useStatusBarHeight();
   const title = '환영합니다!\n회원정보를 입력해주세요.';
   const birthdayRef = useRef<HTMLInputElement | null>(null);
+  const divRef = useRef<HTMLDivElement | null>(null);
   const [infos, setInfos] = useState({
     username: '',
     birthday: '',
@@ -46,7 +46,7 @@ const Info = () => {
 
   return (
     <_.Info_Container>
-      <_.Info_Layout StatusBarSize={`${statusBarHeight}px`}>
+      <_.Info_Layout StatusBarSize={`${statusBarHeight}px`} ref={divRef}>
         <Header
           StatusBar={0}
           title=""

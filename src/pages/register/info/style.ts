@@ -5,8 +5,7 @@ export const Info_Container = styled.div`
   width: 100%;
   height: 100vh;
   position: fixed;
-  top: 0;
-  left: 0;
+  overflow: hidden;
 `;
 
 export const Info_Layout = styled.div<{ StatusBarSize?: string }>`
@@ -15,7 +14,6 @@ export const Info_Layout = styled.div<{ StatusBarSize?: string }>`
   flex-direction: column;
   width: 100%;
   height: 100%;
-  scroll-padding-top: calc(100vh - 100%);
 `;
 
 export const Info_Title_Layout = styled.div`
