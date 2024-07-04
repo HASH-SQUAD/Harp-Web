@@ -46,7 +46,7 @@ const Header = ({
       {title == '' ? '' : <_.Header_Title>{title}</_.Header_Title>}
 
       {buttonState == '' ? (
-        <_.Header_Button_Margin></_.Header_Button_Margin>
+        ''
       ) : (
         <_.Header_Button onClick={onClickMethod}>{buttonState}</_.Header_Button>
       )}
