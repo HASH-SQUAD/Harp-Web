@@ -12,8 +12,12 @@ const Info = () => {
   const statusBarHeight = useStatusBarHeight();
   const title = '환영합니다!\n회원정보를 입력해주세요.';
 
-  const [birthday, setBirthday] = useState('');
-  const [gender, setGender] = useState('');
+  const [infos, setInfos] = useState({
+    username: '',
+    birthday: '',
+    gender: ''
+  });
+  
   const [isSelected, setIsSelected] = useState({
     female: false,
     male: false
@@ -23,11 +27,11 @@ const Info = () => {
 
   const handleBirthday = (e: ChangeEvent<HTMLInputElement>) => {
     const formattedBirthday = formatBirthday(e.target.value);
-    setBirthday(formattedBirthday);
+    setInfos({ ...infos, birthday: formattedBirthday });
   };
 
   const handleGenderBox = (selectedGender: string) => {
-    setGender(selectedGender);
+    setInfos({ ...infos, gender: selectedGender });
     setIsSelected({
       female: selectedGender === '여성',
       male: selectedGender === '남성'
@@ -68,7 +72,7 @@ const Info = () => {
             <_.Info_Input_Box
               type="tel"
               placeholder="2024/01/01"
-              value={birthday}
+              value={infos.birthday}
               onChange={handleBirthday}
               ref={birthdayRef}
             />
@@ -93,7 +97,7 @@ const Info = () => {
             </_.Info_Gender_Box>
           </_.Info_Input_Layout>
         </_.Info_Inputs>
-        <NextButton text="다음" state={!!birthday} />
+        <NextButton text="다음" state={!infos} />
       </_.Info_Layout>
     </_.Info_Container>
   );
