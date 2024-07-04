@@ -23,11 +23,11 @@ const Info = () => {
   });
 
   const handleUserName = (e: ChangeEvent<HTMLInputElement>) => {
-    setInfos({ ...infos, username: e.target.value });
+    setInfos({ ...infos, username: e.currentTarget.value });
   };
 
   const handleBirthday = (e: ChangeEvent<HTMLInputElement>) => {
-    const formattedBirthday = formatBirthday(e.target.value);
+    const formattedBirthday = formatBirthday(e.currentTarget.value);
     setInfos({ ...infos, birthday: formattedBirthday });
   };
 
