@@ -11,10 +11,20 @@ import NextButton from 'components/NextButton';
 const SurveyMBTI = () => {
   const statusBarHeight = useStatusBarHeight();
 
-  const [State1, setState1] = useState(false);
-  const [State2, setState2] = useState(false);
-  const [State3, setState3] = useState(false);
-  const [State4, setState4] = useState(false);
+  const [mbtiStates, setMbtiStates] = useState([
+    { id: 1, left: 'E', right: 'I', text: '내향형 / 외향형', state: false },
+    { id: 2, left: 'S', right: 'N', text: '직관형 / 감각형', state: false },
+    { id: 3, left: 'T', right: 'F', text: '사고형 / 감정형', state: false },
+    { id: 4, left: 'P', right: 'J', text: '인식형 / 판단형', state: false }
+  ]);
+
+  const toggleState = (id: number) => {
+    setMbtiStates(
+      mbtiStates.map((item) =>
+        item.id === id ? { ...item, state: !item.state } : item
+      )
+    );
+  };
 
   return (
     <_.SurveyMBTI_Container>
@@ -39,97 +49,26 @@ const SurveyMBTI = () => {
         </_.SurveyMBTI_SubText>
 
         <_.SurveyMBTI_Contents>
-          <_.SurveyMBTI_Contents_Select>
-            <_.SurveyMBTI_Content
-              State={!State1}
-              onClick={() => {
-                setState1(!State1);
-              }}
-            >
-              E
-            </_.SurveyMBTI_Content>
-            <_.SurveyMBTI_Contents_Arrow>
-              내향형 / 외향형
-              <MBTI_Arrow />
-            </_.SurveyMBTI_Contents_Arrow>
-            <_.SurveyMBTI_Content
-              State={State1}
-              onClick={() => {
-                setState1(!State1);
-              }}
-            >
-              I
-            </_.SurveyMBTI_Content>
-          </_.SurveyMBTI_Contents_Select>
-
-          <_.SurveyMBTI_Contents_Select>
-            <_.SurveyMBTI_Content
-              State={!State2}
-              onClick={() => {
-                setState2(!State2);
-              }}
-            >
-              S
-            </_.SurveyMBTI_Content>
-            <_.SurveyMBTI_Contents_Arrow>
-              직관형 / 감각형
-              <MBTI_Arrow />
-            </_.SurveyMBTI_Contents_Arrow>
-            <_.SurveyMBTI_Content
-              State={State2}
-              onClick={() => {
-                setState2(!State2);
-              }}
-            >
-              N
-            </_.SurveyMBTI_Content>
-          </_.SurveyMBTI_Contents_Select>
-
-          <_.SurveyMBTI_Contents_Select>
-            <_.SurveyMBTI_Content
-              State={!State3}
-              onClick={() => {
-                setState3(!State3);
-              }}
-            >
-              T
-            </_.SurveyMBTI_Content>
-            <_.SurveyMBTI_Contents_Arrow>
-              사고형 / 감정형
-              <MBTI_Arrow />
-            </_.SurveyMBTI_Contents_Arrow>
-            <_.SurveyMBTI_Content
-              State={State3}
-              onClick={() => {
-                setState3(!State3);
-              }}
-            >
-              F
-            </_.SurveyMBTI_Content>
-          </_.SurveyMBTI_Contents_Select>
-
-          <_.SurveyMBTI_Contents_Select>
-            <_.SurveyMBTI_Content
-              State={!State4}
-              onClick={() => {
-                setState4(!State4);
-              }}
-            >
-              P
-            </_.SurveyMBTI_Content>
-            <_.SurveyMBTI_Contents_Arrow>
-              인식형 / 판단형
-              <MBTI_Arrow />
-            </_.SurveyMBTI_Contents_Arrow>
-            <_.SurveyMBTI_Content
-              State={State4}
-              onClick={() => {
-                setState4(!State4);
-              }}
-            >
-              J
-            </_.SurveyMBTI_Content>
-          </_.SurveyMBTI_Contents_Select>
+          {mbtiStates.map((item) => (
+            <_.SurveyMBTI_Contents_Select key={item.id}>
+              <_.SurveyMBTI_Content
+                State={!item.state}
+                onClick={() => toggleState(item.id)}
+              >
+                {item.left}
+              </_.SurveyMBTI_Content>
+              <_.SurveyMBTI_Contents_Arrow>
+                {item.text}
+                <MBTI_Arrow />
+              </_.SurveyMBTI_Contents_Arrow>
+              <_.SurveyMBTI_Content
+                State={item.state}
+                onClick={() => toggleState(item.id)}
+              >
+                {item.right}
+              </_.SurveyMBTI_Content>
+            </_.SurveyMBTI_Contents_Select>
+          ))}
         </_.SurveyMBTI_Contents>
 
         <NextButton text="다음" state={true} />
