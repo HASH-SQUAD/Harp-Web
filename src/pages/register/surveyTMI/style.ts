@@ -58,7 +58,7 @@ export const TMI_Textarea = styled.textarea`
 `;
 
 export const TMI_Text_Limit = styled.p`
-  color: ${theme.gray[3]};
+  color: ${theme.gray[2]};
   font-size: 13px;
   font-weight: 400;
   position: absolute;
