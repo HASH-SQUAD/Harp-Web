@@ -20,7 +20,7 @@ export const theme = {
     1: "#E7E7E7",
     2: "#D9D9D9",
     2.5: "#BCBCBC",
-    3: "#BCBCBC",
+    3: "#A5A5A5",
     4: "#424242",
     black: "#1A1E27",
   },

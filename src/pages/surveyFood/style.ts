@@ -11,7 +11,7 @@ export const SurveyFoode_Layout = styled.div<{ StatusBarSize?: string }>`
 `;
 
 export const SurveyFood_ProgressText = styled.div`
-  color: var(--gray-300, #a5a5a5);
+  color: ${theme.gray[3]};
   font-weight: 400;
   font-size: 14px;
   text-align: right;
