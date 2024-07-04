@@ -70,6 +70,7 @@ const Info = () => {
               type="text"
               placeholder="2글자 이상 입력해주세요."
               onChange={handleUserName}
+              autoComplete="off"
             />
           </_.Info_Input_Layout>
           <_.Info_Input_Layout>
@@ -77,11 +78,12 @@ const Info = () => {
               생년월일 <_.Info_Input_Title_Star>*</_.Info_Input_Title_Star>
             </_.Info_Input_Title>
             <_.Info_Input_Box
-              type="tel"
+              type="text"
               placeholder="2024/01/01"
               value={infos.birthday}
               onChange={handleBirthday}
               ref={birthdayRef}
+              pattern="\d*"
             />
           </_.Info_Input_Layout>
           <_.Info_Input_Layout>

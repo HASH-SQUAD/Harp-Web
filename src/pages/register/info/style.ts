@@ -2,9 +2,11 @@ import { theme } from 'lib/utils/style/theme';
 import styled from 'styled-components';
 
 export const Info_Container = styled.div`
-  width: 100vw;
+  width: 100%;
   height: 100vh;
   position: fixed;
+  top: 0;
+  left: 0;
 `;
 
 export const Info_Layout = styled.div<{ StatusBarSize?: string }>`
@@ -13,6 +15,7 @@ export const Info_Layout = styled.div<{ StatusBarSize?: string }>`
   flex-direction: column;
   width: 100%;
   height: 100%;
+  scroll-padding-top: calc(100vh - 100%);
 `;
 
 export const Info_Title_Layout = styled.div`
