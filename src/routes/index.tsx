@@ -8,6 +8,7 @@ import SurveyEnd from '../pages/register/surveyEnd';
 import SurveyStyle from 'pages/register/surveyStyle';
 import SurveyFood from 'pages/register/surveyFood';
 import SurveyMBTI from 'pages/register/surveyMBTI';
+import SurveryTMI from 'pages/register/surveyTMI';
 
 export default function Router() {
   return useRoutes([
@@ -26,7 +27,8 @@ export default function Router() {
         { path: 'surveystyle', element: <SurveyStyle /> },
         { path: 'surveyend', element: <SurveyEnd /> },
         { path: 'surveyfood', element: <SurveyFood /> },
-        { path: 'surveymbti', element: <SurveyMBTI /> }
+        { path: 'surveymbti', element: <SurveyMBTI /> },
+        { path: 'surveytmi', element: <SurveryTMI /> }
       ]
     }
   ]);
