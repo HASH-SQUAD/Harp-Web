@@ -3,6 +3,7 @@ import { useRoutes } from 'react-router-dom';
 import Splash from '../pages/splash/';
 import Auth from 'pages/auth';
 import Terms from 'pages/terms';
+import Info from 'pages/register/info';
 import SurveyEnd from '../pages/surveyEnd';
 import SurveyStyle from 'pages/surveyStyle';
 import SurveyFood from 'pages/surveyFood';
@@ -16,6 +17,7 @@ export default function Router() {
         { path: 'splash', element: <Splash /> },
         { path: 'auth', element: <Auth /> },
         { path: 'terms', element: <Terms /> },
+        { path: 'info', element: <Info /> },
         { path: 'surveyend', element: <SurveyEnd /> },
         { path: 'surveystyle', element: <SurveyStyle /> },
         { path: 'surveyfood', element: <SurveyFood /> },
