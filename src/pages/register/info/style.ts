@@ -97,5 +97,6 @@ export const Info_Gender = styled.div<{ isSelected?: boolean }>`
   border-radius: 5px;
   background-color: ${(props) =>
     props.isSelected ? theme.primary[7] : theme.gray.white};
-  border: 1.5px solid ${(props) => (props.isSelected ? 'none' : theme.gray[1])};
+  border: 1.5px solid
+    ${(props) => (props.isSelected ? theme.primary[7] : theme.gray[1])};
 `;
