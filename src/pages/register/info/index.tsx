@@ -6,28 +6,32 @@ import * as _ from './style';
 import useStatusBarHeight from 'hooks/useStatusBarHeight';
 import Header from 'components/Header';
 import NextButton from 'components/NextButton';
+import { formatBirthday } from 'lib/utils/formatBirthday';
 
 const Info = () => {
   const statusBarHeight = useStatusBarHeight();
   const title = '환영합니다!\n회원정보를 입력해주세요.';
 
   const [birthday, setBirthday] = useState('');
+  const [gender, setGender] = useState('');
+  const [isSelected, setIsSelected] = useState({
+    female: false,
+    male: false
+  });
+
   const birthdayRef = useRef<HTMLInputElement | null>(null);
 
   const handleBirthday = (e: ChangeEvent<HTMLInputElement>) => {
-    const value = e.target.value.replace(/\D+/g, '');
-    const maxBirthdayLength = 8;
+    const formattedBirthday = formatBirthday(e.target.value);
+    setBirthday(formattedBirthday);
+  };
 
-    let result = '';
-
-    for (let i = 0; i < value.length && i < maxBirthdayLength; i++) {
-      if (i === 4 || i === 6) {
-        result += '/';
-      }
-      result += value[i];
-    }
-
-    setBirthday(result);
+  const handleGenderBox = (selectedGender: string) => {
+    setGender(selectedGender);
+    setIsSelected({
+      female: selectedGender === '여성',
+      male: selectedGender === '남성'
+    });
   };
 
   return (
@@ -68,6 +72,25 @@ const Info = () => {
               onChange={handleBirthday}
               ref={birthdayRef}
             />
+          </_.Info_Input_Layout>
+          <_.Info_Input_Layout>
+            <_.Info_Input_Title>
+              성별 <_.Info_Input_Title_Star>*</_.Info_Input_Title_Star>
+            </_.Info_Input_Title>
+            <_.Info_Gender_Box>
+              <_.Info_Gender
+                isSelected={isSelected.female}
+                onClick={() => handleGenderBox('여성')}
+              >
+                여성
+              </_.Info_Gender>
+              <_.Info_Gender
+                isSelected={isSelected.male}
+                onClick={() => handleGenderBox('남성')}
+              >
+                남성
+              </_.Info_Gender>
+            </_.Info_Gender_Box>
           </_.Info_Input_Layout>
         </_.Info_Inputs>
         <NextButton text="다음" state={!!birthday} />

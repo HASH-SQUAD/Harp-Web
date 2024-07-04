@@ -61,7 +61,7 @@ export const Info_Input_Box = styled.input`
   width: 100%;
   height: 56px;
   padding-left: 16px;
-  font-size: 14px;
+  font-size: 16px;
   color: ${theme.gray[4]};
   border: 1.5px solid ${theme.gray[2]};
   border-radius: 5px;
@@ -75,4 +75,21 @@ export const Info_Input_Box = styled.input`
     color: ${theme.gray[2]};
   }
   caret-color: ${theme.primary[7]};
+`;
+
+export const Info_Gender_Box = styled.div`
+  display: flex;
+  width: 100%;
+  justify-content: space-between;
+`;
+
+export const Info_Gender = styled.div<{ isSelected?: boolean }>`
+  padding: 14px 60px;
+  color: ${(props) => (props.isSelected ? theme.gray.white : theme.gray[4])};
+  font-size: 16px;
+  font-weight: 400;
+  border-radius: 5px;
+  background-color: ${(props) =>
+    props.isSelected ? theme.primary[7] : theme.gray.white};
+  border: 1.5px solid ${(props) => (props.isSelected ? 'none' : theme.gray[1])};
 `;
