@@ -11,7 +11,6 @@ const Info = () => {
   const statusBarHeight = useStatusBarHeight();
   const title = '환영합니다!\n회원정보를 입력해주세요.';
   const birthdayRef = useRef<HTMLInputElement | null>(null);
-  const divRef = useRef<HTMLDivElement | null>(null);
   const [infos, setInfos] = useState({
     username: '',
     birthday: '',
@@ -45,7 +44,7 @@ const Info = () => {
   };
 
   return (
-    <_.Info_Container StatusBarSize={`${statusBarHeight}px`} ref={divRef}>
+    <_.Info_Container StatusBarSize={`${statusBarHeight}px`}>
       <Header
         StatusBar={0}
         title=""
