@@ -1,19 +1,16 @@
 import { theme } from 'lib/utils/style/theme';
 import styled from 'styled-components';
 
-export const Info_Container = styled.div`
+export const Info_Container = styled.div<{ StatusBarSize?: string }>`
   width: 100%;
   height: 100vh;
   position: fixed;
   overflow: hidden;
-`;
-
-export const Info_Layout = styled.div<{ StatusBarSize?: string }>`
-  padding: 54px 30px 54px 30px;
+  padding: ${(props) => props.StatusBarSize || '54px'} 30px 0 30px;
   display: flex;
-  flex-direction: column;
   width: 100%;
   height: 100%;
+  flex-direction: column;
 `;
 
 export const Info_Title_Layout = styled.div`
