@@ -50,9 +50,8 @@ const Terms = () => {
   };
 
   return (
-    <_.Terms_Container>
-      <_.Terms_Layout StatusBarSize={`${statusBarHeight}px`}>
-        <_.Header_Layout>
+    <_.Terms_Container StatusBarSize={`${statusBarHeight}px`}>
+    
           <Header
             StatusBar={0}
             title=""
@@ -61,7 +60,6 @@ const Terms = () => {
               return 0;
             }}
           />
-        </_.Header_Layout>
 
         <_.Terms_Title>서비스 이용을 위해</_.Terms_Title>
 
@@ -97,7 +95,6 @@ const Terms = () => {
         </_.Terms_Deatil>
 
         <NextButton text="다음" state={nextButtonState} />
-      </_.Terms_Layout>
     </_.Terms_Container>
   );
 };
