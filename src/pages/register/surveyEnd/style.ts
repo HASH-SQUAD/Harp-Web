@@ -1,15 +1,11 @@
 import { theme } from 'lib/utils/style/theme';
 import styled from 'styled-components';
 
-export const SurveyEnd_Container = styled.div`
+export const SurveyEnd_Container = styled.div<{ StatusBarSize?: string }>`
   width: 100vw;
   height: 100vh;
-`;
-
-export const SurveyEnd_Layout = styled.div<{ StatusBarSize?: string }>`
   padding: ${(props) => props.StatusBarSize || '54px'} 30px 52px 30px;
   display: flex;
-  height: 95%;
   flex-direction: column;
 `;
 
@@ -51,7 +47,7 @@ export const SurveyEnd_Rocket = styled.img`
 `;
 
 export const SurveyEnd_Bubble1 = styled.div`
-  background: var(---, ${theme.special[4]});
+  background: ${theme.special[4]};
   width: 381px;
   height: 381px;
   position: absolute;
@@ -63,7 +59,7 @@ export const SurveyEnd_Bubble1 = styled.div`
 `;
 
 export const SurveyEnd_Bubble2 = styled.div`
-  background: var(---, ${theme.special[4]});
+  background: ${theme.special[4]};
   width: 70px;
   height: 70px;
   position: absolute;
@@ -75,7 +71,7 @@ export const SurveyEnd_Bubble2 = styled.div`
 `;
 
 export const SurveyEnd_Bubble3 = styled.div`
-  background: var(---, ${theme.special[4]});
+  background: ${theme.special[4]};
   width: 42px;
   height: 42px;
   position: absolute;
@@ -87,7 +83,7 @@ export const SurveyEnd_Bubble3 = styled.div`
 `;
 
 export const SurveyEnd_Bubble4 = styled.div`
-  background: var(---, ${theme.special[4]});
+  background: ${theme.special[4]};
   width: 18px;
   height: 18px;
   position: absolute;
@@ -99,7 +95,7 @@ export const SurveyEnd_Bubble4 = styled.div`
 `;
 
 export const SurveyEnd_Bubble5 = styled.div`
-  background: var(---, ${theme.special[4]});
+  background: ${theme.special[4]};
   width: 140px;
   height: 140px;
   position: absolute;
@@ -111,7 +107,7 @@ export const SurveyEnd_Bubble5 = styled.div`
 `;
 
 export const SurveyEnd_Bubble6 = styled.div`
-  background: var(---, ${theme.special[4]});
+  background: ${theme.special[4]};
   width: 26px;
   height: 26px;
   position: absolute;
@@ -123,7 +119,7 @@ export const SurveyEnd_Bubble6 = styled.div`
 `;
 
 export const SurveyEnd_Bubble7 = styled.div`
-  background: var(---, ${theme.special[4]});
+  background: ${theme.special[4]};
   width: 280px;
   height: 280px;
   position: absolute;
