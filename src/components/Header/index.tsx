@@ -4,19 +4,19 @@ import React from 'react';
 //파일
 import * as _ from './style';
 import BackIcon from 'assets/image/BackIcon';
-import StatusBar1 from 'assets/image/StatusBar1';
-import StatusBar2 from 'assets/image/StatusBar2';
-import StatusBar3 from 'assets/image/StatusBar3';
+import ProgressBar1 from 'assets/image/ProgressBar1';
+import ProgressBar2 from 'assets/image/ProgressBar2';
+import ProgressBar3 from 'assets/image/ProgressBar3';
 
 interface HeaderProps {
-  StatusBar: number;
+  ProgressBar: number;
   title: string;
   buttonState: string;
   onClickMethod: () => void;
 }
 
 const Header = ({
-  StatusBar = 0,
+  ProgressBar = 0,
   title = '',
   buttonState = '',
   onClickMethod
@@ -27,17 +27,17 @@ const Header = ({
         <BackIcon />
       </_.Header_BackIcon>
 
-      {StatusBar == 1 ? (
+      {ProgressBar == 1 ? (
         <_.Header_ProgressBar>
-          <StatusBar1 />
+          <ProgressBar1 />
         </_.Header_ProgressBar>
-      ) : StatusBar == 2 ? (
+      ) : ProgressBar == 2 ? (
         <_.Header_ProgressBar>
-          <StatusBar2 />
+          <ProgressBar2 />
         </_.Header_ProgressBar>
-      ) : StatusBar == 3 ? (
+      ) : ProgressBar == 3 ? (
         <_.Header_ProgressBar>
-          <StatusBar3 />
+          <ProgressBar3 />
         </_.Header_ProgressBar>
       ) : (
         ''
