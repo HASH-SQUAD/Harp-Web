@@ -43,9 +43,9 @@ const SurveyFood = () => {
   return (
     <_.SurveyFood_Container StatusBarSize={`${statusBarHeight}px`}>
       <Header
-        title=""
-        StatusBar={2}
+        title="2"
         buttonState=""
+        isOnChatting={false}
         onClickMethod={() => {
           return;
         }}

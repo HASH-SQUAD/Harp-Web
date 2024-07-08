@@ -13,7 +13,12 @@ const SurveryTMI = () => {
 
   return (
     <_.SurveyTMI_Container StatusBarSize={`${statusBarHeight}px`}>
-      <Header StatusBar={0} title="" buttonState="" onClickMethod={() => {}} />
+      <Header
+        title=""
+        buttonState=""
+        isOnChatting={false}
+        onClickMethod={() => {}}
+      />
       <_.SurveyTMI_Title>
         <_.SurveyTMI_Title_Emoticon>🤔</_.SurveyTMI_Title_Emoticon>
         <_.SurveyTMI_Title_Big>당신에 대해 알려주세요!</_.SurveyTMI_Title_Big>

@@ -33,45 +33,45 @@ const SurveyStyle = () => {
 
   return (
     <_.SurveyStyle_Container StatusBarSize={`${statusBarHeight}px`}>
-        <Header
-          title=""
-          StatusBar={1}
-          buttonState=""
-          onClickMethod={() => {
-            return;
-          }}
-        />
+      <Header
+        title="1"
+        buttonState=""
+        isOnChatting={false}
+        onClickMethod={() => {
+          return;
+        }}
+      />
 
-        <_.SurveyStyle_ProgressText>1/3</_.SurveyStyle_ProgressText>
+      <_.SurveyStyle_ProgressText>1/3</_.SurveyStyle_ProgressText>
 
-        <_.SurveyStyle_MainText>
-          좋아하는 여행 유형을
-          <br /> 골라보세요.
-          <_.SurveyStyle_SubText>
-            최대 3개까지 선택할 수 있어요!
-          </_.SurveyStyle_SubText>
-        </_.SurveyStyle_MainText>
+      <_.SurveyStyle_MainText>
+        좋아하는 여행 유형을
+        <br /> 골라보세요.
+        <_.SurveyStyle_SubText>
+          최대 3개까지 선택할 수 있어요!
+        </_.SurveyStyle_SubText>
+      </_.SurveyStyle_MainText>
 
-        <_.SurveyStyle_Contents>
-          {SurveyStyleData.map((item) => {
-            const currentItem = checkState.find(
-              (stateItem) => stateItem.id === item.id
-            );
-            const state = currentItem ? currentItem.state : false;
+      <_.SurveyStyle_Contents>
+        {SurveyStyleData.map((item) => {
+          const currentItem = checkState.find(
+            (stateItem) => stateItem.id === item.id
+          );
+          const state = currentItem ? currentItem.state : false;
 
-            return (
-              <SurveyContent
-                key={item.id}
-                width={100}
-                text={item.text}
-                img={item.img}
-                state={state}
-                onClick={() => handleToggle(item.id)}
-              />
-            );
-          })}
-        </_.SurveyStyle_Contents>
-        <NextButton text="다음" state={true} />
+          return (
+            <SurveyContent
+              key={item.id}
+              width={100}
+              text={item.text}
+              img={item.img}
+              state={state}
+              onClick={() => handleToggle(item.id)}
+            />
+          );
+        })}
+      </_.SurveyStyle_Contents>
+      <NextButton text="다음" state={true} />
     </_.SurveyStyle_Container>
   );
 };

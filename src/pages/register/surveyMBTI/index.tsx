@@ -29,9 +29,9 @@ const SurveyMBTI = () => {
   return (
     <_.SurveyMBTI_Container StatusBarSize={`${statusBarHeight}px`}>
       <Header
-        title=""
-        StatusBar={3}
+        title="3"
         buttonState=""
+        isOnChatting={false}
         onClickMethod={() => {
           return;
         }}
