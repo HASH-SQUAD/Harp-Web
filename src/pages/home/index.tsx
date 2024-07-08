@@ -93,8 +93,16 @@ const Home = () => {
         ))}
       </_.Home_Plan_Contents>
 
-      
+      <_.Home_RecommendPlan_Title>
+        이번 여행 여기 어때요? 😉
+      </_.Home_RecommendPlan_Title>
 
+      <_.Home_RecommendPlan_Contents>
+        <_.Home_RecommendPlan_Content>
+          <_.Home_RecommendPlan_Content_MainImg src="" />
+          <_.Home_RecommendPlan_Content_Title></_.Home_RecommendPlan_Content_Title>
+        </_.Home_RecommendPlan_Content>
+      </_.Home_RecommendPlan_Contents>
     </_.Home_Container>
   );
 };

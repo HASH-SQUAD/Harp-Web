@@ -146,3 +146,24 @@ export const Home_Plan_Content_Date = styled.div`
 `;
 
 //여행지추천
+export const Home_RecommendPlan_Title = styled.div`
+  font-weight: 600;
+  font-size: 20px;
+  color: ${theme.gray[4]};
+`;
+
+export const Home_RecommendPlan_Contents = styled.div`
+
+`
+
+export const Home_RecommendPlan_Content = styled.div`
+
+`
+
+export const Home_RecommendPlan_Content_MainImg = styled.img`
+
+`
+
+export const Home_RecommendPlan_Content_Title = styled.img`
+
+`
