@@ -63,6 +63,7 @@ const Home = () => {
       <_.Home_Chatting src={ChattingStart} />
 
       <_.Home_Plan_Title>다가오는 일정이 있어요! ✈️</_.Home_Plan_Title>
+
     </_.Home_Container>
   );
 };

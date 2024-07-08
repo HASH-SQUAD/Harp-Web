@@ -83,11 +83,12 @@ export const Home_SearchBar_Input = styled.input`
   outline: none;
 `;
 
-//
+//채팅시작하기 버튼
 export const Home_Chatting = styled.img`
   width: 100%;
 `;
 
+//다가오는 일정
 export const Home_Plan_Title = styled.div`
   font-weight: 600;
   font-size: 18px;
