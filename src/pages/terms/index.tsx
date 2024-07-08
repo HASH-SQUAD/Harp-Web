@@ -50,54 +50,50 @@ const Terms = () => {
   };
 
   return (
-    <_.Terms_Container>
-      <_.Terms_Layout StatusBarSize={`${statusBarHeight}px`}>
-        <_.Header_Layout>
-          <Header
-            StatusBar={0}
-            title=""
-            buttonState=""
-            onClickMethod={() => {
-              return 0;
-            }}
+    <_.Terms_Container StatusBarSize={`${statusBarHeight}px`}>
+      <Header
+        title=""
+        buttonState=""
+        isOnChatting={false}
+        onClickMethod={() => {
+          return 0;
+        }}
+      />
+
+      <_.Terms_Title>서비스 이용을 위해</_.Terms_Title>
+
+      <_.Terms_SubTitle>
+        <_.Terms_SubTitle_Highlight>이용약관 동의</_.Terms_SubTitle_Highlight>가
+        필요합니다.
+      </_.Terms_SubTitle>
+
+      <_.Terms_SuccessAll>
+        {successAll ? (
+          <_.TrueCircleCheckIcon onClick={handleAllCheck}>
+            <TrueCircleCheck />
+          </_.TrueCircleCheckIcon>
+        ) : (
+          <_.TrueCircleCheckIcon onClick={handleAllCheck}>
+            <FalseCircleCheck />
+          </_.TrueCircleCheckIcon>
+        )}
+        약관 전체 동의
+      </_.Terms_SuccessAll>
+
+      <_.Terms_Deatil>
+        {TermsData.map((item) => (
+          <TermsContent
+            key={item.id}
+            id={item.id}
+            title={item.title}
+            detail={item.desc}
+            state={check[item.id]}
+            setState={handleSingleCheck}
           />
-        </_.Header_Layout>
+        ))}
+      </_.Terms_Deatil>
 
-        <_.Terms_Title>서비스 이용을 위해</_.Terms_Title>
-
-        <_.Terms_SubTitle>
-          <_.Terms_SubTitle_Highlight>이용약관 동의</_.Terms_SubTitle_Highlight>
-          가 필요합니다.
-        </_.Terms_SubTitle>
-
-        <_.Terms_SuccessAll>
-          {successAll ? (
-            <_.TrueCircleCheckIcon onClick={handleAllCheck}>
-              <TrueCircleCheck />
-            </_.TrueCircleCheckIcon>
-          ) : (
-            <_.TrueCircleCheckIcon onClick={handleAllCheck}>
-              <FalseCircleCheck />
-            </_.TrueCircleCheckIcon>
-          )}
-          약관 전체 동의
-        </_.Terms_SuccessAll>
-
-        <_.Terms_Deatil>
-          {TermsData.map((item) => (
-            <TermsContent
-              key={item.id}
-              id={item.id}
-              title={item.title}
-              detail={item.desc}
-              state={check[item.id]}
-              setState={handleSingleCheck}
-            />
-          ))}
-        </_.Terms_Deatil>
-
-        <NextButton text="다음" state={nextButtonState} />
-      </_.Terms_Layout>
+      <NextButton text="다음" state={nextButtonState} />
     </_.Terms_Container>
   );
 };
