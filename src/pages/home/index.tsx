@@ -8,6 +8,7 @@ import Search from 'assets/image/Search';
 import ChattingStart from 'assets/image/ChattingStart.jpg';
 import ComingPlan from 'data/ComingPlan';
 import RecommendPlan from 'data/RecommendPlan';
+import MenuBar from 'components/MenuBar';
 
 interface DateData {
   id: number;
@@ -107,6 +108,8 @@ const Home = () => {
           </_.Home_RecommendPlan_Content>
         ))}
       </_.Home_RecommendPlan_Contents>
+
+      <MenuBar />
     </_.Home_Container>
   );
 };
