@@ -1,42 +1,37 @@
 import { theme } from 'lib/utils/style/theme';
 import styled from 'styled-components';
 
-export const TMI_Container = styled.div`
+export const SurveyTMI_Container = styled.div<{ StatusBarSize?: string }>`
   width: 100vw;
   height: 100vh;
   position: fixed;
-`;
-
-export const TMI_Layout = styled.div<{ StatusBarSize?: string }>`
-  padding: 54px 30px 54px 30px;
-  display: flex;
-  flex-direction: column;
-  width: 100%;
-  height: 100%;
-`;
-
-export const TMI_Title = styled.div`
+  padding: ${(props) => props.StatusBarSize || '54px'} 30px 54px 30px;
   display: flex;
   flex-direction: column;
 `;
 
-export const TMI_Title_Emoticon = styled.p`
+export const SurveyTMI_Title = styled.div`
+  display: flex;
+  flex-direction: column;
+`;
+
+export const SurveyTMI_Title_Emoticon = styled.p`
   font-size: 48px;
 `;
 
-export const TMI_Title_Big = styled.p`
+export const SurveyTMI_Title_Big = styled.p`
   color: ${theme.gray[4]};
   font-size: 28px;
   font-weight: 700;
 `;
 
-export const TMI_Title_Small = styled.p`
+export const SurveyTMI_Title_Small = styled.p`
   color: ${theme.gray[4]};
   font-size: 16px;
   font-weight: 400;
 `;
 
-export const TMI_Textarea = styled.textarea`
+export const SurveyTMI_Textarea = styled.textarea`
   margin-top: 15px;
   width: 100%;
   height: 200px;
@@ -57,7 +52,7 @@ export const TMI_Textarea = styled.textarea`
   }
 `;
 
-export const TMI_Text_Limit = styled.p`
+export const SurveyTMI_Text_Limit = styled.p`
   color: ${theme.gray[2]};
   font-size: 13px;
   font-weight: 400;

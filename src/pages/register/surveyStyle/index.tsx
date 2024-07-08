@@ -32,8 +32,7 @@ const SurveyStyle = () => {
   };
 
   return (
-    <_.SurveyStyle_Container>
-      <_.SurveyStyle_Layout StatusBarSize={`${statusBarHeight}px`}>
+    <_.SurveyStyle_Container StatusBarSize={`${statusBarHeight}px`}>
         <Header
           title=""
           StatusBar={1}
@@ -73,7 +72,6 @@ const SurveyStyle = () => {
           })}
         </_.SurveyStyle_Contents>
         <NextButton text="다음" state={true} />
-      </_.SurveyStyle_Layout>
     </_.SurveyStyle_Container>
   );
 };
