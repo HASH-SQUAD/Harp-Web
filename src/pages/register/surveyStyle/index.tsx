@@ -34,8 +34,7 @@ const SurveyStyle = () => {
   return (
     <_.SurveyStyle_Container StatusBarSize={`${statusBarHeight}px`}>
         <Header
-          title=""
-          StatusBar={1}
+          title="1"
           buttonState=""
           onClickMethod={() => {
             return;

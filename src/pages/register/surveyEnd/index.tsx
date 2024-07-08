@@ -14,7 +14,6 @@ const SurveyEnd = () => {
     <_.SurveyEnd_Container StatusBarSize={`${statusBarHeight}px`}>
       <Header
         title=""
-        StatusBar={0}
         buttonState=""
         onClickMethod={() => {
           return;

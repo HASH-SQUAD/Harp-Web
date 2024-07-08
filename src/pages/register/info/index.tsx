@@ -46,7 +46,6 @@ const Info = () => {
   return (
     <_.Info_Container StatusBarSize={`${statusBarHeight}px`}>
       <Header
-        StatusBar={0}
         title=""
         buttonState=""
         onClickMethod={() => {
