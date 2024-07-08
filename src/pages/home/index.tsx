@@ -92,6 +92,9 @@ const Home = () => {
           </_.Home_Plan_Content>
         ))}
       </_.Home_Plan_Contents>
+
+      
+
     </_.Home_Container>
   );
 };

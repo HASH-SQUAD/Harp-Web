@@ -15,6 +15,7 @@ export const Home_Calendar = styled.div`
   flex-direction: row;
   justify-content: space-between;
   align-items: center;
+  margin-top: 12px;
 `;
 
 export const Home_Calendar_Content = styled.div`
@@ -60,7 +61,7 @@ export const Home_Calendar_Content_Point = styled.div`
   margin-bottom: 50%;
 `;
 
-//검색 input
+//검색바
 export const Home_SearchBar = styled.div`
   display: flex;
   flex-direction: row;
@@ -71,6 +72,7 @@ export const Home_SearchBar = styled.div`
   background-color: ${theme.gray[0]};
   border-radius: 10px;
   gap: 10px;
+  margin-top: 20px;
 `;
 
 export const Home_SearchBar_Input = styled.input`
@@ -86,6 +88,7 @@ export const Home_SearchBar_Input = styled.input`
 //채팅시작하기 버튼
 export const Home_Chatting = styled.img`
   width: 100%;
+  margin-top: 15px;
 `;
 
 //다가오는 일정
@@ -93,6 +96,7 @@ export const Home_Plan_Title = styled.div`
   font-weight: 600;
   font-size: 20px;
   color: ${theme.gray[4]};
+  margin-top: 12px;
 `;
 
 export const Home_Plan_Contents = styled.div`
@@ -101,10 +105,11 @@ export const Home_Plan_Contents = styled.div`
   gap: 10px;
   margin-right: -20px;
   overflow-x: scroll;
+  margin-top: 10px;
 `;
 
 export const Home_Plan_Content = styled.div`
-  min-width: 150px;
+  min-width: 152px;
   height: 100px;
   display: flex;
   flex-direction: column;
@@ -139,3 +144,5 @@ export const Home_Plan_Content_Date = styled.div`
   border-radius: 4px;
   background-color: #fff;
 `;
+
+//여행지추천
