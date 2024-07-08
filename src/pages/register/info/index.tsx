@@ -48,6 +48,7 @@ const Info = () => {
       <Header
         title=""
         buttonState=""
+        isOnChatting={false}
         onClickMethod={() => {
           return 0;
         }}

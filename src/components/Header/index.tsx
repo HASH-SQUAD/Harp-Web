@@ -11,12 +11,14 @@ import ProgressBar3 from 'assets/image/ProgressBar3';
 interface HeaderProps {
   title: string;
   buttonState: string;
+  isOnChatting: boolean;
   onClickMethod: () => void;
 }
 
 const Header = ({
   title = '',
   buttonState = '',
+  isOnChatting = false,
   onClickMethod
 }: HeaderProps) => {
   let progressBar;
@@ -29,7 +31,7 @@ const Header = ({
   }
 
   return (
-    <_.Header_Container>
+    <_.Header_Container isOnChatting={isOnChatting}>
       <_.Header_BackIcon>
         <BackIcon />
       </_.Header_BackIcon>

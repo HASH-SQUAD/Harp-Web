@@ -15,6 +15,7 @@ const SurveyEnd = () => {
       <Header
         title=""
         buttonState=""
+        isOnChatting={false}
         onClickMethod={() => {
           return;
         }}

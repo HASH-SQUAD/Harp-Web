@@ -54,6 +54,7 @@ const Terms = () => {
       <Header
         title=""
         buttonState=""
+        isOnChatting={false}
         onClickMethod={() => {
           return 0;
         }}

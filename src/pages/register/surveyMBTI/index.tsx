@@ -31,6 +31,7 @@ const SurveyMBTI = () => {
       <Header
         title="3"
         buttonState=""
+        isOnChatting={false}
         onClickMethod={() => {
           return;
         }}

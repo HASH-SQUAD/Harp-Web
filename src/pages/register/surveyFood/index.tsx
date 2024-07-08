@@ -45,6 +45,7 @@ const SurveyFood = () => {
       <Header
         title="2"
         buttonState=""
+        isOnChatting={false}
         onClickMethod={() => {
           return;
         }}
