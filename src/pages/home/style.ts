@@ -1,9 +1,7 @@
 import { theme } from 'lib/utils/style/theme';
 import styled from 'styled-components';
 
-export const Home_Container = styled.div``;
-
-export const Home_Layout = styled.div<{ StatusBarSize?: string }>`
+export const Home_Container = styled.div<{ StatusBarSize?: string }>`
   padding: ${(props) => props.StatusBarSize || '54px'} 30px 0 30px;
   display: flex;
   width: 100%;
@@ -62,7 +60,7 @@ export const Home_Calendar_Content_Point = styled.div`
   margin-bottom: 50%;
 `;
 
-//SearchBar
+//검색 input
 export const Home_SearchBar = styled.div`
   display: flex;
   flex-direction: row;
@@ -85,6 +83,13 @@ export const Home_SearchBar_Input = styled.input`
   outline: none;
 `;
 
-export const Home_Chatting = styled.div`
-  
-`
+//
+export const Home_Chatting = styled.img`
+  width: 100%;
+`;
+
+export const Home_Plan_Title = styled.div`
+  font-weight: 600;
+  font-size: 18px;
+  color: ${theme.gray[4]};
+`;
