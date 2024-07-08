@@ -91,6 +91,51 @@ export const Home_Chatting = styled.img`
 //다가오는 일정
 export const Home_Plan_Title = styled.div`
   font-weight: 600;
-  font-size: 18px;
+  font-size: 20px;
   color: ${theme.gray[4]};
+`;
+
+export const Home_Plan_Contents = styled.div`
+  display: flex;
+  flex-direction: row;
+  gap: 10px;
+  margin-right: -20px;
+  overflow-x: scroll;
+`;
+
+export const Home_Plan_Content = styled.div`
+  min-width: 150px;
+  height: 100px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  background-color: ${theme.gray[0]};
+  padding: 10px;
+  border-radius: 5px;
+`;
+
+export const Home_Plan_Content_Title = styled.div`
+  color: ${theme.sub[3]};
+  font-weight: 400;
+  font-size: 18px;
+`;
+
+export const Home_Plan_Content_DateContent = styled.div`
+  width: 100%;
+  display: flex;
+  flex-direction: row;
+  justify-content: right;
+`;
+
+export const Home_Plan_Content_Date = styled.div`
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+  color: ${theme.sub[3]};
+  font-weight: 400;
+  font-size: 18px;
+  padding: 2px 9px 2px 9px;
+  border-radius: 4px;
+  background-color: #fff;
 `;
