@@ -7,6 +7,7 @@ import useStatusBarHeight from 'hooks/useStatusBarHeight';
 import Search from 'assets/image/Search';
 import ChattingStart from 'assets/image/ChattingStart.jpg';
 import ComingPlan from 'data/ComingPlan';
+import RecommendPlan from 'data/RecommendPlan';
 
 interface DateData {
   id: number;
@@ -98,10 +99,13 @@ const Home = () => {
       </_.Home_RecommendPlan_Title>
 
       <_.Home_RecommendPlan_Contents>
-        <_.Home_RecommendPlan_Content>
-          <_.Home_RecommendPlan_Content_MainImg src="" />
-          <_.Home_RecommendPlan_Content_Title></_.Home_RecommendPlan_Content_Title>
-        </_.Home_RecommendPlan_Content>
+        {RecommendPlan.map((item) => (
+          <_.Home_RecommendPlan_Content key={item.id} imgUrl={item.img}>
+            <_.Home_RecommendPlan_Content_Title>
+              {item.title}
+            </_.Home_RecommendPlan_Content_Title>
+          </_.Home_RecommendPlan_Content>
+        ))}
       </_.Home_RecommendPlan_Contents>
     </_.Home_Container>
   );

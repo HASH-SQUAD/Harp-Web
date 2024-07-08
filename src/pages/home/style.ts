@@ -103,7 +103,7 @@ export const Home_Plan_Contents = styled.div`
   display: flex;
   flex-direction: row;
   gap: 10px;
-  margin-right: -20px;
+  margin-right: -30px;
   overflow-x: scroll;
   margin-top: 10px;
 `;
@@ -150,20 +150,33 @@ export const Home_RecommendPlan_Title = styled.div`
   font-weight: 600;
   font-size: 20px;
   color: ${theme.gray[4]};
+  margin-top: 20px;
 `;
 
 export const Home_RecommendPlan_Contents = styled.div`
+  display: flex;
+  gap: 20px;
+  margin-top: 10px;
 
-`
+  margin-right: -30px;
+  overflow-x: scroll;
+`;
 
-export const Home_RecommendPlan_Content = styled.div`
+export const Home_RecommendPlan_Content = styled.div<{ imgUrl: string }>`
+  position: relative;
+  min-width: 200px;
+  height: 200px;
+  border-radius: 20px;
+  background:
+    linear-gradient(0deg, rgba(0, 0, 0, 0.3) 0%, rgba(0, 0, 0, 0.3) 100%),
+    url(${(props) => props.imgUrl}) lightgray 50% / cover no-repeat;
+`;
 
-`
-
-export const Home_RecommendPlan_Content_MainImg = styled.img`
-
-`
-
-export const Home_RecommendPlan_Content_Title = styled.img`
-
-`
+export const Home_RecommendPlan_Content_Title = styled.div`
+  position: absolute;
+  bottom: 10px;
+  left: 18px;
+  color: #fff;
+  font-weight: 600;
+  font-size: 20px;
+`;
