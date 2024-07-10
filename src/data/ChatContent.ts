@@ -1,4 +1,4 @@
-const ChatContent = [
+export const ChatContent = [
   {
     role: 'user',
     content: [

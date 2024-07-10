@@ -2,11 +2,16 @@ import { theme } from 'lib/utils/style/theme';
 import styled from 'styled-components';
 
 export const Chat_Container = styled.div<{ StatusBarSize?: string }>`
-  padding: ${(props) => props.StatusBarSize || '54px'} 30px 30px 30px;
+  padding: /* ${(props) => props.StatusBarSize || '54px'}*/ 54px 0 30px 0;
   width: 100vw;
   height: 100vh;
   display: flex;
   flex-direction: column;
+  overflow: hidden;
+`;
+
+export const Chat_Header = styled.div`
+  padding: 0 30px 0 30px;
 `;
 
 export const Chat_Content = styled.div`
@@ -18,7 +23,18 @@ export const Chat_Content = styled.div`
   justify-content: space-between;
 `;
 
-export const Chat_Messages = styled.div``;
+export const Chat_Messages = styled.div`
+  padding: 20px 15px 20px 15px;
+  overflow: auto;
+  height: 100%;
+  max-height: 100%;
+  scroll-snap-type: y mandatory;
+`;
+
+export const Chat_Typing_Container = styled.div`
+  width: 100%;
+  padding: 0 30px 0 30px;
+`;
 
 export const Chat_Typing_Box = styled.div`
   display: flex;
