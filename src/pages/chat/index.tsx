@@ -12,21 +12,16 @@ import { ChatContent } from 'data/ChatContent';
 const Chat = () => {
   const statusBarHeight = useStatusBarHeight();
   const [message, setMessage] = useState<string>('');
-  const [chatList, setChatList] = useState<JSX.Element[]>([]);
   const messageEndRef = useRef<HTMLDivElement | null>(null);
 
   useEffect(() => {
     if (messageEndRef.current) {
       messageEndRef.current.scrollIntoView({ behavior: 'smooth' });
     }
-  }, [chatList]);
+  }, [ChatContent]);
 
   const handleSendMessage = () => {
     if (message.trim() !== '') {
-      setChatList((prevChatList) => [
-        ...prevChatList,
-        <div key={prevChatList.length}>{message}</div>
-      ]);
       setMessage('');
     }
   };
@@ -42,7 +37,9 @@ const Chat = () => {
         />
       </_.Chat_Header>
       <_.Chat_Messages>
-        {chatList}
+        {ChatContent.map((item) => (
+          <div key={item.content.text}>{item.content.text}</div>
+        ))}
         <div ref={messageEndRef} />
       </_.Chat_Messages>
       <_.Chat_Typing_Container>
@@ -54,7 +51,7 @@ const Chat = () => {
             onChange={(e) => {
               setMessage(e.currentTarget.value);
             }}
-            onKeyPress={(e) => {
+            onKeyDown={(e) => {
               if (e.key === 'Enter') {
                 handleSendMessage();
               }
