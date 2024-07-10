@@ -3,11 +3,10 @@ import React from 'react';
 
 // 파일
 import * as _ from './style';
+import { message } from 'types/message';
 
-const MessageBox = () => {
-  return <_.MessageBox_Container>
-    
-  </_.MessageBox_Container>;
+const MessageBox = ({ role, message }: message) => {
+  return <_.MessageBox_Container role={role}>{message}</_.MessageBox_Container>;
 };
 
 export default MessageBox;

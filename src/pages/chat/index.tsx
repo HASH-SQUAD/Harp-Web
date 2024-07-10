@@ -8,23 +8,24 @@ import Header from 'components/Header';
 import Send from 'assets/image/Send';
 import { theme } from 'lib/utils/style/theme';
 import { ChatContent } from 'data/ChatContent';
+import MessageBox from 'components/MessageBox';
 
 const Chat = () => {
   const statusBarHeight = useStatusBarHeight();
   const [message, setMessage] = useState<string>('');
   const messageEndRef = useRef<HTMLDivElement | null>(null);
 
-  useEffect(() => {
-    if (messageEndRef.current) {
-      messageEndRef.current.scrollIntoView({ behavior: 'smooth' });
-    }
-  }, [ChatContent]);
-
   const handleSendMessage = () => {
     if (message.trim() !== '') {
       setMessage('');
     }
   };
+
+  useEffect(() => {
+    if (messageEndRef.current) {
+      messageEndRef.current.scrollIntoView({ behavior: 'smooth' });
+    }
+  }, [ChatContent]);
 
   return (
     <_.Chat_Container StatusBarSize={`${statusBarHeight}px`}>
@@ -37,8 +38,12 @@ const Chat = () => {
         />
       </_.Chat_Header>
       <_.Chat_Messages>
-        {ChatContent.map((item) => (
-          <div key={item.content.text}>{item.content.text}</div>
+        {ChatContent.map((item, index) => (
+          // <_.ddif key={index}>
+          <MessageBox key={index} message={item.content.text} role={item.role}>
+            {item.content.text}
+          </MessageBox>
+          // </_.ddif>
         ))}
         <div ref={messageEndRef} />
       </_.Chat_Messages>
