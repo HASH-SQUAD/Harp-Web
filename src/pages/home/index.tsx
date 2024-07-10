@@ -9,6 +9,7 @@ import ChattingStart from 'assets/image/ChattingStart.jpg';
 import ComingPlan from 'data/ComingPlan';
 import RecommendPlan from 'data/RecommendPlan';
 import MenuBar from 'components/MenuBar';
+import calculateDDay from 'lib/utils/D-Day';
 
 interface DateData {
   id: number;
@@ -41,21 +42,6 @@ const Home = () => {
 
     setData(dates);
   }, []);
-
-  const calculateDDay = (planDate: string) => {
-    const today = new Date();
-    const targetDate = new Date(planDate);
-    const diffTime = targetDate.getTime() - today.getTime();
-    const diffDays = Math.ceil(diffTime / (1000 * 60 * 60 * 24));
-
-    if (diffDays > 0) {
-      return `D-${diffDays}`;
-    } else if (diffDays === 0) {
-      return 'D-Day';
-    } else {
-      return `D+${Math.abs(diffDays)}`;
-    }
-  };
 
   return (
     <_.Home_Container StatusBarSize={`${statusBarHeight}px`}>
