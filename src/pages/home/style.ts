@@ -104,8 +104,17 @@ export const Home_Plan_Contents = styled.div`
   flex-direction: row;
   gap: 10px;
   margin-right: -30px;
+  margin-left: -30px;
+  padding-left: 30px;
   overflow-x: scroll;
   margin-top: 10px;
+
+  ::-webkit-scrollbar {
+    display: none !important;
+  }
+
+  -ms-overflow-style: none !important;
+  scrollbar-width: none !important;
 `;
 
 export const Home_Plan_Content = styled.div`
@@ -157,9 +166,17 @@ export const Home_RecommendPlan_Contents = styled.div`
   display: flex;
   gap: 20px;
   margin-top: 10px;
-
   margin-right: -30px;
+  margin-left: -30px;
+  padding-left: 30px;
   overflow-x: scroll;
+
+  ::-webkit-scrollbar {
+    display: none !important;
+  }
+
+  -ms-overflow-style: none !important;
+  scrollbar-width: none !important;
 `;
 
 export const Home_RecommendPlan_Content = styled.div<{ imgUrl: string }>`

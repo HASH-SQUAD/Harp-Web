@@ -109,7 +109,7 @@ const Home = () => {
         ))}
       </_.Home_RecommendPlan_Contents>
 
-      <MenuBar />
+      <MenuBar selectState={1} />
     </_.Home_Container>
   );
 };
