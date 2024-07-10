@@ -17,6 +17,7 @@ export const Chat_Header = styled.div`
 export const Chat_Content = styled.div`
   width: 100%;
   height: 100%;
+  max-height: 100%;
   background-color: ${theme.gray.white};
   display: flex;
   flex-direction: column;

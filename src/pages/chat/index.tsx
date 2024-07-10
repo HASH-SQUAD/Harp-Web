@@ -1,7 +1,4 @@
-// 라이브러리
 import React, { useEffect, useRef, useState } from 'react';
-
-// 파일
 import * as _ from './style';
 import useStatusBarHeight from 'hooks/useStatusBarHeight';
 import Header from 'components/Header';
@@ -14,10 +11,14 @@ const Chat = () => {
   const statusBarHeight = useStatusBarHeight();
   const [message, setMessage] = useState<string>('');
   const messageEndRef = useRef<HTMLDivElement | null>(null);
+  const inputRef = useRef<HTMLInputElement | null>(null);
 
   const handleSendMessage = () => {
     if (message.trim() !== '') {
       setMessage('');
+      if (inputRef.current) {
+        inputRef.current.focus();
+      }
     }
   };
 
@@ -39,11 +40,9 @@ const Chat = () => {
       </_.Chat_Header>
       <_.Chat_Messages>
         {ChatContent.map((item, index) => (
-          // <_.ddif key={index}>
           <MessageBox key={index} message={item.content.text} role={item.role}>
             {item.content.text}
           </MessageBox>
-          // </_.ddif>
         ))}
         <div ref={messageEndRef} />
       </_.Chat_Messages>
@@ -53,11 +52,13 @@ const Chat = () => {
             type="text"
             value={message}
             placeholder="메시지 보내기..."
+            ref={inputRef}
             onChange={(e) => {
               setMessage(e.currentTarget.value);
             }}
             onKeyDown={(e) => {
               if (e.key === 'Enter') {
+                e.preventDefault();
                 handleSendMessage();
               }
             }}
