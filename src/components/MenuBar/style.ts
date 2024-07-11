@@ -14,6 +14,7 @@ export const MenuBar_Container = styled.div`
   justify-content: space-between;
   align-items: center;
   padding: 8px 40px;
+  background-color: white;
 `;
 
 export const Menubar_Icon = styled.div`
