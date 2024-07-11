@@ -40,7 +40,6 @@ const TermsContent = ({
         >
           {title}
         </_.TermsContent_Title>
-
         {ruleState ? (
           <_.TermsContent_ArrowIcon
             onClick={() => {

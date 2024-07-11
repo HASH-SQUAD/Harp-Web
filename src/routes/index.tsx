@@ -10,6 +10,7 @@ import SurveyFood from 'pages/register/surveyFood';
 import SurveyMBTI from 'pages/register/surveyMBTI';
 import Home from 'pages/home';
 import SurveryTMI from 'pages/register/surveyTMI';
+import Chat from 'pages/chat';
 
 export default function Router() {
   return useRoutes([
@@ -19,7 +20,8 @@ export default function Router() {
         { path: '/', element: <Home /> },
         { path: 'splash', element: <Splash /> },
         { path: 'auth', element: <Auth /> },
-        { path: 'terms', element: <Terms /> }
+        { path: 'terms', element: <Terms /> },
+        { path: 'chat', element: <Chat /> }
       ]
     },
     {
