@@ -48,7 +48,7 @@ export const Home_Calendar_Content_Date = styled.div`
   width: 100%;
   height: 100%;
   display: flex;
-  justify-content: center;
+  justify-content: right;
   align-items: center;
   gap: 2px;
 `;
