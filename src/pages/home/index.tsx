@@ -72,11 +72,12 @@ const Home = () => {
         {ComingPlan.map((item) => (
           <_.Home_Plan_Content key={item.id}>
             <_.Home_Plan_Content_Title>{item.title}</_.Home_Plan_Content_Title>
-            <_.Home_Plan_Content_DateContent>
+            <_.Home_Plan_Content_Date_Content>
+              <_.Home_Plan_Content_Icon>👶🏻</_.Home_Plan_Content_Icon>
               <_.Home_Plan_Content_Date>
                 {calculateDDay(item.date)}
               </_.Home_Plan_Content_Date>
-            </_.Home_Plan_Content_DateContent>
+            </_.Home_Plan_Content_Date_Content>
           </_.Home_Plan_Content>
         ))}
       </_.Home_Plan_Contents>

@@ -2,7 +2,7 @@ import { theme } from 'lib/utils/style/theme';
 import styled from 'styled-components';
 
 export const Home_Container = styled.div<{ StatusBarSize?: string }>`
-  padding: ${(props) => props.StatusBarSize || '54px'} 30px 0 30px;
+  padding: ${(props) => props.StatusBarSize || '54px'} 15px 0 15px;
   display: flex;
   width: 100%;
   height: 100%;
@@ -118,7 +118,7 @@ export const Home_Plan_Contents = styled.div`
 `;
 
 export const Home_Plan_Content = styled.div`
-  min-width: 152px;
+  min-width: 160px;
   height: 100px;
   display: flex;
   flex-direction: column;
@@ -134,11 +134,22 @@ export const Home_Plan_Content_Title = styled.div`
   font-size: 18px;
 `;
 
-export const Home_Plan_Content_DateContent = styled.div`
+export const Home_Plan_Content_Date_Content = styled.div`
   width: 100%;
   display: flex;
   flex-direction: row;
-  justify-content: right;
+  justify-content: space-between;
+`;
+
+export const Home_Plan_Content_Icon = styled.div`
+  background-color: ${theme.gray.white};
+  width: 40px;
+  height: 40px;
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+  border-radius: 100%;
 `;
 
 export const Home_Plan_Content_Date = styled.div`
