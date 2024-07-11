@@ -103,9 +103,9 @@ export const Home_Plan_Contents = styled.div`
   display: flex;
   flex-direction: row;
   gap: 10px;
-  margin-right: -30px;
-  margin-left: -30px;
-  padding-left: 30px;
+  margin-right: -15px;
+  margin-left: -15px;
+  padding-left: 15px;
   overflow-x: scroll;
   margin-top: 10px;
 
@@ -177,9 +177,9 @@ export const Home_RecommendPlan_Contents = styled.div`
   display: flex;
   gap: 20px;
   margin-top: 10px;
-  margin-right: -30px;
-  margin-left: -30px;
-  padding-left: 30px;
+  margin-right: -15px;
+  margin-left: -15px;
+  padding-left: 15px;
   overflow-x: scroll;
 
   ::-webkit-scrollbar {
