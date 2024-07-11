@@ -7,7 +7,7 @@ import g4 from '../../assets/image/ChatGif/g4.svg';
 import g5 from '../../assets/image/ChatGif/g5.svg';
 import g6 from '../../assets/image/ChatGif/g6.svg';
 
-const Loding = () => {
+const Loading = () => {
   const gifImages = [g1, g2, g3, g4, g5, g6];
   const [currentImageIndex, setCurrentImageIndex] = useState(0);
   useEffect(() => {
@@ -24,4 +24,4 @@ const Loding = () => {
   );
 };
 
-export default Loding;
+export default Loading;
