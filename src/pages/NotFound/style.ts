@@ -23,7 +23,6 @@ export const NotFound_Explain = styled.p`
   text-align: center;
   font-size: 15px;
   font-weight: 500;
-  white-space: pre-wrap;
 `;
 
 export const NotFound_Button = styled.button`
