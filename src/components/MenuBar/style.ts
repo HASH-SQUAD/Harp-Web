@@ -3,17 +3,16 @@ import styled from 'styled-components';
 
 export const MenuBar_Container = styled.div`
   width: 100vw;
-  height: 54px;
-  position: fixed;
-  z-index: 9999;
-  bottom: 0;
-  right: 0;
-  margin-bottom: 30px;
+  height: 90px;
   display: flex;
   flex-direction: row;
   justify-content: space-between;
   align-items: center;
-  padding: 8px 40px;
+  position: fixed;
+  z-index: 9999;
+  bottom: 0px;
+  right: 0;
+  padding: 0 40px 20px 40px;
   background-color: ${theme.gray.white};
 `;
 
