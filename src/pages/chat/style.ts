@@ -24,10 +24,10 @@ export const Chat_Content = styled.div`
 `;
 
 export const Chat_Messages = styled.div`
-  padding: 20px 15px 0 15px;
+  padding: 20px 15px 10px 15px;
   overflow: auto;
   width: 100%;
-  height: auto;
+  height: 100%;
   display: flex;
   flex-direction: column;
   scroll-snap-type: y mandatory;
