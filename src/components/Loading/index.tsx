@@ -1,25 +1,32 @@
+// 라이브러리
 import React, { useEffect, useState } from 'react';
+
+// 파일
 import * as _ from './style';
-import g1 from '../../assets/image/ChatGif/g1.svg';
-import g2 from '../../assets/image/ChatGif/g2.svg';
-import g3 from '../../assets/image/ChatGif/g3.svg';
-import g4 from '../../assets/image/ChatGif/g4.svg';
-import g5 from '../../assets/image/ChatGif/g5.svg';
-import g6 from '../../assets/image/ChatGif/g6.svg';
+import Gif1 from 'assets/image/ChatGif/Gif1';
+import Gif2 from 'assets/image/ChatGif/Gif2';
+import Gif3 from 'assets/image/ChatGif/Gif3';
+import Gif4 from 'assets/image/ChatGif/Gif4';
+import Gif5 from 'assets/image/ChatGif/Gif5';
+import Gif6 from 'assets/image/ChatGif/Gif6';
 
 const Loading = () => {
-  const gifImages = [g1, g2, g3, g4, g5, g6];
+  const gifComponents = [Gif1, Gif2, Gif3, Gif4, Gif5, Gif6];
   const [currentImageIndex, setCurrentImageIndex] = useState(0);
   useEffect(() => {
     const interval = setInterval(() => {
-      setCurrentImageIndex(prevIndex => (prevIndex + 1) % gifImages.length);
+      setCurrentImageIndex(
+        (prevIndex) => (prevIndex + 1) % gifComponents.length
+      );
     }, 250);
 
     return () => clearInterval(interval);
   }, []);
   return (
     <>
-      <_.Loding_FadeImage src={gifImages[currentImageIndex]} />
+      <_.Loding_FadeComponent>
+        {React.createElement(gifComponents[currentImageIndex])}
+      </_.Loding_FadeComponent>
     </>
   );
 };

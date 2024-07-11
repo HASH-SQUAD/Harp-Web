@@ -13,7 +13,7 @@ import MessageBox from 'components/MessageBox';
 const Chat = () => {
   const statusBarHeight = useStatusBarHeight();
   const [message, setMessage] = useState<string>('');
-  const [isLoading, setIsLoading] = useState<boolean>(false);
+  const [isLoading, setIsLoading] = useState<boolean>(true);
   const messageEndRef = useRef<HTMLDivElement | null>(null);
   const textareaRef = useRef<HTMLTextAreaElement | null>(null);
 
