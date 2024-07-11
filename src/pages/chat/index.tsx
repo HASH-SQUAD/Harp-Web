@@ -1,4 +1,7 @@
+// 라이브러리
 import React, { useEffect, useRef, useState } from 'react';
+
+// 파일
 import * as _ from './style';
 import useStatusBarHeight from 'hooks/useStatusBarHeight';
 import Header from 'components/Header';
@@ -11,14 +14,25 @@ const Chat = () => {
   const statusBarHeight = useStatusBarHeight();
   const [message, setMessage] = useState<string>('');
   const messageEndRef = useRef<HTMLDivElement | null>(null);
-  const inputRef = useRef<HTMLInputElement | null>(null);
+  const textareaRef = useRef<HTMLTextAreaElement | null>(null);
 
   const handleSendMessage = () => {
     if (message.trim() !== '') {
       setMessage('');
-      if (inputRef.current) {
-        inputRef.current.focus();
+      if (textareaRef.current) {
+        textareaRef.current.focus();
       }
+    }
+  };
+
+  const resizeHeight = (
+    textarea: React.RefObject<HTMLTextAreaElement>,
+    e: React.ChangeEvent<HTMLTextAreaElement>
+  ) => {
+    if (textarea.current) {
+      textarea.current.style.height = 'auto';
+      textarea.current.style.height = textarea.current.scrollHeight + 'px';
+      setMessage(e.target.value);
     }
   };
 
@@ -48,14 +62,13 @@ const Chat = () => {
       </_.Chat_Messages>
       <_.Chat_Typing_Container>
         <_.Chat_Typing_Box>
-          <_.Chat_Input
-            type="text"
+          <_.Chat_Textarea
             value={message}
             placeholder="메시지 보내기..."
-            ref={inputRef}
-            onChange={(e) => {
-              setMessage(e.currentTarget.value);
-            }}
+            rows={1}
+            maxLength={100}
+            ref={textareaRef}
+            onChange={(e) => resizeHeight(textareaRef, e)}
             onKeyDown={(e) => {
               if (e.key === 'Enter') {
                 e.preventDefault();

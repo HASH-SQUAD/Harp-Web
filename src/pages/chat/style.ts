@@ -2,12 +2,11 @@ import { theme } from 'lib/utils/style/theme';
 import styled from 'styled-components';
 
 export const Chat_Container = styled.div<{ StatusBarSize?: string }>`
-  padding: /* ${(props) => props.StatusBarSize || '54px'}*/ 54px 0 30px 0;
+  padding: /* ${(props) => props.StatusBarSize || '54px'}*/ 54px 0 20px 0;
   width: 100vw;
   height: 100vh;
   display: flex;
   flex-direction: column;
-  overflow: hidden;
 `;
 
 export const Chat_Header = styled.div`
@@ -25,42 +24,49 @@ export const Chat_Content = styled.div`
 `;
 
 export const Chat_Messages = styled.div`
-  padding: 20px 15px 20px 15px;
+  padding: 20px 15px 0 15px;
   overflow: auto;
   width: 100%;
+  height: auto;
   display: flex;
   flex-direction: column;
-  height: 100%;
   scroll-snap-type: y mandatory;
 `;
 
 export const Chat_Typing_Container = styled.div`
   width: 100%;
-  padding: 0 30px 0 30px;
+  padding: 10px 30px 10px 30px;
+  z-index: 1;
+  height: max-content;
+  position: relative;
 `;
 
 export const Chat_Typing_Box = styled.div`
   display: flex;
   width: 100%;
-  height: 50px;
+  height: auto;
+  max-height: 120px;
   justify-content: space-between;
-  align-items: center;
+  align-items: end;
   border-radius: 50px;
   border: 1px solid ${theme.gray[1]};
-  padding: 13px 20px 13px 20px;
+  padding: 13px 24px 13px 24px;
 `;
 
-export const Chat_Input = styled.input`
-  width: 100%;
-  height: 100%;
+export const Chat_Textarea = styled.textarea`
+  width: 86%;
+  height: auto;
+  max-height: 100px;
   border: none;
   outline: none;
   color: ${theme.gray.black};
   &::placeholder {
     color: ${theme.gray[2]};
   }
-  font-size: 16px;
+  font-size: 14px;
   font-weight: 400;
+  resize: none;
+  overflow-y: auto;
 `;
 
 export const Chat_SendIcon = styled.div`
