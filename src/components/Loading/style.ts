@@ -8,8 +8,3 @@ const fadeIn = keyframes`
     opacity: 1;
   }
 `;
-
-
-export const Loding_FadeComponent = styled.div`
-  animation: ${fadeIn} 0.3s ease-in-out;
-`;

@@ -13,6 +13,7 @@ import Gif6 from 'assets/image/ChatGif/Gif6';
 const Loading = () => {
   const gifComponents = [Gif1, Gif2, Gif3, Gif4, Gif5, Gif6];
   const [currentImageIndex, setCurrentImageIndex] = useState(0);
+  const Gif = gifComponents[currentImageIndex];
   useEffect(() => {
     const interval = setInterval(() => {
       setCurrentImageIndex(
@@ -22,13 +23,7 @@ const Loading = () => {
 
     return () => clearInterval(interval);
   }, []);
-  return (
-    <>
-      <_.Loding_FadeComponent>
-        {React.createElement(gifComponents[currentImageIndex])}
-      </_.Loding_FadeComponent>
-    </>
-  );
+  return <Gif />;
 };
 
 export default Loading;

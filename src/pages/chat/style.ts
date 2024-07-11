@@ -35,7 +35,7 @@ export const Chat_Messages = styled.div`
 
 export const Chat_Typing_Container = styled.div`
   width: 100%;
-  padding: 10px 30px 10px 30px;
+  padding: 10px 30px 0 30px;
   z-index: 1;
   height: max-content;
   position: relative;
