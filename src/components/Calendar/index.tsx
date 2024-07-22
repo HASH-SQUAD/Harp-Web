@@ -1,14 +1,11 @@
-// 필요한 라이브러리와 스타일시트를 import합니다.
+// 라이브러리
 import React, { useState } from 'react';
 
+// 파일
+import * as _ from './style';
 import { calendar } from 'types/calendar';
 
-const Calendar = ({
-  selectedDay,
-  setSelectedDay,
-  isPrevMonth,
-  isNextMonth
-}: calendar) => {
+const Calendar = ({ selectedDays, setSelectedDays }: calendar) => {
   const daysOfWeek = ['일', '월', '화', '수', '목', '금', '토'];
   const [currentMonth, setCurrentMonth] = useState<Date>(new Date());
 
@@ -26,11 +23,35 @@ const Calendar = ({
     return false;
   };
 
+  const isBetweenDays = (
+    day: Date,
+    startDay: Date | null,
+    endDay: Date | null
+  ) => {
+    if (!startDay || !endDay) return false;
+    return day > startDay && day < endDay;
+  };
+
+  const isPastDay = (day: Date) => {
+    return day < today;
+  };
+
+  const isFutureDay = (day: Date) => {
+    return day.getMonth() !== currentMonth.getMonth();
+  };
+
   const onClickDay = (day: Date) => {
-    if (isSameDay(day, selectedDay)) {
-      setSelectedDay(null);
+    if (isPastDay(day) || isFutureDay(day)) {
+      return;
+    }
+    if (!selectedDays.start || selectedDays.end) {
+      setSelectedDays({ start: day, end: null });
+    } else if (isSameDay(day, selectedDays.start)) {
+      setSelectedDays({ start: null, end: null });
+    } else if (day > selectedDays.start) {
+      setSelectedDays({ ...selectedDays, end: day });
     } else {
-      setSelectedDay(day);
+      setSelectedDays({ start: day, end: selectedDays.start });
     }
   };
 
@@ -90,14 +111,41 @@ const Calendar = ({
 
   const buildCalendarTag = (calendarDays: Date[]) => {
     return calendarDays.map((day: Date, i: number) => {
+      const dayOfWeek = day.getDay();
+      const pastDay = isPastDay(day);
+      const futureDay = isFutureDay(day);
+      const selectedStart = isSameDay(day, selectedDays.start);
+      const selectedEnd = isSameDay(day, selectedDays.end);
+      const betweenDays = isBetweenDays(
+        day,
+        selectedDays.start,
+        selectedDays.end
+      );
+
+      let className = '';
+      if (pastDay || futureDay) {
+        className += ' disabled-day';
+      }
+      if (selectedStart) {
+        className += ' selected-start';
+      }
+      if (selectedEnd) {
+        className += ' selected-end';
+      }
+      if (betweenDays) {
+        className += ' between-days';
+      }
+
       return (
-        <td
+        <_.Calendar_Date_Td
+          dayOfweek={dayOfWeek}
           key={i}
-          className={`futureDay ${isSameDay(day, selectedDay) && 'choiceDay'}`}
           onClick={() => onClickDay(day)}
+          disabled={pastDay || futureDay}
+          className={className}
         >
           {day.getDate()}
-        </td>
+        </_.Calendar_Date_Td>
       );
     });
   };
@@ -118,24 +166,31 @@ const Calendar = ({
   const calendarRows = divideWeek(calendarTags);
 
   return (
-    <div className="calendar">
-      <table>
+    <_.Calendar_Container>
+      <_.Calendar_Date_Title>
+        {currentMonth.getFullYear()}년 {currentMonth.getMonth() + 1}월
+      </_.Calendar_Date_Title>
+      <_.Calendar_Table>
         <thead>
-          <tr>
+          <_.Calendar_DayofWeek_Tr>
             {daysOfWeek.map((day, i) => (
-              <th key={i} data-testid="calendarHead">
+              <_.Calendar_DayofWeek_Td
+                day={day}
+                key={i}
+                data-testid="calendarHead"
+              >
                 {day}
-              </th>
+              </_.Calendar_DayofWeek_Td>
             ))}
-          </tr>
+          </_.Calendar_DayofWeek_Tr>
         </thead>
         <tbody>
           {calendarRows.map((row: JSX.Element[], i: number) => (
-            <tr key={i}>{row}</tr>
+            <_.Calendar_Date_Tr key={i}>{row}</_.Calendar_Date_Tr>
           ))}
         </tbody>
-      </table>
-    </div>
+      </_.Calendar_Table>
+    </_.Calendar_Container>
   );
 };
 

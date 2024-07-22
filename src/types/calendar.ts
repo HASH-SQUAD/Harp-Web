@@ -1,6 +1,6 @@
 export type calendar = {
-  selectedDay: Date | null;
-  setSelectedDay: React.Dispatch<React.SetStateAction<Date | null>>;
-  isPrevMonth: boolean;
-  isNextMonth: boolean;
+  selectedDays: { start: Date | null; end: Date | null };
+  setSelectedDays: React.Dispatch<
+    React.SetStateAction<{ start: Date | null; end: Date | null }>
+  >;
 };
