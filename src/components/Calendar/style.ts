@@ -2,7 +2,7 @@ import { theme } from 'lib/utils/style/theme';
 import styled from 'styled-components';
 
 export const Calendar_Container = styled.div`
-  padding: 0 10px;
+  padding: 10px;
 `;
 
 export const Calendar_Date_Title = styled.p`
@@ -13,8 +13,6 @@ export const Calendar_Date_Title = styled.p`
 
 export const Calendar_Table = styled.table`
   width: 100%;
-  padding-top: 15px;
-  border-spacing: 10px;
 `;
 
 export const Calendar_DayofWeek_Tr = styled.tr`
@@ -28,6 +26,8 @@ export const Calendar_DayofWeek_Td = styled.td<{ day?: string }>`
       : props.day === '토'
         ? theme.sub.blue
         : theme.gray['3.5']};
+  padding: 10px 0;
+  font-weight: 400;
 `;
 
 export const Calendar_Date_Tr = styled.tr`
@@ -50,29 +50,35 @@ export const Calendar_Date_Td = styled.td<Date_Td_Props>`
           : theme.gray.black};
   font-size: 18px;
   font-weight: 500;
+  padding: 8px;
+  cursor: ${(props) => (props.disabled ? 'not-allowed' : 'pointer')};
   background-color: ${(props) => (props.disabled ? 'inherit' : 'inherit')};
-  border-radius: 150px;
   position: relative;
-  &.selected-start {
-    background-color: ${theme.primary[7]};
-    border-radius: 150px;
-  }
+
+  &.selected-start,
   &.selected-end {
     background-color: ${theme.primary[7]};
-    border-radius: 150px;
+    color: ${theme.gray.white};
+    border-radius: 100%;
   }
+  &.between-days {
+    color: ${theme.gray.black};
+  }
+
   &.between-days:before {
     content: '';
     position: absolute;
+    z-index: -1;
     top: 50%;
     left: 0;
     right: 0;
-    height: 1px;
-    background-color: ${theme.primary[7]};
+    height: 100%;
+    background-color: ${theme.primary[1]};
     transform: translateY(-50%);
+    border-radius: 100%;
   }
+
   &.disabled-day {
     color: ${theme.gray[3]};
-    cursor: not-allowed;
   }
 `;

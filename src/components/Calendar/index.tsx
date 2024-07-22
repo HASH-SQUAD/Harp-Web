@@ -1,42 +1,51 @@
-// 라이브러리
-import React, { useState } from 'react';
-
-// 파일
+import React, { useState, useEffect } from 'react';
 import * as _ from './style';
-import { calendar } from 'types/calendar';
 
-const Calendar = ({ selectedDays, setSelectedDays }: calendar) => {
+interface CalendarProps {
+  selectedDays: {
+    start: Date | null;
+    end: Date | null;
+  };
+  setSelectedDays: React.Dispatch<
+    React.SetStateAction<{
+      start: Date | null;
+      end: Date | null;
+    }>
+  >;
+}
+
+const Calendar: React.FC<CalendarProps> = ({
+  selectedDays,
+  setSelectedDays
+}) => {
   const daysOfWeek = ['일', '월', '화', '수', '목', '금', '토'];
-  const [currentMonth, setCurrentMonth] = useState<Date>(new Date());
+  const [currentMonth, setCurrentMonth] = useState(new Date());
 
   const today = new Date();
   today.setHours(0, 0, 0, 0);
 
-  const isSameDay = (toDay: Date, compareDay?: Date | null) => {
-    if (
+  const isSameDay = (toDay: Date, compareDay?: Date | null): boolean => {
+    return (
       toDay.getFullYear() === compareDay?.getFullYear() &&
       toDay.getMonth() === compareDay?.getMonth() &&
       toDay.getDate() === compareDay?.getDate()
-    ) {
-      return true;
-    }
-    return false;
+    );
   };
 
   const isBetweenDays = (
     day: Date,
     startDay: Date | null,
     endDay: Date | null
-  ) => {
+  ): boolean => {
     if (!startDay || !endDay) return false;
     return day > startDay && day < endDay;
   };
 
-  const isPastDay = (day: Date) => {
+  const isPastDay = (day: Date): boolean => {
     return day < today;
   };
 
-  const isFutureDay = (day: Date) => {
+  const isFutureDay = (day: Date): boolean => {
     return day.getMonth() !== currentMonth.getMonth();
   };
 
@@ -44,10 +53,11 @@ const Calendar = ({ selectedDays, setSelectedDays }: calendar) => {
     if (isPastDay(day) || isFutureDay(day)) {
       return;
     }
+
     if (!selectedDays.start || selectedDays.end) {
       setSelectedDays({ start: day, end: null });
     } else if (isSameDay(day, selectedDays.start)) {
-      setSelectedDays({ start: null, end: null });
+      setSelectedDays({ start: day, end: day });
     } else if (day > selectedDays.start) {
       setSelectedDays({ ...selectedDays, end: day });
     } else {
@@ -55,7 +65,7 @@ const Calendar = ({ selectedDays, setSelectedDays }: calendar) => {
     }
   };
 
-  const buildCalendarDays = () => {
+  const buildCalendarDays = (): Date[] => {
     const curMonthStartDate = new Date(
       currentMonth.getFullYear(),
       currentMonth.getMonth(),
@@ -76,6 +86,7 @@ const Calendar = ({ selectedDays, setSelectedDays }: calendar) => {
       currentMonth.getMonth() + 1,
       1
     );
+
     const days: Date[] = Array.from({ length: curMonthStartDate }, (_, i) => {
       return new Date(
         currentMonth.getFullYear(),
@@ -109,8 +120,8 @@ const Calendar = ({ selectedDays, setSelectedDays }: calendar) => {
     return days;
   };
 
-  const buildCalendarTag = (calendarDays: Date[]) => {
-    return calendarDays.map((day: Date, i: number) => {
+  const buildCalendarTag = (calendarDays: Date[]): JSX.Element[] => {
+    return calendarDays.map((day, i) => {
       const dayOfWeek = day.getDay();
       const pastDay = isPastDay(day);
       const futureDay = isFutureDay(day);
@@ -150,7 +161,7 @@ const Calendar = ({ selectedDays, setSelectedDays }: calendar) => {
     });
   };
 
-  const divideWeek = (calendarTags: JSX.Element[]) => {
+  const divideWeek = (calendarTags: JSX.Element[]): JSX.Element[][] => {
     return calendarTags.reduce(
       (acc: JSX.Element[][], day: JSX.Element, i: number) => {
         if (i % 7 === 0) acc.push([day]);
@@ -185,7 +196,7 @@ const Calendar = ({ selectedDays, setSelectedDays }: calendar) => {
           </_.Calendar_DayofWeek_Tr>
         </thead>
         <tbody>
-          {calendarRows.map((row: JSX.Element[], i: number) => (
+          {calendarRows.map((row, i) => (
             <_.Calendar_Date_Tr key={i}>{row}</_.Calendar_Date_Tr>
           ))}
         </tbody>
