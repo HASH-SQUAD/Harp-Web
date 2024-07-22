@@ -9,5 +9,5 @@ export type calendar = {
       end: Date | null;
     }>
   >;
-  initialMonth: Date;
+  currentMonth: Date;
 };

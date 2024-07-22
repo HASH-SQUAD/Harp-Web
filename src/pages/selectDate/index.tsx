@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useRef, useEffect } from 'react';
 import * as _ from './style';
 import useStatusBarHeight from 'hooks/useStatusBarHeight';
 import Header from 'components/Header';
@@ -12,12 +12,42 @@ const SelectDate = () => {
     end: Date | null;
   }>({ start: null, end: null });
 
-  const today = new Date();
-  const initialMonths = [
-    new Date(today.getFullYear(), today.getMonth()), // 현재 월
-    new Date(today.getFullYear(), today.getMonth() + 1), // 다음 월
-    new Date(today.getFullYear(), today.getMonth() + 2) // 다다음 월
-  ];
+  const [months, setMonths] = useState<Date[]>([
+    new Date(new Date().getFullYear(), new Date().getMonth(), 1)
+  ]);
+  
+  const loader = useRef<HTMLDivElement | null>(null);
+
+  const handleObserver = (entities: IntersectionObserverEntry[]) => {
+    const target = entities[0];
+    if (target.isIntersecting) {
+      setMonths((prevMonth) => [
+        ...prevMonth,
+        new Date(
+          prevMonth[prevMonth.length - 1].getFullYear(),
+          prevMonth[prevMonth.length - 1].getMonth() + 1,
+          1
+        )
+      ]);
+    }
+  };
+
+  useEffect(() => {
+    const options = {
+      root: null,
+      rootMargin: '20px',
+      threshold: 1.0
+    };
+    const observer = new IntersectionObserver(handleObserver, options);
+    if (loader.current) {
+      observer.observe(loader.current);
+    }
+    return () => {
+      if (loader.current) {
+        observer.unobserve(loader.current);
+      }
+    };
+  }, []);
 
   return (
     <>
@@ -30,14 +60,15 @@ const SelectDate = () => {
         />
         <_.SelectDate_Title>여행 날짜를 선택해주세요</_.SelectDate_Title>
         <_.SelectDate_Months>
-          {initialMonths.map((month, index) => (
+          {months.map((month, index) => (
             <Calendar
               key={index}
               selectedDays={selectedDays}
               setSelectedDays={setSelectedDays}
-              initialMonth={month}
+              currentMonth={month}
             />
           ))}
+          <div ref={loader} />
         </_.SelectDate_Months>
       </_.SelectDate_Container>
       <NextButton

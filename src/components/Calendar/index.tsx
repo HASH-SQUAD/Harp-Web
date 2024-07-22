@@ -1,17 +1,30 @@
 // 라이브러리
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 
 // 파일
 import * as _ from './style';
 import { calendar } from 'types/calendar';
 
+interface CalendarProps {
+  selectedDays: {
+    start: Date | null;
+    end: Date | null;
+  };
+  setSelectedDays: React.Dispatch<
+    React.SetStateAction<{
+      start: Date | null;
+      end: Date | null;
+    }>
+  >;
+  currentMonth: Date;
+}
+
 const Calendar = ({
   selectedDays,
   setSelectedDays,
-  initialMonth
+  currentMonth
 }: calendar) => {
   const daysOfWeek = ['일', '월', '화', '수', '목', '금', '토'];
-  const [currentMonth, setCurrentMonth] = useState(initialMonth);
 
   const today = new Date();
   today.setHours(0, 0, 0, 0);
