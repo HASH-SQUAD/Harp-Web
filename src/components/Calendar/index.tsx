@@ -66,75 +66,47 @@ const Calendar: React.FC<CalendarProps> = ({
   };
 
   const buildCalendarDays = (): Date[] => {
-    const curMonthStartDate = new Date(
+    const firstDayOfMonth = new Date(
       currentMonth.getFullYear(),
       currentMonth.getMonth(),
       1
-    ).getDay();
-    const curMonthEndDate = new Date(
+    );
+    const lastDayOfMonth = new Date(
       currentMonth.getFullYear(),
       currentMonth.getMonth() + 1,
       0
     );
-    const prevMonthEndDate = new Date(
-      currentMonth.getFullYear(),
-      currentMonth.getMonth(),
-      0
-    );
-    const nextMonthStartDate = new Date(
-      currentMonth.getFullYear(),
-      currentMonth.getMonth() + 1,
-      1
-    );
 
-    const days: Date[] = Array.from({ length: curMonthStartDate }, (_, i) => {
-      return new Date(
-        currentMonth.getFullYear(),
-        currentMonth.getMonth() - 1,
-        prevMonthEndDate.getDate() - i
-      );
-    }).reverse();
+    const days: Date[] = [];
 
-    days.push(
-      ...Array.from(
-        { length: curMonthEndDate.getDate() },
-        (_, i) =>
-          new Date(currentMonth.getFullYear(), currentMonth.getMonth(), i + 1)
-      )
-    );
+    for (let i = 0; i < firstDayOfMonth.getDay(); i++) {
+      days.push(new Date(NaN));
+    }
 
-    const remainingDays = 7 - (days.length % 7);
-    if (remainingDays < 7) {
+    for (let day = 1; day <= lastDayOfMonth.getDate(); day++) {
       days.push(
-        ...Array.from(
-          { length: remainingDays },
-          (_, i) =>
-            new Date(
-              nextMonthStartDate.getFullYear(),
-              nextMonthStartDate.getMonth(),
-              i + 1
-            )
-        )
+        new Date(currentMonth.getFullYear(), currentMonth.getMonth(), day)
       );
     }
+
     return days;
   };
 
   const buildCalendarTag = (calendarDays: Date[]): JSX.Element[] => {
     return calendarDays.map((day, i) => {
       const dayOfWeek = day.getDay();
-      const pastDay = isPastDay(day);
-      const futureDay = isFutureDay(day);
-      const selectedStart = isSameDay(day, selectedDays.start);
-      const selectedEnd = isSameDay(day, selectedDays.end);
-      const betweenDays = isBetweenDays(
-        day,
-        selectedDays.start,
-        selectedDays.end
-      );
+      const isInvalidDate = isNaN(day.getTime()); // 빈 날짜 체크
+      const pastDay = !isInvalidDate && isPastDay(day);
+      const futureDay = !isInvalidDate && isFutureDay(day);
+      const selectedStart =
+        !isInvalidDate && isSameDay(day, selectedDays.start);
+      const selectedEnd = !isInvalidDate && isSameDay(day, selectedDays.end);
+      const betweenDays =
+        !isInvalidDate &&
+        isBetweenDays(day, selectedDays.start, selectedDays.end);
 
       let className = '';
-      if (pastDay || futureDay) {
+      if (isInvalidDate || pastDay || futureDay) {
         className += ' disabled-day';
       }
       if (selectedStart) {
@@ -151,11 +123,11 @@ const Calendar: React.FC<CalendarProps> = ({
         <_.Calendar_Date_Td
           dayOfweek={dayOfWeek}
           key={i}
-          onClick={() => onClickDay(day)}
-          disabled={pastDay || futureDay}
+          onClick={() => !isInvalidDate && onClickDay(day)}
+          disabled={isInvalidDate || pastDay || futureDay}
           className={className}
         >
-          {day.getDate()}
+          {!isInvalidDate ? day.getDate() : ''}
         </_.Calendar_Date_Td>
       );
     });

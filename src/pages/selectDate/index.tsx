@@ -27,6 +27,7 @@ const SelectDate = () => {
             selectedDays={selectedDays}
             setSelectedDays={setSelectedDays}
           />
+          
         </_.SelectDate_Months>
       </_.SelectDate_Container>
       <NextButton
