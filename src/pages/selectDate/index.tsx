@@ -12,6 +12,13 @@ const SelectDate = () => {
     end: Date | null;
   }>({ start: null, end: null });
 
+  const today = new Date();
+  const initialMonths = [
+    new Date(today.getFullYear(), today.getMonth()), // 현재 월
+    new Date(today.getFullYear(), today.getMonth() + 1), // 다음 월
+    new Date(today.getFullYear(), today.getMonth() + 2) // 다다음 월
+  ];
+
   return (
     <>
       <_.SelectDate_Container StatusBarSize={`${statusBarHeight}px`}>
@@ -23,11 +30,14 @@ const SelectDate = () => {
         />
         <_.SelectDate_Title>여행 날짜를 선택해주세요</_.SelectDate_Title>
         <_.SelectDate_Months>
-          <Calendar
-            selectedDays={selectedDays}
-            setSelectedDays={setSelectedDays}
-          />
-          
+          {initialMonths.map((month, index) => (
+            <Calendar
+              key={index}
+              selectedDays={selectedDays}
+              setSelectedDays={setSelectedDays}
+              initialMonth={month}
+            />
+          ))}
         </_.SelectDate_Months>
       </_.SelectDate_Container>
       <NextButton

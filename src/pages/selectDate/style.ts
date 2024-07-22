@@ -7,6 +7,7 @@ export const SelectDate_Container = styled.div<{ StatusBarSize?: string }>`
   height: 100vh;
   display: flex;
   flex-direction: column;
+  padding-bottom: 90px;
 `;
 
 export const SelectDate_Title = styled.p`
@@ -18,4 +19,7 @@ export const SelectDate_Title = styled.p`
 
 export const SelectDate_Months = styled.div`
   padding-top: 10px;
+  flex: 1;
+  overflow-y: auto;
+  height: 0;
 `;
