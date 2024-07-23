@@ -11,7 +11,8 @@ import SurveyMBTI from 'pages/register/surveyMBTI';
 import Home from 'pages/home';
 import SurveryTMI from 'pages/register/surveyTMI';
 import Chat from 'pages/chat';
-import NotFound from 'pages/NotFound';
+import NotFound from 'pages/notfound';
+import SelectDate from 'pages/selectDate';
 
 export default function Router() {
   return useRoutes([
@@ -23,6 +24,7 @@ export default function Router() {
         { path: 'auth', element: <Auth /> },
         { path: 'terms', element: <Terms /> },
         { path: 'chat', element: <Chat /> },
+        { path: 'selectdate', element: <SelectDate /> },
         { path: '*', element: <NotFound /> }
       ]
     },

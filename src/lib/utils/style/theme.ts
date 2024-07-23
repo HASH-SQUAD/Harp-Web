@@ -27,6 +27,7 @@ export const theme = {
   },
   sub: {
     red: '#FF2C20',
+    blue: '#0099FF',
     green: '#3CD456',
     yellow: '#FFB931',
     0: '#FAFBFB',
