@@ -5,20 +5,6 @@ import React, { useState, useEffect, useRef } from 'react';
 import * as _ from './style';
 import { calendar } from 'types/calendar';
 
-interface CalendarProps {
-  selectedDays: {
-    start: Date | null;
-    end: Date | null;
-  };
-  setSelectedDays: React.Dispatch<
-    React.SetStateAction<{
-      start: Date | null;
-      end: Date | null;
-    }>
-  >;
-  currentMonth: Date;
-}
-
 const Calendar = ({
   selectedDays,
   setSelectedDays,
