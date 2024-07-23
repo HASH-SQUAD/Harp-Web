@@ -11,7 +11,7 @@ import SurveyMBTI from 'pages/register/surveyMBTI';
 import Home from 'pages/home';
 import SurveryTMI from 'pages/register/surveyTMI';
 import Chat from 'pages/chat';
-import NotFound from 'pages/NotFound';
+import NotFound from 'pages/notfound';
 
 export default function Router() {
   return useRoutes([
