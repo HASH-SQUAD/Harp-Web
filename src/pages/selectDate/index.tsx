@@ -1,4 +1,4 @@
-import React, { useState, useRef, useEffect } from 'react';
+import React, { useState, useRef, useEffect, useCallback } from 'react';
 import * as _ from './style';
 import useStatusBarHeight from 'hooks/useStatusBarHeight';
 import Header from 'components/Header';
@@ -15,22 +15,25 @@ const SelectDate = () => {
   const [months, setMonths] = useState<Date[]>([
     new Date(new Date().getFullYear(), new Date().getMonth(), 1)
   ]);
-  
+
   const loader = useRef<HTMLDivElement | null>(null);
 
-  const handleObserver = (entities: IntersectionObserverEntry[]) => {
-    const target = entities[0];
-    if (target.isIntersecting) {
-      setMonths((prevMonth) => [
-        ...prevMonth,
-        new Date(
-          prevMonth[prevMonth.length - 1].getFullYear(),
-          prevMonth[prevMonth.length - 1].getMonth() + 1,
-          1
-        )
-      ]);
-    }
-  };
+  const handleObserver = useCallback(
+    (entities: IntersectionObserverEntry[]) => {
+      const target = entities[0];
+      if (target.isIntersecting) {
+        setMonths((prevMonth) => [
+          ...prevMonth,
+          new Date(
+            prevMonth[prevMonth.length - 1].getFullYear(),
+            prevMonth[prevMonth.length - 1].getMonth() + 1,
+            1
+          )
+        ]);
+      }
+    },
+    [months, setMonths]
+  );
 
   useEffect(() => {
     const options = {
