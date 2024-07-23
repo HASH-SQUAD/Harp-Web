@@ -1,5 +1,5 @@
 // 라이브러리
-import React, { useState, useEffect, useRef } from 'react';
+import React, { useState, useEffect, useRef, useCallback } from 'react';
 
 // 파일
 import * as _ from './style';
@@ -40,21 +40,24 @@ const Calendar = ({
     return day.getMonth() !== currentMonth.getMonth();
   };
 
-  const onClickDay = (day: Date) => {
-    if (isPastDay(day) || isFutureDay(day)) {
-      return;
-    }
+  const onClickDay = useCallback(
+    (day: Date) => {
+      if (isPastDay(day) || isFutureDay(day)) {
+        return;
+      }
 
-    if (!selectedDays.start || selectedDays.end) {
-      setSelectedDays({ start: day, end: null });
-    } else if (isSameDay(day, selectedDays.start)) {
-      setSelectedDays({ start: day, end: day });
-    } else if (day > selectedDays.start) {
-      setSelectedDays({ ...selectedDays, end: day });
-    } else {
-      setSelectedDays({ start: day, end: selectedDays.start });
-    }
-  };
+      if (!selectedDays.start || selectedDays.end) {
+        setSelectedDays({ start: day, end: null });
+      } else if (isSameDay(day, selectedDays.start)) {
+        setSelectedDays({ start: day, end: day });
+      } else if (day > selectedDays.start) {
+        setSelectedDays({ ...selectedDays, end: day });
+      } else {
+        setSelectedDays({ start: day, end: selectedDays.start });
+      }
+    },
+    [selectedDays, setSelectedDays]
+  );
 
   const buildCalendarDays = (): Date[] => {
     const firstDayOfMonth = new Date(
@@ -86,7 +89,7 @@ const Calendar = ({
   const buildCalendarTag = (calendarDays: Date[]): JSX.Element[] => {
     return calendarDays.map((day, i) => {
       const dayOfWeek = day.getDay();
-      const isInvalidDate = isNaN(day.getTime()); // 빈 날짜 체크
+      const isInvalidDate = isNaN(day.getTime());
       const pastDay = !isInvalidDate && isPastDay(day);
       const futureDay = !isInvalidDate && isFutureDay(day);
       const selectedStart =
@@ -125,13 +128,8 @@ const Calendar = ({
   };
 
   const divideWeek = (calendarTags: JSX.Element[]): JSX.Element[][] => {
-    return calendarTags.reduce(
-      (acc: JSX.Element[][], day: JSX.Element, i: number) => {
-        if (i % 7 === 0) acc.push([day]);
-        else acc[acc.length - 1].push(day);
-        return acc;
-      },
-      []
+    return Array.from({ length: Math.ceil(calendarTags.length / 7) }, (_, i) =>
+      calendarTags.slice(i * 7, (i + 1) * 7)
     );
   };
 
