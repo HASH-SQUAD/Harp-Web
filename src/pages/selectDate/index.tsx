@@ -22,14 +22,25 @@ const SelectDate = () => {
     (entities: IntersectionObserverEntry[]) => {
       const target = entities[0];
       if (target.isIntersecting) {
-        setMonths((prevMonth) => [
-          ...prevMonth,
-          new Date(
-            prevMonth[prevMonth.length - 1].getFullYear(),
-            prevMonth[prevMonth.length - 1].getMonth() + 1,
+        setMonths((prevMonths) => {
+          const lastMonth = prevMonths[prevMonths.length - 1];
+          const newMonth = new Date(
+            lastMonth.getFullYear(),
+            lastMonth.getMonth() + 1,
             1
-          )
-        ]);
+          );
+          if (
+            prevMonths.some(
+              (month) =>
+                month.getFullYear() === newMonth.getFullYear() &&
+                month.getMonth() === newMonth.getMonth()
+            )
+          ) {
+            return prevMonths;
+          }
+
+          return [...prevMonths, newMonth];
+        });
       }
     },
     [months, setMonths]
