@@ -7,9 +7,12 @@ import useStatusBarHeight from 'hooks/useStatusBarHeight';
 import Header from 'components/Header';
 import DefaultImg from 'assets/image/DefaultProfile.png';
 import ProfileEdit from 'assets/Icon/ProfileEdit';
+import EmailCopy from 'assets/Icon/EmialCopy';
 
 const Edit = () => {
   const statusBarHeight = useStatusBarHeight();
+  const email = 'abcd1234@gmail.com';
+
   return (
     <_.Edit_Container StatusBarSize={`${statusBarHeight}px`}>
       <Header
@@ -25,6 +28,15 @@ const Edit = () => {
             <ProfileEdit />
           </_.Edit_Profile_Edit>
         </_.Edit_Profile>
+        <_.Edit_Infos>
+          <_.Edit_Info>
+            <_.Edit_Info_Label>이메일</_.Edit_Info_Label>
+            <_.Edit_Info_Email>
+              {email}
+              <EmailCopy onClick={() => {}} />
+            </_.Edit_Info_Email>
+          </_.Edit_Info>
+        </_.Edit_Infos>
       </_.Edit_Content>
     </_.Edit_Container>
   );

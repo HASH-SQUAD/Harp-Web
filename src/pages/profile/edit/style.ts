@@ -34,3 +34,31 @@ export const Edit_Profile_Edit = styled.div`
   bottom: 4px;
   right: -4px;
 `;
+
+export const Edit_Infos = styled.div`
+  width: 100%;
+`;
+
+export const Edit_Info = styled.div`
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+`;
+
+export const Edit_Info_Label = styled.div`
+  color: ${theme.gray[3]};
+  font-size: 16px;
+  font-weight: 400;
+`;
+
+export const Edit_Info_Email = styled.div`
+  width: 100%;
+  padding: 14px 16px;
+  border-radius: 5px;
+  background-color: ${theme.gray[0]};
+  color: ${theme.gray['3.5']};
+  font-size: 18px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+`;
