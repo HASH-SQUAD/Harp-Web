@@ -39,6 +39,17 @@ const Edit = () => {
     [infos, setInfos]
   );
 
+  const handleEmailCopy = useCallback(() => {
+    navigator.clipboard
+      .writeText(initialInfos.email)
+      .then(() => {
+        alert('이메일이 복사되었습니다.');
+      })
+      .catch((err) => {
+        console.error('이메일 복사에 실패했습니다.', err);
+      });
+  }, [initialInfos.email]);
+
   const isFormValid = () => {
     const { username, birthday, gender } = infos;
     return (
@@ -68,7 +79,7 @@ const Edit = () => {
               <_.Edit_Info_Label>이메일</_.Edit_Info_Label>
               <_.Edit_Info_Email>
                 {initialInfos.email}
-                <EmailCopy onClick={() => {}} />
+                <EmailCopy onClick={handleEmailCopy} />
               </_.Edit_Info_Email>
             </_.Edit_Info>
             <_.Edit_Info>
