@@ -1,7 +1,4 @@
-// 라이브러리
 import React, { ChangeEvent, useCallback, useEffect, useState } from 'react';
-
-// 파일
 import * as _ from './style';
 import useStatusBarHeight from 'hooks/useStatusBarHeight';
 import Header from 'components/Header';
@@ -23,6 +20,7 @@ const Edit = () => {
 
   const [infos, setInfos] = useState(initialInfos);
   const [isChanged, setIsChanged] = useState(false);
+  const [profileImage, setProfileImage] = useState(DefaultImg);
 
   const handleInfos = useCallback(
     (e: ChangeEvent<HTMLInputElement>) => {
@@ -52,6 +50,26 @@ const Edit = () => {
       });
   }, [initialInfos.email]);
 
+  const handleProfileEdit = useCallback(() => {
+    const input = document.createElement('input');
+    input.type = 'file';
+    input.accept = 'image/*';
+    input.onchange = (e) => {
+      const target = e.target as HTMLInputElement;
+      if (target && target.files && target.files[0]) {
+        const file = target.files[0];
+        const reader = new FileReader();
+        reader.onload = (e) => {
+          if (e.target && typeof e.target.result === 'string') {
+            setProfileImage(e.target.result);
+          }
+        };
+        reader.readAsDataURL(file);
+      }
+    };
+    input.click();
+  }, []);
+
   const isFormValid = () => {
     const { username, birthday, gender } = infos;
     return (
@@ -72,8 +90,8 @@ const Edit = () => {
         />
         <_.Edit_Content>
           <_.Edit_Profile>
-            <_.Edit_Profile_Img src={DefaultImg} alt="프로필 이미지" />
-            <_.Edit_Profile_Edit>
+            <_.Edit_Profile_Img src={profileImage} alt="프로필 이미지" />
+            <_.Edit_Profile_Edit onClick={handleProfileEdit}>
               <ProfileEdit />
             </_.Edit_Profile_Edit>
           </_.Edit_Profile>
