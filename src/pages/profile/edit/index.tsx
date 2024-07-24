@@ -1,5 +1,5 @@
 // 라이브러리
-import React, { ChangeEvent, InputHTMLAttributes, useState } from 'react';
+import React, { ChangeEvent, useEffect, useState } from 'react';
 
 // 파일
 import * as _ from './style';
@@ -14,19 +14,37 @@ import { formatBirthday } from 'lib/utils/formatBirthday';
 const Edit = () => {
   const statusBarHeight = useStatusBarHeight();
   const email = 'abcd1234@gmail.com';
-  const [infos, setInfos] = useState({
-    nickname: '탐험가 고릴라',
+
+  const initialInfos = {
+    username: '탐험가 고릴라',
     birthday: '2007/07/18',
     gender: '여자'
-  });
+  };
+
+  const [infos, setInfos] = useState(initialInfos);
+  const [isChanged, setIsChanged] = useState(false);
 
   const handleInfos = (e: ChangeEvent<HTMLInputElement>) => {
-    setInfos({ ...infos, [e.currentTarget.name]: e.currentTarget.value });
+    const { name, value } = e.currentTarget;
+    setInfos((prevInfos) => {
+      const newInfos = { ...prevInfos, [name]: value };
+      setIsChanged(JSON.stringify(newInfos) !== JSON.stringify(initialInfos));
+      return newInfos;
+    });
   };
 
   const handleBirthday = (e: ChangeEvent<HTMLInputElement>) => {
     const formattedBirthday = formatBirthday(e.currentTarget.value);
-    setInfos({ ...infos, birthday: formattedBirthday });
+    setInfos((prevInfos) => {
+      const newInfos = { ...prevInfos, birthday: formattedBirthday };
+      setIsChanged(JSON.stringify(newInfos) !== JSON.stringify(initialInfos));
+      return newInfos;
+    });
+  };
+
+  const isFormValid = () => {
+    const { username, birthday, gender } = infos;
+    return username.length >= 2 && birthday && gender;
   };
 
   return (
@@ -56,8 +74,8 @@ const Edit = () => {
             <_.Edit_Info>
               <_.Edit_Info_Label>여행자 닉네임</_.Edit_Info_Label>
               <_.Edit_Info_Input
-                name="nickname"
-                value={infos.nickname}
+                name="username"
+                value={infos.username}
                 onChange={handleInfos}
               />
             </_.Edit_Info>
@@ -80,7 +98,7 @@ const Edit = () => {
           </_.Edit_Infos>
         </_.Edit_Content>
       </_.Edit_Container>
-      <NextButton text="저장하기" state={false} />
+      <NextButton text="저장하기" state={!!isFormValid() && isChanged} />
     </>
   );
 };
