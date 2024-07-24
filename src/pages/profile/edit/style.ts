@@ -74,4 +74,8 @@ export const Edit_Info_Input = styled.input`
   font-size: 18px;
   color: ${theme.sub[3]};
   border-bottom: 1px solid ${theme.gray[2]};
+  &:focus {
+    color: ${theme.gray.black};
+  }
+  caret-color: ${theme.gray['2.5']};
 `;
