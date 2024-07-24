@@ -9,6 +9,7 @@ import DefaultImg from 'assets/image/DefaultProfile.png';
 import ProfileEdit from 'assets/Icon/ProfileEdit';
 import EmailCopy from 'assets/Icon/EmialCopy';
 import NextButton from 'components/NextButton';
+import { formatBirthday } from 'lib/utils/formatBirthday';
 
 const Edit = () => {
   const statusBarHeight = useStatusBarHeight();
@@ -20,7 +21,12 @@ const Edit = () => {
   });
 
   const handleInfos = (e: ChangeEvent<HTMLInputElement>) => {
-    setInfos({ ...infos, [e.target.name]: e.target.value });
+    setInfos({ ...infos, [e.currentTarget.name]: e.currentTarget.value });
+  };
+
+  const handleBirthday = (e: ChangeEvent<HTMLInputElement>) => {
+    const formattedBirthday = formatBirthday(e.currentTarget.value);
+    setInfos({ ...infos, birthday: formattedBirthday });
   };
 
   return (
@@ -60,7 +66,7 @@ const Edit = () => {
               <_.Edit_Info_Input
                 name="birthday"
                 value={infos.birthday}
-                onChange={handleInfos}
+                onChange={handleBirthday}
               />
             </_.Edit_Info>
             <_.Edit_Info>
