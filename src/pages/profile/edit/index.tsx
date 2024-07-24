@@ -13,9 +13,9 @@ import { formatBirthday } from 'lib/utils/formatBirthday';
 
 const Edit = () => {
   const statusBarHeight = useStatusBarHeight();
-  const email = 'abcd1234@gmail.com';
 
   const initialInfos = {
+    email: 'abcd1234@gmail.com',
     username: '탐험가 고릴라',
     birthday: '2007/07/18',
     gender: '여자'
@@ -70,7 +70,7 @@ const Edit = () => {
             <_.Edit_Info>
               <_.Edit_Info_Label>이메일</_.Edit_Info_Label>
               <_.Edit_Info_Email>
-                {email}
+                {initialInfos.email}
                 <EmailCopy onClick={() => {}} />
               </_.Edit_Info_Email>
             </_.Edit_Info>
