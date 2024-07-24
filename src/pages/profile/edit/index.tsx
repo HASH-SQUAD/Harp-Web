@@ -28,7 +28,9 @@ const Edit = () => {
     (e: ChangeEvent<HTMLInputElement>) => {
       const { name, value } = e.currentTarget;
 
-      const newValue = name === 'birthday' ? formatBirthday(value) : value;
+      const trimmedValue = value.trim();
+      const newValue =
+        name === 'birthday' ? formatBirthday(trimmedValue) : trimmedValue;
 
       setInfos((prevInfos) => {
         const newInfos = { ...prevInfos, [name]: newValue };
@@ -53,8 +55,9 @@ const Edit = () => {
   const isFormValid = () => {
     const { username, birthday, gender } = infos;
     return (
-      (username.length >= 2 && birthday && gender === '남자') ||
-      gender === '여자'
+      username.length >= 2 &&
+      birthday &&
+      (gender === '남자' || gender === '여자')
     );
   };
 
