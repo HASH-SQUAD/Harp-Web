@@ -44,7 +44,10 @@ const Edit = () => {
 
   const isFormValid = () => {
     const { username, birthday, gender } = infos;
-    return username.length >= 2 && birthday && gender;
+    return (
+      (username.length >= 2 && birthday && gender === '남자') ||
+      gender === '여자'
+    );
   };
 
   return (
