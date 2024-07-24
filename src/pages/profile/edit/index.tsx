@@ -1,5 +1,5 @@
 // 라이브러리
-import React, { ChangeEvent, useEffect, useState } from 'react';
+import React, { ChangeEvent, useCallback, useEffect, useState } from 'react';
 
 // 파일
 import * as _ from './style';
@@ -24,23 +24,20 @@ const Edit = () => {
   const [infos, setInfos] = useState(initialInfos);
   const [isChanged, setIsChanged] = useState(false);
 
-  const handleInfos = (e: ChangeEvent<HTMLInputElement>) => {
-    const { name, value } = e.currentTarget;
-    setInfos((prevInfos) => {
-      const newInfos = { ...prevInfos, [name]: value };
-      setIsChanged(JSON.stringify(newInfos) !== JSON.stringify(initialInfos));
-      return newInfos;
-    });
-  };
+  const handleInfos = useCallback(
+    (e: ChangeEvent<HTMLInputElement>) => {
+      const { name, value } = e.currentTarget;
 
-  const handleBirthday = (e: ChangeEvent<HTMLInputElement>) => {
-    const formattedBirthday = formatBirthday(e.currentTarget.value);
-    setInfos((prevInfos) => {
-      const newInfos = { ...prevInfos, birthday: formattedBirthday };
-      setIsChanged(JSON.stringify(newInfos) !== JSON.stringify(initialInfos));
-      return newInfos;
-    });
-  };
+      const newValue = name === 'birthday' ? formatBirthday(value) : value;
+
+      setInfos((prevInfos) => {
+        const newInfos = { ...prevInfos, [name]: newValue };
+        setIsChanged(JSON.stringify(newInfos) !== JSON.stringify(initialInfos));
+        return newInfos;
+      });
+    },
+    [infos, setInfos]
+  );
 
   const isFormValid = () => {
     const { username, birthday, gender } = infos;
@@ -87,7 +84,7 @@ const Edit = () => {
               <_.Edit_Info_Input
                 name="birthday"
                 value={infos.birthday}
-                onChange={handleBirthday}
+                onChange={handleInfos}
               />
             </_.Edit_Info>
             <_.Edit_Info>
