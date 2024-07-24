@@ -1,4 +1,4 @@
-import React, { ChangeEvent, useCallback, useEffect, useState } from 'react';
+import React, { ChangeEvent, useCallback, useState } from 'react';
 import * as _ from './style';
 import useStatusBarHeight from 'hooks/useStatusBarHeight';
 import Header from 'components/Header';
@@ -7,6 +7,7 @@ import ProfileEdit from 'assets/Icon/ProfileEdit';
 import EmailCopy from 'assets/Icon/EmialCopy';
 import NextButton from 'components/NextButton';
 import { formatBirthday } from 'lib/utils/formatBirthday';
+import { handleImageEdit } from 'lib/utils/handleImageEdit';
 
 const Edit = () => {
   const statusBarHeight = useStatusBarHeight();
@@ -26,9 +27,7 @@ const Edit = () => {
     (e: ChangeEvent<HTMLInputElement>) => {
       const { name, value } = e.currentTarget;
 
-      const trimmedValue = value.trim();
-      const newValue =
-        name === 'birthday' ? formatBirthday(trimmedValue) : trimmedValue;
+      const newValue = name === 'birthday' ? formatBirthday(value) : value;
 
       setInfos((prevInfos) => {
         const newInfos = { ...prevInfos, [name]: newValue };
@@ -49,26 +48,6 @@ const Edit = () => {
         console.error('이메일 복사에 실패했습니다.', err);
       });
   }, [initialInfos.email]);
-
-  const handleProfileEdit = useCallback(() => {
-    const input = document.createElement('input');
-    input.type = 'file';
-    input.accept = 'image/*';
-    input.onchange = (e) => {
-      const target = e.target as HTMLInputElement;
-      if (target && target.files && target.files[0]) {
-        const file = target.files[0];
-        const reader = new FileReader();
-        reader.onload = (e) => {
-          if (e.target && typeof e.target.result === 'string') {
-            setProfileImage(e.target.result);
-          }
-        };
-        reader.readAsDataURL(file);
-      }
-    };
-    input.click();
-  }, []);
 
   const isFormValid = () => {
     const { username, birthday, gender } = infos;
@@ -91,7 +70,9 @@ const Edit = () => {
         <_.Edit_Content>
           <_.Edit_Profile>
             <_.Edit_Profile_Img src={profileImage} alt="프로필 이미지" />
-            <_.Edit_Profile_Edit onClick={handleProfileEdit}>
+            <_.Edit_Profile_Edit
+              onClick={() => handleImageEdit(setProfileImage)}
+            >
               <ProfileEdit />
             </_.Edit_Profile_Edit>
           </_.Edit_Profile>
