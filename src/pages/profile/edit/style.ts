@@ -37,6 +37,10 @@ export const Edit_Profile_Edit = styled.div`
 
 export const Edit_Infos = styled.div`
   width: 100%;
+  padding-top: 30px;
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
 `;
 
 export const Edit_Info = styled.div`
@@ -61,4 +65,13 @@ export const Edit_Info_Email = styled.div`
   display: flex;
   justify-content: space-between;
   align-items: center;
+`;
+
+export const Edit_Info_Input = styled.input`
+  outline: none;
+  border: none;
+  padding: 14px 10px;
+  font-size: 18px;
+  color: ${theme.sub[3]};
+  border-bottom: 1px solid ${theme.gray[2]};
 `;
