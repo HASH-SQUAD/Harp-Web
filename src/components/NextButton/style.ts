@@ -12,7 +12,6 @@ export const NextButton_Container = styled.div<{ State?: boolean }>`
   bottom: 0;
   background-color: ${(props) =>
     props.State ? theme.primary[7] : theme.gray['2.5']};
-  margin-left: -30px;
   padding-top: 12px;
 `;
 
