@@ -4,7 +4,7 @@ import styled from 'styled-components';
 export const SurveyEnd_Container = styled.div<{ StatusBarSize?: string }>`
   width: 100vw;
   height: 100vh;
-  padding: ${(props) => props.StatusBarSize || '54px'} 30px 52px 30px;
+  padding: ${(props) => props.StatusBarSize || '54px'} 0 52px 0;
   display: flex;
   flex-direction: column;
 `;

@@ -4,11 +4,15 @@ import styled from 'styled-components';
 export const Terms_Container = styled.div<{ StatusBarSize?: string }>`
   width: 100vw;
   height: 100vh;
-  padding: ${(props) => props.StatusBarSize || '54px'} 30px 0 30px;
+  padding: /*${(props) => props.StatusBarSize || '54px'}*/ 54px 0 0 0;
   display: flex;
   width: 100%;
   height: 100%;
   flex-direction: column;
+`;
+
+export const Terms_Content = styled.div`
+  padding: 0 20px;
 `;
 
 export const Terms_Title = styled.div`
