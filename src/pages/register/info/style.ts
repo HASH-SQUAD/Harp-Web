@@ -6,7 +6,7 @@ export const Info_Container = styled.div<{ StatusBarSize?: string }>`
   height: 100vh;
   position: fixed;
   overflow: hidden;
-  padding: ${(props) => props.StatusBarSize || '54px'} 0 0 0;
+  padding-top: ${(props) => props.StatusBarSize || '54px'};
   display: flex;
   width: 100%;
   height: 100%;

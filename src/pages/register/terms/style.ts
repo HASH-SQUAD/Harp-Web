@@ -4,7 +4,7 @@ import styled from 'styled-components';
 export const Terms_Container = styled.div<{ StatusBarSize?: string }>`
   width: 100vw;
   height: 100vh;
-  padding: /*${(props) => props.StatusBarSize || '54px'}*/ 54px 0 0 0;
+  padding-top: /*${(props) => props.StatusBarSize || '54px'}*/ 54px;
   display: flex;
   width: 100%;
   height: 100%;
