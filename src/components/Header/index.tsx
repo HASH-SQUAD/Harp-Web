@@ -20,7 +20,7 @@ interface HeaderProps {
 
 const Header = ({
   title = '',
-  buttonState = '',
+  buttonState = ' ',
   isOnChatting = false,
   onClickMethod = () => {},
   buttonColor = ''
