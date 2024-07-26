@@ -58,12 +58,7 @@ const Edit = () => {
   return (
     <>
       <_.Edit_Container StatusBarSize={`${statusBarHeight}px`}>
-        <Header
-          title="회원 정보 수정"
-          buttonState=""
-          isOnChatting={false}
-          onClickMethod={() => {}}
-        />
+        <Header title="회원 정보 수정" />
         <_.Edit_Content>
           <_.Edit_Profile>
             <_.Edit_Profile_Img src={profileImage} alt="프로필 이미지" />
