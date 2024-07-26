@@ -7,19 +7,22 @@ import BackIcon from 'assets/image/BackIcon';
 import ProgressBar1 from 'assets/image/ProgressBar1';
 import ProgressBar2 from 'assets/image/ProgressBar2';
 import ProgressBar3 from 'assets/image/ProgressBar3';
+import { theme } from 'lib/utils/style/theme';
 
 interface HeaderProps {
   title?: string;
   buttonState?: string;
   isOnChatting?: boolean;
   onClickMethod?: () => void;
+  buttonColor?: string;
 }
 
 const Header = ({
   title = '',
   buttonState = '',
   isOnChatting = false,
-  onClickMethod = () => {}
+  onClickMethod = () => {},
+  buttonColor = ''
 }: HeaderProps) => {
   let progressBar;
   if (title === '1') {
@@ -43,7 +46,14 @@ const Header = ({
       )}
 
       {buttonState && (
-        <_.Header_Button onClick={onClickMethod}>{buttonState}</_.Header_Button>
+        <_.Header_Button
+          onClick={onClickMethod}
+          ButtonColor={
+            buttonColor === 'purple' ? theme.primary[7] : theme.sub.red
+          }
+        >
+          {buttonState}
+        </_.Header_Button>
       )}
     </_.Header_Container>
   );

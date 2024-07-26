@@ -39,8 +39,8 @@ export const Header_Title = styled.div`
   transform: translateX(-50%);
 `;
 
-export const Header_Button = styled.div`
-  color: ${theme.sub.red};
+export const Header_Button = styled.div<{ ButtonColor?: string }>`
+  color: ${(props) => props.ButtonColor};
   font-size: 15px;
   font-weight: 500;
   position: absolute;
