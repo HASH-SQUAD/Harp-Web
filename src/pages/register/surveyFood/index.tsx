@@ -41,49 +41,41 @@ const SurveyFood = () => {
   }, [checkState]);
 
   return (
-    <_.SurveyFood_Container StatusBarSize={`${statusBarHeight}px`}>
-      <Header
-        title="2"
-        buttonState=""
-        isOnChatting={false}
-        onClickMethod={() => {
-          return;
-        }}
-      />
+    <>
+      <_.SurveyFood_Container StatusBarSize={`${statusBarHeight}px`}>
+        <Header title="2" />
+        <_.SurveyFood_ProgressText>2/3</_.SurveyFood_ProgressText>
+        <_.SurveyFood_MainText>
+          당신의 음식 취향을
+          <br />
+          알려주세요.
+          <_.SurveyFood_SubText>
+            최대 2개까지 선택할 수 있어요!
+          </_.SurveyFood_SubText>
+        </_.SurveyFood_MainText>
 
-      <_.SurveyFood_ProgressText>2/3</_.SurveyFood_ProgressText>
+        <_.SurveyFood_Contents>
+          {SurveyFoodData.map((item) => {
+            const currentItem = checkState.find(
+              (stateItem) => stateItem.id === item.id
+            );
+            const state = currentItem ? currentItem.state : false;
 
-      <_.SurveyFood_MainText>
-        당신의 음식 취향을
-        <br />
-        알려주세요.
-        <_.SurveyFood_SubText>
-          최대 2개까지 선택할 수 있어요!
-        </_.SurveyFood_SubText>
-      </_.SurveyFood_MainText>
-
-      <_.SurveyFood_Contents>
-        {SurveyFoodData.map((item) => {
-          const currentItem = checkState.find(
-            (stateItem) => stateItem.id === item.id
-          );
-          const state = currentItem ? currentItem.state : false;
-
-          return (
-            <SurveyContent
-              key={item.id}
-              width={150}
-              text={item.text}
-              img={item.img}
-              state={state}
-              onClick={() => handleToggle(item.id)}
-            />
-          );
-        })}
-      </_.SurveyFood_Contents>
-
+            return (
+              <SurveyContent
+                key={item.id}
+                width={150}
+                text={item.text}
+                img={item.img}
+                state={state}
+                onClick={() => handleToggle(item.id)}
+              />
+            );
+          })}
+        </_.SurveyFood_Contents>
+      </_.SurveyFood_Container>
       <NextButton text="다음" state={nextButtonState} />
-    </_.SurveyFood_Container>
+    </>
   );
 };
 
