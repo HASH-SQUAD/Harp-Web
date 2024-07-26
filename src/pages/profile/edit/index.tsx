@@ -23,20 +23,17 @@ const Edit = () => {
   const [isChanged, setIsChanged] = useState(false);
   const [profileImage, setProfileImage] = useState(DefaultImg);
 
-  const handleInfos = useCallback(
-    (e: ChangeEvent<HTMLInputElement>) => {
-      const { name, value } = e.currentTarget;
+  const handleInfos = useCallback((e: ChangeEvent<HTMLInputElement>) => {
+    const { name, value } = e.currentTarget;
 
-      const newValue = name === 'birthday' ? formatBirthday(value) : value;
+    const newValue = name === 'birthday' ? formatBirthday(value) : value;
 
-      setInfos((prevInfos) => {
-        const newInfos = { ...prevInfos, [name]: newValue };
-        setIsChanged(JSON.stringify(newInfos) !== JSON.stringify(initialInfos));
-        return newInfos;
-      });
-    },
-    [infos, setInfos]
-  );
+    setInfos((prevInfos) => {
+      const newInfos = { ...prevInfos, [name]: newValue };
+      setIsChanged(JSON.stringify(newInfos) !== JSON.stringify(initialInfos));
+      return newInfos;
+    });
+  }, []);
 
   const handleEmailCopy = useCallback(() => {
     navigator.clipboard
