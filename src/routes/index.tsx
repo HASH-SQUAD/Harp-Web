@@ -13,6 +13,7 @@ import SurveryTMI from 'pages/register/surveyTMI';
 import Chat from 'pages/chat';
 import NotFound from 'pages/notfound';
 import SelectDate from 'pages/selectDate';
+import Edit from 'pages/profile/edit';
 
 export default function Router() {
   return useRoutes([
@@ -38,6 +39,10 @@ export default function Router() {
         { path: 'surveymbti', element: <SurveyMBTI /> },
         { path: 'surveytmi', element: <SurveryTMI /> }
       ]
+    },
+    {
+      path: '/profile',
+      children: [{ path: 'edit', element: <Edit /> }]
     }
   ]);
 }

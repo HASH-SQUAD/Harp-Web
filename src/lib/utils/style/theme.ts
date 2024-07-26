@@ -33,7 +33,7 @@ export const theme = {
     0: '#FAFBFB',
     1: '#F2F4F6',
     2: '#D9DFE0',
-    3: '#1A1E27',
+    3: '#7B7B7B',
     4: '#505866'
   }
 };
