@@ -8,6 +8,7 @@ import ProgressBar1 from 'assets/image/ProgressBar1';
 import ProgressBar2 from 'assets/image/ProgressBar2';
 import ProgressBar3 from 'assets/image/ProgressBar3';
 import { theme } from 'lib/utils/style/theme';
+import { useNavigate } from 'react-router-dom';
 
 interface HeaderProps {
   title?: string;
@@ -33,9 +34,15 @@ const Header = ({
     progressBar = <ProgressBar3 />;
   }
 
+  const navigate = useNavigate();
+
+  const handleBackIcon = () => {
+    navigate(-1);
+  };
+
   return (
     <_.Header_Container isOnChatting={isOnChatting}>
-      <_.Header_BackIcon>
+      <_.Header_BackIcon onClick={handleBackIcon}>
         <BackIcon />
       </_.Header_BackIcon>
 
