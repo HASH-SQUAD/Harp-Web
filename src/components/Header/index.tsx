@@ -9,17 +9,17 @@ import ProgressBar2 from 'assets/image/ProgressBar2';
 import ProgressBar3 from 'assets/image/ProgressBar3';
 
 interface HeaderProps {
-  title: string;
-  buttonState: string;
-  isOnChatting: boolean;
-  onClickMethod: () => void;
+  title?: string;
+  buttonState?: string;
+  isOnChatting?: boolean;
+  onClickMethod?: () => void;
 }
 
 const Header = ({
   title = '',
   buttonState = '',
   isOnChatting = false,
-  onClickMethod
+  onClickMethod = () => {}
 }: HeaderProps) => {
   let progressBar;
   if (title === '1') {
