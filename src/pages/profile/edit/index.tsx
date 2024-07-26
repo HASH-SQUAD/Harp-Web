@@ -49,14 +49,14 @@ const Edit = () => {
       });
   }, [initialInfos.email]);
 
-  const isFormValid = () => {
+  const isFormValid = useCallback(() => {
     const { username, birthday, gender } = infos;
     return (
       username.length >= 2 &&
       birthday &&
       (gender === '남자' || gender === '여자')
     );
-  };
+  }, [infos]);
 
   return (
     <>
