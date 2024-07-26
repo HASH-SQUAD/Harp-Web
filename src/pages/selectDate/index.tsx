@@ -1,4 +1,7 @@
+// 라이브러리
 import React, { useState, useRef, useEffect, useCallback } from 'react';
+
+// 파일
 import * as _ from './style';
 import useStatusBarHeight from 'hooks/useStatusBarHeight';
 import Header from 'components/Header';
@@ -66,23 +69,18 @@ const SelectDate = () => {
   return (
     <>
       <_.SelectDate_Container StatusBarSize={`${statusBarHeight}px`}>
-        <Header
-          title=""
-          buttonState=""
-          isOnChatting={false}
-          onClickMethod={() => {}}
-        />
-        <_.SelectDate_Title>여행 날짜를 선택해주세요</_.SelectDate_Title>
+        <Header />
         <_.SelectDate_Months>
-          {months.map((month, index) => (
-            <Calendar
-              key={index}
-              selectedDays={selectedDays}
-              setSelectedDays={setSelectedDays}
-              currentMonth={month}
-            />
-          ))}
-          <div ref={loader} />
+        <_.SelectDate_Title>여행 날짜를 선택해주세요</_.SelectDate_Title>
+        {months.map((month, index) => (
+          <Calendar
+            key={index}
+            selectedDays={selectedDays}
+            setSelectedDays={setSelectedDays}
+            currentMonth={month}
+          />
+        ))}
+        <div ref={loader} />
         </_.SelectDate_Months>
       </_.SelectDate_Container>
       <NextButton

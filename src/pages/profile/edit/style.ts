@@ -2,7 +2,7 @@ import { theme } from 'lib/utils/style/theme';
 import styled from 'styled-components';
 
 export const Edit_Container = styled.div<{ StatusBarSize?: string }>`
-  padding: /* ${(props) => props.StatusBarSize || '54px'} */ 54px 30px 0 30px;
+  padding: /* ${(props) => props.StatusBarSize || '54px'} */ 54px 0 0 0;
   width: 100vw;
   height: 100vh;
   display: flex;
@@ -12,8 +12,8 @@ export const Edit_Container = styled.div<{ StatusBarSize?: string }>`
 export const Edit_Content = styled.div`
   width: 100%;
   height: 100%;
+  padding: 20px 20px 0 20px;
   display: flex;
-  padding-top: 20px;
   flex-direction: column;
   align-items: center;
 `;

@@ -2,11 +2,15 @@ import { theme } from 'lib/utils/style/theme';
 import styled from 'styled-components';
 
 export const SurveyStyle_Container = styled.div<{ StatusBarSize?: string }>`
-  padding: ${(props) => props.StatusBarSize || '54px'} 30px 52px 30px;
+  padding: ${(props) => props.StatusBarSize || '54px'} 0 52px 0;
   display: flex;
   width: 100vw;
   height: 100vh;
   flex-direction: column;
+`;
+
+export const SurveyStyle_Content = styled.div`
+  padding: 0 20px;
 `;
 
 export const SurveyStyle_ProgressText = styled.div`

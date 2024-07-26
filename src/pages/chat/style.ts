@@ -9,10 +9,6 @@ export const Chat_Container = styled.div<{ StatusBarSize?: string }>`
   flex-direction: column;
 `;
 
-export const Chat_Header = styled.div`
-  padding: 0 30px 0 30px;
-`;
-
 export const Chat_Content = styled.div`
   width: 100%;
   height: 100%;

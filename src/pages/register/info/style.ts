@@ -6,11 +6,15 @@ export const Info_Container = styled.div<{ StatusBarSize?: string }>`
   height: 100vh;
   position: fixed;
   overflow: hidden;
-  padding: ${(props) => props.StatusBarSize || '54px'} 30px 0 30px;
+  padding: ${(props) => props.StatusBarSize || '54px'} 0 0 0;
   display: flex;
   width: 100%;
   height: 100%;
   flex-direction: column;
+`;
+
+export const Info_Content = styled.div`
+  padding: 0 20px;
 `;
 
 export const Info_Title_Layout = styled.div`

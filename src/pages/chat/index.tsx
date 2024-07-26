@@ -45,9 +45,7 @@ const Chat = () => {
 
   return (
     <_.Chat_Container StatusBarSize={`${statusBarHeight}px`}>
-      <_.Chat_Header>
-        <Header title="AI 디토" isOnChatting={true} />
-      </_.Chat_Header>
+      <Header title="AI 디토" isOnChatting={true} />
       <_.Chat_Messages>
         {ChatContent.map((item, index) => (
           <MessageBox
