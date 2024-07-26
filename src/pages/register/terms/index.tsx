@@ -5,7 +5,7 @@ import Header from 'components/Header';
 import FalseCircleCheck from 'assets/image/FalseCircleCheck';
 import TrueCircleCheck from 'assets/image/TrueCircleCheck';
 import TermsContent from 'components/TermsContent';
-import TermsData from '../../data/Terms';
+import TermsData from 'data/Terms';
 import NextButton from 'components/NextButton';
 
 interface CheckState {
