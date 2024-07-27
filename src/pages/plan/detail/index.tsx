@@ -21,20 +21,32 @@ const Detail = () => {
   const [planDetailImage, setPlanDetailImage] = useState(planInfos.image);
 
   return (
-    <_.PlanDetail_Layout StatusBarSize={`${statusBarHeight}px`}>
+    <_.Detail_Layout StatusBarSize={`${statusBarHeight}px`}>
       <Header title="일정" buttonState="닫기" />
-      <_.PlanDetail_Header BackgroundImage={planDetailImage}>
-        <_.PlanDetail_Title>{planInfos.title}</_.PlanDetail_Title>
-        <_.PlanDetail_DDay>{calculateDDay(planInfos.date)}</_.PlanDetail_DDay>
-        <_.PlanDetail_Camera
+      <_.Detail_Header BackgroundImage={planDetailImage}>
+        <_.Detail_Title>{planInfos.title}</_.Detail_Title>
+        <_.Detail_DDay>{calculateDDay(planInfos.date)}</_.Detail_DDay>
+        <_.Detail_Camera
           onClick={() => {
             handleImageEdit(setPlanDetailImage);
           }}
         >
           <Camera />
-        </_.PlanDetail_Camera>
-      </_.PlanDetail_Header>
-    </_.PlanDetail_Layout>
+        </_.Detail_Camera>
+      </_.Detail_Header>
+      <_.Detail_Content>
+        <_.Detail_Nav>
+          <_.Detail_Duration>
+            24.08.08~24.08.09(1박 2일)
+          </_.Detail_Duration>
+          <_.Detail_Buttons>
+            <_.Detail_Button>수정</_.Detail_Button>
+            <_.Detail_Button>|</_.Detail_Button>
+            <_.Detail_Button>삭제</_.Detail_Button>
+          </_.Detail_Buttons>
+        </_.Detail_Nav>
+      </_.Detail_Content>
+    </_.Detail_Layout>
   );
 };
 
