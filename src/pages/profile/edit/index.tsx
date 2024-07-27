@@ -13,6 +13,7 @@ const Edit = () => {
   const statusBarHeight = useStatusBarHeight();
 
   const initialInfos = {
+    profileImage: DefaultImg,
     email: 'abcd1234@gmail.com',
     username: '탐험가 고릴라',
     birthday: '2007/07/18',
@@ -21,7 +22,7 @@ const Edit = () => {
 
   const [infos, setInfos] = useState(initialInfos);
   const [isChanged, setIsChanged] = useState(false);
-  const [profileImage, setProfileImage] = useState(DefaultImg);
+  const [profileImage, setProfileImage] = useState(initialInfos.profileImage);
 
   const handleInfos = useCallback((e: ChangeEvent<HTMLInputElement>) => {
     const { name, value } = e.currentTarget;
