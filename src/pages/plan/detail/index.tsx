@@ -9,10 +9,11 @@ import PlanDetail from 'assets/image/PlanDetail.png';
 import Camera from 'assets/Icon/Camera';
 import calculateDDay from 'lib/utils/D-Day';
 import { handleImageEdit } from 'lib/utils/handleImageEdit';
+import { planInfos } from 'types/planInfos';
 
 const Detail = () => {
   const statusBarHeight = useStatusBarHeight();
-  const planInfos = {
+  const planInfos: planInfos = {
     image: PlanDetail,
     title: '가나다라마바사',
     date: '2024-08-08'
