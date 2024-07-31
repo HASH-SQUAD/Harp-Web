@@ -6,7 +6,7 @@ import Home from 'pages/home';
 import NotFound from 'pages/notfound';
 // register
 import Terms from 'pages/register/terms';
-import Info from 'pages/register/info';
+import UserInfo from 'pages/register/userinfo';
 import SurveyStyle from 'pages/register/surveyStyle';
 import SurveyFood from 'pages/register/surveyFood';
 import SurveyMBTI from 'pages/register/surveyMBTI';
@@ -15,7 +15,7 @@ import SurveyEnd from 'pages/register/surveyEnd';
 // plan
 import Chat from 'pages/plan/chat';
 import SelectDate from 'pages/plan/selectDate';
-import Detail from 'pages/plan/detail';
+import Info from 'pages/plan/info';
 // profile
 import Edit from 'pages/profile/edit';
 
@@ -34,7 +34,7 @@ export default function Router() {
       path: '/register',
       children: [
         { path: 'terms', element: <Terms /> },
-        { path: 'info', element: <Info /> },
+        { path: 'info', element: <UserInfo /> },
         { path: 'surveystyle', element: <SurveyStyle /> },
         { path: 'surveyfood', element: <SurveyFood /> },
         { path: 'surveymbti', element: <SurveyMBTI /> },
@@ -47,7 +47,7 @@ export default function Router() {
       children: [
         { path: 'chat', element: <Chat /> },
         { path: 'selectdate', element: <SelectDate /> },
-        { path: 'detail/:id', element: <Detail /> }
+        { path: 'info/:id', element: <Info /> }
       ]
     },
     {
