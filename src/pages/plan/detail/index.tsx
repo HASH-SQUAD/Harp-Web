@@ -10,6 +10,7 @@ import Camera from 'assets/Icon/Camera';
 import calculateDDay from 'lib/utils/D-Day';
 import { handleImageEdit } from 'lib/utils/handleImageEdit';
 import { planInfos } from 'types/planInfos';
+import KebabMenu from 'assets/Icon/KebabMenu';
 
 const Detail = () => {
   const statusBarHeight = useStatusBarHeight();
@@ -36,14 +37,8 @@ const Detail = () => {
       </_.Detail_Header>
       <_.Detail_Content>
         <_.Detail_Nav>
-          <_.Detail_Duration>
-            24.08.08~24.08.09(1박 2일)
-          </_.Detail_Duration>
-          <_.Detail_Buttons>
-            <_.Detail_Button>수정</_.Detail_Button>
-            <_.Detail_Button>|</_.Detail_Button>
-            <_.Detail_Button>삭제</_.Detail_Button>
-          </_.Detail_Buttons>
+          <_.Detail_Duration>24.08.08~24.08.09(1박 2일)</_.Detail_Duration>
+          <KebabMenu />
         </_.Detail_Nav>
       </_.Detail_Content>
     </_.Detail_Layout>

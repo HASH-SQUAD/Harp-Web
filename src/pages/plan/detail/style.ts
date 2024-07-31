@@ -63,14 +63,4 @@ export const Detail_Duration = styled.p`
   font-weight: 500;
 `;
 
-export const Detail_Buttons = styled.div`
-  display: flex;
-  gap: 3px;
-`;
-
-export const Detail_Button = styled.p`
-  color: ${theme.gray[3]};
-  font-size: 13px;
-  font-weight: 400;
-`;
-
+export const Detail_Plans = styled.div``;
