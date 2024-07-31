@@ -96,6 +96,6 @@ export const Info_GoToMap = styled.p`
   color: ${theme.gray[3]};
   font-size: 14px;
   font-weight: 400;
-  top: 20px;
-  right: 0;
+  top: 13px;
+  right: 7px;
 `;

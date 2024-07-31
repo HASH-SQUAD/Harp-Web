@@ -1,6 +1,10 @@
 import React from 'react';
 
-const KebabMenu = () => {
+interface KebabMenuProps {
+  onClick: () => void;
+}
+
+const KebabMenu = ({ onClick }: KebabMenuProps) => {
   return (
     <svg
       xmlns="http://www.w3.org/2000/svg"
@@ -8,6 +12,7 @@ const KebabMenu = () => {
       height="16"
       viewBox="0 0 3 16"
       fill="none"
+      onClick={onClick}
     >
       <circle cx="1.5" cy="2" r="1.5" fill="#BCBCBC" />
       <circle cx="1.5" cy="8" r="1.5" fill="#BCBCBC" />

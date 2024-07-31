@@ -11,6 +11,7 @@ import calculateDDay from 'lib/utils/D-Day';
 import { handleImageEdit } from 'lib/utils/handleImageEdit';
 import { planInfos } from 'types/planInfos';
 import KebabMenu from 'assets/Icon/KebabMenu';
+import ControlModal from 'components/Modals/ControlModal';
 
 const Info = () => {
   const statusBarHeight = useStatusBarHeight();
@@ -20,6 +21,11 @@ const Info = () => {
     date: '2024-08-08'
   };
   const [planInfoImage, setPlanInfoImage] = useState(planInfos.image);
+  const [isModal, setIsModal] = useState(false);
+
+  const handleCloseModal = () => {
+    setIsModal(false);
+  };
 
   return (
     <_.Info_Layout StatusBarSize={`${statusBarHeight}px`}>
@@ -38,7 +44,12 @@ const Info = () => {
       <_.Info_Content>
         <_.Info_Nav>
           <_.Info_Duration>24.08.08~24.08.09(1박 2일)</_.Info_Duration>
-          <KebabMenu />
+          <KebabMenu
+            onClick={() => {
+              setIsModal(true);
+            }}
+          />
+          {isModal && <ControlModal onClose={handleCloseModal} />}
         </_.Info_Nav>
         <_.Info_DetailList>
           <_.Info_Times>
