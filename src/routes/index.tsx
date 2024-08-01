@@ -34,7 +34,7 @@ export default function Router() {
       path: '/register',
       children: [
         { path: 'terms', element: <Terms /> },
-        { path: 'info', element: <UserInfo /> },
+        { path: 'userinfo', element: <UserInfo /> },
         { path: 'surveystyle', element: <SurveyStyle /> },
         { path: 'surveyfood', element: <SurveyFood /> },
         { path: 'surveymbti', element: <SurveyMBTI /> },
