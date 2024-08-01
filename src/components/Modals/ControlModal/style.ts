@@ -4,7 +4,7 @@ import styled from 'styled-components';
 export const ControlModal_Layout = styled.div`
   position: absolute;
   right: 1.25rem;
-  top: 21rem;
+  top: 17.5rem;
   z-index: 10;
   padding: 8px 10px;
   background-color: ${theme.gray.white};

@@ -1,0 +1,30 @@
+// 라이브러리
+import React, { useState } from 'react';
+
+// 파일
+import * as _ from './style';
+import Minus from 'assets/Icon/Minus';
+
+const DayPlan = () => {
+  const [isUpdated, setIsUpdated] = useState(false);
+
+  return (
+    <_.DayPlan_Layout>
+      <_.DayPlan_Left>
+        <_.DayPlan_TimeLabel>오전 11시</_.DayPlan_TimeLabel>
+        <_.DayPlan_Step>1</_.DayPlan_Step>
+      </_.DayPlan_Left>
+      <_.DayPlan_Right>
+        <_.DayPlan_Activity>만나기</_.DayPlan_Activity>
+        <_.DayPlan_StoreName>오시리아역</_.DayPlan_StoreName>
+        {isUpdated && (
+          <_.DayPlan_Delete>
+            <Minus />
+          </_.DayPlan_Delete>
+        )}
+      </_.DayPlan_Right>
+    </_.DayPlan_Layout>
+  );
+};
+
+export default DayPlan;

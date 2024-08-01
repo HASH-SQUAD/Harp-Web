@@ -12,6 +12,7 @@ import { handleImageEdit } from 'lib/utils/handleImageEdit';
 import { planInfos } from 'types/planInfos';
 import KebabMenu from 'assets/Icon/KebabMenu';
 import ControlModal from 'components/Modals/ControlModal';
+import DayPlan from 'components/DayPlan';
 
 const Info = () => {
   const statusBarHeight = useStatusBarHeight();
@@ -51,13 +52,17 @@ const Info = () => {
           />
           {isModal && <ControlModal onClose={handleCloseModal} />}
         </_.Info_Nav>
-        <_.Info_DetailList>
+        <_.Info_Schedule>
           <_.Info_Times>
             <_.Info_WhatDay>1일차</_.Info_WhatDay>
             <_.Info_Date>23.11.29</_.Info_Date>
           </_.Info_Times>
+          <_.Info_Line />
           <_.Info_GoToMap>지도로 보기</_.Info_GoToMap>
-        </_.Info_DetailList>
+          <_.Info_DetailList>
+            <DayPlan />
+          </_.Info_DetailList>
+        </_.Info_Schedule>
       </_.Info_Content>
     </_.Info_Layout>
   );

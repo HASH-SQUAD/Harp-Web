@@ -2,7 +2,7 @@ import { theme } from 'lib/utils/style/theme';
 import styled from 'styled-components';
 
 export const Info_Layout = styled.div<{ StatusBarSize?: string }>`
-  padding-top: /* ${(props) => props.StatusBarSize || '54px'} */ 54px;
+  /* padding-top: ${(props) => props.StatusBarSize || '54px'} 54px; */
   display: flex;
   width: 100vw;
   height: 100vh;
@@ -41,7 +41,6 @@ export const Info_DDay = styled.div`
   color: ${theme.gray.white};
   font-size: 44px;
   font-weight: 600;
-  letter-spacing: 0.2px;
   align-self: self-end;
 `;
 
@@ -49,6 +48,7 @@ export const Info_Content = styled.div`
   display: flex;
   flex-direction: column;
   padding: 15px 20px 0 20px;
+  width: 100%;
 `;
 
 export const Info_Nav = styled.div`
@@ -59,13 +59,13 @@ export const Info_Nav = styled.div`
 
 export const Info_Duration = styled.p`
   color: ${theme.gray.black};
-  font-size: 16px;
+  font-size: 18px;
   font-weight: 500;
 `;
 
-export const Info_DetailList = styled.div`
+export const Info_Schedule = styled.div`
   position: relative;
-  padding: 10px 20px 0 20px;
+  padding-top: 20px;
   width: 100%;
   height: 100%;
   display: flex;
@@ -77,11 +77,12 @@ export const Info_Times = styled.div`
   display: flex;
   flex-direction: column;
   align-items: center;
+  padding-left: 10px;
 `;
 
 export const Info_WhatDay = styled.div`
   color: ${theme.gray.black};
-  font-size: 16px;
+  font-size: 18px;
   font-weight: 500;
 `;
 
@@ -89,6 +90,21 @@ export const Info_Date = styled.div`
   color: ${theme.gray[3]};
   font-size: 13px;
   font-weight: 400;
+`;
+
+export const Info_Line = styled.div`
+  position: absolute;
+  left: 88px;
+  width: 2px;
+  z-index: -1;
+  height: calc(75px + 100px * 1);
+  border-radius: 5px;
+  background: ${theme.gray[1]};
+`;
+
+export const Info_DetailList = styled.div`
+  padding: 20px 0 0 12px;
+  width: 100%;
 `;
 
 export const Info_GoToMap = styled.p`
