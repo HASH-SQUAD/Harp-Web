@@ -5,6 +5,7 @@ import React, { useState } from 'react';
 import * as _ from './style';
 import Minus from 'assets/Icon/Minus';
 import { schedule } from 'types/schedule';
+import { formatTime } from 'lib/utils/formatTime';
 
 interface DayPlanProps {
   day: schedule[];
@@ -23,7 +24,7 @@ const DayPlan = ({ day, dayIndex }: DayPlanProps) => {
       {day.map((plan, index) => (
         <_.DayPlan_Content key={index}>
           <_.DayPlan_Left>
-            <_.DayPlan_TimeLabel>{plan.time}</_.DayPlan_TimeLabel>
+            <_.DayPlan_TimeLabel>{formatTime(plan.time)}</_.DayPlan_TimeLabel>
             <_.DayPlan_Step>{index + 1}</_.DayPlan_Step>
           </_.DayPlan_Left>
           <_.DayPlan_Right>
