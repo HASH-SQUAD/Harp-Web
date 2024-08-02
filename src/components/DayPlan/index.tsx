@@ -8,13 +8,12 @@ import { schedule } from 'types/schedule';
 import { formatTime } from 'lib/utils/formatTime';
 
 interface DayPlanProps {
+  isUpdated: boolean;
   day: schedule[];
   dayIndex: number;
 }
 
-const DayPlan = ({ day, dayIndex }: DayPlanProps) => {
-  const [isUpdated, setIsUpdated] = useState(false);
-
+const DayPlan = ({ isUpdated, day, dayIndex }: DayPlanProps) => {
   return (
     <_.DayPlan_Layout>
       <_.DayPlan_Times>

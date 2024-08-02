@@ -24,6 +24,7 @@ const Info = () => {
   };
   const [planInfoImage, setPlanInfoImage] = useState(planInfos.image);
   const [isModal, setIsModal] = useState(false);
+  const [isUpdated, setIsUpdated] = useState(false);
 
   const handleCloseModal = () => {
     setIsModal(false);
@@ -61,7 +62,12 @@ const Info = () => {
               return (
                 <_.Info_Date key={index}>
                   <_.Info_Line height={lineHeight} />
-                  <DayPlan key={index} day={day} dayIndex={index + 1} />
+                  <DayPlan
+                    isUpdated={isUpdated}
+                    key={index}
+                    day={day}
+                    dayIndex={index + 1}
+                  />
                 </_.Info_Date>
               );
             })}
