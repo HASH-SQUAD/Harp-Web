@@ -104,3 +104,15 @@ export const Info_GoToMap = styled.p`
   top: 13px;
   right: 7px;
 `;
+
+export const Info_Add_Schedule = styled.div`
+  position: fixed;
+  background-color: ${theme.primary[7]};
+  border-radius: 100%;
+  padding: 12px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  right: 20px;
+  bottom: 50px;
+`;

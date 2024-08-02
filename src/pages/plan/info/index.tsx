@@ -14,6 +14,7 @@ import KebabMenu from 'assets/Icon/KebabMenu';
 import ControlModal from 'components/Modals/ControlModal';
 import DayPlan from 'components/DayPlan';
 import { TripSchedule } from 'data/TripSchedule';
+import Plus from 'assets/Icon/Plus';
 
 const Info = () => {
   const statusBarHeight = useStatusBarHeight();
@@ -74,6 +75,9 @@ const Info = () => {
           </_.Info_DetailList>
         </_.Info_Schedule>
       </_.Info_Content>
+      <_.Info_Add_Schedule>
+        <Plus />
+      </_.Info_Add_Schedule>
     </_.Info_Layout>
   );
 };
