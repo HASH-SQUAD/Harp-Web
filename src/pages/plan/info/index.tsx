@@ -13,6 +13,7 @@ import { planInfos } from 'types/planInfos';
 import KebabMenu from 'assets/Icon/KebabMenu';
 import ControlModal from 'components/Modals/ControlModal';
 import DayPlan from 'components/DayPlan';
+import { TripSchedule } from 'data/TripSchedule';
 
 const Info = () => {
   const statusBarHeight = useStatusBarHeight();
@@ -56,7 +57,9 @@ const Info = () => {
           <_.Info_Line />
           <_.Info_GoToMap>지도로 보기</_.Info_GoToMap>
           <_.Info_DetailList>
-            <DayPlan />
+            {TripSchedule.map((day, index) => (
+              <DayPlan key={index} day={day} dayIndex={index + 1} />
+            ))}
           </_.Info_DetailList>
         </_.Info_Schedule>
       </_.Info_Content>
