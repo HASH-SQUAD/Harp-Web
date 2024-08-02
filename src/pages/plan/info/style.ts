@@ -74,24 +74,26 @@ export const Info_Schedule = styled.div`
   align-items: start;
 `;
 
-
-export const Info_Line = styled.div`
-  position: absolute;
-  left: 88px;
-  width: 2px;
-  z-index: -1;
-  height: calc(75px + 115px * 1);
-  border-radius: 5px;
-  background: ${theme.gray[1]};
-`;
-
 export const Info_DetailList = styled.div`
-  padding: 0 0 20px 12px;
+  padding: 0 0 20px 17px;
   width: 100%;
   display: flex;
   flex-direction: column;
   justify-content: space-between;
-  gap: 28px;
+  gap: 9px;
+`;
+
+export const Info_Line = styled.div<{ height?: number }>`
+  position: absolute;
+  left: 79px;
+  width: 2px;
+  z-index: -1;
+  height: ${(props) => props.height}px;
+  border-radius: 5px;
+  background: ${theme.gray[1]};
+`;
+export const Info_Date = styled.div`
+  position: relative;
 `;
 
 export const Info_GoToMap = styled.p`

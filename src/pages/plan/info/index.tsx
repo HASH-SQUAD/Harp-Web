@@ -54,12 +54,17 @@ const Info = () => {
           {isModal && <ControlModal onClose={handleCloseModal} />}
         </_.Info_Nav>
         <_.Info_Schedule>
-          <_.Info_Line />
           <_.Info_GoToMap>지도로 보기</_.Info_GoToMap>
           <_.Info_DetailList>
-            {TripSchedule.map((day, index) => (
-              <DayPlan key={index} day={day} dayIndex={index + 1} />
-            ))}
+            {TripSchedule.map((day, index) => {
+              const lineHeight = 75 + 115 * (day.length - 1);
+              return (
+                <_.Info_Date key={index}>
+                  <_.Info_Line height={lineHeight} />
+                  <DayPlan key={index} day={day} dayIndex={index + 1} />
+                </_.Info_Date>
+              );
+            })}
           </_.Info_DetailList>
         </_.Info_Schedule>
       </_.Info_Content>

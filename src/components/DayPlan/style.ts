@@ -11,7 +11,7 @@ export const DayPlan_Times = styled.div`
   flex-direction: column;
   padding-left: 10px;
   align-items: center;
-  width: 50px;
+  width: max-content;
 `;
 
 export const DayPlan_WhatDay = styled.div`
@@ -34,9 +34,11 @@ export const DayPlan_Content = styled.div`
 
 export const DayPlan_Left = styled.div`
   display: flex;
+  width: 90px;
   align-self: flex-start;
   align-items: center;
   gap: 10px;
+  justify-content: space-between;
 `;
 
 export const DayPlan_TimeLabel = styled.p`
