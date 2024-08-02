@@ -61,6 +61,10 @@ const Info = () => {
           <_.Info_GoToMap>지도로 보기</_.Info_GoToMap>
           <_.Info_DetailList>
             <DayPlan />
+            <DayPlan />
+            <DayPlan />
+            <DayPlan />
+            <DayPlan />
           </_.Info_DetailList>
         </_.Info_Schedule>
       </_.Info_Content>

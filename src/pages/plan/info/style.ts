@@ -23,6 +23,7 @@ export const Info_Header = styled.div<{ BackgroundImage: string }>`
   position: relative;
   display: flex;
   justify-content: space-between;
+  flex-shrink: 0;
 `;
 
 export const Info_Title = styled.p`
@@ -97,14 +98,18 @@ export const Info_Line = styled.div`
   left: 88px;
   width: 2px;
   z-index: -1;
-  height: calc(75px + 100px * 1);
+  height: calc(75px + 118px * 3);
   border-radius: 5px;
   background: ${theme.gray[1]};
 `;
 
 export const Info_DetailList = styled.div`
-  padding: 20px 0 0 12px;
+  padding: 20px 0 20px 12px;
   width: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  gap: 28px;
 `;
 
 export const Info_GoToMap = styled.p`
