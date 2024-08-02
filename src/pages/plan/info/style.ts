@@ -74,37 +74,19 @@ export const Info_Schedule = styled.div`
   align-items: start;
 `;
 
-export const Info_Times = styled.div`
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  padding-left: 10px;
-`;
-
-export const Info_WhatDay = styled.div`
-  color: ${theme.gray.black};
-  font-size: 18px;
-  font-weight: 500;
-`;
-
-export const Info_Date = styled.div`
-  color: ${theme.gray[3]};
-  font-size: 13px;
-  font-weight: 400;
-`;
 
 export const Info_Line = styled.div`
   position: absolute;
   left: 88px;
   width: 2px;
   z-index: -1;
-  height: calc(75px + 118px * 3);
+  height: calc(75px + 115px * 1);
   border-radius: 5px;
   background: ${theme.gray[1]};
 `;
 
 export const Info_DetailList = styled.div`
-  padding: 20px 0 20px 12px;
+  padding: 0 0 20px 12px;
   width: 100%;
   display: flex;
   flex-direction: column;

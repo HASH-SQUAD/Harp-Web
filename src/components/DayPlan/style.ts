@@ -3,6 +3,32 @@ import styled from 'styled-components';
 
 export const DayPlan_Layout = styled.div`
   display: flex;
+  flex-direction: column;
+`;
+
+export const DayPlan_Times = styled.div`
+  display: flex;
+  flex-direction: column;
+  padding-left: 10px;
+  align-items: center;
+  width: 50px;
+`;
+
+export const DayPlan_WhatDay = styled.div`
+  color: ${theme.gray.black};
+  font-size: 18px;
+  font-weight: 500;
+`;
+
+export const DayPlan_Date = styled.div`
+  color: ${theme.gray[3]};
+  font-size: 13px;
+  font-weight: 400;
+`;
+
+export const DayPlan_Content = styled.div`
+  display: flex;
+  padding-top: 20px;
   justify-content: space-between;
 `;
 
