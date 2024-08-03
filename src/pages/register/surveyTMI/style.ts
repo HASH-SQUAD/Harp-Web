@@ -5,7 +5,7 @@ export const SurveyTMI_Container = styled.div<{ StatusBarSize?: string }>`
   width: 100vw;
   height: 100vh;
   position: fixed;
-  padding: ${(props) => props.StatusBarSize || '54px'} 0 0 0;
+  padding-top: ${(props) => props.StatusBarSize || '54px'};
   display: flex;
   flex-direction: column;
 `;

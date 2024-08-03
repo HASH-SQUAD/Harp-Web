@@ -10,6 +10,7 @@ export const Header_Container = styled.div<{ isOnChatting?: boolean }>`
   align-items: center;
   border-bottom: 1px solid
     ${(props) => (props.isOnChatting ? theme.gray[1] : 'none ')};
+  flex-shrink: 0;
 `;
 
 export const Header_BackIcon = styled.div`

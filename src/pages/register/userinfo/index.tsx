@@ -7,11 +7,11 @@ import Header from 'components/Header';
 import NextButton from 'components/NextButton';
 import { formatBirthday } from 'lib/utils/formatBirthday';
 
-const Info = () => {
+const UserInfo = () => {
   const statusBarHeight = useStatusBarHeight();
   const title = '환영합니다!\n회원정보를 입력해주세요.';
   const birthdayRef = useRef<HTMLInputElement | null>(null);
-  const [infos, setInfos] = useState({
+  const [userInfos, setUserInfos] = useState({
     username: '',
     birthday: '',
     gender: ''
@@ -22,16 +22,16 @@ const Info = () => {
   });
 
   const handleUserName = (e: ChangeEvent<HTMLInputElement>) => {
-    setInfos({ ...infos, username: e.currentTarget.value });
+    setUserInfos({ ...userInfos, username: e.currentTarget.value });
   };
 
   const handleBirthday = (e: ChangeEvent<HTMLInputElement>) => {
     const formattedBirthday = formatBirthday(e.currentTarget.value);
-    setInfos({ ...infos, birthday: formattedBirthday });
+    setUserInfos({ ...userInfos, birthday: formattedBirthday });
   };
 
   const handleGenderBox = (selectedGender: string) => {
-    setInfos({ ...infos, gender: selectedGender });
+    setUserInfos({ ...userInfos, gender: selectedGender });
     setIsSelected({
       female: selectedGender === '여성',
       male: selectedGender === '남성'
@@ -39,72 +39,74 @@ const Info = () => {
   };
 
   const isFormValid = () => {
-    const { username, birthday, gender } = infos;
+    const { username, birthday, gender } = userInfos;
     return username.length >= 2 && birthday && gender;
   };
 
   return (
     <>
-      <_.Info_Container StatusBarSize={`${statusBarHeight}px`}>
+      <_.UserInfo_Container StatusBarSize={`${statusBarHeight}px`}>
         <Header />
-        <_.Info_Content>
-          <_.Info_Title_Layout>
-            <_.Info_Title_Big>{title}</_.Info_Title_Big>
-            <_.Info_Title_Small>
+        <_.UserInfo_Content>
+          <_.UserInfo_Title_Layout>
+            <_.UserInfo_Title_Big>{title}</_.UserInfo_Title_Big>
+            <_.UserInfo_Title_Small>
               하프 서비스 이용을 위해 활용됩니다.
-            </_.Info_Title_Small>
-          </_.Info_Title_Layout>
-          <_.Info_Inputs>
-            <_.Info_Input_Layout>
-              <_.Info_Input_Title>
+            </_.UserInfo_Title_Small>
+          </_.UserInfo_Title_Layout>
+          <_.UserInfo_Inputs>
+            <_.UserInfo_Input_Layout>
+              <_.UserInfo_Input_Title>
                 여행자 닉네임
-                <_.Info_Input_Title_Star>*</_.Info_Input_Title_Star>
-              </_.Info_Input_Title>
-              <_.Info_Input_Box
+                <_.UserInfo_Input_Title_Star>*</_.UserInfo_Input_Title_Star>
+              </_.UserInfo_Input_Title>
+              <_.UserInfo_Input_Box
                 type="text"
                 placeholder="2글자 이상 입력해주세요."
                 onChange={handleUserName}
                 autoComplete="off"
               />
-            </_.Info_Input_Layout>
-            <_.Info_Input_Layout>
-              <_.Info_Input_Title>
-                생년월일 <_.Info_Input_Title_Star>*</_.Info_Input_Title_Star>
-              </_.Info_Input_Title>
-              <_.Info_Input_Box
+            </_.UserInfo_Input_Layout>
+            <_.UserInfo_Input_Layout>
+              <_.UserInfo_Input_Title>
+                생년월일{' '}
+                <_.UserInfo_Input_Title_Star>*</_.UserInfo_Input_Title_Star>
+              </_.UserInfo_Input_Title>
+              <_.UserInfo_Input_Box
                 type="text"
                 placeholder="2024/01/01"
-                value={infos.birthday}
+                value={userInfos.birthday}
                 onChange={handleBirthday}
                 ref={birthdayRef}
                 pattern="\d*"
               />
-            </_.Info_Input_Layout>
-            <_.Info_Input_Layout>
-              <_.Info_Input_Title>
-                성별 <_.Info_Input_Title_Star>*</_.Info_Input_Title_Star>
-              </_.Info_Input_Title>
-              <_.Info_Gender_Box>
-                <_.Info_Gender
+            </_.UserInfo_Input_Layout>
+            <_.UserInfo_Input_Layout>
+              <_.UserInfo_Input_Title>
+                성별{' '}
+                <_.UserInfo_Input_Title_Star>*</_.UserInfo_Input_Title_Star>
+              </_.UserInfo_Input_Title>
+              <_.UserInfo_Gender_Box>
+                <_.UserInfo_Gender
                   isSelected={isSelected.female}
                   onClick={() => handleGenderBox('여성')}
                 >
                   여성
-                </_.Info_Gender>
-                <_.Info_Gender
+                </_.UserInfo_Gender>
+                <_.UserInfo_Gender
                   isSelected={isSelected.male}
                   onClick={() => handleGenderBox('남성')}
                 >
                   남성
-                </_.Info_Gender>
-              </_.Info_Gender_Box>
-            </_.Info_Input_Layout>
-          </_.Info_Inputs>
-        </_.Info_Content>
-      </_.Info_Container>
+                </_.UserInfo_Gender>
+              </_.UserInfo_Gender_Box>
+            </_.UserInfo_Input_Layout>
+          </_.UserInfo_Inputs>
+        </_.UserInfo_Content>
+      </_.UserInfo_Container>
       <NextButton text="다음" state={!!isFormValid()} />
     </>
   );
 };
 
-export default Info;
+export default UserInfo;
