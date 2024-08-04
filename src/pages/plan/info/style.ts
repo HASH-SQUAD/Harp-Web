@@ -60,7 +60,7 @@ export const Info_Nav = styled.div`
 
 export const Info_Duration = styled.p`
   color: ${theme.gray.black};
-  font-size: 18px;
+  font-size: 16px;
   font-weight: 500;
 `;
 
@@ -75,7 +75,8 @@ export const Info_Schedule = styled.div`
 `;
 
 export const Info_DetailList = styled.div`
-  padding: 0 0 20px 17px;
+  /* padding: 0 0 20px 17px; */
+  padding-bottom: 20px;
   width: 100%;
   display: flex;
   flex-direction: column;
@@ -85,7 +86,7 @@ export const Info_DetailList = styled.div`
 
 export const Info_Line = styled.div<{ height?: number }>`
   position: absolute;
-  left: 79px;
+  left: 94px;
   width: 2px;
   z-index: -1;
   height: ${(props) => props.height}px;
