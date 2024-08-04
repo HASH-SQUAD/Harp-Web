@@ -18,6 +18,7 @@ import SelectDate from 'pages/plan/selectDate';
 import Info from 'pages/plan/info';
 // profile
 import Edit from 'pages/profile/edit';
+import Detail from 'pages/plan/detail';
 
 export default function Router() {
   return useRoutes([
@@ -47,7 +48,8 @@ export default function Router() {
       children: [
         { path: 'chat', element: <Chat /> },
         { path: 'selectdate', element: <SelectDate /> },
-        { path: 'info/:id', element: <Info /> }
+        { path: 'info/:id', element: <Info /> },
+        { path: 'info/:id/day/:planId', element: <Detail /> }
       ]
     },
     {
