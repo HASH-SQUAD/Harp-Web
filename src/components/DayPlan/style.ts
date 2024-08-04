@@ -9,7 +9,7 @@ export const DayPlan_Layout = styled.div`
 export const DayPlan_Times = styled.div`
   display: flex;
   flex-direction: column;
-  padding-left: 10px;
+  padding-left: 20px;
   align-items: center;
   width: max-content;
 `;
@@ -28,16 +28,15 @@ export const DayPlan_Date = styled.div`
 
 export const DayPlan_Content = styled.div`
   display: flex;
-  padding-top: 20px;
+  padding: 20px 0 0 10px;
   justify-content: space-between;
 `;
 
 export const DayPlan_Left = styled.div`
   display: flex;
-  width: 90px;
+  width: 94px;
   align-self: flex-start;
   align-items: center;
-  gap: 10px;
   justify-content: space-between;
 `;
 
@@ -65,7 +64,7 @@ export const DayPlan_Right = styled.div`
   position: relative;
   display: flex;
   flex-direction: column;
-  width: 70%;
+  width: 68%;
   padding: 13px 16px;
   margin-top: 12px;
   border-radius: 15px;
@@ -75,7 +74,7 @@ export const DayPlan_Right = styled.div`
 
 export const DayPlan_Activity = styled.p`
   color: ${theme.gray.black};
-  font-size: 18px;
+  font-size: 16px;
   font-weight: 500;
 `;
 

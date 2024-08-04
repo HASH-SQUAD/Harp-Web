@@ -59,7 +59,7 @@ const Info = () => {
           <_.Info_GoToMap>지도로 보기</_.Info_GoToMap>
           <_.Info_DetailList>
             {TripSchedule.map((day, index) => {
-              const lineHeight = 75 + 115 * (day.length - 1);
+              const lineHeight = 75 + 110 * (day.length - 1);
               return (
                 <_.Info_Date key={index}>
                   <_.Info_Line height={lineHeight} />

@@ -1,7 +1,7 @@
 export const TripSchedule = [
   [
     {
-      time: '10:00',
+      time: '10:59',
       activity: '서면 문화를 즐기기',
       location: '부산 부산진구 서면로68번길 9',
       recommendation:
