@@ -1,5 +1,5 @@
 // 라이브러리
-import React from 'react';
+import React, { TextareaHTMLAttributes, useState } from 'react';
 
 // 파일
 import * as _ from './style';
@@ -7,6 +7,12 @@ import Header from 'components/Header';
 import Location from 'assets/image/Location';
 
 const Detail = () => {
+  const [memo, setMemo] = useState('');
+
+  const updateMemoContent = (e: React.ChangeEvent<HTMLTextAreaElement>) => {
+    setMemo(e.currentTarget.value);
+  };
+
   return (
     <>
       <Header buttonState="수정" buttonColor="purple" />
@@ -21,6 +27,14 @@ const Detail = () => {
             </_.Detail_Address>
           </_.Detail_Location>
         </_.Detail_TitleBar>
+        <_.Detail_Content>
+          <_.Detail_Map />
+          <_.Detail_Memo
+            onChange={updateMemoContent}
+            value={memo || ''}
+            placeholder="메모를 입력하세요..."
+          />
+        </_.Detail_Content>
       </_.Detail_Layout>
     </>
   );
