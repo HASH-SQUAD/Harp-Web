@@ -5,6 +5,7 @@ import React, { TextareaHTMLAttributes, useState } from 'react';
 import * as _ from './style';
 import Header from 'components/Header';
 import Location from 'assets/image/Location';
+import MiniMap from 'components/Maps/MiniMap';
 
 const Detail = () => {
   const [memo, setMemo] = useState('');
@@ -28,7 +29,7 @@ const Detail = () => {
           </_.Detail_Location>
         </_.Detail_TitleBar>
         <_.Detail_Content>
-          <_.Detail_Map />
+          <MiniMap />
           <_.Detail_Memo
             onChange={updateMemoContent}
             value={memo || ''}

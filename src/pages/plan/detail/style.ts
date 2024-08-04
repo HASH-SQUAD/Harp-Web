@@ -44,12 +44,6 @@ export const Detail_Content = styled.div`
   flex-direction: column;
 `;
 
-export const Detail_Map = styled.div`
-  width: 100%;
-  height: 280px;
-  background-color: ${theme.gray['2.5']};
-`;
-
 export const Detail_Memo = styled.textarea`
   padding: 16px;
   width: 100%;
