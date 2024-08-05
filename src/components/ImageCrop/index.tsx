@@ -4,6 +4,7 @@ import { Area } from 'react-easy-crop/types';
 import { getCroppedImg } from '../../lib/utils/cropImage';
 import NextButton from 'components/NextButton';
 import { CropImageProps } from '../../types/cropImage';
+import * as _ from './style';
 
 export const CropImage = ({ imageSrc, cropShape, aspectRatio, onCropComplete }: CropImageProps) => {
   const [crop, setCrop] = useState({ x: 0, y: 0 });
@@ -28,8 +29,7 @@ export const CropImage = ({ imageSrc, cropShape, aspectRatio, onCropComplete }: 
   };
 
   return (
-    <div style={{ position: 'relative', width: '100%', height: 'calc(100vh - 120px)', display: 'flex', justifyContent: 'center', alignItems: 'center' }}>
-      
+    <_.ImageCrop_Layout>
         <Cropper
           image={imageSrc}
           crop={crop}
@@ -39,8 +39,8 @@ export const CropImage = ({ imageSrc, cropShape, aspectRatio, onCropComplete }: 
           onCropChange={setCrop}
           onZoomChange={setZoom}
           onCropComplete={onCropCompleteHandler}
-        />
+          />
       <NextButton text="완료" state={!!croppedAreaPixels} onClick={handleComplete} />
-    </div>
+          </_.ImageCrop_Layout>
   );
 };
