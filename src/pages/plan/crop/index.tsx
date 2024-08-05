@@ -1,6 +1,6 @@
 import React from 'react';
 import { useLocation, useNavigate } from 'react-router-dom';
-import { CropImage } from 'components/CropImage';
+import CropImage from 'components/CropImage';
 import Header from 'components/Header';
 import * as _ from './style';
 

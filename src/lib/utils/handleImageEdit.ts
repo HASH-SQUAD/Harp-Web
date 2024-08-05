@@ -1,4 +1,3 @@
-//src/lib/utils/handleImageEdit.ts
 export const handleImageEdit = (setImage: (image: string) => void) => {
   const input = document.createElement('input');
   input.type = 'file';
