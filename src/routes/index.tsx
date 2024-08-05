@@ -4,7 +4,7 @@ import Splash from '../pages/splash/';
 import Auth from 'pages/auth';
 import Home from 'pages/home';
 import NotFound from 'pages/NotFound';
-import Crop from 'pages/crop'
+import Crop from 'pages/crop/index'
 // register
 import Terms from 'pages/register/terms';
 import UserInfo from 'pages/register/userinfo';

@@ -1,35 +1,33 @@
-import React from 'react';
-import * as _ from './style';
+import React, { useState } from 'react';
+import { useNavigate, useLocation } from 'react-router-dom';
+import CropImage from 'components/CropImage';
 import Header from 'components/Header';
+import * as _ from './style';
 import NextButton from 'components/NextButton';
-import { useState, useCallback } from 'react'
-import Cropper from 'react-easy-crop'
 
-const Crop = () => {
-    const [crop, setCrop] = useState({ x: 0, y: 0 })
-    const [zoom, setZoom] = useState(1)
+const CropPage = () => {
+  const navigate = useNavigate();
+  const location = useLocation();
+  const { imageSrc, onComplete } = location.state || {};
 
-    const onCropComplete = (croppedArea, croppedAreaPixels) => {
-      console.log(croppedArea, croppedAreaPixels)
-    }
+  if (!imageSrc) {
+    navigate(-1);
+    return null;
+  }
+
+  const handleCropComplete = (croppedImage: string) => {
+  navigate('/plan/info/:id', { state: { croppedImage } });
+  };
+
   return (
-    <>
-      <Header title="자르기"/>
-    <_.Crop_Container>
-    <div style={{ position: 'relative', width: '100%', height: 400 }}>
-    <Cropper
-      image={yourImage}
-      crop={crop}
-      zoom={zoom}
-      aspect={4 / 3}
-      onCropChange={setCrop}
-      onCropComplete={onCropComplete}
-      onZoomChange={setZoom}
-    />
-        </div>
-    </_.Crop_Container>
-    </>
+    <_.Crop_Layout>
+      <Header title="자르기" />
+      <_.Crop_Container>
+        <CropImage imageSrc={imageSrc} onComplete={handleCropComplete} />
+      </_.Crop_Container>
+      <NextButton text="완료" state={true} onClick={() => handleCropComplete('')} />
+    </_.Crop_Layout>
   );
 };
 
-export default Crop;
+export default CropPage;
