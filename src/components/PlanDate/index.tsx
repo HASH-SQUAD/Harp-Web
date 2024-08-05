@@ -4,7 +4,12 @@ import React, { useState } from 'react';
 // 파일
 import * as _ from './style';
 
-const PlanDate = () => {
+interface PlanDateProps {
+  day: number;
+  date: string;
+}
+
+const PlanDate = ({ day, date }: PlanDateProps) => {
   const [isPassed, setIsPassed] = useState(false);
   const [isSelected, setIsSelected] = useState(false);
 
@@ -18,8 +23,8 @@ const PlanDate = () => {
       isSelected={isSelected}
       onClick={toggleSelect}
     >
-      <_.PlanDate_WhatDay>1일차</_.PlanDate_WhatDay>
-      <_.PlanDate_Date>11/29</_.PlanDate_Date>
+      <_.PlanDate_WhatDay>{day}일차</_.PlanDate_WhatDay>
+      <_.PlanDate_Date>{date}</_.PlanDate_Date>
     </_.PlanDate_Layout>
   );
 };

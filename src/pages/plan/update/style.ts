@@ -50,4 +50,7 @@ export const Update_Menu = styled.p`
 
 export const Update_PlanDates = styled.div`
   padding-top: 14px;
+  display: flex;
+  gap: 12px;
+  overflow: auto;
 `;

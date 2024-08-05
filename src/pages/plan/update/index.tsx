@@ -9,6 +9,14 @@ import Calendar from 'assets/image/Calendar';
 import PlanDate from 'components/PlanDate';
 
 const Update = () => {
+  const plans = [
+    { day: 'day1', date: '11/25' },
+    { day: 'day2', date: '11/26' },
+    { day: 'day3', date: '11/27' },
+    { day: 'day4', date: '11/28' },
+    { day: 'day5', date: '11/29' }
+  ];
+
   return (
     <>
       <Header title="수정" buttonState="완료" />
@@ -28,7 +36,9 @@ const Update = () => {
             <_.Update_Menu>날짜 선택</_.Update_Menu>
           </_.Update_Subtitle>
           <_.Update_PlanDates>
-            <PlanDate />
+            {plans.map((plan, index) => (
+              <PlanDate key={index} day={index + 1} date={plan.date} />
+            ))}
           </_.Update_PlanDates>
         </_.Update_SelectDate>
       </_.Update_Layout>
