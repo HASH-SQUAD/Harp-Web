@@ -1,9 +1,8 @@
 // 라이브러리
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 
 // 파일
 import * as _ from './style';
-import { number, string } from 'prop-types';
 
 interface PlanDateProps {
   day: number;
@@ -13,12 +12,25 @@ interface PlanDateProps {
 }
 
 const PlanDate = ({ day, date, isSelected, onSelect }: PlanDateProps) => {
-  const [isPassed, setIsPassed] = useState(false);
+  const [isPassed, setIsPassed] = useState<boolean>(false);
 
   const formatDate = () => {
-    const [year, month, day] = date.split('-');
+    const [, month, day] = date.split('-');
     return `${month}/${day}`;
   };
+
+  const hasDateExpired = () => {
+    const today = new Date();
+    const targetDate = new Date(date);
+
+    if (today > targetDate) {
+      setIsPassed(true);
+    }
+  };
+
+  useEffect(() => {
+    hasDateExpired();
+  }, [date]);
 
   return (
     <_.PlanDate_Layout

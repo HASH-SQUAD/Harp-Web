@@ -7,13 +7,11 @@ import Header from 'components/Header';
 import Location from 'assets/image/Location';
 import Calendar from 'assets/image/Calendar';
 import PlanDate from 'components/PlanDate';
-import { NumericLiteral } from 'typescript';
-
 const Update = () => {
   const [isSelected, setIsSelected] = useState<number | null>(null);
 
   const plans = [
-    { day: 'day1', date: '2024-11-25' },
+    { day: 'day1', date: '2024-08-06' },
     { day: 'day2', date: '2024-11-26' },
     { day: 'day3', date: '2024-11-27' },
     { day: 'day4', date: '2024-11-28' },
