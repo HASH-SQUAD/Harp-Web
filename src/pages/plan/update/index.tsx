@@ -13,11 +13,11 @@ const Update = () => {
   const [isSelected, setIsSelected] = useState<number | null>(null);
 
   const plans = [
-    { day: 'day1', date: '11/25' },
-    { day: 'day2', date: '11/26' },
-    { day: 'day3', date: '11/27' },
-    { day: 'day4', date: '11/28' },
-    { day: 'day5', date: '11/29' }
+    { day: 'day1', date: '2024-11-25' },
+    { day: 'day2', date: '2024-11-26' },
+    { day: 'day3', date: '2024-11-27' },
+    { day: 'day4', date: '2024-11-28' },
+    { day: 'day5', date: '2024-11-29' }
   ];
 
   const handleSelectDay = (index: number) => {
