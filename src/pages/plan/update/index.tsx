@@ -1,12 +1,13 @@
 // 라이브러리
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 
 // 파일
 import * as _ from './style';
 import Header from 'components/Header';
+import PlanDate from 'components/PlanDate';
 import Location from 'assets/image/Location';
 import Calendar from 'assets/image/Calendar';
-import PlanDate from 'components/PlanDate';
+
 const Update = () => {
   const [isSelected, setIsSelected] = useState<number | null>(null);
 
@@ -21,6 +22,12 @@ const Update = () => {
   const handleSelectDay = (index: number) => {
     setIsSelected(index);
   };
+
+  useEffect(() => {
+    if (plans.length === 1) {
+      setIsSelected(0);
+    }
+  }, [plans]);
 
   return (
     <>
