@@ -20,19 +20,3 @@ export const Crop_Container = styled.div`
   background: #000;
 `;
 
-export const Crop_Footer = styled.div`
-  padding: 16px;
-  background-color: #6200ea;
-  text-align: center;
-
-  button {
-    padding: 12px 24px;
-    background-color: #ffffff;
-    border: none;
-    border-radius: 8px;
-    color: #6200ea;
-    font-size: 16px;
-    font-weight: bold;
-    cursor: pointer;
-  }
-`;

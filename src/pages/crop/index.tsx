@@ -8,8 +8,8 @@ import NextButton from 'components/NextButton';
 const CropPage = () => {
   const navigate = useNavigate();
   const location = useLocation();
-  const { imageSrc, onComplete } = location.state || {};
-
+  const { imageSrc } = location.state || {};
+  
   if (!imageSrc) {
     navigate(-1);
     return null;
