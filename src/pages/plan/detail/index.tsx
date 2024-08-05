@@ -29,7 +29,7 @@ const Detail = () => {
           </_.Detail_Location>
         </_.Detail_TitleBar>
         <_.Detail_Content>
-          <MiniMap />
+          <MiniMap keyword="부산광역시 기장군 기장해안로 147" />
           <_.Detail_Memo
             onChange={updateMemoContent}
             value={memo || ''}
