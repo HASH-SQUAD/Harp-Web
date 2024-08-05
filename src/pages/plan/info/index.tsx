@@ -15,6 +15,7 @@ import ControlModal from 'components/Modals/ControlModal';
 import DayPlan from 'components/DayPlan';
 import { TripSchedule } from 'data/TripSchedule';
 import Plus from 'assets/Icon/Plus';
+import Crop from 'pages/crop';
 
 const Info = () => {
   const statusBarHeight = useStatusBarHeight();
@@ -26,6 +27,8 @@ const Info = () => {
   const [planInfoImage, setPlanInfoImage] = useState(planInfos.image);
   const [isModal, setIsModal] = useState(false);
   const [isUpdated, setIsUpdated] = useState(false);
+  const [isCropping, setIsCropping] = useState(false);
+  const [imageSrc, setImageSrc] = useState<string | null>(null);
 
   const handleCloseModal = () => {
     setIsModal(false);
