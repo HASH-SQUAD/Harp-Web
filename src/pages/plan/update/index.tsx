@@ -1,5 +1,5 @@
 // 라이브러리
-import React from 'react';
+import React, { useState } from 'react';
 
 // 파일
 import * as _ from './style';
@@ -7,8 +7,11 @@ import Header from 'components/Header';
 import Location from 'assets/image/Location';
 import Calendar from 'assets/image/Calendar';
 import PlanDate from 'components/PlanDate';
+import { NumericLiteral } from 'typescript';
 
 const Update = () => {
+  const [isSelected, setIsSelected] = useState<number | null>(null);
+
   const plans = [
     { day: 'day1', date: '11/25' },
     { day: 'day2', date: '11/26' },
@@ -16,6 +19,10 @@ const Update = () => {
     { day: 'day4', date: '11/28' },
     { day: 'day5', date: '11/29' }
   ];
+
+  const handleSelectDay = (index: number) => {
+    setIsSelected(index);
+  };
 
   return (
     <>
@@ -37,7 +44,15 @@ const Update = () => {
           </_.Update_Subtitle>
           <_.Update_PlanDates>
             {plans.map((plan, index) => (
-              <PlanDate key={index} day={index + 1} date={plan.date} />
+              <PlanDate
+                key={plan.day}
+                day={index + 1}
+                date={plan.date}
+                isSelected={isSelected === index}
+                onSelect={() => {
+                  handleSelectDay(index);
+                }}
+              />
             ))}
           </_.Update_PlanDates>
         </_.Update_SelectDate>
