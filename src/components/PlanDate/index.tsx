@@ -3,6 +3,7 @@ import React, { useEffect, useState } from 'react';
 
 // 파일
 import * as _ from './style';
+import { hasDateExpired } from 'lib/utils/hasDateExpired';
 
 interface PlanDateProps {
   day: number;
@@ -19,17 +20,10 @@ const PlanDate = ({ day, date, isSelected, onSelect }: PlanDateProps) => {
     return `${month}/${day}`;
   };
 
-  const hasDateExpired = () => {
-    const today = new Date();
-    const targetDate = new Date(date);
-
-    if (today > targetDate) {
+  useEffect(() => {
+    if (hasDateExpired(date)) {
       setIsPassed(true);
     }
-  };
-
-  useEffect(() => {
-    hasDateExpired();
   }, [date]);
 
   return (
