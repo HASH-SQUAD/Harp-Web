@@ -16,7 +16,7 @@ import SurveyEnd from 'pages/register/surveyEnd';
 import Chat from 'pages/plan/chat';
 import SelectDate from 'pages/plan/selectDate';
 import Info from 'pages/plan/info';
-import Crop from 'pages/plan/crop'
+import Crop from 'pages/plan/crop';
 // profile
 import Edit from 'pages/profile/edit';
 
@@ -49,7 +49,7 @@ export default function Router() {
         { path: 'chat', element: <Chat /> },
         { path: 'selectdate', element: <SelectDate /> },
         { path: 'info/:id', element: <Info /> },
-        { path: 'crop', element: <Crop /> }
+        { path: 'info/:id/crop', element: <Crop /> }
       ]
     },
     {

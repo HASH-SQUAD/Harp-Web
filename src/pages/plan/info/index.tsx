@@ -39,7 +39,7 @@ const Info = () => {
 
   const handleImageSelection = () => {
     handleImageEdit((selectedImage) => {
-      navigate('/plan/info/crop', { state: { imageSrc: selectedImage } });
+      navigate('/plan/info/:id/crop', { state: { imageSrc: selectedImage } });
     });
   };
 

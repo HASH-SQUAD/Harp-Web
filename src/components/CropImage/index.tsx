@@ -2,22 +2,35 @@ import React, { useState } from 'react';
 import Cropper from 'react-easy-crop';
 import { Area } from 'react-easy-crop/types';
 import { getCroppedImg } from '../../lib/utils/cropImage';
+import NextButton from 'components/NextButton';
+import { useNavigate } from 'react-router-dom';
 
 interface CropImageProps {
   imageSrc: string;
-  onComplete: (croppedImage: string) => void;
   cropShape: 'rect' | 'round';
   aspectRatio: number;
   cropSize: { width: number, height: number };
 }
 
-const CropImage: React.FC<CropImageProps> = ({ imageSrc, onComplete, cropShape, aspectRatio, cropSize }) => {
+const CropImage: React.FC<CropImageProps> = ({ imageSrc, cropShape, aspectRatio, cropSize }) => {
   const [crop, setCrop] = useState({ x: 0, y: 0 });
   const [zoom, setZoom] = useState(1);
   const [croppedAreaPixels, setCroppedAreaPixels] = useState<Area | null>(null);
+  const navigate = useNavigate();
 
   const onCropComplete = (croppedArea: Area, croppedAreaPixels: Area) => {
     setCroppedAreaPixels(croppedAreaPixels);
+  };
+
+  const handleComplete = async () => {
+    if (croppedAreaPixels) {
+      try {
+        const croppedImage = await getCroppedImg(imageSrc, croppedAreaPixels);
+        navigate('/plan/info/:id', { state: { croppedImage } });
+      } catch (error) {
+        console.error('이미지 자르기 오류:', error);
+      }
+    }
   };
 
   return (
@@ -33,6 +46,7 @@ const CropImage: React.FC<CropImageProps> = ({ imageSrc, onComplete, cropShape, 
         onZoomChange={setZoom}
         onCropComplete={onCropComplete}
       />
+      <NextButton text="완료" state={true} onClick={handleComplete} />
     </div>
   );
 };
