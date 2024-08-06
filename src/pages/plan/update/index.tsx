@@ -7,6 +7,7 @@ import Header from 'components/Header';
 import PlanDate from 'components/PlanDate';
 import Location from 'assets/image/Location';
 import Calendar from 'assets/image/Calendar';
+import { hasDateExpired } from 'lib/utils/hasDateExpired';
 
 const Update = () => {
   const [isSelected, setIsSelected] = useState<number | null>(null);
@@ -19,8 +20,12 @@ const Update = () => {
     { day: 'day5', date: '2024-11-29' }
   ];
 
-  const handleSelectDay = (index: number) => {
-    setIsSelected(index);
+  const handleSelectDay = (index: number, date: string) => {
+    if (hasDateExpired(date)) {
+      setIsSelected(isSelected);
+    } else {
+      setIsSelected(index);
+    }
   };
 
   useEffect(() => {
@@ -55,7 +60,7 @@ const Update = () => {
                 date={plan.date}
                 isSelected={isSelected === index}
                 onSelect={() => {
-                  handleSelectDay(index);
+                  handleSelectDay(index, plan.date);
                 }}
               />
             ))}
