@@ -4,7 +4,6 @@ import Splash from '../pages/splash/';
 import Auth from 'pages/auth';
 import Home from 'pages/home';
 import NotFound from 'pages/NotFound';
-import Crop from 'pages/crop/index'
 // register
 import Terms from 'pages/register/terms';
 import UserInfo from 'pages/register/userinfo';
@@ -17,6 +16,7 @@ import SurveyEnd from 'pages/register/surveyEnd';
 import Chat from 'pages/plan/chat';
 import SelectDate from 'pages/plan/selectDate';
 import Info from 'pages/plan/info';
+import Crop from 'pages/plan/crop'
 // profile
 import Edit from 'pages/profile/edit';
 
@@ -28,8 +28,7 @@ export default function Router() {
         { path: '/', element: <Home /> },
         { path: 'splash', element: <Splash /> },
         { path: 'auth', element: <Auth /> },
-        { path: '*', element: <NotFound /> },
-        { path: 'crop', element: <Crop /> }
+        { path: '*', element: <NotFound /> }
       ]
     },
     {
@@ -49,7 +48,8 @@ export default function Router() {
       children: [
         { path: 'chat', element: <Chat /> },
         { path: 'selectdate', element: <SelectDate /> },
-        { path: 'info/:id', element: <Info /> }
+        { path: 'info/:id', element: <Info /> },
+        { path: 'crop', element: <Crop /> }
       ]
     },
     {

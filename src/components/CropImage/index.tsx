@@ -6,27 +6,18 @@ import { getCroppedImg } from '../../lib/utils/cropImage';
 interface CropImageProps {
   imageSrc: string;
   onComplete: (croppedImage: string) => void;
+  cropShape: 'rect' | 'round';
+  aspectRatio: number;
+  cropSize: { width: number, height: number };
 }
 
-const CropImage: React.FC<CropImageProps> = ({ imageSrc, onComplete }) => {
+const CropImage: React.FC<CropImageProps> = ({ imageSrc, onComplete, cropShape, aspectRatio, cropSize }) => {
   const [crop, setCrop] = useState({ x: 0, y: 0 });
   const [zoom, setZoom] = useState(1);
   const [croppedAreaPixels, setCroppedAreaPixels] = useState<Area | null>(null);
 
-  // 자르기 완료 후 호출되는 함수
   const onCropComplete = (croppedArea: Area, croppedAreaPixels: Area) => {
     setCroppedAreaPixels(croppedAreaPixels);
-  };
-
-  const handleComplete = async () => {
-    if (croppedAreaPixels) {
-      try {
-        const croppedImage = await getCroppedImg(imageSrc, croppedAreaPixels);
-        onComplete(croppedImage);  // 자른 이미지 전달
-      } catch (error) {
-        console.error('이미지 자르기 오류:', error);
-      }
-    }
   };
 
   return (
@@ -35,15 +26,13 @@ const CropImage: React.FC<CropImageProps> = ({ imageSrc, onComplete }) => {
         image={imageSrc}
         crop={crop}
         zoom={zoom}
-        cropSize={{ width: window.innerWidth, height: 200 }}
-        cropShape="rect"
+        aspect={aspectRatio}
+        cropShape={cropShape}
+        cropSize={cropSize}
         onCropChange={setCrop}
         onZoomChange={setZoom}
         onCropComplete={onCropComplete}
       />
-      <button onClick={handleComplete} style={{ position: 'absolute', bottom: 10, right: 10 }}>
-        완료
-      </button>
     </div>
   );
 };

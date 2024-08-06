@@ -1,8 +1,5 @@
-// 라이브러리
 import React, { useState, useEffect } from 'react';
 import { useNavigate, useLocation } from 'react-router-dom';
-
-// 파일
 import * as _ from './style';
 import useStatusBarHeight from 'hooks/useStatusBarHeight';
 import Header from 'components/Header';
@@ -10,13 +7,11 @@ import PlanInfo from 'assets/image/PlanInfo.png';
 import Camera from 'assets/Icon/Camera';
 import calculateDDay from 'lib/utils/D-Day';
 import { handleImageEdit } from 'lib/utils/handleImageEdit';
-import { planInfos } from 'types/planInfos';
 import KebabMenu from 'assets/Icon/KebabMenu';
 import ControlModal from 'components/Modals/ControlModal';
 import DayPlan from 'components/DayPlan';
 import { TripSchedule } from 'data/TripSchedule';
 import Plus from 'assets/Icon/Plus';
-
 
 const Info = () => {
   const statusBarHeight = useStatusBarHeight();
@@ -25,6 +20,12 @@ const Info = () => {
   const [planInfoImage, setPlanInfoImage] = useState(PlanInfo);
   const [isModal, setIsModal] = useState(false);
   const [isUpdated, setIsUpdated] = useState(false);
+  
+  const planInfos = {
+    image: PlanInfo,
+    title: '가나다라마바사',
+    date: '2024-08-08'
+  };
 
   useEffect(() => {
     if (location.state?.croppedImage) {
@@ -38,7 +39,7 @@ const Info = () => {
 
   const handleImageSelection = () => {
     handleImageEdit((selectedImage) => {
-      navigate('/crop', { state: { imageSrc: selectedImage } });
+      navigate('/plan/info/crop', { state: { imageSrc: selectedImage } });
     });
   };
 
@@ -46,8 +47,8 @@ const Info = () => {
     <_.Info_Layout StatusBarSize={`${statusBarHeight}px`}>
       <Header title="일정" buttonState="닫기" />
       <_.Info_Header BackgroundImage={planInfoImage}>
-        <_.Info_Title>가나다라마바사</_.Info_Title>
-        <_.Info_DDay>{calculateDDay('2024-08-08')}</_.Info_DDay>
+        <_.Info_Title>{planInfos.title}</_.Info_Title>
+        <_.Info_DDay>{calculateDDay(planInfos.date)}</_.Info_DDay>
         <_.Info_Camera onClick={handleImageSelection}>
           <Camera />
         </_.Info_Camera>
