@@ -18,6 +18,17 @@ const CropImage: React.FC<CropImageProps> = ({ imageSrc, onComplete }) => {
     setCroppedAreaPixels(croppedAreaPixels);
   };
 
+  const handleComplete = async () => {
+    if (croppedAreaPixels) {
+      try {
+        const croppedImage = await getCroppedImg(imageSrc, croppedAreaPixels);
+        onComplete(croppedImage);  // 자른 이미지 전달
+      } catch (error) {
+        console.error('이미지 자르기 오류:', error);
+      }
+    }
+  };
+
   return (
     <div style={{ position: 'relative', width: '100%', height: '600px' }}>
       <Cropper
@@ -30,6 +41,9 @@ const CropImage: React.FC<CropImageProps> = ({ imageSrc, onComplete }) => {
         onZoomChange={setZoom}
         onCropComplete={onCropComplete}
       />
+      <button onClick={handleComplete} style={{ position: 'absolute', bottom: 10, right: 10 }}>
+        완료
+      </button>
     </div>
   );
 };
