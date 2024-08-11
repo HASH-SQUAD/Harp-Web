@@ -82,24 +82,27 @@ const Update = () => {
             <TimeCircle />
             <_.Update_Menu>시간 선택</_.Update_Menu>
           </_.Update_Subtitle>
-          <TimePicker
-            list={periods}
-            onSelectedChange={(selectedPeriod: string) =>
-              setTime((prev) => ({ ...prev, period: selectedPeriod }))
-            }
-          />
-          <TimePicker
-            list={hours}
-            onSelectedChange={(selectedHour: string) =>
-              setTime((prev) => ({ ...prev, hour: selectedHour }))
-            }
-          />
-          <TimePicker
-            list={minutes}
-            onSelectedChange={(selectedMinute: string) =>
-              setTime((prev) => ({ ...prev, minute: selectedMinute }))
-            }
-          />
+          <_.Update_TimePickerList>
+            <TimePicker
+              list={periods}
+              onSelectedChange={(selectedPeriod: string) =>
+                setTime((prev) => ({ ...prev, period: selectedPeriod }))
+              }
+            />
+            <TimePicker
+              list={hours}
+              onSelectedChange={(selectedHour: string) =>
+                setTime((prev) => ({ ...prev, hour: selectedHour }))
+              }
+            />
+            <TimePicker
+              list={minutes}
+              onSelectedChange={(selectedMinute: string) =>
+                setTime((prev) => ({ ...prev, minute: selectedMinute }))
+              }
+            />
+            <_.Update_Overlay />
+          </_.Update_TimePickerList>
         </_.Update_SelectTime>
       </_.Update_Layout>
     </>

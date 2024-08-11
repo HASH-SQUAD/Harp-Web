@@ -62,3 +62,22 @@ export const Update_SelectTime = styled.div`
     margin-top: 20px;
   }
 `;
+
+export const Update_TimePickerList = styled.div`
+  position: relative;
+  display: flex;
+  justify-content: center;
+  width: 100%;
+  gap: 59px;
+`;
+
+export const Update_Overlay = styled.div`
+  position: absolute;
+  top: 50px;
+  z-index: -1;
+  width: 100%;
+  background-color: ${theme.primary[1]};
+  border-radius: 5px;
+  opacity: 0.5;
+  height: 50px;
+`;
