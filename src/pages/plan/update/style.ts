@@ -57,10 +57,6 @@ export const Update_PlanDates = styled.div`
 
 export const Update_SelectTime = styled.div`
   padding-top: 20px;
-
-  & > div {
-    margin-top: 20px;
-  }
 `;
 
 export const Update_TimePickerList = styled.div`
