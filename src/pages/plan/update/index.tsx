@@ -13,6 +13,17 @@ import TimePicker from 'components/TimePicker';
 
 const Update = () => {
   const [isSelected, setIsSelected] = useState<number | null>(null);
+  const [time, setTime] = useState({
+    period: '오전',
+    hour: '1',
+    minute: '00'
+  });
+
+  const periods = ['오전', '오후'];
+  const hours = Array.from({ length: 12 }, (_, i) => String(i + 1));
+  const minutes = Array.from({ length: 60 }, (_, i) =>
+    String(i).padStart(2, '0')
+  );
 
   const plans = [
     { day: 'day1', date: '2024-08-06' },
@@ -71,6 +82,24 @@ const Update = () => {
             <TimeCircle />
             <_.Update_Menu>시간 선택</_.Update_Menu>
           </_.Update_Subtitle>
+          <TimePicker
+            list={periods}
+            onSelectedChange={(selectedPeriod: string) =>
+              setTime((prev) => ({ ...prev, period: selectedPeriod }))
+            }
+          />
+          <TimePicker
+            list={hours}
+            onSelectedChange={(selectedHour: string) =>
+              setTime((prev) => ({ ...prev, hour: selectedHour }))
+            }
+          />
+          <TimePicker
+            list={minutes}
+            onSelectedChange={(selectedMinute: string) =>
+              setTime((prev) => ({ ...prev, minute: selectedMinute }))
+            }
+          />
         </_.Update_SelectTime>
       </_.Update_Layout>
     </>

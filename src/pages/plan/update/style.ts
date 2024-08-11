@@ -54,3 +54,11 @@ export const Update_PlanDates = styled.div`
   gap: 12px;
   overflow: auto;
 `;
+
+export const Update_SelectTime = styled.div`
+  padding-top: 20px;
+
+  & > div {
+    margin-top: 20px;
+  }
+`;
