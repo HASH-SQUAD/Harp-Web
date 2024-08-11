@@ -7,7 +7,9 @@ import Header from 'components/Header';
 import PlanDate from 'components/PlanDate';
 import Location from 'assets/image/Location';
 import Calendar from 'assets/image/Calendar';
+import TimeCircle from 'assets/image/TimeCircle';
 import { hasDateExpired } from 'lib/utils/hasDateExpired';
+import TimePicker from 'components/TimePicker';
 
 const Update = () => {
   const [isSelected, setIsSelected] = useState<number | null>(null);
@@ -21,9 +23,7 @@ const Update = () => {
   ];
 
   const handleSelectDay = (index: number, date: string) => {
-    if (hasDateExpired(date)) {
-      setIsSelected(isSelected);
-    } else {
+    if (!hasDateExpired(date)) {
       setIsSelected(index);
     }
   };
@@ -66,6 +66,12 @@ const Update = () => {
             ))}
           </_.Update_PlanDates>
         </_.Update_SelectDate>
+        <_.Update_SelectTime>
+          <_.Update_Subtitle>
+            <TimeCircle />
+            <_.Update_Menu>시간 선택</_.Update_Menu>
+          </_.Update_Subtitle>
+        </_.Update_SelectTime>
       </_.Update_Layout>
     </>
   );
