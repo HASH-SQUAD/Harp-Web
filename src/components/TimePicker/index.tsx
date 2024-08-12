@@ -1,5 +1,6 @@
 // 라이브러리
 import React, { useRef, useEffect, useState, useCallback } from 'react';
+import { throttle } from 'lodash';
 
 // 파일
 import * as _ from './style';
@@ -10,7 +11,7 @@ interface TimePickerProps {
 }
 
 const TimePicker = ({ list, onSelectedChange }: TimePickerProps) => {
-  const SCROLL_DEBOUNCE_TIME = 100;
+  const SCROLL_DEBOUNCE_TIME = 200;
 
   const newList = ['', ...list, ''];
   const ref = useRef<HTMLUListElement>(null);
@@ -19,27 +20,30 @@ const TimePicker = ({ list, onSelectedChange }: TimePickerProps) => {
   const timerRef = useRef<NodeJS.Timeout | null>(null);
   const ITEM_HEIGHT = 50;
 
-  const handleScroll = useCallback(() => {
-    if (ref.current) {
-      clearTimeout(timerRef.current!);
-      if (ref.current.scrollTop < ITEM_HEIGHT) {
-        ref.current.scrollTop = ITEM_HEIGHT;
-      }
-      timerRef.current = setTimeout(() => {
-        const index = Math.floor(
-          (ref.current!.scrollTop + ITEM_HEIGHT / 2) / ITEM_HEIGHT
-        );
-        if (list[index] !== '') {
-          setSelected(index);
-          itemRefs.current[index]?.scrollIntoView({
-            behavior: 'smooth',
-            block: 'center'
-          });
-          onSelectedChange && onSelectedChange(newList[index]);
+  const handleScroll = useCallback(
+    throttle(() => {
+      if (ref.current) {
+        clearTimeout(timerRef.current!);
+        if (ref.current.scrollTop < ITEM_HEIGHT) {
+          ref.current.scrollTop = ITEM_HEIGHT;
         }
-      }, SCROLL_DEBOUNCE_TIME);
-    }
-  }, [onSelectedChange]);
+        timerRef.current = setTimeout(() => {
+          const index = Math.floor(
+            (ref.current!.scrollTop + ITEM_HEIGHT / 2) / ITEM_HEIGHT
+          );
+          if (list[index] !== '') {
+            setSelected(index);
+            itemRefs.current[index]?.scrollIntoView({
+              behavior: 'smooth',
+              block: 'center'
+            });
+            onSelectedChange && onSelectedChange(newList[index]);
+          }
+        }, SCROLL_DEBOUNCE_TIME);
+      }
+    }),
+    [onSelectedChange]
+  );
 
   useEffect(() => {
     if (ref.current) {
