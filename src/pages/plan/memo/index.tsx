@@ -1,5 +1,5 @@
 // 라이브러리
-import React, { TextareaHTMLAttributes, useState } from 'react';
+import React, { useState } from 'react';
 
 // 파일
 import * as _ from './style';
@@ -23,9 +23,7 @@ const Memo = () => {
           <_.Memo_PlanTitle>쇼핑하기 🛍️</_.Memo_PlanTitle>
           <_.Memo_Location>
             <Location />
-            <_.Memo_Address>
-              부산광역시 기장군 기장해안로 147
-            </_.Memo_Address>
+            <_.Memo_Address>부산광역시 기장군 기장해안로 147</_.Memo_Address>
           </_.Memo_Location>
         </_.Memo_TitleBar>
         <_.Memo_Content>
