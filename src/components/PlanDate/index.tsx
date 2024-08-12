@@ -21,9 +21,7 @@ const PlanDate = ({ day, date, isSelected, onSelect }: PlanDateProps) => {
   };
 
   useEffect(() => {
-    if (hasDateExpired(date)) {
-      setIsPassed(true);
-    }
+    setIsPassed(hasDateExpired(date));
   }, [date]);
 
   return (
