@@ -1,5 +1,5 @@
 // 라이브러리
-import React, { useRef, useEffect, useState } from 'react';
+import React, { useRef, useEffect, useState, useCallback } from 'react';
 
 // 파일
 import * as _ from './style';
@@ -19,7 +19,7 @@ const TimePicker = ({ list, onSelectedChange }: TimePickerProps) => {
   const timerRef = useRef<NodeJS.Timeout | null>(null);
   const ITEM_HEIGHT = 50;
 
-  const handleScroll = () => {
+  const handleScroll = useCallback(() => {
     if (ref.current) {
       clearTimeout(timerRef.current!);
       if (ref.current.scrollTop < ITEM_HEIGHT) {
@@ -39,7 +39,7 @@ const TimePicker = ({ list, onSelectedChange }: TimePickerProps) => {
         }
       }, SCROLL_DEBOUNCE_TIME);
     }
-  };
+  }, [onSelectedChange]);
 
   useEffect(() => {
     if (ref.current) {
