@@ -16,7 +16,7 @@ import SurveyEnd from 'pages/register/surveyend';
 import Chat from 'pages/plan/chat';
 import SelectDate from 'pages/plan/selectdate';
 import Info from 'pages/plan/info';
-import Detail from 'pages/plan/detail';
+import Detail from 'pages/plan/memo';
 import Update from 'pages/plan/update';
 // profile
 import Edit from 'pages/profile/edit';
