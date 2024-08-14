@@ -25,7 +25,7 @@ const CropPage = () => {
           imageSrc={imageSrc} 
           cropShape="rect" 
           aspectRatio={12 / 5}
-          cropSize={{ width: 360, height: 150 }} 
+          cropSize={{ width: 360, height: 200 }} 
         />
       </_.Crop_Container>
     </_.Crop_Layout>
