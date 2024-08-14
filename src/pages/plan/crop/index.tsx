@@ -1,4 +1,5 @@
-import React from 'react';
+//src/pages/plan/crop/index.tsx
+import React, { useEffect } from 'react';
 import { useLocation } from 'react-router-dom';
 import CropImage from 'components/CropImage';
 import Header from 'components/Header';
@@ -7,6 +8,10 @@ import * as _ from './style';
 const CropPage = () => {
   const location = useLocation();
   const { imageSrc } = location.state || {};
+
+  useEffect(() => {
+    console.log("Image Source:", imageSrc);
+  }, [imageSrc]);
 
   if (!imageSrc) {
     return null;

@@ -1,3 +1,4 @@
+//src/pages/plan/crop/style.ts
 import styled from "styled-components";
 
 /* export const Crop_Container = styled.div `

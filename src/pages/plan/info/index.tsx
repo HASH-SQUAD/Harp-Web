@@ -1,3 +1,4 @@
+// src/pages/plan/info/index.tsx
 import React, { useState, useEffect } from 'react';
 import { useNavigate, useLocation } from 'react-router-dom';
 import * as _ from './style';
@@ -20,7 +21,7 @@ const Info = () => {
   const [planInfoImage, setPlanInfoImage] = useState(PlanInfo);
   const [isModal, setIsModal] = useState(false);
   const [isUpdated, setIsUpdated] = useState(false);
-  
+
   const planInfos = {
     image: PlanInfo,
     title: '가나다라마바사',
@@ -31,7 +32,7 @@ const Info = () => {
     if (location.state?.croppedImage) {
       setPlanInfoImage(location.state.croppedImage);
     }
-  }, [location.state]);
+  }, [location.state?.croppedImage]);
 
   const handleCloseModal = () => {
     setIsModal(false);
@@ -39,9 +40,12 @@ const Info = () => {
 
   const handleImageSelection = () => {
     handleImageEdit((selectedImage) => {
-      navigate('/plan/info/:id/crop', { state: { imageSrc: selectedImage } });
+      const id = 1;
+      console.log("Selected Image: ", selectedImage);
+      navigate(`/plan/info/${id}/crop`, { state: { imageSrc: selectedImage } });
     });
   };
+
 
   return (
     <_.Info_Layout StatusBarSize={`${statusBarHeight}px`}>

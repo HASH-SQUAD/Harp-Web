@@ -1,18 +1,14 @@
+// src/components/CropImage/index.tsx
+
 import React, { useState } from 'react';
 import Cropper from 'react-easy-crop';
 import { Area } from 'react-easy-crop/types';
 import { getCroppedImg } from '../../lib/utils/cropImage';
 import NextButton from 'components/NextButton';
 import { useNavigate } from 'react-router-dom';
+import { CropImageProps } from '../../types/cropImage';
 
-interface CropImageProps {
-  imageSrc: string;
-  cropShape: 'rect' | 'round';
-  aspectRatio: number;
-  cropSize: { width: number, height: number };
-}
-
-const CropImage: React.FC<CropImageProps> = ({ imageSrc, cropShape, aspectRatio, cropSize }) => {
+const CropImage = ({ imageSrc, cropShape, aspectRatio, cropSize }: CropImageProps) => {
   const [crop, setCrop] = useState({ x: 0, y: 0 });
   const [zoom, setZoom] = useState(1);
   const [croppedAreaPixels, setCroppedAreaPixels] = useState<Area | null>(null);
@@ -23,15 +19,17 @@ const CropImage: React.FC<CropImageProps> = ({ imageSrc, cropShape, aspectRatio,
   };
 
   const handleComplete = async () => {
+    const id = 1;
     if (croppedAreaPixels) {
       try {
         const croppedImage = await getCroppedImg(imageSrc, croppedAreaPixels);
-        navigate('/plan/info/:id', { state: { croppedImage } });
+        navigate(`/plan/info/${id}`, { state: { croppedImage } }); // 1이라는 ID로 교체
       } catch (error) {
         console.error('이미지 자르기 오류:', error);
       }
     }
   };
+  
 
   return (
     <div style={{ position: 'relative', width: '100%', height: '600px' }}>
