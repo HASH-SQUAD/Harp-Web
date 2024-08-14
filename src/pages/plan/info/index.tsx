@@ -1,6 +1,8 @@
-// src/pages/plan/info/index.tsx
+// 라이브러리
 import React, { useState, useEffect } from 'react';
 import { useNavigate, useLocation } from 'react-router-dom';
+
+// 파일
 import * as _ from './style';
 import useStatusBarHeight from 'hooks/useStatusBarHeight';
 import Header from 'components/Header';
@@ -8,6 +10,7 @@ import PlanInfo from 'assets/image/PlanInfo.png';
 import Camera from 'assets/Icon/Camera';
 import calculateDDay from 'lib/utils/D-Day';
 import { handleImageEdit } from 'lib/utils/handleImageEdit';
+import { planInfos } from 'types/planInfos';
 import KebabMenu from 'assets/Icon/KebabMenu';
 import ControlModal from 'components/Modals/ControlModal';
 import DayPlan from 'components/DayPlan';

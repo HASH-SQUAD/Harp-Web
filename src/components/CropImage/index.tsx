@@ -1,5 +1,3 @@
-// src/components/CropImage/index.tsx
-
 import React, { useState } from 'react';
 import Cropper from 'react-easy-crop';
 import { Area } from 'react-easy-crop/types';
@@ -23,9 +21,9 @@ const CropImage = ({ imageSrc, cropShape, aspectRatio, cropSize }: CropImageProp
     if (croppedAreaPixels) {
       try {
         const croppedImage = await getCroppedImg(imageSrc, croppedAreaPixels);
-        navigate(`/plan/info/${id}`, { state: { croppedImage } }); // 1이라는 ID로 교체
+        navigate(`/plan/info/${id}`, { state: { croppedImage } });
       } catch (error) {
-        console.error('이미지 자르기 오류:', error);
+        console.error('이미지 자르기 오류', error);
       }
     }
   };
