@@ -16,9 +16,10 @@ import SurveyEnd from 'pages/register/surveyEnd';
 import Chat from 'pages/plan/chat';
 import SelectDate from 'pages/plan/selectDate';
 import Info from 'pages/plan/info';
-import Crop from 'pages/plan/crop';
+import InfoCrop from 'pages/plan/crop';
 // profile
 import Edit from 'pages/profile/edit';
+import EditCrop from 'pages/profile/crop';
 
 export default function Router() {
   return useRoutes([
@@ -49,12 +50,15 @@ export default function Router() {
         { path: 'chat', element: <Chat /> },
         { path: 'selectdate', element: <SelectDate /> },
         { path: 'info/:id', element: <Info /> },
-        { path: 'info/:id/crop', element: <Crop /> }
+        { path: 'info/:id/crop', element: <InfoCrop /> }
       ]
     },
     {
       path: '/profile',
-      children: [{ path: 'edit', element: <Edit /> }]
+      children: [
+        { path: 'edit', element: <Edit /> },
+        { path: 'edit/crop', element: <EditCrop /> }
+      ]
     }
   ]);
 }
