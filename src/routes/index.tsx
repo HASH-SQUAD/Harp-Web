@@ -20,7 +20,7 @@ import SelectDate from 'pages/plan/selectDate';
 import Info from 'pages/plan/info';
 import Detail from 'pages/plan/memo';
 import Update from 'pages/plan/update';
-import AddSearch from 'pages/plan/add_search'
+import AddSearch from 'pages/plan/addSearch'
 
 // profile
 import Edit from 'pages/profile/edit';
