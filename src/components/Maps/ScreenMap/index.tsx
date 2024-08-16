@@ -59,7 +59,7 @@ const ScreenMap = () => {
     polyline.setMap(map);
 
     positions.forEach((position, index) => {
-      const imageSize = new window.kakao.maps.Size(27, 34);
+      const imageSize = new window.kakao.maps.Size(30, 37);
       const markerImage = new window.kakao.maps.MarkerImage(Marker, imageSize);
       const marker = new window.kakao.maps.Marker({
         map: map,
@@ -68,18 +68,37 @@ const ScreenMap = () => {
         image: markerImage
       });
 
-      const overlayContent = ReactDOMServer.renderToString(
+      const sequenceOverlayContent = ReactDOMServer.renderToString(
         <_.ScreenMap_Overlay>{`${index + 1}번째`}</_.ScreenMap_Overlay>
       );
 
-      const customOverlay = new window.kakao.maps.CustomOverlay({
+      const sequenceOverlay = new window.kakao.maps.CustomOverlay({
         map: map,
         position: position.latlng,
-        content: overlayContent,
+        content: sequenceOverlayContent,
         yAnchor: 3
       });
 
-      customOverlay.setMap(map);
+      sequenceOverlay.setMap(map);
+
+      const infoOverlayContent = ReactDOMServer.renderToString(
+        <_.ScreenMap_InfoWindow>
+          <_.ScreenMap_Header>
+            <_.ScreenMap_Title>만나기</_.ScreenMap_Title>
+            <_.ScreenMap_Time>· 오전 11시</_.ScreenMap_Time>
+          </_.ScreenMap_Header>
+          <_.ScreenMap_Location>맥도날드 김해삼정DT점</_.ScreenMap_Location>
+        </_.ScreenMap_InfoWindow>
+      );
+
+      const infoOverlay = new window.kakao.maps.CustomOverlay({
+        map: map,
+        position: position.latlng,
+        content: infoOverlayContent,
+        yAnchor: -0.2
+      });
+
+      infoOverlay.setMap(map);
     });
   }, []);
 
