@@ -10,6 +10,8 @@ import Search from 'assets/image/Search';
 import AddPlanContent from 'components/AddPlanContent';
 import { GetKeywordFood, ApiResponse, Document } from 'lib/apis/LocationSearch';
 import useDebounce from 'hooks/useDebounce';
+import SearchBarX from 'assets/Icon/SearchBarX';
+import SearchError from 'assets/Icon/SearchError';
 
 const AddSearch: React.FC = () => {
   const statusBarHeight = useStatusBarHeight();
@@ -45,13 +47,31 @@ const AddSearch: React.FC = () => {
             value={query}
             onChange={handleInputChange}
           />
+          <SearchBarX />
         </_.AddSearch_SearchBar>
 
         <_.AddSearch_Content>
           {isLoading || isFetching ? (
             <p>검색 중...</p>
           ) : error ? (
-            <p>오류가 발생했습니다. 다시 시도해 주세요.</p>
+            <_.AddSearch_NoCotent>
+              <SearchError />
+              <_.AddSearch_NoCotent_TextBox>
+                <_.AddSearch_NoCotent_Title>
+                  검색결과가 없습니다.
+                </_.AddSearch_NoCotent_Title>
+                <_.AddSearch_NoCotent_SubTitle>
+                  일시적인 문제로 검색 결과를 불러오지 못했습니다.
+                </_.AddSearch_NoCotent_SubTitle>
+              </_.AddSearch_NoCotent_TextBox>
+              <_.AddSearch_NoCotent_RestartButton
+                onClick={() => {
+                  window.location.reload();
+                }}
+              >
+                다시시도하기
+              </_.AddSearch_NoCotent_RestartButton>
+            </_.AddSearch_NoCotent>
           ) : data && data.documents.length > 0 ? (
             data.documents.map((item: Document) => (
               <AddPlanContent
@@ -62,7 +82,18 @@ const AddSearch: React.FC = () => {
               />
             ))
           ) : (
-            <p>검색 결과가 없습니다.</p>
+            <_.AddSearch_NoCotent>
+              <SearchError />
+              <_.AddSearch_NoCotent_TextBox>
+                <_.AddSearch_NoCotent_Title>
+                  검색결과가 없습니다.
+                </_.AddSearch_NoCotent_Title>
+
+                <_.AddSearch_NoCotent_SubTitle>
+                  단어철자에 문제가 있는지 확인해주세요.
+                </_.AddSearch_NoCotent_SubTitle>
+              </_.AddSearch_NoCotent_TextBox>
+            </_.AddSearch_NoCotent>
           )}
         </_.AddSearch_Content>
       </_.AddSearch_Layout>
