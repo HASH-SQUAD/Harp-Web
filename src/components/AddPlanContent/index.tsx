@@ -1,0 +1,34 @@
+//라이브러리
+import React from 'react';
+
+//파일
+import * as _ from './style';
+import Location from 'assets/Icon/Location';
+
+type OwnProps = {
+  Title?: string;
+  Address?: string;
+  Time?: string;
+};
+
+const AddPlanContent = ({ Title, Address, Time }: OwnProps) => {
+  return (
+    <_.AddPlanContent>
+      <_.AddPlanContent_Info>
+        <_.AddPlanContent_Title>{Title}</_.AddPlanContent_Title>
+        <_.AddPlanContent_Adress>{Address}</_.AddPlanContent_Adress>
+        <_.AddPanContent>{Time}</_.AddPanContent>
+      </_.AddPlanContent_Info>
+
+      <_.AddPlanContent_Button>
+        <_.AddPlanContent_Button_Loaction>
+          <Location />
+        </_.AddPlanContent_Button_Loaction>
+
+        <_.AddPlanContent_Button_Text>지정하기</_.AddPlanContent_Button_Text>
+      </_.AddPlanContent_Button>
+    </_.AddPlanContent>
+  );
+};
+
+export default AddPlanContent;
