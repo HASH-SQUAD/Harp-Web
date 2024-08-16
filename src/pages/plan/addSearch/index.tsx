@@ -8,7 +8,7 @@ import useStatusBarHeight from 'hooks/useStatusBarHeight';
 import Header from 'components/Header';
 import Search from 'assets/image/Search';
 import AddPlanContent from 'components/AddPlanContent';
-import { GetKeywordFood, ApiResponse, Document } from 'lib/apis/LocationSearch';
+import { GetKeywordData, ApiResponse, Document } from 'lib/apis/LocationSearch';
 import useDebounce from 'hooks/useDebounce';
 import SearchBarX from 'assets/Icon/SearchBarX';
 import SearchError from 'assets/Icon/SearchError';
@@ -22,7 +22,7 @@ const AddSearch = () => {
 
   const { data, isLoading, isFetching, error } = useQuery<ApiResponse, Error>(
     ['searchResults', debouncedQuery],
-    () => GetKeywordFood({ query: debouncedQuery }),
+    () => GetKeywordData({ query: debouncedQuery }),
     {
       enabled: !!debouncedQuery,
       refetchOnWindowFocus: false,

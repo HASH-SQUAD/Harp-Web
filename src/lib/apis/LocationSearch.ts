@@ -35,7 +35,7 @@ export interface ApiResponse {
 }
 
 // params 타입
-interface GetKeywordFoodParams {
+interface GetKeywordDataParams {
   query: string;
   page?: number;
   size?: number;
@@ -43,8 +43,8 @@ interface GetKeywordFoodParams {
 
 const API_KEY = `KakaoAK ${process.env.REACT_APP_KAKAO_API_KEY}`;
 
-export const GetKeywordFood = async (
-  params: GetKeywordFoodParams
+export const GetKeywordData = async (
+  params: GetKeywordDataParams
 ): Promise<ApiResponse> => {
   const { data } = await KakaoInstance.get<ApiResponse>(
     `/v2/local/search/keyword`,
