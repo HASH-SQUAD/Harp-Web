@@ -1,5 +1,6 @@
 // 라이브러리
 import React, { useEffect } from 'react';
+import ReactDOMServer from 'react-dom/server';
 
 // 파일
 import * as _ from './style';
@@ -57,7 +58,7 @@ const ScreenMap = () => {
     });
     polyline.setMap(map);
 
-    positions.forEach((position) => {
+    positions.forEach((position, index) => {
       const imageSize = new window.kakao.maps.Size(27, 34);
       const markerImage = new window.kakao.maps.MarkerImage(Marker, imageSize);
       const marker = new window.kakao.maps.Marker({
@@ -66,8 +67,22 @@ const ScreenMap = () => {
         title: position.title,
         image: markerImage
       });
+
+      const overlayContent = ReactDOMServer.renderToString(
+        <_.ScreenMap_Overlay>{`${index + 1}번째`}</_.ScreenMap_Overlay>
+      );
+
+      const customOverlay = new window.kakao.maps.CustomOverlay({
+        map: map,
+        position: position.latlng,
+        content: overlayContent,
+        yAnchor: 3
+      });
+
+      customOverlay.setMap(map);
     });
   }, []);
+
   return <_.ScreenMap_Layout id="map" />;
 };
 
