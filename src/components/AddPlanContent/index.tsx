@@ -21,9 +21,9 @@ const AddPlanContent = ({ Title, Address, Time }: OwnProps) => {
       </_.AddPlanContent_Info>
 
       <_.AddPlanContent_Button>
-        <_.AddPlanContent_Button_Loaction>
+        <_.AddPlanContent_Button_Loction>
           <Location />
-        </_.AddPlanContent_Button_Loaction>
+        </_.AddPlanContent_Button_Loction>
 
         <_.AddPlanContent_Button_Text>지정하기</_.AddPlanContent_Button_Text>
       </_.AddPlanContent_Button>

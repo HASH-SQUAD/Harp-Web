@@ -42,7 +42,7 @@ export const AddPlanContent_Button = styled.div`
   gap: 8px;
 `;
 
-export const AddPlanContent_Button_Loaction = styled.div`
+export const AddPlanContent_Button_Loction = styled.div`
   display: flex;
   flex-direction: row;
   justify-content: center;
