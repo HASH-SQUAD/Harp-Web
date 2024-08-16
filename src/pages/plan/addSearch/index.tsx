@@ -12,6 +12,7 @@ import { GetKeywordFood, ApiResponse, Document } from 'lib/apis/LocationSearch';
 import useDebounce from 'hooks/useDebounce';
 import SearchBarX from 'assets/Icon/SearchBarX';
 import SearchError from 'assets/Icon/SearchError';
+import SearchLoading from 'assets/image/SearchLoading.gif';
 
 const AddSearch: React.FC = () => {
   const statusBarHeight = useStatusBarHeight();
@@ -54,7 +55,9 @@ const AddSearch: React.FC = () => {
 
         <_.AddSearch_Content>
           {isLoading || isFetching ? (
-            <p>검색 중...</p>
+            <_.AddSearch_LoadingLayout>
+              <_.AddSearch_Content_Loading src={SearchLoading} alt="" />
+            </_.AddSearch_LoadingLayout>
           ) : error ? (
             <_.AddSearch_NoCotent>
               <SearchError />
@@ -90,7 +93,6 @@ const AddSearch: React.FC = () => {
                 <_.AddSearch_NoCotent_Title>
                   검색결과가 없습니다.
                 </_.AddSearch_NoCotent_Title>
-
                 <_.AddSearch_NoCotent_SubTitle>
                   단어철자에 문제가 있는지 확인해주세요.
                 </_.AddSearch_NoCotent_SubTitle>

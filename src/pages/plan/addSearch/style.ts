@@ -47,6 +47,20 @@ export const AddSearch_Content = styled.div`
   overflow: scroll;
 `;
 
+export const AddSearch_LoadingLayout = styled.div`
+  width: 100%;
+  height: 60vh;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+`
+
+export const AddSearch_Content_Loading = styled.img`
+  width: 74px;
+  height: 74px;
+`
+
 export const AddSearch_NoCotent = styled.div`
   width: 100%;
   height: 60vh;
