@@ -25,7 +25,6 @@ const CropPage = () => {
           imageSrc={imageSrc} 
           cropShape="round" 
           aspectRatio={1 / 1}
-          cropSize={{ width: 360, height: 360 }} 
           nextPagePath="/profile/edit"
           onCropComplete={handleCropComplete}
         />
