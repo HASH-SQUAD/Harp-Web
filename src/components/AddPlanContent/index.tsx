@@ -13,7 +13,7 @@ type OwnProps = {
 
 const AddPlanContent = ({ Title, Address, Time }: OwnProps) => {
   return (
-    <_.AddPlanContent>
+    <_.AddPlanContent_Container>
       <_.AddPlanContent_Info>
         <_.AddPlanContent_Title>{Title}</_.AddPlanContent_Title>
         <_.AddPlanContent_Address>{Address}</_.AddPlanContent_Address>
@@ -27,7 +27,7 @@ const AddPlanContent = ({ Title, Address, Time }: OwnProps) => {
 
         <_.AddPlanContent_Button_Text>지정하기</_.AddPlanContent_Button_Text>
       </_.AddPlanContent_Button>
-    </_.AddPlanContent>
+    </_.AddPlanContent_Container>
   );
 };
 

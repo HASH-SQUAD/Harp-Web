@@ -1,7 +1,7 @@
 import { theme } from 'lib/utils/style/theme';
 import styled from 'styled-components';
 
-export const AddPlanContent = styled.div`
+export const AddPlanContent_Container = styled.div`
   display: flex;
   flex-direction: row;
   justify-content: space-between;
