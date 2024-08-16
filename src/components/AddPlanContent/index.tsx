@@ -16,7 +16,7 @@ const AddPlanContent = ({ Title, Address, Time }: OwnProps) => {
     <_.AddPlanContent>
       <_.AddPlanContent_Info>
         <_.AddPlanContent_Title>{Title}</_.AddPlanContent_Title>
-        <_.AddPlanContent_Adress>{Address}</_.AddPlanContent_Adress>
+        <_.AddPlanContent_Address>{Address}</_.AddPlanContent_Address>
         <_.AddPanContent>{Time}</_.AddPanContent>
       </_.AddPlanContent_Info>
 

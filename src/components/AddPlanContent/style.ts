@@ -22,7 +22,7 @@ export const AddPlanContent_Title = styled.div`
   font-weight: 400;
 `;
 
-export const AddPlanContent_Adress = styled.div`
+export const AddPlanContent_Address = styled.div`
   font-size: 14px;
   font-weight: 400;
   color: #767676;
