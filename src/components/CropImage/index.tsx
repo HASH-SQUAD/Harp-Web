@@ -6,7 +6,7 @@ import NextButton from 'components/NextButton';
 import { useNavigate } from 'react-router-dom';
 import { CropImageProps } from '../../types/cropImage';
 
-export const CropImage = ({ imageSrc, cropShape, aspectRatio, cropSize, onCropComplete }: CropImageProps) => {
+export const CropImage = ({ imageSrc, cropShape, aspectRatio, onCropComplete }: CropImageProps) => {
   const [crop, setCrop] = useState({ x: 0, y: 0 });
   const [zoom, setZoom] = useState(1);
   const [croppedAreaPixels, setCroppedAreaPixels] = useState<Area | null>(null);
@@ -29,18 +29,18 @@ export const CropImage = ({ imageSrc, cropShape, aspectRatio, cropSize, onCropCo
   };
 
   return (
-    <div style={{ position: 'relative', width: '100%', height: '600px' }}>
-      <Cropper
-        image={imageSrc}
-        crop={crop}
-        zoom={zoom}
-        aspect={aspectRatio}
-        cropShape={cropShape}
-        cropSize={cropSize}
-        onCropChange={setCrop}
-        onZoomChange={setZoom}
-        onCropComplete={onCropCompleteHandler}
-      />
+    <div style={{ position: 'relative', width: '100%', height: 'calc(100vh - 120px)', display: 'flex', justifyContent: 'center', alignItems: 'center' }}>
+      
+        <Cropper
+          image={imageSrc}
+          crop={crop}
+          zoom={zoom}
+          aspect={aspectRatio}
+          cropShape={cropShape}
+          onCropChange={setCrop}
+          onZoomChange={setZoom}
+          onCropComplete={onCropCompleteHandler}
+        />
       <NextButton text="완료" state={!!croppedAreaPixels} onClick={handleComplete} />
     </div>
   );
