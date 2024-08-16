@@ -1,5 +1,5 @@
 // 라이브러리
-import React, { useEffect } from 'react';
+import React, { useEffect, useRef } from 'react';
 import ReactDOMServer from 'react-dom/server';
 
 // 파일
@@ -14,6 +14,7 @@ declare global {
 }
 
 const ScreenMap = () => {
+  const currentOverlay = useRef<null | any>(null);
   useEffect(() => {
     if (!window.kakao || !window.kakao.maps) {
       console.error('카카오 지도 API를 로드할 수 없습니다.');
@@ -98,7 +99,22 @@ const ScreenMap = () => {
         yAnchor: -0.2
       });
 
-      infoOverlay.setMap(map);
+      infoOverlay.setMap(null);
+
+      window.kakao.maps.event.addListener(marker, 'click', () => {
+        if (currentOverlay.current) {
+          currentOverlay.current.setMap(null);
+        }
+        infoOverlay.setMap(map);
+        currentOverlay.current = infoOverlay;
+      });
+
+      window.kakao.maps.event.addListener(map, 'click', () => {
+        if (currentOverlay.current) {
+          currentOverlay.current.setMap(null);
+          currentOverlay.current = null;
+        }
+      });
     });
   }, []);
 
