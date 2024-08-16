@@ -47,7 +47,9 @@ const AddSearch: React.FC = () => {
             value={query}
             onChange={handleInputChange}
           />
-          <SearchBarX />
+          <_.AddSearch_SearchBar_ClearIcon onClick={() => setQuery('')}>
+            <SearchBarX />
+          </_.AddSearch_SearchBar_ClearIcon>
         </_.AddSearch_SearchBar>
 
         <_.AddSearch_Content>

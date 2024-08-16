@@ -25,11 +25,21 @@ export const AddSearch_SearchBar = styled.div`
 export const AddSearch_SearchBar_Input = styled.input`
   background-color: ${theme.gray[0]};
   border: none;
-  width: 82%;
   height: 30px;
   font-size: 16px;
   font-weight: 400;
   outline: none;
+`;
+
+export const AddSearch_SearchBar_ClearIcon = styled.div`
+  background-color: ${theme.gray[1]};
+  width: 20px;
+  height: 20px;
+  border-radius: 100%;
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
 `;
 
 export const AddSearch_Content = styled.div`
