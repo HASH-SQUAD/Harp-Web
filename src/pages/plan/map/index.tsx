@@ -5,6 +5,7 @@ import React, { useEffect } from 'react';
 import * as _ from './style';
 import Header from 'components/Header';
 import Marker from 'assets/image/Marker.svg';
+import { theme } from 'lib/utils/style/theme';
 
 declare global {
   interface Window {
@@ -14,6 +15,11 @@ declare global {
 
 const Map = () => {
   useEffect(() => {
+    if (!window.kakao || !window.kakao.maps) {
+      console.error('카카오 지도 API를 로드할 수 없습니다.');
+      return;
+    }
+
     const mapContainer = document.getElementById('map');
     const mapOption = {
       center: new window.kakao.maps.LatLng(33.450701, 126.570667),
@@ -40,6 +46,17 @@ const Map = () => {
         latlng: new window.kakao.maps.LatLng(33.451393, 126.570738)
       }
     ];
+
+    const linePath = positions.map((position) => position.latlng);
+
+    const polyline = new window.kakao.maps.Polyline({
+      path: linePath,
+      strokeWeight: 2,
+      strokeColor: theme.primary[6],
+      strokeOpacity: 1,
+      strokeStyle: 'solid'
+    });
+    polyline.setMap(map);
 
     positions.forEach((position) => {
       const imageSize = new window.kakao.maps.Size(27, 34);
