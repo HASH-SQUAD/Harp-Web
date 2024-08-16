@@ -15,7 +15,7 @@ const AddSearch: React.FC = () => {
   const statusBarHeight = useStatusBarHeight();
   const [query, setQuery] = useState<string>('');
 
-  const debouncedQuery = useDebounce(query, 200);
+  const debouncedQuery = useDebounce({ value: query, delay: 200 });
 
   const { data, isLoading, isFetching, error } = useQuery<ApiResponse, Error>(
     ['searchResults', debouncedQuery],
