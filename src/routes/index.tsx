@@ -15,6 +15,7 @@ import SurveyEnd from 'pages/register/surveyend';
 // plan
 import Chat from 'pages/plan/chat';
 import SelectDate from 'pages/plan/selectdate';
+import Map from 'pages/plan/map';
 import Info from 'pages/plan/info';
 import Detail from 'pages/plan/memo';
 import Update from 'pages/plan/update';
@@ -49,6 +50,7 @@ export default function Router() {
       children: [
         { path: 'chat', element: <Chat /> },
         { path: 'selectdate', element: <SelectDate /> },
+        { path: 'map/:id', element: <Map /> },
         { path: 'info/:id', element: <Info /> },
         { path: 'info/:id/day/:planId', element: <Detail /> },
         { path: 'info/:id/day/:planId/update', element: <Update /> }
