@@ -1,16 +1,21 @@
 import React from 'react';
-import { useLocation } from 'react-router-dom';
+import { useLocation, useNavigate } from 'react-router-dom';
 import { CropImage } from 'components/CropImage';
 import Header from 'components/Header';
 import * as _ from './style';
 
 const CropPage = () => {
   const location = useLocation();
+  const navigate = useNavigate();
   const { imageSrc } = location.state || {};
 
   if (!imageSrc) {
     return null;
   }
+
+  const handleCropComplete = (croppedImage: string) => {
+    navigate('/profile/edit', { state: { croppedImage } });
+  };
 
   return (
     <_.Crop_Layout>
@@ -18,10 +23,11 @@ const CropPage = () => {
       <_.Crop_Container>
         <CropImage 
           imageSrc={imageSrc} 
-          cropShape="rect" 
-          aspectRatio={12 / 5}
-          cropSize={{ width: 360, height: 200 }} 
-          nextPagePath="/plan/info"
+          cropShape="round" 
+          aspectRatio={1 / 1}
+          cropSize={{ width: 360, height: 360 }} 
+          nextPagePath="/profile/edit"
+          onCropComplete={handleCropComplete}
         />
       </_.Crop_Container>
     </_.Crop_Layout>

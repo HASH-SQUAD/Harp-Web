@@ -6,28 +6,27 @@ import NextButton from 'components/NextButton';
 import { useNavigate } from 'react-router-dom';
 import { CropImageProps } from '../../types/cropImage';
 
-const CropImage = ({ imageSrc, cropShape, aspectRatio, cropSize }: CropImageProps) => {
+export const CropImage = ({ imageSrc, cropShape, aspectRatio, cropSize, onCropComplete }: CropImageProps) => {
   const [crop, setCrop] = useState({ x: 0, y: 0 });
   const [zoom, setZoom] = useState(1);
   const [croppedAreaPixels, setCroppedAreaPixels] = useState<Area | null>(null);
-  const navigate = useNavigate();
 
-  const onCropComplete = (croppedArea: Area, croppedAreaPixels: Area) => {
+  const onCropCompleteHandler = (croppedArea: Area, croppedAreaPixels: Area) => {
     setCroppedAreaPixels(croppedAreaPixels);
   };
 
   const handleComplete = async () => {
-    const id = 1;
     if (croppedAreaPixels) {
       try {
         const croppedImage = await getCroppedImg(imageSrc, croppedAreaPixels);
-        navigate(`/plan/info/${id}`, { state: { croppedImage } });
+        if (onCropComplete) {
+          onCropComplete(croppedImage);
+        }
       } catch (error) {
-        console.error('이미지 자르기 오류', error);
+        console.error('이미지 자르기 오류:', error);
       }
     }
   };
-  
 
   return (
     <div style={{ position: 'relative', width: '100%', height: '600px' }}>
@@ -40,11 +39,9 @@ const CropImage = ({ imageSrc, cropShape, aspectRatio, cropSize }: CropImageProp
         cropSize={cropSize}
         onCropChange={setCrop}
         onZoomChange={setZoom}
-        onCropComplete={onCropComplete}
+        onCropComplete={onCropCompleteHandler}
       />
-      <NextButton text="완료" state={true} onClick={handleComplete} />
+      <NextButton text="완료" state={!!croppedAreaPixels} onClick={handleComplete} />
     </div>
   );
 };
-
-export default CropImage;
