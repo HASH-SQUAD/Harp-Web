@@ -4,6 +4,7 @@ import React, { useEffect } from 'react';
 // 파일
 import * as _ from './style';
 import Header from 'components/Header';
+import Marker from 'assets/image/Marker.svg';
 
 declare global {
   interface Window {
@@ -12,7 +13,6 @@ declare global {
 }
 
 const Map = () => {
-
   useEffect(() => {
     const mapContainer = document.getElementById('map');
     const mapOption = {
@@ -41,15 +41,9 @@ const Map = () => {
       }
     ];
 
-    const imageSrc =
-      'https://t1.daumcdn.net/localimg/localimages/07/mapapidoc/markerStar.png';
-
     positions.forEach((position) => {
-      const imageSize = new window.kakao.maps.Size(24, 35);
-      const markerImage = new window.kakao.maps.MarkerImage(
-        imageSrc,
-        imageSize
-      );
+      const imageSize = new window.kakao.maps.Size(27, 34);
+      const markerImage = new window.kakao.maps.MarkerImage(Marker, imageSize);
       const marker = new window.kakao.maps.Marker({
         map: map,
         position: position.latlng,
