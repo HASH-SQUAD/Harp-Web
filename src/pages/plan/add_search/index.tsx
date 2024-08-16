@@ -1,21 +1,27 @@
+//라이브러리
 import React, { useState } from 'react';
+import { useQuery } from 'react-query';
+
+//파일
 import * as _ from './style';
 import useStatusBarHeight from 'hooks/useStatusBarHeight';
 import Header from 'components/Header';
 import Search from 'assets/image/Search';
 import AddPlanContent from 'components/AddPlanContent';
-import { useQuery } from 'react-query';
 import { GetKeywordFood, ApiResponse, Document } from 'lib/apis/LocationSearch';
+import useDebounce from 'hooks/useDebounce';
 
 const AddSearch: React.FC = () => {
   const statusBarHeight = useStatusBarHeight();
   const [query, setQuery] = useState<string>('');
 
+  const debouncedQuery = useDebounce(query, 200);
+
   const { data, isLoading, isFetching, error } = useQuery<ApiResponse, Error>(
-    ['searchResults', query],
-    () => GetKeywordFood({ query }),
+    ['searchResults', debouncedQuery],
+    () => GetKeywordFood({ query: debouncedQuery }),
     {
-      enabled: !!query,
+      enabled: !!debouncedQuery,
       refetchOnWindowFocus: false,
       retry: 0,
       onError: (e) => {
@@ -24,7 +30,6 @@ const AddSearch: React.FC = () => {
     }
   );
 
-  // 검색어 입력 핸들러
   const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     setQuery(e.currentTarget.value);
   };

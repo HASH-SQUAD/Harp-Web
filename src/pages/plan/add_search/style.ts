@@ -33,6 +33,6 @@ export const AddSearch_SearchBar_Input = styled.input`
 `;
 
 export const AddSearch_Content = styled.div`
-height: 80vh;
+  height: 80vh;
   overflow: scroll;
-`
+`;
