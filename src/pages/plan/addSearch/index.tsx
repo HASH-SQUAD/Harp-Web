@@ -14,7 +14,7 @@ import SearchBarX from 'assets/Icon/SearchBarX';
 import SearchError from 'assets/Icon/SearchError';
 import SearchLoading from 'assets/image/SearchLoading.gif';
 
-const AddSearch: React.FC = () => {
+const AddSearch = () => {
   const statusBarHeight = useStatusBarHeight();
   const [query, setQuery] = useState<string>('');
 
