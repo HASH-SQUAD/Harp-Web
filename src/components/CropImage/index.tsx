@@ -3,7 +3,6 @@ import Cropper from 'react-easy-crop';
 import { Area } from 'react-easy-crop/types';
 import { getCroppedImg } from '../../lib/utils/cropImage';
 import NextButton from 'components/NextButton';
-import { useNavigate } from 'react-router-dom';
 import { CropImageProps } from '../../types/cropImage';
 
 export const CropImage = ({ imageSrc, cropShape, aspectRatio, onCropComplete }: CropImageProps) => {

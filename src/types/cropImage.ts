@@ -1,7 +1,3 @@
-//src/types/cropImage.ts
-import { Area } from 'react-easy-crop/types';
-
-
 export interface CropImageProps {
   imageSrc: string;
   cropShape: 'rect' | 'round';
