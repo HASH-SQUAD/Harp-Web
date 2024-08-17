@@ -3,22 +3,26 @@ import { useRoutes } from 'react-router-dom';
 import Splash from 'pages/splash';
 import Auth from 'pages/auth';
 import Home from 'pages/home';
-import NotFound from 'pages/notfound';
+import NotFound from 'pages/notFound';
+
 // register
 import Terms from 'pages/register/terms';
 import UserInfo from 'pages/register/userinfo';
-import SurveyStyle from 'pages/register/surveystyle';
-import SurveyFood from 'pages/register/surveyfood';
-import SurveyMBTI from 'pages/register/surveymbti';
+import SurveyStyle from 'pages/register/surveyStyle';
+import SurveyFood from 'pages/register/surveyFood';
+import SurveyMBTI from 'pages/register/surveyMBTI';
 import SurveyTMI from 'pages/register/surveyTMI';
-import SurveyEnd from 'pages/register/surveyend';
+import SurveyEnd from 'pages/register/surveyEnd';
+
 // plan
 import Chat from 'pages/plan/chat';
-import SelectDate from 'pages/plan/selectdate';
-import Map from 'pages/plan/map';
+import SelectDate from 'pages/plan/selectDate';
 import Info from 'pages/plan/info';
+import Map from 'pages/plan/map';
 import Detail from 'pages/plan/memo';
 import Update from 'pages/plan/update';
+import AddSearch from 'pages/plan/addSearch';
+
 // profile
 import Edit from 'pages/profile/edit';
 
@@ -26,11 +30,10 @@ export default function Router() {
   return useRoutes([
     {
       path: '/',
-      element: <Home />,
       children: [
+        { index: true, element: <Home /> },
         { path: 'splash', element: <Splash /> },
-        { path: 'auth', element: <Auth /> },
-        { path: '*', element: <NotFound /> }
+        { path: 'auth', element: <Auth /> }
       ]
     },
     {
@@ -53,12 +56,14 @@ export default function Router() {
         { path: 'map/:id', element: <Map /> },
         { path: 'info/:id', element: <Info /> },
         { path: 'info/:id/day/:planId', element: <Detail /> },
-        { path: 'info/:id/day/:planId/update', element: <Update /> }
+        { path: 'info/:id/day/:planId/update', element: <Update /> },
+        { path: 'info/:id/day/:planId/addsearch', element: <AddSearch /> }
       ]
     },
     {
       path: 'profile',
       children: [{ path: 'edit', element: <Edit /> }]
-    }
+    },
+    { path: '*', element: <NotFound /> }
   ]);
 }
