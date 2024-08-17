@@ -4,6 +4,7 @@ import Splash from '../pages/splash/';
 import Auth from 'pages/auth';
 import Home from 'pages/home';
 import NotFound from 'pages/NotFound';
+import Crop from 'pages/crop'
 // register
 import Terms from 'pages/register/terms';
 import UserInfo from 'pages/register/userinfo';
@@ -29,7 +30,8 @@ export default function Router() {
         { path: '/', element: <Home /> },
         { path: 'splash', element: <Splash /> },
         { path: 'auth', element: <Auth /> },
-        { path: '*', element: <NotFound /> }
+        { path: '*', element: <NotFound /> },
+        { path: 'crop', element: <Crop /> }
       ]
     },
     {

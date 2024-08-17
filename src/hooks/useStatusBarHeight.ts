@@ -5,7 +5,6 @@ const useStatusBarHeight = () => {
 
   const onMessageEvent = (e: MessageEvent) => {
     e.stopPropagation();
-    console.log(e.data);
     if (typeof e.data === "string") {
       const height = parseInt(e.data, 10);
       if (!isNaN(height)) {
