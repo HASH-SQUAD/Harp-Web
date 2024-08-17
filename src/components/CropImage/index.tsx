@@ -1,5 +1,8 @@
+// 라이브러리
 import React, { useState } from 'react';
 import Cropper from 'react-easy-crop';
+
+// 파일
 import { Area } from 'react-easy-crop/types';
 import { getCroppedImg } from '../../lib/utils/cropImage';
 import NextButton from 'components/NextButton';

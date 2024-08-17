@@ -21,7 +21,7 @@ import Info from 'pages/plan/info';
 import InfoCrop from 'pages/plan/crop';
 import Detail from 'pages/plan/memo';
 import Update from 'pages/plan/update';
-import AddSearch from 'pages/plan/addSearch'
+import AddSearch from 'pages/plan/addSearch';
 
 // profile
 import Edit from 'pages/profile/edit';
@@ -64,7 +64,8 @@ export default function Router() {
     },
     {
       path: 'profile',
-      children: [{ path: 'edit', element: <Edit /> },
+      children: [
+        { path: 'edit', element: <Edit /> },
         { path: 'edit/crop', element: <EditCrop /> }
       ]
     }
