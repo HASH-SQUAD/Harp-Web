@@ -1,8 +1,5 @@
-// 라이브러리
 import React, { useState, useEffect } from 'react';
 import { useNavigate, useLocation } from 'react-router-dom';
-
-// 파일
 import * as _ from './style';
 import useStatusBarHeight from 'hooks/useStatusBarHeight';
 import Header from 'components/Header';
@@ -10,7 +7,6 @@ import PlanInfo from 'assets/image/PlanInfo.png';
 import Camera from 'assets/Icon/Camera';
 import calculateDDay from 'lib/utils/D-Day';
 import { handleImageEdit } from 'lib/utils/handleImageEdit';
-import { planInfos } from 'types/planInfos';
 import KebabMenu from 'assets/Icon/KebabMenu';
 import ControlModal from 'components/Modals/ControlModal';
 import DayPlan from 'components/DayPlan';
@@ -24,6 +20,12 @@ const Info = () => {
   const [planInfoImage, setPlanInfoImage] = useState(PlanInfo);
   const [isModal, setIsModal] = useState(false);
   const [isUpdated, setIsUpdated] = useState(false);
+  
+  const planInfos = {
+    image: PlanInfo,
+    title: '가나다라마바사',
+    date: '2024-08-08'
+  };
 
   const planInfos = {
     image: PlanInfo,
@@ -43,9 +45,13 @@ const Info = () => {
 
   const handleImageSelection = () => {
     handleImageEdit((selectedImage) => {
+<<<<<<< HEAD
       const id = 1;
       console.log("Selected Image: ", selectedImage);
       navigate(`/plan/info/${id}/crop`, { state: { imageSrc: selectedImage } });
+=======
+      navigate('/plan/info/crop', { state: { imageSrc: selectedImage } });
+>>>>>>> 4863ea3 (chore :: 불필요 함수 삭제)
     });
   };
 
