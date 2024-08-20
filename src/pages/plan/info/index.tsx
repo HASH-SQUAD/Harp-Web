@@ -27,11 +27,6 @@ const Info = () => {
     date: '2024-08-08'
   };
 
-  const planInfos = {
-    image: PlanInfo,
-    title: '가나다라마바사',
-    date: '2024-08-08'
-  };
 
   useEffect(() => {
     if (location.state?.croppedImage) {
@@ -45,13 +40,9 @@ const Info = () => {
 
   const handleImageSelection = () => {
     handleImageEdit((selectedImage) => {
-<<<<<<< HEAD
       const id = 1;
       console.log("Selected Image: ", selectedImage);
       navigate(`/plan/info/${id}/crop`, { state: { imageSrc: selectedImage } });
-=======
-      navigate('/plan/info/crop', { state: { imageSrc: selectedImage } });
->>>>>>> 4863ea3 (chore :: 불필요 함수 삭제)
     });
   };
 
