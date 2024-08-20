@@ -23,7 +23,7 @@ const CropImage = ({ imageSrc, cropShape, aspectRatio, onCropComplete }: CropIma
       try {
         const croppedImage = await getCroppedImg(imageSrc, croppedAreaPixels);
         if (onCropComplete) {
-          onCropComplete(croppedImage);
+          onCropComplete?.(croppedImage);
         }
       } catch (error) {
         console.error('이미지 자르기 오류:', error);
