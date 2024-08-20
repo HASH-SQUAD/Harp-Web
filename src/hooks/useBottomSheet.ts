@@ -25,9 +25,15 @@ export function useBottomSheet() {
     }
   });
 
-  // Touch Event 핸들러들을 등록한다.
   useEffect(() => {
-    const handleTouchStart = (e: TouchEvent) => {};
+    const handleTouchStart = (e: TouchEvent) => {
+      const { touchStart } = metrics.current;
+
+      if (sheet.current) {
+        touchStart.sheetY = sheet.current.getBoundingClientRect().y;
+        touchStart.touchY = e.touches[0].clientY;
+      }
+    };
 
     const handleTouchMove = (e: TouchEvent) => {};
 
