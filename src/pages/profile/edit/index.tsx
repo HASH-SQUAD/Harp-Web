@@ -31,11 +31,13 @@ const Edit = () => {
   const [profileImage, setProfileImage] = useState(initialInfos.profileImage);
 
   useEffect(() => {
-    if (location.state?.croppedImage) {
-      setProfileImage(location.state.croppedImage);
+    const croppedImage = location.state?.croppedImage;
+    if (croppedImage) {
+      setProfileImage(croppedImage);
       setIsChanged(true);
     }
   }, [location.state?.croppedImage]);
+
 
   const handleInfos = useCallback((e: ChangeEvent<HTMLInputElement>) => {
     const { name, value } = e.currentTarget;
