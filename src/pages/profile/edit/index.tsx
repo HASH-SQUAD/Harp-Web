@@ -1,4 +1,8 @@
-import React, { ChangeEvent, useCallback, useState } from 'react';
+// 라이브러리
+import React, { ChangeEvent, useCallback, useEffect, useState } from 'react';
+import { useNavigate, useLocation } from 'react-router-dom';
+
+// 파일
 import * as _ from './style';
 import useStatusBarHeight from 'hooks/useStatusBarHeight';
 import Header from 'components/Header';
@@ -11,6 +15,8 @@ import { handleImageEdit } from 'lib/utils/handleImageEdit';
 
 const Edit = () => {
   const statusBarHeight = useStatusBarHeight();
+  const navigate = useNavigate();
+  const location = useLocation();
 
   const initialInfos = {
     profileImage: DefaultImg,
@@ -23,6 +29,15 @@ const Edit = () => {
   const [infos, setInfos] = useState(initialInfos);
   const [isChanged, setIsChanged] = useState(false);
   const [profileImage, setProfileImage] = useState(initialInfos.profileImage);
+
+  useEffect(() => {
+    const croppedImage = location.state?.croppedImage;
+    if (croppedImage) {
+      setProfileImage(croppedImage);
+      setIsChanged(true);
+    }
+  }, [location.state?.croppedImage]);
+
 
   const handleInfos = useCallback((e: ChangeEvent<HTMLInputElement>) => {
     const { name, value } = e.currentTarget;
@@ -47,6 +62,12 @@ const Edit = () => {
       });
   }, [initialInfos.email]);
 
+  const handleProfileImageEdit = () => {
+    handleImageEdit((selectedImage) => {
+      navigate('/profile/edit/crop', { state: { imageSrc: selectedImage } });
+    });
+  };
+
   const isFormValid = useCallback(() => {
     const { username, birthday, gender } = infos;
     return (
@@ -63,9 +84,7 @@ const Edit = () => {
         <_.Edit_Content>
           <_.Edit_Profile>
             <_.Edit_Profile_Img src={profileImage} alt="프로필 이미지" />
-            <_.Edit_Profile_Edit
-              onClick={() => handleImageEdit(setProfileImage)}
-            >
+            <_.Edit_Profile_Edit onClick={handleProfileImageEdit}>
               <ProfileEdit />
             </_.Edit_Profile_Edit>
           </_.Edit_Profile>
