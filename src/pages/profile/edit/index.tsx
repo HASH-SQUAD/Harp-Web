@@ -1,5 +1,8 @@
+// 라이브러리
 import React, { ChangeEvent, useCallback, useEffect, useState } from 'react';
 import { useNavigate, useLocation } from 'react-router-dom';
+
+// 파일
 import * as _ from './style';
 import useStatusBarHeight from 'hooks/useStatusBarHeight';
 import Header from 'components/Header';
