@@ -1,3 +1,4 @@
+import { MAX_Y, MIN_Y } from 'config/constants';
 import { useRef, useEffect } from 'react';
 
 interface BottomSheetMetrics {
@@ -35,8 +36,44 @@ export function useBottomSheet() {
       }
     };
 
-    const handleTouchMove = (e: TouchEvent) => {};
+    const handleTouchMove = (e: TouchEvent) => {
+      e.preventDefault();
 
+      const { touchStart, touchMove } = metrics.current;
+      const currentTouch = e.touches[0];
+
+      if (touchMove.prevTouchY === undefined) {
+        touchMove.prevTouchY = touchStart.touchY;
+      }
+
+      if (touchMove.prevTouchY < currentTouch.clientY) {
+        touchMove.movingDirection = 'down';
+      }
+
+      if (touchMove.prevTouchY > currentTouch.clientY) {
+        touchMove.movingDirection = 'up';
+      }
+
+      // 터치 시작점에서부터 현재 터치 포인트까지의 변화된 y값
+      const touchOffset = currentTouch.clientY - touchStart.touchY;
+      let nextSheetY = touchStart.sheetY + touchOffset;
+
+      // nextSheetY 는 MIN_Y와 MAX_Y 사이의 값으로 clamp 되어야 한다
+      if (nextSheetY <= MIN_Y) {
+        nextSheetY = MIN_Y;
+      }
+
+      if (nextSheetY >= MAX_Y) {
+        nextSheetY = MAX_Y;
+      }
+
+      if (sheet.current) {
+        sheet.current.style.setProperty(
+          'transform',
+          `translateY(${nextSheetY - MAX_Y}px)`
+        );
+      }
+    };
     const handleTouchEnd = (e: TouchEvent) => {};
     if (sheet.current) {
       sheet.current.addEventListener('touchstart', handleTouchStart);
