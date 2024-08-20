@@ -4,10 +4,6 @@ import Splash from 'pages/splash';
 import Auth from 'pages/auth';
 import Home from 'pages/home';
 import NotFound from 'pages/NotFound';
-<<<<<<< HEAD
-
-=======
->>>>>>> 4863ea3 (chore :: 불필요 함수 삭제)
 // register
 import Terms from 'pages/register/terms';
 import UserInfo from 'pages/register/userinfo';
@@ -21,15 +17,11 @@ import SurveyEnd from 'pages/register/surveyEnd';
 import Chat from 'pages/plan/chat';
 import SelectDate from 'pages/plan/selectDate';
 import Info from 'pages/plan/info';
-<<<<<<< HEAD
 import InfoCrop from 'pages/plan/crop';
 import Detail from 'pages/plan/memo';
 import Update from 'pages/plan/update';
 import AddSearch from 'pages/plan/addSearch';
 
-=======
-import Crop from 'pages/plan/crop'
->>>>>>> 4863ea3 (chore :: 불필요 함수 삭제)
 // profile
 import Edit from 'pages/profile/edit';
 import EditCrop from 'pages/profile/crop';
@@ -63,14 +55,10 @@ export default function Router() {
         { path: 'chat', element: <Chat /> },
         { path: 'selectdate', element: <SelectDate /> },
         { path: 'info/:id', element: <Info /> },
-<<<<<<< HEAD
         { path: 'info/:id/crop', element: <InfoCrop /> },
         { path: 'info/:id/day/:planId', element: <Detail /> },
         { path: 'info/:id/day/:planId/update', element: <Update /> },
         { path: 'info/:id/day/:planId/addsearch', element: <AddSearch /> }
-=======
-        { path: 'crop', element: <Crop /> }
->>>>>>> 4863ea3 (chore :: 불필요 함수 삭제)
       ]
     },
     {

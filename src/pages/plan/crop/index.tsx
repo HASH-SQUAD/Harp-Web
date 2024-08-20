@@ -8,7 +8,7 @@ const CropPage = () => {
   const location = useLocation();
   const navigate = useNavigate();
   const { imageSrc } = location.state || {};
-  
+
   if (!imageSrc) {
     return null;
   }
@@ -22,9 +22,14 @@ const CropPage = () => {
     <_.Crop_Layout>
       <Header title="자르기" />
       <_.Crop_Container>
-        <CropImage imageSrc={imageSrc} onComplete={handleCropComplete} />
+        <CropImage 
+          imageSrc={imageSrc} 
+          cropShape="rect" 
+          aspectRatio={12 / 5} 
+          nextPagePath="/plan/info/:id"
+          onCropComplete={handleCropComplete}
+        />
       </_.Crop_Container>
-      <NextButton text="완료" state={true} onClick={() => handleCropComplete('')} />
     </_.Crop_Layout>
   );
 };
