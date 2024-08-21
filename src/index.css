@@ -2,30 +2,36 @@
   padding: 0;
   margin: 0;
   box-sizing: border-box;
-  font-family: "Pretendard";
+  font-family: 'Pretendard';
+  cursor: pointer;
+  -webkit-tap-highlight-color: white;
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
 }
 
 /* 프리텐다드 */
 @font-face {
-  font-family: "Pretendard";
-  src: url("./assets/font/Pretendard-Bold.woff") format("woff");
+  font-family: 'Pretendard';
+  src: url('./assets/font/Pretendard-Bold.woff') format('woff');
   font-weight: 700;
 }
 
 @font-face {
-  font-family: "Pretendard";
-  src: url("./assets/font/Pretendard-SemiBold.woff") format("woff");
+  font-family: 'Pretendard';
+  src: url('./assets/font/Pretendard-SemiBold.woff') format('woff');
   font-weight: 600;
 }
 
 @font-face {
-  font-family: "Pretendard";
-  src: url("./assets/font/Pretendard-Medium.woff") format("woff");
+  font-family: 'Pretendard';
+  src: url('./assets/font/Pretendard-Medium.woff') format('woff');
   font-weight: 500;
 }
 
 @font-face {
-  font-family: "Pretendard";
-  src: url("./assets/font/Pretendard-Regular.woff") format("woff");
+  font-family: 'Pretendard';
+  src: url('./assets/font/Pretendard-Regular.woff') format('woff');
   font-weight: 400;
 }
