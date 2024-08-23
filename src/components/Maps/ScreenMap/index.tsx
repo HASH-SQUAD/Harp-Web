@@ -44,14 +44,7 @@ const ScreenMap = () => {
     return new window.kakao.maps.Map(mapContainer, mapOption);
   }, []);
 
-  useEffect(() => {
-    if (!window.kakao || !window.kakao.maps) {
-      console.error('카카오 지도 API를 로드할 수 없습니다.');
-      return;
-    }
-
-    const map = createMap();
-
+  const createMarkers = useCallback((map: any) => {
     const linePath = positions.map((position) => position.latlng);
 
     const polyline = new window.kakao.maps.Polyline({
@@ -63,64 +56,80 @@ const ScreenMap = () => {
     });
     polyline.setMap(map);
 
-    positions.forEach((position, index) => {
-      const imageSize = new window.kakao.maps.Size(30, 37);
-      const markerImage = new window.kakao.maps.MarkerImage(Marker, imageSize);
-      const marker = new window.kakao.maps.Marker({
-        map: map,
-        position: position.latlng,
-        title: position.title,
-        image: markerImage
-      });
+    positions.forEach(
+      (position, index) => {
+        const imageSize = new window.kakao.maps.Size(30, 37);
+        const markerImage = new window.kakao.maps.MarkerImage(
+          Marker,
+          imageSize
+        );
+        const marker = new window.kakao.maps.Marker({
+          map: map,
+          position: position.latlng,
+          title: position.title,
+          image: markerImage
+        });
 
-      const sequenceOverlayContent = ReactDOMServer.renderToString(
-        <_.ScreenMap_Overlay>{`${index + 1}번째`}</_.ScreenMap_Overlay>
-      );
+        const sequenceOverlayContent = ReactDOMServer.renderToString(
+          <_.ScreenMap_Overlay>{`${index + 1}번째`}</_.ScreenMap_Overlay>
+        );
 
-      const sequenceOverlay = new window.kakao.maps.CustomOverlay({
-        map: map,
-        position: position.latlng,
-        content: sequenceOverlayContent,
-        yAnchor: 3
-      });
+        const sequenceOverlay = new window.kakao.maps.CustomOverlay({
+          map: map,
+          position: position.latlng,
+          content: sequenceOverlayContent,
+          yAnchor: 3
+        });
 
-      sequenceOverlay.setMap(map);
+        sequenceOverlay.setMap(map);
 
-      const infoOverlayContent = ReactDOMServer.renderToString(
-        <_.ScreenMap_InfoWindow>
-          <_.ScreenMap_Header>
-            <_.ScreenMap_Title>만나기</_.ScreenMap_Title>
-            <_.ScreenMap_Time>· 오전 11시</_.ScreenMap_Time>
-          </_.ScreenMap_Header>
-          <_.ScreenMap_Location>맥도날드 김해삼정DT점</_.ScreenMap_Location>
-        </_.ScreenMap_InfoWindow>
-      );
+        const infoOverlayContent = ReactDOMServer.renderToString(
+          <_.ScreenMap_InfoWindow>
+            <_.ScreenMap_Header>
+              <_.ScreenMap_Title>만나기</_.ScreenMap_Title>
+              <_.ScreenMap_Time>· 오전 11시</_.ScreenMap_Time>
+            </_.ScreenMap_Header>
+            <_.ScreenMap_Location>맥도날드 김해삼정DT점</_.ScreenMap_Location>
+          </_.ScreenMap_InfoWindow>
+        );
 
-      const infoOverlay = new window.kakao.maps.CustomOverlay({
-        map: map,
-        position: position.latlng,
-        content: infoOverlayContent,
-        yAnchor: -0.2
-      });
+        const infoOverlay = new window.kakao.maps.CustomOverlay({
+          map: map,
+          position: position.latlng,
+          content: infoOverlayContent,
+          yAnchor: -0.2
+        });
 
-      infoOverlay.setMap(null);
+        infoOverlay.setMap(null);
 
-      window.kakao.maps.event.addListener(marker, 'click', () => {
-        if (currentOverlay.current) {
-          currentOverlay.current.setMap(null);
-        }
-        infoOverlay.setMap(map);
-        currentOverlay.current = infoOverlay;
-      });
+        window.kakao.maps.event.addListener(marker, 'click', () => {
+          if (currentOverlay.current) {
+            currentOverlay.current.setMap(null);
+          }
+          infoOverlay.setMap(map);
+          currentOverlay.current = infoOverlay;
+        });
 
-      window.kakao.maps.event.addListener(map, 'click', () => {
-        if (currentOverlay.current) {
-          currentOverlay.current.setMap(null);
-          currentOverlay.current = null;
-        }
-      });
-    });
+        window.kakao.maps.event.addListener(map, 'click', () => {
+          if (currentOverlay.current) {
+            currentOverlay.current.setMap(null);
+            currentOverlay.current = null;
+          }
+        });
+      },
+      [positions]
+    );
   }, []);
+
+  useEffect(() => {
+    if (!window.kakao || !window.kakao.maps) {
+      console.error('카카오 지도 API를 로드할 수 없습니다.');
+      return;
+    }
+
+    const map = createMap();
+    createMarkers(map);
+  }, [createMap, createMarkers]);
 
   return <_.ScreenMap_Layout id="map" />;
 };
