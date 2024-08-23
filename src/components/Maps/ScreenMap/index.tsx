@@ -14,7 +14,7 @@ declare global {
 }
 
 const ScreenMap = () => {
-  const currentOverlay = useRef<null | any>(null);
+  const currentOverlay = useRef<any>(null);
   useEffect(() => {
     if (!window.kakao || !window.kakao.maps) {
       console.error('카카오 지도 API를 로드할 수 없습니다.');
