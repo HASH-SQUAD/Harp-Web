@@ -58,7 +58,8 @@ export default function Router() {
         { path: 'info/:id/crop', element: <InfoCrop /> },
         { path: 'info/:id/day/:planId', element: <Detail /> },
         { path: 'info/:id/day/:planId/update', element: <Update /> },
-        { path: 'info/:id/day/:planId/addsearch', element: <AddSearch /> }
+        { path: 'info/:id/day/:planId/addsearch', element: <AddSearch /> },
+        { path: 'gggg', element: <Update /> }
       ]
     },
     {

@@ -13,7 +13,7 @@ const CropPage = () => {
   const { imageSrc } = location.state || {};
 
   if (!imageSrc) {
-    return null;
+    throw new Error('올바른 이미지가 제공되지 않았습니다.');
   }
 
   const handleCropComplete = (croppedImage: string) => {
