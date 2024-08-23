@@ -1,10 +1,8 @@
-// 라이브러리
 import React, { useEffect, useState } from 'react';
-
-// 파일
 import * as _ from './style';
 import Header from 'components/Header';
 import PlanDate from 'components/PlanDate';
+import WriteIcon from 'assets/image/writeIcon';
 import Location from 'assets/image/Location';
 import Calendar from 'assets/image/Calendar';
 import TimeCircle from 'assets/image/TimeCircle';
@@ -50,22 +48,26 @@ const AddDetail = () => {
   return (
     <>
       <Header title="일정추가"/>
-      <_.Update_Layout>
-        <_.Update_TitleBar>
-          <_.Update_Location>
+      <_.AddDetail_Layout>
+        <_.AddDetail_TitleBar>
+          <_.AddDetail_Location>
             <Location />
-            <_.Update_Address>
+            <_.AddDetail_Address>
               부산광역시 기장군 기장해안로 147
-            </_.Update_Address>
-          </_.Update_Location>
-          <_.Update_PlanTitle>쇼핑하기 🛍️</_.Update_PlanTitle>
-        </_.Update_TitleBar>
-        <_.Update_SelectDate>
-          <_.Update_Subtitle>
+            </_.AddDetail_Address>
+          </_.AddDetail_Location>
+          <_.AddDetail_PlanTitle>쇼핑하기 🛍️</_.AddDetail_PlanTitle>
+        </_.AddDetail_TitleBar>
+          <_.AddDetail_Subtitle>
+            <WriteIcon />
+            <_.AddDetail_Menu>일정 제목</_.AddDetail_Menu>
+          </_.AddDetail_Subtitle>
+        <_.AddDetail_SelectDate>
+          <_.AddDetail_Subtitle>
             <Calendar />
-            <_.Update_Menu>날짜 선택</_.Update_Menu>
-          </_.Update_Subtitle>
-          <_.Update_PlanDates>
+            <_.AddDetail_Menu>날짜 선택</_.AddDetail_Menu>
+          </_.AddDetail_Subtitle>
+          <_.AddDetail_PlanDates>
             {plans.map((plan, index) => (
               <PlanDate
                 key={plan.day}
@@ -77,14 +79,14 @@ const AddDetail = () => {
                 }}
               />
             ))}
-          </_.Update_PlanDates>
-        </_.Update_SelectDate>
-        <_.Update_SelectTime>
-          <_.Update_Subtitle>
+          </_.AddDetail_PlanDates>
+        </_.AddDetail_SelectDate>
+        <_.AddDetail_SelectTime>
+          <_.AddDetail_Subtitle>
             <TimeCircle />
-            <_.Update_Menu>시간 선택</_.Update_Menu>
-          </_.Update_Subtitle>
-          <_.Update_TimePickerList>
+            <_.AddDetail_Menu>시간 선택</_.AddDetail_Menu>
+          </_.AddDetail_Subtitle>
+          <_.AddDetail_TimePickerList>
             <TimePicker
               list={periods}
               onSelectedChange={(selectedPeriod: string) =>
@@ -103,11 +105,11 @@ const AddDetail = () => {
                 setTime((prev) => ({ ...prev, minute: selectedMinute }))
               }
             />
-            <_.Update_Overlay />
-          </_.Update_TimePickerList>
-        </_.Update_SelectTime>
+            <_.AddDetail_Overlay />
+          </_.AddDetail_TimePickerList>
+        </_.AddDetail_SelectTime>
         <NextButton text="완료" state={nextButtonState}/>
-      </_.Update_Layout>
+      </_.AddDetail_Layout>
     </>
   );
 };
