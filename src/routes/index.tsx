@@ -21,6 +21,7 @@ import InfoCrop from 'pages/plan/crop';
 import Detail from 'pages/plan/memo';
 import Update from 'pages/plan/update';
 import AddSearch from 'pages/plan/addSearch';
+import AddDetail from 'pages/plan/addDetail';
 
 // profile
 import Edit from 'pages/profile/edit';
@@ -59,7 +60,7 @@ export default function Router() {
         { path: 'info/:id/day/:planId', element: <Detail /> },
         { path: 'info/:id/day/:planId/update', element: <Update /> },
         { path: 'info/:id/day/:planId/addsearch', element: <AddSearch /> },
-        { path: 'gggg', element: <Update /> }
+        { path: 'gggg', element: <AddDetail /> }
       ]
     },
     {

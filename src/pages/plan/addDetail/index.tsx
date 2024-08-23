@@ -10,8 +10,10 @@ import Calendar from 'assets/image/Calendar';
 import TimeCircle from 'assets/image/TimeCircle';
 import { hasDateExpired } from 'lib/utils/hasDateExpired';
 import TimePicker from 'components/TimePicker';
+import NextButton from 'components/NextButton';
 
-const addDetail = () => {
+const AddDetail = () => {
+  const [nextButtonState, setNextButtonState] = useState(false);
   const [isSelected, setIsSelected] = useState<number | null>(null);
   const [time, setTime] = useState({
     period: '오전',
@@ -47,7 +49,7 @@ const addDetail = () => {
 
   return (
     <>
-      <Header title="일정추가" buttonState="완료" />
+      <Header title="일정추가"/>
       <_.Update_Layout>
         <_.Update_TitleBar>
           <_.Update_Location>
@@ -104,9 +106,10 @@ const addDetail = () => {
             <_.Update_Overlay />
           </_.Update_TimePickerList>
         </_.Update_SelectTime>
+        <NextButton text="완료" state={nextButtonState}/>
       </_.Update_Layout>
     </>
   );
 };
 
-export default addDetail;
+export default AddDetail;
