@@ -29,7 +29,6 @@ export const AddDetail_Caption = styled.div`
   color: ${theme.gray['4']};
   font-size: 15px;
   font-weight: 400;
-
 `;
 
 export const AddDetail_Address = styled.p`
@@ -37,8 +36,6 @@ export const AddDetail_Address = styled.p`
   font-size: 18px;
   font-weight: 400;
 `;
-
-
 
 export const AddDetail_SectionLine = styled.div`
   border-bottom: ${theme.sub[1]} 1px solid;
@@ -52,8 +49,10 @@ export const AddDetail_Subtitle = styled.div`
 `;
 
 export const AddDetail_Box = styled.div`
-  gap: 1012120px;
-`
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+`;
 
 export const AddDetail_Input = styled.input`
   display: flex;
@@ -61,12 +60,12 @@ export const AddDetail_Input = styled.input`
   gap: 5px;
   display: flex;
   width: 100%;
-height: 44px;
-padding: 14px 16px;
-align-items: center;
-gap: 16px;
-border-radius: 5px;
-border: 1.5px solid var(--gray-100, #E7E7E7);
+  height: 44px;
+  padding: 14px 16px;
+  align-items: center;
+  gap: 16px;
+  border-radius: 5px;
+  border: 1.5px solid var(--gray-100, #e7e7e7);
 `;
 
 export const AddDetail_Menu = styled.p`
@@ -74,8 +73,6 @@ export const AddDetail_Menu = styled.p`
   font-size: 20px;
   font-weight: 600;
 `;
-
-
 
 export const AddDetail_PlanDates = styled.div`
   padding-top: 14px;
