@@ -66,6 +66,10 @@ export const AddDetail_Input = styled.input`
   gap: 16px;
   border-radius: 5px;
   border: 1.5px solid var(--gray-100, #e7e7e7);
+  &:focus {
+    border-color: ${theme.primary[7]};
+    outline: none;
+  }
 `;
 
 export const AddDetail_Menu = styled.p`
