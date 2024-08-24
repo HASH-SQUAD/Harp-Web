@@ -12,7 +12,6 @@ export const PlanDate_Layout = styled.div<LayoutProps>`
   align-items: center;
   padding: 20px 12px;
   border-radius: 5px;
-  border-radius: 5px;
   border: 1.5px solid
     ${(props) => (props.isSelected ? theme.primary[7] : theme.gray[1])};
   width: 75px;

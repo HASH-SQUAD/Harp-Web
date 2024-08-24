@@ -18,6 +18,13 @@ const AddDetail = () => {
     hour: '1',
     minute: '00'
   });
+  const [plans, setPlans] = useState([
+    { day: 'day1', date: '2024-08-06' },
+    { day: 'day2', date: '2024-11-26' },
+    { day: 'day3', date: '2024-11-27' },
+    { day: 'day4', date: '2024-11-28' },
+    { day: 'day5', date: '2024-11-29' }
+  ]);
 
   const periods = ['오전', '오후'];
   const hours = Array.from({ length: 12 }, (_, i) => String(i + 1));
@@ -25,18 +32,21 @@ const AddDetail = () => {
     String(i).padStart(2, '0')
   );
 
-  const plans = [
-    { day: 'day1', date: '2024-08-06' },
-    { day: 'day2', date: '2024-11-26' },
-    { day: 'day3', date: '2024-11-27' },
-    { day: 'day4', date: '2024-11-28' },
-    { day: 'day5', date: '2024-11-29' }
-  ];
-
   const handleSelectDay = (index: number, date: string) => {
     if (!hasDateExpired(date)) {
       setIsSelected(index);
     }
+  };
+
+  const addPlan = () => {
+    const lastPlan = plans[plans.length - 1];
+    const newDate = new Date(lastPlan.date);
+    newDate.setDate(newDate.getDate() + 1);
+    const newPlan = {
+      day: `day${plans.length + 1}`,
+      date: newDate.toISOString().split('T')[0]
+    };
+    setPlans([...plans, newPlan]);
   };
 
   useEffect(() => {
@@ -62,14 +72,13 @@ const AddDetail = () => {
           </_.AddDetail_Caption>
         </_.AddDetail_TitleBar>
         <_.AddDetail_SectionLine>
-
-        <_.AddDetail_Box>
-          <_.AddDetail_Subtitle>
-            <WriteIcon />
-            <_.AddDetail_Menu>일정 제목</_.AddDetail_Menu>
-          </_.AddDetail_Subtitle>
-          <_.AddDetail_Input />
-        </_.AddDetail_Box>
+          <_.AddDetail_Box>
+            <_.AddDetail_Subtitle>
+              <WriteIcon />
+              <_.AddDetail_Menu>일정 제목</_.AddDetail_Menu>
+            </_.AddDetail_Subtitle>
+            <_.AddDetail_Input />
+          </_.AddDetail_Box>
         </_.AddDetail_SectionLine>
         <_.AddDetail_SectionLine>
           <_.AddDetail_Subtitle>
@@ -88,8 +97,11 @@ const AddDetail = () => {
                 }}
               />
             ))}
+            <_.AddDetail_AddPlan onClick={addPlan}>
+              일정 추가
+            </_.AddDetail_AddPlan>
           </_.AddDetail_PlanDates>
-          </_.AddDetail_SectionLine>
+        </_.AddDetail_SectionLine>
         <_.AddDetail_SelectTime>
           <_.AddDetail_Subtitle>
             <TimeCircle />
@@ -117,7 +129,7 @@ const AddDetail = () => {
             <_.AddDetail_Overlay />
           </_.AddDetail_TimePickerList>
         </_.AddDetail_SelectTime>
-        <NextButton text="완료" state={nextButtonState} />
+        <NextButton text="추가" state={nextButtonState} />
       </_.AddDetail_Layout>
     </>
   );

@@ -85,6 +85,21 @@ export const AddDetail_PlanDates = styled.div`
   overflow: auto;
 `;
 
+export const AddDetail_AddPlan = styled.button`
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 20px 12px;
+  border-radius: 5px;
+  border: 1.5px solid ${theme.gray[1]};
+  width: 75px;
+  font-size: 17px;
+  font-weight: 400;
+  color: ${theme.gray[2.5]};;
+  background-color: transparent;
+
+`;
+
 export const AddDetail_SelectTime = styled.div`
   padding-top: 20px;
 `;
