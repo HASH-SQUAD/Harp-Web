@@ -10,7 +10,6 @@ import PlanInfo from 'assets/image/PlanInfo.png';
 import Camera from 'assets/Icon/Camera';
 import calculateDDay from 'lib/utils/D-Day';
 import { handleImageEdit } from 'lib/utils/handleImageEdit';
-import { planInfos } from 'types/planInfos';
 import KebabMenu from 'assets/Icon/KebabMenu';
 import ControlModal from 'components/Modals/ControlModal';
 import DayPlan from 'components/DayPlan';
@@ -25,6 +24,7 @@ const Info = () => {
   const [planInfoImage, setPlanInfoImage] = useState(PlanInfo);
   const [isModal, setIsModal] = useState(false);
   const [isUpdated, setIsUpdated] = useState(false);
+  const [isSuccess, setIsSuccess] = useState(true);
 
   const planInfos = {
     image: PlanInfo,
@@ -37,6 +37,16 @@ const Info = () => {
       setPlanInfoImage(location.state.croppedImage);
     }
   }, [location.state?.croppedImage]);
+
+  useEffect(() => {
+    if (isSuccess) {
+      const timer = setTimeout(() => {
+        setIsSuccess(false);
+      }, 3000);
+
+      return () => clearTimeout(timer);
+    }
+  }, []);
 
   const handleCloseModal = () => {
     setIsModal(false);
@@ -89,7 +99,7 @@ const Info = () => {
       <_.Info_Add_Schedule>
         <Plus />
       </_.Info_Add_Schedule>
-      <AddSucessModal />
+      {isSuccess && <AddSucessModal />}
     </_.Info_Layout>
   );
 };
