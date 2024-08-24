@@ -60,15 +60,20 @@ export const AddDetail_Input = styled.input`
   gap: 5px;
   display: flex;
   width: 100%;
-  height: 44px;
+  height: 48px;
   padding: 14px 16px;
   align-items: center;
   gap: 16px;
   border-radius: 5px;
-  border: 1.5px solid var(--gray-100, #e7e7e7);
+  border: 1.5px solid ${theme.gray[1]};
+  color:${theme.gray.black};
+  font-size: 16px;
   &:focus {
     border-color: ${theme.primary[7]};
     outline: none;
+  }
+  &::placeholder {
+    color: ${theme.gray[2.5]};
   }
 `;
 

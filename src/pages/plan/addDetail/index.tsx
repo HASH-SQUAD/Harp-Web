@@ -98,8 +98,8 @@ const AddDetail = () => {
               />
             ))}
             <_.AddDetail_AddPlan onClick={addPlan}>
-                <_.AddDetail_AddPlanSpan>일정</_.AddDetail_AddPlanSpan>
-                <_.AddDetail_AddPlanSpan>추가</_.AddDetail_AddPlanSpan>
+              <_.AddDetail_AddPlanSpan>일정</_.AddDetail_AddPlanSpan>
+              <_.AddDetail_AddPlanSpan>추가</_.AddDetail_AddPlanSpan>
             </_.AddDetail_AddPlan>
           </_.AddDetail_PlanDates>
         </_.AddDetail_SectionLine>
