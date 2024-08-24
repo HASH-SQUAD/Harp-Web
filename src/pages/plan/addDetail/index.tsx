@@ -77,7 +77,7 @@ const AddDetail = () => {
               <WriteIcon />
               <_.AddDetail_Menu>일정 제목</_.AddDetail_Menu>
             </_.AddDetail_Subtitle>
-            <_.AddDetail_Input />
+            <_.AddDetail_Input placeholder="일정 제목을 입력하세요! ex) 밥먹기" />
           </_.AddDetail_Box>
         </_.AddDetail_SectionLine>
         <_.AddDetail_SectionLine>
@@ -98,7 +98,8 @@ const AddDetail = () => {
               />
             ))}
             <_.AddDetail_AddPlan onClick={addPlan}>
-              일정 추가
+                <_.AddDetail_AddPlanSpan>일정</_.AddDetail_AddPlanSpan>
+                <_.AddDetail_AddPlanSpan>추가</_.AddDetail_AddPlanSpan>
             </_.AddDetail_AddPlan>
           </_.AddDetail_PlanDates>
         </_.AddDetail_SectionLine>

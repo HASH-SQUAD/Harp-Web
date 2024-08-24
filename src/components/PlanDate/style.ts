@@ -14,7 +14,7 @@ export const PlanDate_Layout = styled.div<LayoutProps>`
   border-radius: 5px;
   border: 1.5px solid
     ${(props) => (props.isSelected ? theme.primary[7] : theme.gray[1])};
-  width: 75px;
+  min-width: 75px;
   text-decoration: ${(props) => (props.isPassed ? 'line-through' : 'none')};
 `;
 

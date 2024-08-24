@@ -92,13 +92,22 @@ export const AddDetail_AddPlan = styled.button`
   padding: 20px 12px;
   border-radius: 5px;
   border: 1.5px solid ${theme.gray[1]};
-  width: 75px;
-  font-size: 17px;
-  font-weight: 400;
+  min-width: 75px;
   color: ${theme.gray[2.5]};;
   background-color: transparent;
+  text-align: center;
+  white-space: nowrap;
+  
 
 `;
+
+export const AddDetail_AddPlanSpan = styled.span`
+  font-size: 17px;
+  font-weight: 400;
+  color: ${theme.gray[2.5]};
+  white-space: nowrap;
+`;
+
 
 export const AddDetail_SelectTime = styled.div`
   padding-top: 20px;
