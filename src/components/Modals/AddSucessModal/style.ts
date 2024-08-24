@@ -1,5 +1,17 @@
 import { theme } from 'lib/utils/style/theme';
-import styled from 'styled-components';
+import styled, { keyframes } from 'styled-components';
+
+const fadeOut = keyframes`
+  0% {
+    opacity: 1;
+  }
+  80% {
+    opacity: 1;
+  }
+  100% {
+    opacity: 0;
+  }
+`;
 
 export const AddSucessModal_Layout = styled.div`
   display: flex;
@@ -13,6 +25,7 @@ export const AddSucessModal_Layout = styled.div`
   bottom: 30px;
   left: 50%;
   transform: translateX(-50%);
+  animation: ${fadeOut} 3s ease-out forwards;
 `;
 
 export const AddSucessModal_Message = styled.p`
