@@ -25,13 +25,22 @@ export const AddDetail_PlanTitle = styled.div`
   font-weight: 700;
 `;
 
+export const AddDetail_Caption = styled.div`
+  color: ${theme.gray['4']};
+  font-size: 15px;
+  font-weight: 400;
+
+`;
+
 export const AddDetail_Address = styled.p`
   color: ${theme.gray['3.5']};
   font-size: 18px;
   font-weight: 400;
 `;
 
-export const AddDetail_SelectDate = styled.div`
+
+
+export const AddDetail_SectionLine = styled.div`
   border-bottom: ${theme.sub[1]} 1px solid;
   padding: 17px 0 25px;
 `;
@@ -42,11 +51,31 @@ export const AddDetail_Subtitle = styled.div`
   gap: 5px;
 `;
 
+export const AddDetail_Box = styled.div`
+  gap: 1012120px;
+`
+
+export const AddDetail_Input = styled.input`
+  display: flex;
+  align-items: center;
+  gap: 5px;
+  display: flex;
+  width: 100%;
+height: 44px;
+padding: 14px 16px;
+align-items: center;
+gap: 16px;
+border-radius: 5px;
+border: 1.5px solid var(--gray-100, #E7E7E7);
+`;
+
 export const AddDetail_Menu = styled.p`
   color: ${theme.gray.black};
   font-size: 20px;
   font-weight: 600;
 `;
+
+
 
 export const AddDetail_PlanDates = styled.div`
   padding-top: 14px;

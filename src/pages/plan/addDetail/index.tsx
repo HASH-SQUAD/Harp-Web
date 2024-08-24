@@ -47,7 +47,7 @@ const AddDetail = () => {
 
   return (
     <>
-      <Header title="일정추가"/>
+      <Header title="일정추가" />
       <_.AddDetail_Layout>
         <_.AddDetail_TitleBar>
           <_.AddDetail_Location>
@@ -56,13 +56,22 @@ const AddDetail = () => {
               부산광역시 기장군 기장해안로 147
             </_.AddDetail_Address>
           </_.AddDetail_Location>
-          <_.AddDetail_PlanTitle>쇼핑하기 🛍️</_.AddDetail_PlanTitle>
+          <_.AddDetail_PlanTitle>일정을 추가해볼까요?</_.AddDetail_PlanTitle>
+          <_.AddDetail_Caption>
+            일정 상세 정보를 입력해주세요.
+          </_.AddDetail_Caption>
         </_.AddDetail_TitleBar>
+        <_.AddDetail_SectionLine>
+
+        <_.AddDetail_Box>
           <_.AddDetail_Subtitle>
             <WriteIcon />
             <_.AddDetail_Menu>일정 제목</_.AddDetail_Menu>
           </_.AddDetail_Subtitle>
-        <_.AddDetail_SelectDate>
+          <_.AddDetail_Input />
+        </_.AddDetail_Box>
+        </_.AddDetail_SectionLine>
+        <_.AddDetail_SectionLine>
           <_.AddDetail_Subtitle>
             <Calendar />
             <_.AddDetail_Menu>날짜 선택</_.AddDetail_Menu>
@@ -80,7 +89,7 @@ const AddDetail = () => {
               />
             ))}
           </_.AddDetail_PlanDates>
-        </_.AddDetail_SelectDate>
+          </_.AddDetail_SectionLine>
         <_.AddDetail_SelectTime>
           <_.AddDetail_Subtitle>
             <TimeCircle />
@@ -108,7 +117,7 @@ const AddDetail = () => {
             <_.AddDetail_Overlay />
           </_.AddDetail_TimePickerList>
         </_.AddDetail_SelectTime>
-        <NextButton text="완료" state={nextButtonState}/>
+        <NextButton text="완료" state={nextButtonState} />
       </_.AddDetail_Layout>
     </>
   );
