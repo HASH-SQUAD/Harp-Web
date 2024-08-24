@@ -13,6 +13,7 @@ import NextButton from 'components/NextButton';
 const AddDetail = () => {
   const [nextButtonState, setNextButtonState] = useState(false);
   const [isSelected, setIsSelected] = useState<number | null>(null);
+  const [inputValue, setInputValue] = useState('');
   const [time, setTime] = useState({
     period: '오전',
     hour: '1',
@@ -38,6 +39,10 @@ const AddDetail = () => {
     }
   };
 
+  const handleInputChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+    setInputValue(event.target.value);
+  };
+
   const addPlan = () => {
     const lastPlan = plans[plans.length - 1];
     const newDate = new Date(lastPlan.date);
@@ -48,6 +53,14 @@ const AddDetail = () => {
     };
     setPlans([...plans, newPlan]);
   };
+
+  useEffect(() => {
+    if (inputValue && isSelected !== null && time.hour && time.minute) {
+      setNextButtonState(true);
+    } else {
+      setNextButtonState(false);
+    }
+  }, [inputValue, isSelected, time]);
 
   useEffect(() => {
     if (plans.length === 1) {
@@ -77,7 +90,11 @@ const AddDetail = () => {
               <WriteIcon />
               <_.AddDetail_Menu>일정 제목</_.AddDetail_Menu>
             </_.AddDetail_Subtitle>
-            <_.AddDetail_Input placeholder="일정 제목을 입력하세요! ex) 밥먹기" />
+            <_.AddDetail_Input 
+              placeholder="일정 제목을 입력하세요! ex) 밥먹기"
+              value={inputValue}
+              onChange={handleInputChange}
+            />
           </_.AddDetail_Box>
         </_.AddDetail_SectionLine>
         <_.AddDetail_SectionLine>
@@ -130,8 +147,8 @@ const AddDetail = () => {
             <_.AddDetail_Overlay />
           </_.AddDetail_TimePickerList>
         </_.AddDetail_SelectTime>
-        <NextButton text="추가" state={nextButtonState} />
       </_.AddDetail_Layout>
+        <NextButton text="추가" state={nextButtonState} />
     </>
   );
 };
