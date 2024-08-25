@@ -3,7 +3,7 @@ import { useRoutes } from 'react-router-dom';
 import Splash from 'pages/splash';
 import Auth from 'pages/auth';
 import Home from 'pages/home';
-import NotFound from 'pages/NotFound'
+import NotFound from 'pages/notFound'
 // register
 import Terms from 'pages/register/terms';
 import UserInfo from 'pages/register/userinfo';
