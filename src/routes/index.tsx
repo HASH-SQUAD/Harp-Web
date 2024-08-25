@@ -3,7 +3,7 @@ import { useRoutes } from 'react-router-dom';
 import Splash from 'pages/splash';
 import Auth from 'pages/auth';
 import Home from 'pages/home';
-import NotFound from 'pages/notFound';
+import NotFound from 'pages/NotFound'
 // register
 import Terms from 'pages/register/terms';
 import UserInfo from 'pages/register/userinfo';
@@ -61,7 +61,7 @@ export default function Router() {
         { path: 'info/:id/day/:planId', element: <Detail /> },
         { path: 'info/:id/day/:planId/update', element: <Update /> },
         { path: 'info/:id/day/:planId/addsearch', element: <AddSearch /> },
-        { path: 'gggg', element: <AddDetail /> }
+        { path: 'info/:id/day/:planId/addDetail', element: <AddDetail /> }
       ]
     },
     {
