@@ -7,7 +7,7 @@ import Hashingee from 'assets/image/Hashingee';
 import { useNavigate } from 'react-router-dom';
 
 const NotFound = () => {
-  const history = useNavigate();
+  const history = useNavigate(); 
 
   return (
     <_.NotFound_Container>
