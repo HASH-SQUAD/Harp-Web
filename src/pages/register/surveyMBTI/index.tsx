@@ -1,7 +1,4 @@
-//라이브러리
 import React, { useState } from 'react';
-
-//파일
 import * as _ from './style';
 import useStatusBarHeight from 'hooks/useStatusBarHeight';
 import Header from 'components/Header';
@@ -18,10 +15,10 @@ const SurveyMBTI = () => {
     { id: 4, left: 'P', right: 'J', text: '인식형 / 판단형', state: false }
   ]);
 
-  const toggleState = (id: number) => {
+  const toggleState = (id: number, selectedState: boolean) => {
     setMbtiStates(
       mbtiStates.map((item) =>
-        item.id === id ? { ...item, state: !item.state } : item
+        item.id === id ? { ...item, state: selectedState } : item
       )
     );
   };
@@ -42,7 +39,7 @@ const SurveyMBTI = () => {
               <_.SurveyMBTI_Contents_Select key={item.id}>
                 <_.SurveyMBTI_Content
                   State={!item.state}
-                  onClick={() => toggleState(item.id)}
+                  onClick={() => toggleState(item.id, false)}
                 >
                   {item.left}
                 </_.SurveyMBTI_Content>
@@ -52,7 +49,7 @@ const SurveyMBTI = () => {
                 </_.SurveyMBTI_Contents_Arrow>
                 <_.SurveyMBTI_Content
                   State={item.state}
-                  onClick={() => toggleState(item.id)}
+                  onClick={() => toggleState(item.id, true)}
                 >
                   {item.right}
                 </_.SurveyMBTI_Content>
