@@ -5,9 +5,13 @@ export const SurveyTMI_Container = styled.div<{ StatusBarSize?: string }>`
   width: 100vw;
   height: 100vh;
   position: fixed;
-  padding: ${(props) => props.StatusBarSize || '54px'} 30px 54px 30px;
+  padding-top: ${(props) => props.StatusBarSize || '54px'};
   display: flex;
   flex-direction: column;
+`;
+
+export const SurveyTMI_Content = styled.div`
+  padding: 0 20px;
 `;
 
 export const SurveyTMI_Title = styled.div`
@@ -31,6 +35,10 @@ export const SurveyTMI_Title_Small = styled.p`
   font-weight: 400;
 `;
 
+export const SurveyTMI_Box = styled.div`
+  position: relative;
+`;
+
 export const SurveyTMI_Textarea = styled.textarea`
   margin-top: 15px;
   width: 100%;
@@ -45,7 +53,6 @@ export const SurveyTMI_Textarea = styled.textarea`
   }
   padding: 13px 15px;
   caret-color: ${theme.primary[7]};
-  position: relative;
   &::placeholder {
     color: ${theme.gray['2.5']};
     font-weight: 400;
@@ -57,6 +64,6 @@ export const SurveyTMI_Text_Limit = styled.p`
   font-size: 13px;
   font-weight: 400;
   position: absolute;
-  top: 49%;
-  right: 11%;
+  bottom: 14px;
+  right: 14px;
 `;

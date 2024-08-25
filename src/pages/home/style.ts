@@ -2,7 +2,7 @@ import { theme } from 'lib/utils/style/theme';
 import styled from 'styled-components';
 
 export const Home_Container = styled.div<{ StatusBarSize?: string }>`
-  padding: ${(props) => props.StatusBarSize || '54px'} 15px 0 15px;
+  padding: ${(props) => props.StatusBarSize || '54px'} 20px 0 20px;
   display: flex;
   width: 100%;
   height: 100%;

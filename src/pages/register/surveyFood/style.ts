@@ -2,10 +2,14 @@ import { theme } from 'lib/utils/style/theme';
 import styled from 'styled-components';
 
 export const SurveyFood_Container = styled.div<{ StatusBarSize?: string }>`
-  padding: ${(props) => props.StatusBarSize || '54px'} 30px 52px 30px;
+  padding: ${(props) => props.StatusBarSize || '54px'} 0 52px 0;
   display: flex;
   height: 95%;
   flex-direction: column;
+`;
+
+export const SurveyFood_Content = styled.div`
+  padding: 0 20px;
 `;
 
 export const SurveyFood_ProgressText = styled.div`
