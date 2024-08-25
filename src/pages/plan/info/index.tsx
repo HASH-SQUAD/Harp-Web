@@ -10,12 +10,12 @@ import PlanInfo from 'assets/image/PlanInfo.png';
 import Camera from 'assets/Icon/Camera';
 import calculateDDay from 'lib/utils/D-Day';
 import { handleImageEdit } from 'lib/utils/handleImageEdit';
-import { planInfos } from 'types/planInfos';
 import KebabMenu from 'assets/Icon/KebabMenu';
 import ControlModal from 'components/Modals/ControlModal';
 import DayPlan from 'components/DayPlan';
 import { TripSchedule } from 'data/TripSchedule';
 import Plus from 'assets/Icon/Plus';
+import AddSucessModal from 'components/Modals/AddSucessModal';
 
 const Info = () => {
   const statusBarHeight = useStatusBarHeight();
@@ -24,6 +24,7 @@ const Info = () => {
   const [planInfoImage, setPlanInfoImage] = useState(PlanInfo);
   const [isModal, setIsModal] = useState(false);
   const [isUpdated, setIsUpdated] = useState(false);
+  const [isSuccess, setIsSuccess] = useState(true);
 
   const planInfos = {
     image: PlanInfo,
@@ -37,6 +38,16 @@ const Info = () => {
     }
   }, [location.state?.croppedImage]);
 
+  useEffect(() => {
+    if (isSuccess) {
+      const timer = setTimeout(() => {
+        setIsSuccess(false);
+      }, 3000);
+
+      return () => clearTimeout(timer);
+    }
+  }, []);
+
   const handleCloseModal = () => {
     setIsModal(false);
   };
@@ -44,11 +55,10 @@ const Info = () => {
   const handleImageSelection = () => {
     handleImageEdit((selectedImage) => {
       const id = 1;
-      console.log("Selected Image: ", selectedImage);
+      console.log('Selected Image: ', selectedImage);
       navigate(`/plan/info/${id}/crop`, { state: { imageSrc: selectedImage } });
     });
   };
-
 
   return (
     <_.Info_Layout StatusBarSize={`${statusBarHeight}px`}>
@@ -74,7 +84,12 @@ const Info = () => {
               return (
                 <_.Info_Date key={index}>
                   <_.Info_Line height={lineHeight} />
-                  <DayPlan isUpdated={isUpdated} key={index} day={day} dayIndex={index + 1} />
+                  <DayPlan
+                    isUpdated={isUpdated}
+                    key={index}
+                    day={day}
+                    dayIndex={index + 1}
+                  />
                 </_.Info_Date>
               );
             })}
@@ -84,6 +99,7 @@ const Info = () => {
       <_.Info_Add_Schedule>
         <Plus />
       </_.Info_Add_Schedule>
+      {isSuccess && <AddSucessModal />}
     </_.Info_Layout>
   );
 };

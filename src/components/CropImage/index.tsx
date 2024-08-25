@@ -1,22 +1,29 @@
 // 라이브러리
 import React, { useState, useCallback } from 'react';
-import Cropper from 'react-easy-crop';
+import Cropper, { Area } from 'react-easy-crop';
 
 // 파일
-import { Area } from 'react-easy-crop/types';
+import * as _ from './style';
 import { getCroppedImg } from '../../lib/utils/getCroppedImg';
 import NextButton from 'components/NextButton';
-import { CropImageProps } from '../../types/cropImage';
-import * as _ from './style';
+import { CropImageProps } from 'types/cropImage';
 
-const CropImage = ({ imageSrc, cropShape, aspectRatio, onCropComplete }: CropImageProps) => {
+const CropImage = ({
+  imageSrc,
+  cropShape,
+  aspectRatio,
+  onCropComplete
+}: CropImageProps) => {
   const [crop, setCrop] = useState({ x: 0, y: 0 });
   const [zoom, setZoom] = useState(1);
   const [croppedAreaPixels, setCroppedAreaPixels] = useState<Area | null>(null);
 
-  const onCropCompleteHandler = useCallback((croppedArea: Area, croppedAreaPixels: Area) => {
-    setCroppedAreaPixels(croppedAreaPixels);
-  }, []);
+  const onCropCompleteHandler = useCallback(
+    (croppedArea: Area, croppedAreaPixels: Area) => {
+      setCroppedAreaPixels(croppedAreaPixels);
+    },
+    []
+  );
 
   const handleComplete = useCallback(async () => {
     if (croppedAreaPixels) {
@@ -43,7 +50,11 @@ const CropImage = ({ imageSrc, cropShape, aspectRatio, onCropComplete }: CropIma
         onZoomChange={setZoom}
         onCropComplete={onCropCompleteHandler}
       />
-      <NextButton text="완료" state={!!croppedAreaPixels} onClick={handleComplete} />
+      <NextButton
+        text="완료"
+        state={!!croppedAreaPixels}
+        onClick={handleComplete}
+      />
     </_.CropImage_Layout>
   );
 };

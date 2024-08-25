@@ -8,7 +8,7 @@ import { schedule } from 'types/schedule';
 import { formatTime } from 'lib/utils/formatTime';
 
 interface DayPlanProps {
-  isUpdated: boolean;
+  isUpdated?: boolean;
   day: schedule[];
   dayIndex: number;
 }

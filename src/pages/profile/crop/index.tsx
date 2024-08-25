@@ -1,11 +1,11 @@
 // 라이브러리
-import React from 'react';
 import { useLocation, useNavigate } from 'react-router-dom';
 
 // 파일
 import CropImage from 'components/CropImage';
 import Header from 'components/Header';
 import * as _ from './style';
+import NotFound from 'pages/notFound';
 
 const CropPage = () => {
   const location = useLocation();
@@ -13,7 +13,7 @@ const CropPage = () => {
   const { imageSrc } = location.state || {};
 
   if (!imageSrc) {
-    throw new Error('올바른 이미지가 제공되지 않았습니다.');
+    return <NotFound />;
   }
 
   const handleCropComplete = (croppedImage: string) => {
@@ -24,9 +24,9 @@ const CropPage = () => {
     <_.Crop_Layout>
       <Header title="자르기" />
       <_.Crop_Container>
-        <CropImage 
-          imageSrc={imageSrc} 
-          cropShape="round" 
+        <CropImage
+          imageSrc={imageSrc}
+          cropShape="round"
           aspectRatio={1 / 1}
           nextPagePath="/profile/edit"
           onCropComplete={handleCropComplete}
