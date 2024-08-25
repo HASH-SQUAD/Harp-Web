@@ -1,17 +1,19 @@
+// 라이브러리
 import React, { useEffect, useState } from 'react';
+
+// 파일
 import * as _ from './style';
 import Header from 'components/Header';
 import PlanDate from 'components/PlanDate';
-import WriteIcon from 'assets/image/writeIcon';
 import Location from 'assets/image/Location';
 import Calendar from 'assets/image/Calendar';
 import TimeCircle from 'assets/image/TimeCircle';
+import WriteIcon from 'assets/image/writeIcon';
 import { hasDateExpired } from 'lib/utils/hasDateExpired';
 import TimePicker from 'components/TimePicker';
 import NextButton from 'components/NextButton';
 
 const AddDetail = () => {
-  const [nextButtonState, setNextButtonState] = useState(false);
   const [isSelected, setIsSelected] = useState<number | null>(null);
   const [inputValue, setInputValue] = useState('');
   const [time, setTime] = useState({
@@ -53,15 +55,8 @@ const AddDetail = () => {
     };
     setPlans([...plans, newPlan]);
   };
-
-  useEffect(() => {
-    if (inputValue && isSelected !== null && time.hour && time.minute) {
-      setNextButtonState(true);
-    } else {
-      setNextButtonState(false);
-    }
-  }, [inputValue, isSelected, time]);
-
+  
+  const isNextButtonEnabled: boolean = !!(inputValue && isSelected !== null && time.hour && time.minute);
   useEffect(() => {
     if (plans.length === 1) {
       setIsSelected(0);
@@ -148,7 +143,7 @@ const AddDetail = () => {
           </_.AddDetail_TimePickerList>
         </_.AddDetail_SelectTime>
       </_.AddDetail_Layout>
-        <NextButton text="추가" state={nextButtonState} />
+        <NextButton text="추가" state={isNextButtonEnabled} />
     </>
   );
 };

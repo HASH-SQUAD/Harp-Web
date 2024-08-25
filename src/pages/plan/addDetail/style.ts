@@ -5,6 +5,8 @@ export const AddDetail_Layout = styled.div`
   display: flex;
   flex-direction: column;
   padding: 0 20px;
+  width: 100%;
+  height: 100vh;
 `;
 
 export const AddDetail_TitleBar = styled.div`
@@ -26,13 +28,13 @@ export const AddDetail_PlanTitle = styled.div`
 `;
 
 export const AddDetail_Caption = styled.div`
-  color: ${theme.gray['4']};
+  color: ${theme.gray[4]};
   font-size: 15px;
   font-weight: 400;
 `;
 
 export const AddDetail_Address = styled.p`
-  color: ${theme.gray['3.5']};
+  color: ${theme.gray[3.5]};
   font-size: 18px;
   font-weight: 400;
 `;
