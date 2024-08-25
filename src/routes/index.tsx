@@ -3,7 +3,7 @@ import { useRoutes } from 'react-router-dom';
 import Splash from 'pages/splash';
 import Auth from 'pages/auth';
 import Home from 'pages/home';
-import NotFound from 'pages/NotFound';
+import NotFound from 'pages/notFound';
 // register
 import Terms from 'pages/register/terms';
 import UserInfo from 'pages/register/userinfo';
@@ -17,6 +17,7 @@ import SurveyEnd from 'pages/register/surveyEnd';
 import Chat from 'pages/plan/chat';
 import SelectDate from 'pages/plan/selectDate';
 import Info from 'pages/plan/info';
+import Map from 'pages/plan/map';
 import InfoCrop from 'pages/plan/crop';
 import Detail from 'pages/plan/memo';
 import Update from 'pages/plan/update';
@@ -25,17 +26,16 @@ import AddDetail from 'pages/plan/addDetail';
 
 // profile
 import Edit from 'pages/profile/edit';
-import EditCrop from 'pages/profile/crop';
+import CropPage from 'pages/profile/crop';
 
 export default function Router() {
   return useRoutes([
     {
       path: '/',
-      element: <Home />,
       children: [
+        { index: true, element: <Home /> },
         { path: 'splash', element: <Splash /> },
-        { path: 'auth', element: <Auth /> },
-        { path: '*', element: <NotFound /> }
+        { path: 'auth', element: <Auth /> }
       ]
     },
     {
@@ -55,6 +55,7 @@ export default function Router() {
       children: [
         { path: 'chat', element: <Chat /> },
         { path: 'selectdate', element: <SelectDate /> },
+        { path: 'map/:id', element: <Map /> },
         { path: 'info/:id', element: <Info /> },
         { path: 'info/:id/crop', element: <InfoCrop /> },
         { path: 'info/:id/day/:planId', element: <Detail /> },
@@ -67,8 +68,9 @@ export default function Router() {
       path: 'profile',
       children: [
         { path: 'edit', element: <Edit /> },
-        { path: 'edit/crop', element: <EditCrop /> }
+        { path: 'edit/crop', element: <CropPage /> }
       ]
-    }
+    },
+    { path: '*', element: <NotFound /> }
   ]);
 }
