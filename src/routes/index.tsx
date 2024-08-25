@@ -3,7 +3,7 @@ import { useRoutes } from 'react-router-dom';
 import Splash from 'pages/splash';
 import Auth from 'pages/auth';
 import Home from 'pages/home';
-import NotFound from 'pages/notFound';
+import NotFound from 'pages/notFound'
 // register
 import Terms from 'pages/register/terms';
 import UserInfo from 'pages/register/userinfo';
@@ -22,6 +22,7 @@ import InfoCrop from 'pages/plan/crop';
 import Detail from 'pages/plan/memo';
 import Update from 'pages/plan/update';
 import AddSearch from 'pages/plan/addSearch';
+import AddDetail from 'pages/plan/addDetail';
 
 // profile
 import Edit from 'pages/profile/edit';
@@ -59,7 +60,8 @@ export default function Router() {
         { path: 'info/:id/crop', element: <InfoCrop /> },
         { path: 'info/:id/day/:planId', element: <Detail /> },
         { path: 'info/:id/day/:planId/update', element: <Update /> },
-        { path: 'info/:id/day/:planId/addsearch', element: <AddSearch /> }
+        { path: 'info/:id/day/:planId/addsearch', element: <AddSearch /> },
+        { path: 'info/:id/day/:planId/addDetail', element: <AddDetail /> }
       ]
     },
     {
