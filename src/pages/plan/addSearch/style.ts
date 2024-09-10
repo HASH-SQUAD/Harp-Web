@@ -1,12 +1,16 @@
 import { theme } from 'lib/utils/style/theme';
 import styled from 'styled-components';
 
-export const AddSearch_Container = styled.div<{ StatusBarSize?: string }>`
-  padding: ${(props) => props.StatusBarSize || '54px'} 10px 10px 0;
+export const AddSearch_Layout = styled.div`
+  width: 100%;
+  height: calc(100% - 40px);
+  position: fixed;
 `;
 
-export const AddSearch_Layout = styled.div`
+export const AddSearch_Container = styled.div`
   padding: 0 20px 0 20px;
+  width: 100%;
+  height: 100%;
 `;
 
 export const AddSearch_SearchBar = styled.div`
@@ -54,12 +58,12 @@ export const AddSearch_LoadingLayout = styled.div`
   flex-direction: column;
   justify-content: center;
   align-items: center;
-`
+`;
 
 export const AddSearch_Content_Loading = styled.img`
   width: 74px;
   height: 74px;
-`
+`;
 
 export const AddSearch_NoCotent = styled.div`
   width: 100%;

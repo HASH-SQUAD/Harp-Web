@@ -9,13 +9,11 @@ import BottomSheet from 'components/BottomSheet';
 
 const Map = () => {
   return (
-    <>
+    <_.Map_Layout>
       <Header title="지도" buttonState="완료" />
-      <_.Map_Layout>
-        <ScreenMap />
-        <BottomSheet />
-      </_.Map_Layout>
-    </>
+      <ScreenMap />
+      <BottomSheet />
+    </_.Map_Layout>
   );
 };
 

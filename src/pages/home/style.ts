@@ -1,15 +1,15 @@
 import { theme } from 'lib/utils/style/theme';
 import styled from 'styled-components';
 
-export const Home_Container = styled.div<{ StatusBarSize?: string }>`
-  padding: ${(props) => props.StatusBarSize || '54px'} 20px 0 20px;
+export const Home_Container = styled.div`
+  padding: 0 20px 90px;
   display: flex;
   width: 100%;
   height: 100%;
   flex-direction: column;
+  position: fixed;
 `;
 
-// 캘린더
 export const Home_Calendar = styled.div`
   display: flex;
   flex-direction: row;

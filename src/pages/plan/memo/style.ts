@@ -2,6 +2,10 @@ import { theme } from 'lib/utils/style/theme';
 import styled from 'styled-components';
 
 export const Memo_Layout = styled.div`
+  position: fixed;
+`;
+
+export const Memo_Container = styled.div`
   display: flex;
   flex-direction: column;
   align-items: center;

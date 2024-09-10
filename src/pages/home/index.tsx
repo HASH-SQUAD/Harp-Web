@@ -3,7 +3,6 @@ import React, { useState, useEffect } from 'react';
 
 // 파일
 import * as _ from './style';
-import useStatusBarHeight from 'hooks/useStatusBarHeight';
 import Search from 'assets/image/Search';
 import ChattingStart from 'assets/image/ChattingStart.jpg';
 import ComingPlan from 'data/ComingPlan';
@@ -19,7 +18,6 @@ interface DateData {
 }
 
 const Home = () => {
-  const statusBarHeight = useStatusBarHeight();
   const [date, setData] = useState<DateData[]>([]);
 
   useEffect(() => {
@@ -44,7 +42,7 @@ const Home = () => {
   }, []);
 
   return (
-    <_.Home_Container StatusBarSize={`${statusBarHeight}px`}>
+    <_.Home_Container>
       <_.Home_Calendar>
         {date.map((day) => (
           <_.Home_Calendar_Content key={day.id}>

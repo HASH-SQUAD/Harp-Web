@@ -1,16 +1,15 @@
 import { theme } from 'lib/utils/style/theme';
 import styled from 'styled-components';
 
-export const UserInfo_Container = styled.div<{ StatusBarSize?: string }>`
+export const UserInfo_Container = styled.div`
   width: 100%;
   height: 100vh;
-  position: fixed;
   overflow: hidden;
-  padding-top: ${(props) => props.StatusBarSize || '54px'};
   display: flex;
   width: 100%;
   height: 100%;
   flex-direction: column;
+  position: fixed;
 `;
 
 export const UserInfo_Content = styled.div`

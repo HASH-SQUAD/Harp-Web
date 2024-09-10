@@ -4,7 +4,6 @@ import { useQuery } from 'react-query';
 
 //파일
 import * as _ from './style';
-import useStatusBarHeight from 'hooks/useStatusBarHeight';
 import Header from 'components/Header';
 import Search from 'assets/image/Search';
 import AddPlanContent from 'components/AddPlanContent';
@@ -15,7 +14,6 @@ import SearchError from 'assets/Icon/SearchError';
 import SearchLoading from 'assets/image/SearchLoading.gif';
 
 const AddSearch = () => {
-  const statusBarHeight = useStatusBarHeight();
   const [query, setQuery] = useState<string>('');
 
   const debouncedQuery = useDebounce({ value: query, delay: 200 });
@@ -38,9 +36,9 @@ const AddSearch = () => {
   };
 
   return (
-    <_.AddSearch_Container StatusBarSize={`${statusBarHeight}px`}>
+    <_.AddSearch_Layout>
       <Header title="일정추가" />
-      <_.AddSearch_Layout>
+      <_.AddSearch_Container>
         <_.AddSearch_SearchBar>
           <Search />
           <_.AddSearch_SearchBar_Input
@@ -100,8 +98,8 @@ const AddSearch = () => {
             </_.AddSearch_NoCotent>
           )}
         </_.AddSearch_Content>
-      </_.AddSearch_Layout>
-    </_.AddSearch_Container>
+      </_.AddSearch_Container>
+    </_.AddSearch_Layout>
   );
 };
 

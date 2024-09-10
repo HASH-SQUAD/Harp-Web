@@ -9,7 +9,6 @@ import NextButton from 'components/NextButton';
 import Calendar from 'components/Calendar';
 
 const SelectDate = () => {
-  const statusBarHeight = useStatusBarHeight();
   const [selectedDays, setSelectedDays] = useState<{
     start: Date | null;
     end: Date | null;
@@ -68,19 +67,18 @@ const SelectDate = () => {
 
   return (
     <>
-      <_.SelectDate_Container StatusBarSize={`${statusBarHeight}px`}>
-        <Header />
+      <_.SelectDate_Container>
         <_.SelectDate_Months>
-        <_.SelectDate_Title>여행 날짜를 선택해주세요</_.SelectDate_Title>
-        {months.map((month, index) => (
-          <Calendar
-            key={index}
-            selectedDays={selectedDays}
-            setSelectedDays={setSelectedDays}
-            currentMonth={month}
-          />
-        ))}
-        <div ref={loader} />
+          <_.SelectDate_Title>여행 날짜를 선택해주세요</_.SelectDate_Title>
+          {months.map((month, index) => (
+            <Calendar
+              key={index}
+              selectedDays={selectedDays}
+              setSelectedDays={setSelectedDays}
+              currentMonth={month}
+            />
+          ))}
+          <div ref={loader} />
         </_.SelectDate_Months>
       </_.SelectDate_Container>
       <NextButton

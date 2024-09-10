@@ -44,68 +44,65 @@ const UserInfo = () => {
   };
 
   return (
-    <>
-      <_.UserInfo_Container StatusBarSize={`${statusBarHeight}px`}>
-        <Header />
-        <_.UserInfo_Content>
-          <_.UserInfo_Title_Layout>
-            <_.UserInfo_Title_Big>{title}</_.UserInfo_Title_Big>
-            <_.UserInfo_Title_Small>
-              하프 서비스 이용을 위해 활용됩니다.
-            </_.UserInfo_Title_Small>
-          </_.UserInfo_Title_Layout>
-          <_.UserInfo_Inputs>
-            <_.UserInfo_Input_Layout>
-              <_.UserInfo_Input_Title>
-                여행자 닉네임
-                <_.UserInfo_Input_Title_Star>*</_.UserInfo_Input_Title_Star>
-              </_.UserInfo_Input_Title>
-              <_.UserInfo_Input_Box
-                type="text"
-                placeholder="2글자 이상 입력해주세요."
-                onChange={handleUserName}
-                autoComplete="off"
-              />
-            </_.UserInfo_Input_Layout>
-            <_.UserInfo_Input_Layout>
-              <_.UserInfo_Input_Title>
-                생년월일{' '}
-                <_.UserInfo_Input_Title_Star>*</_.UserInfo_Input_Title_Star>
-              </_.UserInfo_Input_Title>
-              <_.UserInfo_Input_Box
-                type="text"
-                placeholder="2024/01/01"
-                value={userInfos.birthday}
-                onChange={handleBirthday}
-                ref={birthdayRef}
-                pattern="\d*"
-              />
-            </_.UserInfo_Input_Layout>
-            <_.UserInfo_Input_Layout>
-              <_.UserInfo_Input_Title>
-                성별{' '}
-                <_.UserInfo_Input_Title_Star>*</_.UserInfo_Input_Title_Star>
-              </_.UserInfo_Input_Title>
-              <_.UserInfo_Gender_Box>
-                <_.UserInfo_Gender
-                  isSelected={isSelected.female}
-                  onClick={() => handleGenderBox('여성')}
-                >
-                  여성
-                </_.UserInfo_Gender>
-                <_.UserInfo_Gender
-                  isSelected={isSelected.male}
-                  onClick={() => handleGenderBox('남성')}
-                >
-                  남성
-                </_.UserInfo_Gender>
-              </_.UserInfo_Gender_Box>
-            </_.UserInfo_Input_Layout>
-          </_.UserInfo_Inputs>
-        </_.UserInfo_Content>
-      </_.UserInfo_Container>
+    <_.UserInfo_Container>
+      <Header />
+      <_.UserInfo_Content>
+        <_.UserInfo_Title_Layout>
+          <_.UserInfo_Title_Big>{title}</_.UserInfo_Title_Big>
+          <_.UserInfo_Title_Small>
+            하프 서비스 이용을 위해 활용됩니다.
+          </_.UserInfo_Title_Small>
+        </_.UserInfo_Title_Layout>
+        <_.UserInfo_Inputs>
+          <_.UserInfo_Input_Layout>
+            <_.UserInfo_Input_Title>
+              여행자 닉네임
+              <_.UserInfo_Input_Title_Star>*</_.UserInfo_Input_Title_Star>
+            </_.UserInfo_Input_Title>
+            <_.UserInfo_Input_Box
+              type="text"
+              placeholder="2글자 이상 입력해주세요."
+              onChange={handleUserName}
+              autoComplete="off"
+            />
+          </_.UserInfo_Input_Layout>
+          <_.UserInfo_Input_Layout>
+            <_.UserInfo_Input_Title>
+              생년월일{' '}
+              <_.UserInfo_Input_Title_Star>*</_.UserInfo_Input_Title_Star>
+            </_.UserInfo_Input_Title>
+            <_.UserInfo_Input_Box
+              type="text"
+              placeholder="2024/01/01"
+              value={userInfos.birthday}
+              onChange={handleBirthday}
+              ref={birthdayRef}
+              pattern="\d*"
+            />
+          </_.UserInfo_Input_Layout>
+          <_.UserInfo_Input_Layout>
+            <_.UserInfo_Input_Title>
+              성별 <_.UserInfo_Input_Title_Star>*</_.UserInfo_Input_Title_Star>
+            </_.UserInfo_Input_Title>
+            <_.UserInfo_Gender_Box>
+              <_.UserInfo_Gender
+                isSelected={isSelected.female}
+                onClick={() => handleGenderBox('여성')}
+              >
+                여성
+              </_.UserInfo_Gender>
+              <_.UserInfo_Gender
+                isSelected={isSelected.male}
+                onClick={() => handleGenderBox('남성')}
+              >
+                남성
+              </_.UserInfo_Gender>
+            </_.UserInfo_Gender_Box>
+          </_.UserInfo_Input_Layout>
+        </_.UserInfo_Inputs>
+      </_.UserInfo_Content>
       <NextButton text="다음" state={!!isFormValid()} />
-    </>
+    </_.UserInfo_Container>
   );
 };
 
