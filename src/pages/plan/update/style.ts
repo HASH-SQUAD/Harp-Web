@@ -2,9 +2,17 @@ import { theme } from 'lib/utils/style/theme';
 import styled from 'styled-components';
 
 export const Update_Layout = styled.div`
+  position: fixed;
+  width: 100%;
+  height: 100%;
+`;
+
+export const Update_Container = styled.div`
   display: flex;
   flex-direction: column;
   padding: 0 20px;
+  width: 100%;
+  height: 100%;
 `;
 
 export const Update_TitleBar = styled.div`

@@ -11,7 +11,6 @@ import { ChatContent } from 'data/ChatContent';
 import MessageBox from 'components/MessageBox';
 
 const Chat = () => {
-  const statusBarHeight = useStatusBarHeight();
   const [message, setMessage] = useState<string>('');
   const [isLoading, setIsLoading] = useState<boolean>(true);
   const messageEndRef = useRef<HTMLDivElement | null>(null);
@@ -44,43 +43,45 @@ const Chat = () => {
   }, [ChatContent]);
 
   return (
-    <_.Chat_Container StatusBarSize={`${statusBarHeight}px`}>
-      <Header title="AI 디토" isOnChatting={true} />
-      <_.Chat_Messages>
-        {ChatContent.map((item, index) => (
-          <MessageBox
-            key={index}
-            message={item.content.text}
-            role={item.role}
-            isLoading={isLoading}
-          >
-            {item.content.text}
-          </MessageBox>
-        ))}
-        <div ref={messageEndRef} />
-      </_.Chat_Messages>
-      <_.Chat_Typing_Container>
-        <_.Chat_Typing_Box>
-          <_.Chat_Textarea
-            value={message}
-            placeholder="메시지 보내기..."
-            rows={1}
-            maxLength={100}
-            ref={textareaRef}
-            onChange={(e) => resizeHeight(textareaRef, e)}
-            onKeyDown={(e) => {
-              if (e.key === 'Enter') {
-                e.preventDefault();
-                handleSendMessage();
-              }
-            }}
-          />
-          <_.Chat_SendIcon onClick={handleSendMessage}>
-            <Send stroke={message ? theme.primary[7] : theme.gray[2]} />
-          </_.Chat_SendIcon>
-        </_.Chat_Typing_Box>
-      </_.Chat_Typing_Container>
-    </_.Chat_Container>
+    <_.Chat_Layout>
+      <_.Chat_Container>
+        <Header title="AI 디토" isOnChatting={true} />
+        <_.Chat_Messages>
+          {ChatContent.map((item, index) => (
+            <MessageBox
+              key={index}
+              message={item.content.text}
+              role={item.role}
+              isLoading={isLoading}
+            >
+              {item.content.text}
+            </MessageBox>
+          ))}
+          <div ref={messageEndRef} />
+        </_.Chat_Messages>
+        <_.Chat_Typing_Container>
+          <_.Chat_Typing_Box>
+            <_.Chat_Textarea
+              value={message}
+              placeholder="메시지 보내기..."
+              rows={1}
+              maxLength={100}
+              ref={textareaRef}
+              onChange={(e) => resizeHeight(textareaRef, e)}
+              onKeyDown={(e) => {
+                if (e.key === 'Enter') {
+                  e.preventDefault();
+                  handleSendMessage();
+                }
+              }}
+            />
+            <_.Chat_SendIcon onClick={handleSendMessage}>
+              <Send stroke={message ? theme.primary[7] : theme.gray[2]} />
+            </_.Chat_SendIcon>
+          </_.Chat_Typing_Box>
+        </_.Chat_Typing_Container>
+      </_.Chat_Container>
+    </_.Chat_Layout>
   );
 };
 

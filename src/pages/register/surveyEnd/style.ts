@@ -1,12 +1,17 @@
 import { theme } from 'lib/utils/style/theme';
 import styled from 'styled-components';
 
-export const SurveyEnd_Container = styled.div<{ StatusBarSize?: string }>`
+export const SurveyEnd_Container = styled.div`
   width: 100vw;
-  height: 100vh;
-  padding: ${(props) => props.StatusBarSize || '54px'} 0 52px 0;
+  height: calc(100vh - 40px);
+  padding-bottom: 52px;
   display: flex;
   flex-direction: column;
+  position: fixed;
+`;
+
+export const SurveyEnd_Header = styled.div`
+  margin-top: 42px;
 `;
 
 export const SurveyEnd_Content = styled.div`
@@ -134,4 +139,5 @@ export const SurveyEnd_OtherInfo = styled.div`
   font-weight: 400;
   font-size: 14px;
   color: ${theme.gray[3]};
+  margin-bottom: 9px;
 `;
