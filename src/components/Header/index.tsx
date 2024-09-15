@@ -3,7 +3,7 @@ import React from 'react';
 
 // 파일
 import * as _ from './style';
-import BackIcon from 'assets/image/BackIcon';
+import BackIcon from 'assets/Icon/BackIcon';
 import ProgressBar1 from 'assets/image/ProgressBar1';
 import ProgressBar2 from 'assets/image/ProgressBar2';
 import ProgressBar3 from 'assets/image/ProgressBar3';

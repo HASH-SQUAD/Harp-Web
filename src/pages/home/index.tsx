@@ -4,11 +4,13 @@ import React, { useState, useEffect } from 'react';
 // 파일
 import * as _ from './style';
 import Search from 'assets/image/Search';
-import ChattingStart from 'assets/image/ChattingStart.jpg';
 import ComingPlan from 'data/ComingPlan';
 import RecommendPlan from 'data/RecommendPlan';
 import MenuBar from 'components/MenuBar';
 import calculateDDay from 'lib/utils/D-Day';
+import RightArrow from 'assets/Icon/RightArrow';
+import { theme } from 'lib/utils/style/theme';
+import Robot from 'assets/image/Robot.png';
 
 interface DateData {
   id: number;
@@ -61,9 +63,17 @@ const Home = () => {
         <Search />
         <_.Home_SearchBar_Input placeholder="목적지를 입력해보세요." />
       </_.Home_SearchBar>
+      <_.Home_Navigate_Chatting>
+        <_.Home_Navigate_Ul>
+          <_.Home_Navigate_List>AI로 계획</_.Home_Navigate_List>
+          <_.Home_Navigate_List>
+            만들기
+            <RightArrow width="28" height="28" color={theme.gray.white} />
+          </_.Home_Navigate_List>
+        </_.Home_Navigate_Ul>
 
-      <_.Home_Chatting src={ChattingStart} />
-
+        <_.Home_Navigate_Robot src={Robot} />
+      </_.Home_Navigate_Chatting>
       <_.Home_Plan_Title>다가오는 일정이 있어요! ✈️</_.Home_Plan_Title>
 
       <_.Home_Plan_Contents>
