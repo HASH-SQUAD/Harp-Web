@@ -1,15 +1,21 @@
-const RightArrow = () => {
+interface RightArrowProps {
+  width: string;
+  height: string;
+  color: string;
+}
+
+const RightArrow = ({ width, height, color }: RightArrowProps) => {
   return (
     <svg
       xmlns="http://www.w3.org/2000/svg"
-      width="19"
-      height="18"
-      viewBox="0 0 19 18"
+      width={width}
+      height={height}
+      viewBox="0 0 18 18"
       fill="none"
     >
       <path
         d="M8 5.25L11.75 9L8 12.75"
-        stroke="#B9BBB9"
+        stroke={color}
         strokeWidth="1.2"
         strokeLinecap="round"
         strokeLinejoin="round"

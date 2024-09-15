@@ -8,7 +8,7 @@ import PlanDate from 'components/PlanDate';
 import Location from 'assets/image/Location';
 import Calendar from 'assets/image/Calendar';
 import TimeCircle from 'assets/image/TimeCircle';
-import WriteIcon from 'assets/image/writeIcon';
+import WriteIcon from 'assets/image/WriteIcon';
 import { hasDateExpired } from 'lib/utils/hasDateExpired';
 import TimePicker from 'components/TimePicker';
 import NextButton from 'components/NextButton';

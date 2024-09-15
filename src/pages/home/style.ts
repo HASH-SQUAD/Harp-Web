@@ -1,5 +1,6 @@
 import { theme } from 'lib/utils/style/theme';
 import styled from 'styled-components';
+import ChattingStartBackground from 'assets/image/ChattingStartBackground.svg';
 
 export const Home_Container = styled.div`
   padding: 0 20px 90px;
@@ -86,9 +87,34 @@ export const Home_SearchBar_Input = styled.input`
 `;
 
 //채팅시작하기 버튼
-export const Home_Chatting = styled.img`
+export const Home_Navigate_Chatting = styled.div`
+  display: flex;
+  justify-content: space-between;
   width: 100%;
+  border-radius: 10px;
+  height: 120px;
   margin-top: 15px;
+  background-image: url(${ChattingStartBackground});
+  background-size: cover;
+`;
+
+export const Home_Navigate_Ul = styled.ul`
+  list-style: none;
+  margin: 15px 0 0 20px;
+`;
+
+export const Home_Navigate_List = styled.li`
+  color: ${theme.gray.white};
+  font-size: 22px;
+  font-weight: 500;
+  line-height: 22px;
+  display: flex;
+  align-items: center;
+  line-height: 120%;
+`;
+
+export const Home_Navigate_Robot = styled.img`
+  margin: 3px 11px 0 0;
 `;
 
 //다가오는 일정

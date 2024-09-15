@@ -2,8 +2,9 @@ import React, { useState } from 'react';
 import * as _ from './style';
 import FalseCheck from 'assets/image/FalseCheck';
 import TrueCheck from 'assets/image/TrueCheck';
-import RightArrow from 'assets/image/RightArrow';
-import DownArrow from 'assets/image/DownArrow';
+import RightArrow from 'assets/Icon/RightArrow';
+import DownArrow from 'assets/Icon/DownArrow';
+import { theme } from 'lib/utils/style/theme';
 
 interface TermsContentProps {
   id: number;
@@ -54,7 +55,7 @@ const TermsContent = ({
               setRuleState(!ruleState);
             }}
           >
-            <RightArrow />
+            <RightArrow width="18" height="18" color="#B9BBB9" />
           </_.TermsContent_ArrowIcon>
         )}
       </_.TermsContent_Layout>
