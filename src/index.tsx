@@ -13,11 +13,9 @@ const root = ReactDOM.createRoot(
 );
 root.render(
   <BrowserRouter>
-    <React.StrictMode>
       <QueryClientProvider client={queryClient}>
         <ReactQueryDevtools initialIsOpen={true} />
         <App />
       </QueryClientProvider>
-    </React.StrictMode>
   </BrowserRouter>
 );
