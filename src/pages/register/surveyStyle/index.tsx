@@ -49,8 +49,6 @@ const SurveyStyle = () => {
     return selectedCount >= 1;
   };
 
-  console.log(checkedStyles);
-
   return (
     <_.SurveyStyle_Container>
       <Header title="1" />
