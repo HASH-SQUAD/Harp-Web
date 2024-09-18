@@ -1,6 +1,7 @@
 // 라이브러리
-import React, { useState } from 'react';
+import React, { useEffect } from 'react';
 import { useRecoilState } from 'recoil';
+import { useNavigate } from 'react-router-dom';
 
 // 파일
 import * as _ from './style';
@@ -8,15 +9,19 @@ import Header from 'components/Header';
 import SurveyContent from 'components/SurveyContent';
 import SurveyStyleData from 'data/SurveyStyle';
 import NextButton from 'components/NextButton';
-import { checkedStylesState } from 'atoms/user';
-import { useNavigate } from 'react-router-dom';
+import { selectedStylesState, selectedStylesStringState } from 'atoms/user';
+import { formatSelectedContents } from 'lib/utils/formatSelectedContents';
 
 const SurveyStyle = () => {
   const navigate = useNavigate();
-  const [checkedStyles, setCheckedStyles] = useRecoilState(checkedStylesState);
+  const [selectedStyles, setSelectedStyles] =
+    useRecoilState(selectedStylesState);
+  const [selectedStylesString, setSelectedStylesString] = useRecoilState(
+    selectedStylesStringState
+  );
 
   const handleToggle = (id: number) => {
-    setCheckedStyles((prevState) => {
+    setSelectedStyles((prevState) => {
       const selectedCount = prevState.styles.filter(
         (item) => item.state
       ).length;
@@ -43,11 +48,15 @@ const SurveyStyle = () => {
   };
 
   const isFormValid = () => {
-    const selectedCount = checkedStyles.styles.filter(
+    const selectedCount = selectedStyles.styles.filter(
       (item) => item.state
     ).length;
     return selectedCount >= 1;
   };
+
+  useEffect(() => {
+    setSelectedStylesString(formatSelectedContents(selectedStyles.styles));
+  }, [selectedStyles]);
 
   return (
     <_.SurveyStyle_Container>
@@ -63,7 +72,7 @@ const SurveyStyle = () => {
         </_.SurveyStyle_MainText>
         <_.SurveyStyle_Contents>
           {SurveyStyleData.map((item) => {
-            const currentItem = checkedStyles.styles.find(
+            const currentItem = selectedStyles.styles.find(
               (stateItem) => stateItem.id === item.id
             );
             const state = currentItem ? currentItem.state : false;

@@ -1,6 +1,7 @@
 //라이브러리
 import React, { useState, useEffect } from 'react';
 import { useRecoilState } from 'recoil';
+import { useNavigate } from 'react-router-dom';
 
 //파일
 import * as _ from './style';
@@ -8,15 +9,18 @@ import Header from 'components/Header';
 import SurveyFoodData from 'data/SurveyFood';
 import SurveyContent from 'components/SurveyContent';
 import NextButton from 'components/NextButton';
-import { checkedFoodsState } from 'atoms/user';
-import { useNavigate } from 'react-router-dom';
+import { selectedFoodsState, selectedFoodsStringState } from 'atoms/user';
+import { formatSelectedContents } from 'lib/utils/formatSelectedContents';
 
 const SurveyFood = () => {
   const navigate = useNavigate();
-  const [checkedFoods, setCheckedFoods] = useRecoilState(checkedFoodsState);
+  const [selectedFoods, setSelectedFoods] = useRecoilState(selectedFoodsState);
+  const [selectedFoodsString, setSelectedFoodsString] = useRecoilState(
+    selectedFoodsStringState
+  );
 
   const handleToggle = (id: number) => {
-    setCheckedFoods((prevState) => {
+    setSelectedFoods((prevState) => {
       const selectedCount = prevState.foods.filter((item) => item.state).length;
 
       const isItemSelected = prevState.foods.find(
@@ -39,13 +43,16 @@ const SurveyFood = () => {
       return prevState;
     });
   };
-
   const isFormValid = () => {
-    const selectedCount = checkedFoods.foods.filter(
+    const selectedCount = selectedFoods.foods.filter(
       (item) => item.state
     ).length;
     return selectedCount >= 1;
   };
+
+  useEffect(() => {
+    setSelectedFoodsString(formatSelectedContents(selectedFoods.foods));
+  }, [selectedFoods]);
 
   return (
     <_.SurveyFood_Container>
@@ -63,7 +70,7 @@ const SurveyFood = () => {
 
         <_.SurveyFood_Contents>
           {SurveyFoodData.map((item) => {
-            const currentItem = checkedFoods.foods.find(
+            const currentItem = selectedFoods.foods.find(
               (stateItem) => stateItem.id === item.id
             );
             const state = currentItem ? currentItem.state : false;

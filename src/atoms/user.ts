@@ -21,19 +21,37 @@ export const isGenderSelectedState = atom({
 });
 
 // 여행 스타일
-export const checkedStylesState = atom({
-  key: 'checkedStylesState',
+export const selectedStylesState = atom({
+  key: 'selectedStylesState',
   default: {
-    styles: SurveyStyleData.map((item) => ({ id: item.id, state: false }))
+    styles: SurveyStyleData.map((item) => ({
+      id: item.id,
+      state: false,
+      text: item.text
+    }))
   }
 });
 
+export const selectedStylesStringState = atom({
+  key: 'selectedStylesStringState',
+  default: ''
+});
+
 // 선호 음식
-export const checkedFoodsState = atom({
-  key: 'checkedFoodsState',
+export const selectedFoodsState = atom({
+  key: 'selectedFoodsState',
   default: {
-    foods: SurveyFoodData.map((item) => ({ id: item.id, state: false }))
+    foods: SurveyFoodData.map((item) => ({
+      id: item.id,
+      state: false,
+      text: item.text
+    }))
   }
+});
+
+export const selectedFoodsStringState = atom({
+  key: 'selectedFoodsStringState',
+  default: ''
 });
 
 // mbti
