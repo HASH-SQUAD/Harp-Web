@@ -1,4 +1,5 @@
 import React, { useEffect } from 'react';
+import * as _ from './style';
 import { useNavigate } from 'react-router-dom';
 import { Auth_KakaoLogin } from 'lib/apis/Auth';
 
@@ -32,7 +33,7 @@ const Callback = () => {
     fetchData();
   }, [navigate]);
 
-  return <div>Loading...</div>;
+  return <_.Callback_Layout>Loading...</_.Callback_Layout>;
 };
 
 export default Callback;
