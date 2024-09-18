@@ -2,6 +2,7 @@ import SurveyFoodData from 'data/SurveyFood';
 import SurveyStyleData from 'data/SurveyStyle';
 import { atom } from 'recoil';
 
+// 사용자 정보
 export const userInfosState = atom({
   key: 'userInfosState',
   default: {
@@ -19,6 +20,7 @@ export const isGenderSelectedState = atom({
   }
 });
 
+// 여행 스타일
 export const checkedStylesState = atom({
   key: 'checkedStylesState',
   default: {
@@ -26,6 +28,7 @@ export const checkedStylesState = atom({
   }
 });
 
+// 선호 음식
 export const checkedFoodsState = atom({
   key: 'checkedFoodsState',
   default: {
@@ -33,6 +36,7 @@ export const checkedFoodsState = atom({
   }
 });
 
+// mbti
 export const selectedMBTIState = atom({
   key: 'selectedMBTIState',
   default: {
@@ -47,5 +51,11 @@ export const selectedMBTIState = atom({
 
 export const stringMbtiState = atom({
   key: 'stringMbtiState',
+  default: ''
+});
+
+// tmi
+export const tmiState = atom({
+  key: 'tmiState',
   default: ''
 });
