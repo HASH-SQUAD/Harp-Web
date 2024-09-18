@@ -8,7 +8,7 @@ import * as _ from './style';
 import Header from 'components/Header';
 import NextButton from 'components/NextButton';
 import { formatBirthday } from 'lib/utils/formatBirthday';
-import { isGenderSelectedState, userInfosState } from 'atoms/users';
+import { isGenderSelectedState, userInfosState } from 'atoms/user';
 
 const UserInfo = () => {
   const navigate = useNavigate();
