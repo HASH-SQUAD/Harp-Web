@@ -30,11 +30,12 @@ const UserInfo = () => {
   const handleGenderBox = (selectedGender: string) => {
     setUserInfos({ ...userInfos, gender: selectedGender });
     setIsSelected({
-      female: selectedGender === '여성',
-      male: selectedGender === '남성'
+      female: selectedGender === 'female',
+      male: selectedGender === 'male'
     });
   };
 
+  console.log(userInfos);
   const isFormValid = () => {
     const { username, birthday, gender } = userInfos;
     return username.length >= 2 && birthday && gender;
@@ -85,13 +86,13 @@ const UserInfo = () => {
             <_.UserInfo_Gender_Box>
               <_.UserInfo_Gender
                 isSelected={isSelected.female}
-                onClick={() => handleGenderBox('여성')}
+                onClick={() => handleGenderBox('female')}
               >
                 여성
               </_.UserInfo_Gender>
               <_.UserInfo_Gender
                 isSelected={isSelected.male}
-                onClick={() => handleGenderBox('남성')}
+                onClick={() => handleGenderBox('male')}
               >
                 남성
               </_.UserInfo_Gender>
