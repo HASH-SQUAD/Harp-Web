@@ -8,7 +8,7 @@ import Header from 'components/Header';
 import SurveyContent from 'components/SurveyContent';
 import SurveyStyleData from 'data/SurveyStyle';
 import NextButton from 'components/NextButton';
-import { checkedStylesState } from 'atoms/users';
+import { checkedStylesState } from 'atoms/user';
 import { useNavigate } from 'react-router-dom';
 
 const SurveyStyle = () => {
