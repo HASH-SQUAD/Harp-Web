@@ -5,6 +5,7 @@ import App from './App';
 import { BrowserRouter } from 'react-router-dom';
 import { QueryClient, QueryClientProvider } from 'react-query';
 import { ReactQueryDevtools } from 'react-query/devtools';
+import { RecoilRoot } from 'recoil';
 
 const queryClient = new QueryClient();
 
@@ -13,9 +14,11 @@ const root = ReactDOM.createRoot(
 );
 root.render(
   <BrowserRouter>
-      <QueryClientProvider client={queryClient}>
-        <ReactQueryDevtools initialIsOpen={true} />
+    <QueryClientProvider client={queryClient}>
+      <ReactQueryDevtools initialIsOpen={true} />
+      <RecoilRoot>
         <App />
-      </QueryClientProvider>
+      </RecoilRoot>
+    </QueryClientProvider>
   </BrowserRouter>
 );
