@@ -1,25 +1,22 @@
 // 라이브러리
-import React, { ChangeEvent, useEffect, useRef, useState } from 'react';
+import React, { ChangeEvent, useRef, useState } from 'react';
+import { useNavigate } from 'react-router-dom';
+import { useRecoilState } from 'recoil';
+
 // 파일
 import * as _ from './style';
-import useStatusBarHeight from 'hooks/useStatusBarHeight';
 import Header from 'components/Header';
 import NextButton from 'components/NextButton';
 import { formatBirthday } from 'lib/utils/formatBirthday';
+import { isGenderSelectedState, userInfosState } from 'atoms/users';
 
 const UserInfo = () => {
-  const statusBarHeight = useStatusBarHeight();
+  const navigate = useNavigate();
   const title = '환영합니다!\n회원정보를 입력해주세요.';
   const birthdayRef = useRef<HTMLInputElement | null>(null);
-  const [userInfos, setUserInfos] = useState({
-    username: '',
-    birthday: '',
-    gender: ''
-  });
-  const [isSelected, setIsSelected] = useState({
-    female: false,
-    male: false
-  });
+
+  const [userInfos, setUserInfos] = useRecoilState(userInfosState);
+  const [isSelected, setIsSelected] = useRecoilState(isGenderSelectedState);
 
   const handleUserName = (e: ChangeEvent<HTMLInputElement>) => {
     setUserInfos({ ...userInfos, username: e.currentTarget.value });
@@ -43,6 +40,8 @@ const UserInfo = () => {
     return username.length >= 2 && birthday && gender;
   };
 
+  console.log(userInfosState);
+
   return (
     <_.UserInfo_Container>
       <Header />
@@ -63,12 +62,13 @@ const UserInfo = () => {
               type="text"
               placeholder="2글자 이상 입력해주세요."
               onChange={handleUserName}
+              value={userInfos.username}
               autoComplete="off"
             />
           </_.UserInfo_Input_Layout>
           <_.UserInfo_Input_Layout>
             <_.UserInfo_Input_Title>
-              생년월일{' '}
+              생년월일
               <_.UserInfo_Input_Title_Star>*</_.UserInfo_Input_Title_Star>
             </_.UserInfo_Input_Title>
             <_.UserInfo_Input_Box
@@ -101,7 +101,13 @@ const UserInfo = () => {
           </_.UserInfo_Input_Layout>
         </_.UserInfo_Inputs>
       </_.UserInfo_Content>
-      <NextButton text="다음" state={!!isFormValid()} />
+      <NextButton
+        text="다음"
+        state={!!isFormValid()}
+        onNextClick={() => {
+          navigate('/register/surveystyle');
+        }}
+      />
     </_.UserInfo_Container>
   );
 };

@@ -6,12 +6,14 @@ import TrueCircleCheck from 'assets/image/TrueCircleCheck';
 import TermsContent from 'components/TermsContent';
 import TermsData from 'data/Terms';
 import NextButton from 'components/NextButton';
+import { useNavigate } from 'react-router-dom';
 
 interface CheckState {
   [key: number]: boolean;
 }
 
 const Terms = () => {
+  const navigate = useNavigate();
   const [successAll, setSuccessAll] = useState<boolean>(false);
   const [check, setCheck] = useState<CheckState>({
     1: false,
@@ -81,7 +83,13 @@ const Terms = () => {
           ))}
         </_.Terms_Deatil>
       </_.Terms_Container>
-      <NextButton text="다음" state={nextButtonState} />
+      <NextButton
+        text="다음"
+        state={nextButtonState}
+        onNextClick={() => {
+          navigate('/register/userinfo');
+        }}
+      />
     </_.Terms_Layout>
   );
 };
