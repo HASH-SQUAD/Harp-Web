@@ -1,33 +1,55 @@
+// 라이브러리
 import React, { useState } from 'react';
+import { useRecoilState } from 'recoil';
+
+// 파일
 import * as _ from './style';
 import Header from 'components/Header';
 import SurveyContent from 'components/SurveyContent';
 import SurveyStyleData from 'data/SurveyStyle';
 import NextButton from 'components/NextButton';
+import { checkedStylesState } from 'atoms/users';
+import { useNavigate } from 'react-router-dom';
 
 const SurveyStyle = () => {
-  const [checkState, setCheckState] = useState(
-    SurveyStyleData.map((item) => ({ id: item.id, state: false }))
-  );
+  const navigate = useNavigate();
+  const [checkedStyles, setCheckedStyles] = useRecoilState(checkedStylesState);
 
   const handleToggle = (id: number) => {
-    const selectedCount = checkState.filter((item) => item.state).length;
-    const isItemSelected = checkState.find((item) => item.id === id)?.state;
+    setCheckedStyles((prevState) => {
+      const selectedCount = prevState.styles.filter(
+        (item) => item.state
+      ).length;
 
-    if (isItemSelected) {
-      setCheckState((prevState) =>
-        prevState.map((item) =>
-          item.id === id ? { ...item, state: !item.state } : item
-        )
-      );
-    } else if (selectedCount < 3) {
-      setCheckState((prevState) =>
-        prevState.map((item) =>
-          item.id === id ? { ...item, state: !item.state } : item
-        )
-      );
-    }
+      const isItemSelected = prevState.styles.find(
+        (item) => item.id === id
+      )?.state;
+
+      if (isItemSelected) {
+        return {
+          styles: prevState.styles.map((item) =>
+            item.id === id ? { ...item, state: !item.state } : item
+          )
+        };
+      } else if (selectedCount < 3) {
+        return {
+          styles: prevState.styles.map((item) =>
+            item.id === id ? { ...item, state: !item.state } : item
+          )
+        };
+      }
+      return prevState;
+    });
   };
+
+  const isFormValid = () => {
+    const selectedCount = checkedStyles.styles.filter(
+      (item) => item.state
+    ).length;
+    return selectedCount >= 1;
+  };
+
+  console.log(checkedStyles);
 
   return (
     <_.SurveyStyle_Container>
@@ -43,7 +65,7 @@ const SurveyStyle = () => {
         </_.SurveyStyle_MainText>
         <_.SurveyStyle_Contents>
           {SurveyStyleData.map((item) => {
-            const currentItem = checkState.find(
+            const currentItem = checkedStyles.styles.find(
               (stateItem) => stateItem.id === item.id
             );
             const state = currentItem ? currentItem.state : false;
@@ -61,7 +83,13 @@ const SurveyStyle = () => {
           })}
         </_.SurveyStyle_Contents>
       </_.SurveyStyle_Content>
-      <NextButton text="다음" state={true} />
+      <NextButton
+        text="다음"
+        state={!!isFormValid()}
+        onNextClick={() => {
+          navigate('/register/surveyfood');
+        }}
+      />
     </_.SurveyStyle_Container>
   );
 };

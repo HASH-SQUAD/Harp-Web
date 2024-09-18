@@ -40,8 +40,6 @@ const UserInfo = () => {
     return username.length >= 2 && birthday && gender;
   };
 
-  console.log(userInfosState);
-
   return (
     <_.UserInfo_Container>
       <Header />
