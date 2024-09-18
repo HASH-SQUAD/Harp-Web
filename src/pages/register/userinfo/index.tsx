@@ -35,7 +35,6 @@ const UserInfo = () => {
     });
   };
 
-  console.log(userInfos);
   const isFormValid = () => {
     const { username, birthday, gender } = userInfos;
     return username.length >= 2 && birthday && gender;

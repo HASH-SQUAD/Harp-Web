@@ -45,8 +45,6 @@ const Header = ({
     }
   };
 
-  console.log(location.pathname);
-
   return (
     <_.Header_Container isOnChatting={isOnChatting}>
       <_.Header_BackIcon onClick={handleBackIcon}>

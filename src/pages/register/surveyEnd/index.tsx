@@ -39,7 +39,7 @@ const SurveyEnd = () => {
         Q3: mbti,
         etc: tmi
       });
-
+      
       navigate('/');
     } catch (error) {
       console.log(error);

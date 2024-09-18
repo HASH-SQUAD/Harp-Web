@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useEffect } from 'react';
 import * as _ from './style';
 import Header from 'components/Header';
 import FalseCircleCheck from 'assets/image/FalseCircleCheck';
@@ -7,22 +7,20 @@ import TermsContent from 'components/TermsContent';
 import TermsData from 'data/Terms';
 import NextButton from 'components/NextButton';
 import { useNavigate } from 'react-router-dom';
-
-interface CheckState {
-  [key: number]: boolean;
-}
+import { useRecoilState } from 'recoil';
+import {
+  successAllState,
+  checkState,
+  nextButtonState,
+  CheckState
+} from 'atoms/user';
 
 const Terms = () => {
   const navigate = useNavigate();
-  const [successAll, setSuccessAll] = useState<boolean>(false);
-  const [check, setCheck] = useState<CheckState>({
-    1: false,
-    2: false,
-    3: false,
-    4: false,
-    5: false
-  });
-  const [nextButtonState, setNextButtonState] = useState<boolean>(false);
+  const [successAll, setSuccessAll] = useRecoilState(successAllState);
+  const [check, setCheck] = useRecoilState(checkState);
+  const [nextButtonStateValue, setNextButtonState] =
+    useRecoilState(nextButtonState);
 
   useEffect(() => {
     const allChecked = Object.values(check).every(Boolean);
@@ -30,7 +28,7 @@ const Terms = () => {
 
     const necessaryChecked = check[1] && check[2] && check[3];
     setNextButtonState(necessaryChecked);
-  }, [check]);
+  }, [check, setSuccessAll, setNextButtonState]);
 
   const handleAllCheck = () => {
     const newState = !successAll;
@@ -85,7 +83,7 @@ const Terms = () => {
       </_.Terms_Container>
       <NextButton
         text="다음"
-        state={nextButtonState}
+        state={nextButtonStateValue}
         onNextClick={() => {
           navigate('/register/userinfo');
         }}

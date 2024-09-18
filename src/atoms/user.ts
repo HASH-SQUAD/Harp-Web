@@ -2,6 +2,32 @@ import SurveyFoodData from 'data/SurveyFood';
 import SurveyStyleData from 'data/SurveyStyle';
 import { atom } from 'recoil';
 
+// 이용약관
+export const successAllState = atom<boolean>({
+  key: 'successAllState',
+  default: false
+});
+
+export interface CheckState {
+  [key: number]: boolean;
+}
+
+export const checkState = atom<CheckState>({
+  key: 'checkState',
+  default: {
+    1: false,
+    2: false,
+    3: false,
+    4: false,
+    5: false
+  }
+});
+
+export const nextButtonState = atom<boolean>({
+  key: 'nextButtonState',
+  default: false
+});
+
 // 사용자 정보
 export const userInfosState = atom({
   key: 'userInfosState',
