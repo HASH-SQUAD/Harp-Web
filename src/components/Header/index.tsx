@@ -8,7 +8,7 @@ import ProgressBar1 from 'assets/image/ProgressBar1';
 import ProgressBar2 from 'assets/image/ProgressBar2';
 import ProgressBar3 from 'assets/image/ProgressBar3';
 import { theme } from 'lib/utils/style/theme';
-import { useNavigate } from 'react-router-dom';
+import { useLocation, useNavigate } from 'react-router-dom';
 
 interface HeaderProps {
   title?: string;
@@ -35,10 +35,17 @@ const Header = ({
   }
 
   const navigate = useNavigate();
+  const location = useLocation();
 
   const handleBackIcon = () => {
-    navigate(-1);
+    if (location.pathname === '/register/terms') {
+      navigate('/auth');
+    } else {
+      navigate(-1);
+    }
   };
+
+  console.log(location.pathname);
 
   return (
     <_.Header_Container isOnChatting={isOnChatting}>
