@@ -12,6 +12,7 @@ import { useNavigate } from 'react-router-dom';
 const SurveryTMI = () => {
   const navigate = useNavigate();
   const [tmi, setTmi] = useRecoilState(tmiState);
+
   return (
     <_.SurveyTMI_Layout>
       <Header />
@@ -28,6 +29,7 @@ const SurveryTMI = () => {
             onChange={(e) => {
               setTmi(e.currentTarget.value);
             }}
+            value={tmi}
             maxLength={200}
             placeholder="ex) 고등어를 싫어해요"
           />
