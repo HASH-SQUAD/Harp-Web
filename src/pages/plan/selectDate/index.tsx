@@ -3,7 +3,6 @@ import React, { useState, useRef, useEffect, useCallback } from 'react';
 
 // 파일
 import * as _ from './style';
-import useStatusBarHeight from 'hooks/useStatusBarHeight';
 import Header from 'components/Header';
 import NextButton from 'components/NextButton';
 import Calendar from 'components/Calendar';
@@ -68,6 +67,7 @@ const SelectDate = () => {
   return (
     <>
       <_.SelectDate_Container>
+        <Header />
         <_.SelectDate_Months>
           <_.SelectDate_Title>여행 날짜를 선택해주세요</_.SelectDate_Title>
           {months.map((month, index) => (
