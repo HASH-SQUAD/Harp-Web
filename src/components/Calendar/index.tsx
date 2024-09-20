@@ -1,5 +1,5 @@
 // 라이브러리
-import React, { useState, useEffect, useRef, useCallback } from 'react';
+import React, { useCallback } from 'react';
 
 // 파일
 import * as _ from './style';
@@ -136,6 +136,8 @@ const Calendar = ({
   const calendarDays = buildCalendarDays();
   const calendarTags = buildCalendarTag(calendarDays);
   const calendarRows = divideWeek(calendarTags);
+
+  console.log(selectedDays);
 
   return (
     <_.Calendar_Container>

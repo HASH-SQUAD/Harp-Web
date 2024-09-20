@@ -3,6 +3,7 @@ import styled from 'styled-components';
 
 export const Calendar_Container = styled.div`
   padding: 10px;
+  width: 100%;
 `;
 
 export const Calendar_Date_Title = styled.p`
@@ -12,7 +13,8 @@ export const Calendar_Date_Title = styled.p`
 `;
 
 export const Calendar_Table = styled.table`
-  width: 100%;
+  width: 320px;
+  margin: 0 auto;
 `;
 
 export const Calendar_DayofWeek_Tr = styled.tr`
