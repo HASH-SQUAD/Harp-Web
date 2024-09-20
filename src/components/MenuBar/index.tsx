@@ -39,13 +39,14 @@ const icons = [
 
 const MenuBar = ({ selectState }: MenuBarProps) => {
   const navigate = useNavigate();
+
   return (
     <_.MenuBar_Container>
       {icons.map((icon, index) => (
         <_.Menubar_Icon
           key={index}
           onClick={() => {
-            navigate(icon.location);
+            navigate(icon.location, { state: { fromHome: true } });
           }}
         >
           {selectState === index + 1 ? <icon.selected /> : <icon.notSelected />}

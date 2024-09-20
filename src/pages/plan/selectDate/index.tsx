@@ -1,18 +1,27 @@
 // 라이브러리
 import React, { useState, useRef, useEffect, useCallback } from 'react';
+import { useRecoilState, useResetRecoilState } from 'recoil';
+import { useLocation } from 'react-router-dom';
 
 // 파일
 import * as _ from './style';
 import Header from 'components/Header';
 import NextButton from 'components/NextButton';
 import Calendar from 'components/Calendar';
-import { formatSelectedDate } from 'lib/utils/formatSelectedDate';
+import { selectedDaysState } from 'atoms/plan';
 
 const SelectDate = () => {
-  const [selectedDays, setSelectedDays] = useState<{
-    start: Date | null;
-    end: Date | null;
-  }>({ start: null, end: null });
+  const location = useLocation();
+  const isFromHome = location.state?.fromHome || false;
+
+  const [selectedDays, setSelectedDays] = useRecoilState(selectedDaysState);
+  const resetSelectedDays = useResetRecoilState(selectedDaysState);
+
+  useEffect(() => {
+    if (isFromHome) {
+      resetSelectedDays();
+    }
+  }, [isFromHome, resetSelectedDays]);
 
   const [months, setMonths] = useState<Date[]>([
     new Date(new Date().getFullYear(), new Date().getMonth(), 1)
@@ -64,14 +73,6 @@ const SelectDate = () => {
       }
     };
   }, []);
-
-  useEffect(() => {
-    if (selectedDays.start && selectedDays.end) {
-      const { start, end } = selectedDays;
-      const one = formatSelectedDate(start);
-      const two = formatSelectedDate(end);
-    }
-  }, [selectedDays]);
 
   return (
     <>

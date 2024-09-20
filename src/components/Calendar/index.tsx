@@ -137,8 +137,6 @@ const Calendar = ({
   const calendarTags = buildCalendarTag(calendarDays);
   const calendarRows = divideWeek(calendarTags);
 
-  console.log(selectedDays);
-
   return (
     <_.Calendar_Container>
       <_.Calendar_Date_Title>
