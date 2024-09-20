@@ -6,6 +6,7 @@ import * as _ from './style';
 import Header from 'components/Header';
 import NextButton from 'components/NextButton';
 import Calendar from 'components/Calendar';
+import { formatSelectedDate } from 'lib/utils/formatSelectedDate';
 
 const SelectDate = () => {
   const [selectedDays, setSelectedDays] = useState<{
@@ -63,6 +64,14 @@ const SelectDate = () => {
       }
     };
   }, []);
+
+  useEffect(() => {
+    if (selectedDays.start && selectedDays.end) {
+      const { start, end } = selectedDays;
+      const one = formatSelectedDate(start);
+      const two = formatSelectedDate(end);
+    }
+  }, [selectedDays]);
 
   return (
     <>
