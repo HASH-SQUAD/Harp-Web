@@ -1,7 +1,7 @@
 // 라이브러리
 import React, { useState, useRef, useEffect, useCallback } from 'react';
 import { useRecoilState, useResetRecoilState } from 'recoil';
-import { useLocation } from 'react-router-dom';
+import { useLocation, useNavigate } from 'react-router-dom';
 
 // 파일
 import * as _ from './style';
@@ -12,6 +12,7 @@ import { selectedDaysState } from 'atoms/plan';
 
 const SelectDate = () => {
   const location = useLocation();
+  const navigate = useNavigate();
   const isFromHome = location.state?.fromHome || false;
 
   const [selectedDays, setSelectedDays] = useRecoilState(selectedDaysState);
@@ -21,7 +22,7 @@ const SelectDate = () => {
     if (isFromHome) {
       resetSelectedDays();
     }
-  }, [isFromHome, resetSelectedDays]);
+  }, [isFromHome]);
 
   const [months, setMonths] = useState<Date[]>([
     new Date(new Date().getFullYear(), new Date().getMonth(), 1)
@@ -93,7 +94,10 @@ const SelectDate = () => {
       </_.SelectDate_Container>
       <NextButton
         text="다음"
-        state={selectedDays.start && selectedDays.end ? true : false}
+        state={!!selectedDays.start && !!selectedDays.end}
+        onNextClick={() => {
+          navigate('/plan/chat');
+        }}
       />
     </>
   );
