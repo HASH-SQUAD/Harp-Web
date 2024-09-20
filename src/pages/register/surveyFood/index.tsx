@@ -1,5 +1,5 @@
 //라이브러리
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useCallback } from 'react';
 import { useRecoilState } from 'recoil';
 import { useNavigate } from 'react-router-dom';
 
@@ -15,34 +15,38 @@ import { formatSelectedContents } from 'lib/utils/formatSelectedContents';
 const SurveyFood = () => {
   const navigate = useNavigate();
   const [selectedFoods, setSelectedFoods] = useRecoilState(selectedFoodsState);
-  const [selectedFoodsString, setSelectedFoodsString] = useRecoilState(
-    selectedFoodsStringState
+  const [, setSelectedFoodsString] = useRecoilState(selectedFoodsStringState);
+
+  const handleToggle = useCallback(
+    (id: number) => {
+      setSelectedFoods((prevState) => {
+        const selectedCount = prevState.foods.filter(
+          (item) => item.state
+        ).length;
+
+        const isItemSelected = prevState.foods.find(
+          (item) => item.id === id
+        )?.state;
+
+        if (isItemSelected) {
+          return {
+            foods: prevState.foods.map((item) =>
+              item.id === id ? { ...item, state: !item.state } : item
+            )
+          };
+        } else if (selectedCount < 2) {
+          return {
+            foods: prevState.foods.map((item) =>
+              item.id === id ? { ...item, state: !item.state } : item
+            )
+          };
+        }
+        return prevState;
+      });
+    },
+    [setSelectedFoods]
   );
 
-  const handleToggle = (id: number) => {
-    setSelectedFoods((prevState) => {
-      const selectedCount = prevState.foods.filter((item) => item.state).length;
-
-      const isItemSelected = prevState.foods.find(
-        (item) => item.id === id
-      )?.state;
-
-      if (isItemSelected) {
-        return {
-          foods: prevState.foods.map((item) =>
-            item.id === id ? { ...item, state: !item.state } : item
-          )
-        };
-      } else if (selectedCount < 2) {
-        return {
-          foods: prevState.foods.map((item) =>
-            item.id === id ? { ...item, state: !item.state } : item
-          )
-        };
-      }
-      return prevState;
-    });
-  };
   const isFormValid = () => {
     const selectedCount = selectedFoods.foods.filter(
       (item) => item.state

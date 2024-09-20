@@ -1,5 +1,5 @@
 // 라이브러리
-import React, { useEffect } from 'react';
+import React, { useCallback, useEffect } from 'react';
 import { useRecoilState } from 'recoil';
 import { useNavigate } from 'react-router-dom';
 
@@ -16,36 +16,37 @@ const SurveyStyle = () => {
   const navigate = useNavigate();
   const [selectedStyles, setSelectedStyles] =
     useRecoilState(selectedStylesState);
-  const [selectedStylesString, setSelectedStylesString] = useRecoilState(
-    selectedStylesStringState
+  const [, setSelectedStylesString] = useRecoilState(selectedStylesStringState);
+
+  const handleToggle = useCallback(
+    (id: number) => {
+      setSelectedStyles((prevState) => {
+        const selectedCount = prevState.styles.filter(
+          (item) => item.state
+        ).length;
+
+        const isItemSelected = prevState.styles.find(
+          (item) => item.id === id
+        )?.state;
+
+        if (isItemSelected) {
+          return {
+            styles: prevState.styles.map((item) =>
+              item.id === id ? { ...item, state: !item.state } : item
+            )
+          };
+        } else if (selectedCount < 3) {
+          return {
+            styles: prevState.styles.map((item) =>
+              item.id === id ? { ...item, state: !item.state } : item
+            )
+          };
+        }
+        return prevState;
+      });
+    },
+    [setSelectedStyles]
   );
-
-  const handleToggle = (id: number) => {
-    setSelectedStyles((prevState) => {
-      const selectedCount = prevState.styles.filter(
-        (item) => item.state
-      ).length;
-
-      const isItemSelected = prevState.styles.find(
-        (item) => item.id === id
-      )?.state;
-
-      if (isItemSelected) {
-        return {
-          styles: prevState.styles.map((item) =>
-            item.id === id ? { ...item, state: !item.state } : item
-          )
-        };
-      } else if (selectedCount < 3) {
-        return {
-          styles: prevState.styles.map((item) =>
-            item.id === id ? { ...item, state: !item.state } : item
-          )
-        };
-      }
-      return prevState;
-    });
-  };
 
   const isFormValid = () => {
     const selectedCount = selectedStyles.styles.filter(

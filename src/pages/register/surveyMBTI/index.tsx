@@ -1,5 +1,5 @@
 // 라이브러리
-import React, { useState } from 'react';
+import React, { useCallback, useState } from 'react';
 import { useRecoilState } from 'recoil';
 
 // 파일
@@ -13,20 +13,23 @@ import { useNavigate } from 'react-router-dom';
 const SurveyMBTI = () => {
   const navigate = useNavigate();
   const [selectedMbti, setSelectedMbti] = useRecoilState(selectedMBTIState);
-  const [stringMbti, setStringMbti] = useRecoilState(stringMbtiState);
+  const [, setStringMbti] = useRecoilState(stringMbtiState);
 
-  const toggleState = (id: number, selectedState: boolean) => {
-    const updatedMbti = selectedMbti.mbti.map((item) =>
-      item.id === id ? { ...item, state: selectedState } : item
-    );
-    setSelectedMbti({ mbti: updatedMbti });
+  const toggleState = useCallback(
+    (id: number, selectedState: boolean) => {
+      const updatedMbti = selectedMbti.mbti.map((item) =>
+        item.id === id ? { ...item, state: selectedState } : item
+      );
+      setSelectedMbti({ mbti: updatedMbti });
 
-    const mbti = updatedMbti
-      .map((item) => (item.state ? item.right : item.left))
-      .join('');
+      const mbti = updatedMbti
+        .map((item) => (item.state ? item.right : item.left))
+        .join('');
 
-    setStringMbti(mbti);
-  };
+      setStringMbti(mbti);
+    },
+    [setSelectedMbti]
+  );
 
   const handleSkip = () => {
     setStringMbti('');
