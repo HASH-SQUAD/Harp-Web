@@ -9,6 +9,7 @@ import Header from 'components/Header';
 import NextButton from 'components/NextButton';
 import Calendar from 'components/Calendar';
 import { selectedDaysState } from 'atoms/plan';
+import { Plan_CreatAI } from 'lib/apis/Plan';
 
 const SelectDate = () => {
   const location = useLocation();
@@ -58,6 +59,11 @@ const SelectDate = () => {
     [months, setMonths]
   );
 
+  const onSubmit = async () => {
+    const response = await Plan_CreatAI();
+    navigate(`/plan/chat/${response?.data?.AI_ID}`);
+  };
+
   useEffect(() => {
     const options = {
       root: null,
@@ -95,9 +101,7 @@ const SelectDate = () => {
       <NextButton
         text="다음"
         state={!!selectedDays.start && !!selectedDays.end}
-        onNextClick={() => {
-          navigate('/plan/chat');
-        }}
+        onNextClick={onSubmit}
       />
     </>
   );
