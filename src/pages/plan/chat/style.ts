@@ -30,7 +30,7 @@ export const Chat_Messages = styled.div<{ textareaHeight: number }>`
   overflow-x: hidden;
   overflow-y: auto;
   width: 100%;
-  height: calc(100% - ${(props) => props.textareaHeight + 20}px);
+  height: 100%;
   display: flex;
   flex-direction: column;
   scroll-snap-type: y mandatory;
@@ -41,7 +41,7 @@ export const Chat_SelectList = styled.div`
   width: 100%;
   display: flex;
   flex-wrap: wrap;
-  bottom: 0;
+  top: -30px;
   justify-content: center;
   gap: 10px;
 `;

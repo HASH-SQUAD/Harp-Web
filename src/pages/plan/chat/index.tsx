@@ -150,12 +150,17 @@ const Chat = () => {
   useEffect(() => {
     messageEndRef.current?.scrollIntoView({ behavior: 'smooth' });
   }, [chatHistory, pendingMessage]);
+  const chatMessagesHeight =
+    selectOptions.length > 0 ? 'calc(100% - 30px)' : '100%';
 
   return (
     <_.Chat_Layout>
       <_.Chat_Container>
         <Header title="AI 디토" isOnChatting={true} />
-        <_.Chat_Messages textareaHeight={textareaHeight}>
+        <_.Chat_Messages
+          style={{ height: chatMessagesHeight }}
+          textareaHeight={textareaHeight}
+        >
           {chatHistory.map((chat, index) => (
             <MessageBox
               key={index}
@@ -174,6 +179,10 @@ const Chat = () => {
           {isWaitingForReply && (
             <MessageBox message="" role="assistant" isLoading={true} />
           )}
+
+          <div ref={messageEndRef} />
+        </_.Chat_Messages>
+        <_.Chat_Typing_Container>
           {selectOptions.length > 0 && (
             <_.Chat_SelectList>
               {selectOptions.map((option, index) => (
@@ -188,9 +197,6 @@ const Chat = () => {
               ))}
             </_.Chat_SelectList>
           )}
-          <div ref={messageEndRef} />
-        </_.Chat_Messages>
-        <_.Chat_Typing_Container>
           <_.Chat_Typing_Box>
             <_.Chat_Textarea
               value={message}
