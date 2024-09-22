@@ -28,7 +28,6 @@ const Chat = () => {
     if (message.trim()) {
       setMessage('');
       textareaRef.current?.focus();
-
       setChatHistory((prevChat) => [
         ...prevChat,
         {
@@ -41,6 +40,26 @@ const Chat = () => {
           }
         }
       ]);
+      nextStep(message);
+    }
+  };
+
+  const nextStep = (userMessage: string) => {
+    if (step == 0) {
+      setPlanInfo({ ...planInfo, title: userMessage });
+      setChatHistory((prevChat) => [
+        ...prevChat,
+        {
+          role: 'assistant',
+          Contents: {
+            subject: 'none',
+            category: 'subject',
+            question: '숙박 여행인가요, 당일치기 여행인가요?',
+            select: ['숙박', '당일치기']
+          }
+        }
+      ]);
+      setStep(step + 1);
     }
   };
 
@@ -71,6 +90,10 @@ const Chat = () => {
             />
           ))}
           <div ref={messageEndRef} />
+          <_.Chat_SelectList>
+            <_.Chat_SelectBox>숙박여행</_.Chat_SelectBox>
+            <_.Chat_SelectBox>당일치기</_.Chat_SelectBox>
+          </_.Chat_SelectList>
         </_.Chat_Messages>
         <_.Chat_Typing_Container>
           <_.Chat_Typing_Box>

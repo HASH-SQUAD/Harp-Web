@@ -12,6 +12,7 @@ export const Chat_Container = styled.div<{ StatusBarSize?: string }>`
   height: 100%;
   display: flex;
   flex-direction: column;
+  position: relative;
 `;
 
 export const Chat_Content = styled.div`
@@ -32,6 +33,25 @@ export const Chat_Messages = styled.div`
   display: flex;
   flex-direction: column;
   scroll-snap-type: y mandatory;
+`;
+
+export const Chat_SelectList = styled.div`
+  position: absolute;
+  display: flex;
+  bottom: 60px;
+  left: 50%;
+  transform: translateX(-50%);
+  gap: 10px;
+`;
+
+export const Chat_SelectBox = styled.div`
+  height: 30px;
+  padding: 3px 10px;
+  border-radius: 50px;
+  background: ${theme.sub[1]};
+  color: ${theme.gray.black};
+  font-size: 16px;
+  font-weight: 400;
 `;
 
 export const Chat_Typing_Container = styled.div`
