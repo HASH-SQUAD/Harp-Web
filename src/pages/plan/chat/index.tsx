@@ -15,6 +15,7 @@ import { CreateParams, Plan_Chatting, Plan_Create } from 'lib/apis/Plan';
 import { formatSelectedDate } from 'lib/utils/formatSelectedDate';
 import { useRecoilValue } from 'recoil';
 import { selectedDaysState } from 'atoms/plan';
+import PlanResult from 'components/PlanResult';
 
 const Chat = () => {
   const id = useParams().id;
@@ -179,6 +180,7 @@ const Chat = () => {
           {isWaitingForReply && (
             <MessageBox message="" role="assistant" isLoading={true} />
           )}
+          <PlanResult />
 
           <div ref={messageEndRef} />
         </_.Chat_Messages>
