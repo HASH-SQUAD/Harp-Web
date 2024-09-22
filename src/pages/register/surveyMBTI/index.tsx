@@ -1,23 +1,39 @@
-import React, { useState } from 'react';
+// 라이브러리
+import React, { useCallback, useState } from 'react';
+import { useRecoilState } from 'recoil';
+
+// 파일
 import * as _ from './style';
 import Header from 'components/Header';
 import MBTI_Arrow from 'assets/image/MBTI_Arrow';
 import NextButton from 'components/NextButton';
+import { selectedMBTIState, stringMbtiState } from 'atoms/user';
+import { useNavigate } from 'react-router-dom';
 
 const SurveyMBTI = () => {
-  const [mbtiStates, setMbtiStates] = useState([
-    { id: 1, left: 'E', right: 'I', text: '내향형 / 외향형', state: false },
-    { id: 2, left: 'S', right: 'N', text: '직관형 / 감각형', state: false },
-    { id: 3, left: 'T', right: 'F', text: '사고형 / 감정형', state: false },
-    { id: 4, left: 'P', right: 'J', text: '인식형 / 판단형', state: false }
-  ]);
+  const navigate = useNavigate();
+  const [selectedMbti, setSelectedMbti] = useRecoilState(selectedMBTIState);
+  const [, setStringMbti] = useRecoilState(stringMbtiState);
 
-  const toggleState = (id: number, selectedState: boolean) => {
-    setMbtiStates(
-      mbtiStates.map((item) =>
+  const toggleState = useCallback(
+    (id: number, selectedState: boolean) => {
+      const updatedMbti = selectedMbti.mbti.map((item) =>
         item.id === id ? { ...item, state: selectedState } : item
-      )
-    );
+      );
+      setSelectedMbti({ mbti: updatedMbti });
+
+      const mbti = updatedMbti
+        .map((item) => (item.state ? item.right : item.left))
+        .join('');
+
+      setStringMbti(mbti);
+    },
+    [setSelectedMbti]
+  );
+
+  const handleSkip = () => {
+    setStringMbti('');
+    navigate('/register/surveytmi');
   };
 
   return (
@@ -28,10 +44,10 @@ const SurveyMBTI = () => {
         <_.SurveyMBTI_MainText>MBTI가 무엇인가요?</_.SurveyMBTI_MainText>
         <_.SurveyMBTI_SubText>
           <div>여행 계획을 짤 때 참고할게요 :-)</div>
-          <div>건너뛰기</div>
+          <div onClick={handleSkip}>건너뛰기</div>
         </_.SurveyMBTI_SubText>
         <_.SurveyMBTI_Contents>
-          {mbtiStates.map((item) => (
+          {selectedMbti.mbti.map((item) => (
             <_.SurveyMBTI_Contents_Select key={item.id}>
               <_.SurveyMBTI_Content
                 State={!item.state}
@@ -53,7 +69,13 @@ const SurveyMBTI = () => {
           ))}
         </_.SurveyMBTI_Contents>
       </_.SurveyMBTI_Layout>
-      <NextButton text="다음" state={true} />
+      <NextButton
+        text="다음"
+        state={true}
+        onNextClick={() => {
+          navigate('/register/surveytmi');
+        }}
+      />
     </_.SurveyMBTI_Container>
   );
 };

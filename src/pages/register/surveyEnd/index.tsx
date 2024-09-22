@@ -1,13 +1,51 @@
 //라이브러리
 import React from 'react';
+import { useNavigate } from 'react-router-dom';
+import { useRecoilValue } from 'recoil';
 
 //파일
 import * as _ from './style';
 import Header from 'components/Header';
 import NextButton from 'components/NextButton';
 import RocketImage from 'assets/image/Rocket.png';
+import { Auth_NewAccount, Auth_Survey } from 'lib/apis/Auth';
+import {
+  selectedFoodsStringState,
+  selectedStylesStringState,
+  stringMbtiState,
+  tmiState,
+  userInfosState
+} from 'atoms/user';
 
 const SurveyEnd = () => {
+  const navigate = useNavigate();
+  const { username, birthday, gender } = useRecoilValue(userInfosState);
+  const styles = useRecoilValue(selectedStylesStringState);
+  const foods = useRecoilValue(selectedFoodsStringState);
+  const mbti = useRecoilValue(stringMbtiState);
+  const tmi = useRecoilValue(tmiState);
+
+  const handleRegister = async () => {
+    try {
+      await Auth_NewAccount({
+        nickname: username,
+        birthdate: birthday,
+        gender: gender
+      });
+
+      await Auth_Survey({
+        Q1: styles,
+        Q2: foods,
+        Q3: mbti,
+        etc: tmi
+      });
+      
+      navigate('/');
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
   return (
     <_.SurveyEnd_Container>
       <_.SurveyEnd_Header>
@@ -34,7 +72,7 @@ const SurveyEnd = () => {
       <_.SurveyEnd_Bubble5 />
       <_.SurveyEnd_Bubble6 />
       <_.SurveyEnd_Bubble7 />
-      <NextButton text="시작하기" state={true} />
+      <NextButton text="시작하기" state={true} onNextClick={handleRegister} />
     </_.SurveyEnd_Container>
   );
 };

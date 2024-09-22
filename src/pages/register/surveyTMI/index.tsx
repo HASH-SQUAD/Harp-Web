@@ -1,13 +1,17 @@
 // 라이브러리
-import React, { useEffect, useState } from 'react';
+import React from 'react';
+import { useRecoilState } from 'recoil';
 
 // 파일
 import * as _ from './style';
 import Header from 'components/Header';
 import NextButton from 'components/NextButton';
+import { tmiState } from 'atoms/user';
+import { useNavigate } from 'react-router-dom';
 
 const SurveryTMI = () => {
-  const [tmi, setTmi] = useState('');
+  const navigate = useNavigate();
+  const [tmi, setTmi] = useRecoilState(tmiState);
 
   return (
     <_.SurveyTMI_Layout>
@@ -25,13 +29,20 @@ const SurveryTMI = () => {
             onChange={(e) => {
               setTmi(e.currentTarget.value);
             }}
+            value={tmi}
             maxLength={200}
             placeholder="ex) 고등어를 싫어해요"
           />
           <_.SurveyTMI_Text_Limit>{tmi.length}/200</_.SurveyTMI_Text_Limit>
         </_.SurveyTMI_Box>
       </_.SurveyTMI_Container>
-      <NextButton text="다음" state={true} />
+      <NextButton
+        text="다음"
+        state={true}
+        onNextClick={() => {
+          navigate('/register/surveyend');
+        }}
+      />
     </_.SurveyTMI_Layout>
   );
 };

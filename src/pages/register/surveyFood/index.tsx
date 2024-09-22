@@ -1,5 +1,7 @@
 //라이브러리
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useCallback } from 'react';
+import { useRecoilState } from 'recoil';
+import { useNavigate } from 'react-router-dom';
 
 //파일
 import * as _ from './style';
@@ -7,36 +9,54 @@ import Header from 'components/Header';
 import SurveyFoodData from 'data/SurveyFood';
 import SurveyContent from 'components/SurveyContent';
 import NextButton from 'components/NextButton';
+import { selectedFoodsState, selectedFoodsStringState } from 'atoms/user';
+import { formatSelectedContents } from 'lib/utils/formatSelectedContents';
 
 const SurveyFood = () => {
-  const [checkState, setCheckState] = useState(
-    SurveyFoodData.map((item) => ({ id: item.id, state: false }))
+  const navigate = useNavigate();
+  const [selectedFoods, setSelectedFoods] = useRecoilState(selectedFoodsState);
+  const [, setSelectedFoodsString] = useRecoilState(selectedFoodsStringState);
+
+  const handleToggle = useCallback(
+    (id: number) => {
+      setSelectedFoods((prevState) => {
+        const selectedCount = prevState.foods.filter(
+          (item) => item.state
+        ).length;
+
+        const isItemSelected = prevState.foods.find(
+          (item) => item.id === id
+        )?.state;
+
+        if (isItemSelected) {
+          return {
+            foods: prevState.foods.map((item) =>
+              item.id === id ? { ...item, state: !item.state } : item
+            )
+          };
+        } else if (selectedCount < 2) {
+          return {
+            foods: prevState.foods.map((item) =>
+              item.id === id ? { ...item, state: !item.state } : item
+            )
+          };
+        }
+        return prevState;
+      });
+    },
+    [setSelectedFoods]
   );
-  const [nextButtonState, setNextButtonState] = useState(false);
 
-  const handleToggle = (id: number) => {
-    const selectedCount = checkState.filter((item) => item.state).length;
-    const isItemSelected = checkState.find((item) => item.id === id)?.state;
-
-    if (isItemSelected) {
-      setCheckState((prevState) =>
-        prevState.map((item) =>
-          item.id === id ? { ...item, state: !item.state } : item
-        )
-      );
-    } else if (selectedCount < 2) {
-      setCheckState((prevState) =>
-        prevState.map((item) =>
-          item.id === id ? { ...item, state: !item.state } : item
-        )
-      );
-    }
+  const isFormValid = () => {
+    const selectedCount = selectedFoods.foods.filter(
+      (item) => item.state
+    ).length;
+    return selectedCount >= 1;
   };
 
   useEffect(() => {
-    const selectedCount = checkState.filter((item) => item.state).length;
-    setNextButtonState(selectedCount > 0);
-  }, [checkState]);
+    setSelectedFoodsString(formatSelectedContents(selectedFoods.foods));
+  }, [selectedFoods]);
 
   return (
     <_.SurveyFood_Container>
@@ -54,7 +74,7 @@ const SurveyFood = () => {
 
         <_.SurveyFood_Contents>
           {SurveyFoodData.map((item) => {
-            const currentItem = checkState.find(
+            const currentItem = selectedFoods.foods.find(
               (stateItem) => stateItem.id === item.id
             );
             const state = currentItem ? currentItem.state : false;
@@ -72,7 +92,13 @@ const SurveyFood = () => {
           })}
         </_.SurveyFood_Contents>
       </_.SurveyFood_Content>
-      <NextButton text="다음" state={nextButtonState} />
+      <NextButton
+        text="다음"
+        state={!!isFormValid()}
+        onNextClick={() => {
+          navigate('/register/surveymbti');
+        }}
+      />
     </_.SurveyFood_Container>
   );
 };

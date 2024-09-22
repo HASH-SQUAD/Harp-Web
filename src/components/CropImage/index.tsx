@@ -53,7 +53,7 @@ const CropImage = ({
       <NextButton
         text="완료"
         state={!!croppedAreaPixels}
-        onClick={handleComplete}
+        onNextClick={handleComplete}
       />
     </_.CropImage_Layout>
   );

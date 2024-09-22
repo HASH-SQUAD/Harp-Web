@@ -1,5 +1,6 @@
 // 라이브러리
 import React from 'react';
+import { useNavigate } from 'react-router-dom';
 
 // 파일
 import * as _ from './style';
@@ -10,6 +11,10 @@ import Google from 'assets/image/Google';
 
 const Auth = () => {
   const title = 'How are\nyou\nPlanning?';
+
+  const handleKakaoLogin = async () => {
+    window.location.href = `${process.env.REACT_APP_API}/auth/kakao`;
+  };
 
   return (
     <_.Auth_Container>
@@ -30,11 +35,17 @@ const Auth = () => {
           </_.Auth_Button_Ballon_SVG>
         </_.Auth_Button_Ballon>
         <AuthButton
+          onClick={handleKakaoLogin}
           background="#FEE500"
           icon={<KakaoTalk />}
           content="카카오 로그인"
         />
-        <AuthButton background="#FFF" icon={<Google />} content="구글 로그인" />
+        <AuthButton
+          onClick={handleKakaoLogin}
+          background="#FFF"
+          icon={<Google />}
+          content="구글 로그인"
+        />
         <_.Auth_Button_Hint>로그인에 어려움이 있으신가요?</_.Auth_Button_Hint>
       </_.Auth_Button_Layout>
     </_.Auth_Container>
