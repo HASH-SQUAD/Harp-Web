@@ -3,8 +3,14 @@ import React from 'react';
 
 // 파일
 import * as _ from './style';
-import { message } from 'types/message';
 import Loading from 'components/Loading';
+
+type message = {
+  role: string;
+  message: string;
+  isLoading: boolean;
+  children?: React.ReactNode;
+};
 
 const MessageBox = ({ role, message: msg, isLoading }: message) => {
   return (

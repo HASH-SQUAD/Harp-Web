@@ -22,9 +22,10 @@ const Chat = () => {
   const messageEndRef = useRef<HTMLDivElement | null>(null);
   const textareaRef = useRef<HTMLTextAreaElement | null>(null);
 
-  const [isLoading, setIsLoading] = useState<boolean>(true);
   const [sendImmediately, setSendImmediately] = useState(false);
   const [message, setMessage] = useState<string>('');
+  const [pendingMessage, setPendingMessage] = useState<AIResponse | null>(null);
+  const [isWaitingForReply, setIsWaitingForReply] = useState(false);
   const [chatHistory, setChatHistory] =
     useState<AIResponse[]>(initialQuestions);
   const [step, setStep] = useState<number>(0);
@@ -35,13 +36,48 @@ const Chat = () => {
   const [textareaHeight, setTextareaHeight] = useState<number>(50);
   const { start, end } = useRecoilValue(selectedDaysState);
 
-  const { mutate: ChattingMutation } = useMutation((userMessage: string) =>
-    Plan_Chatting({
-      id: id,
-      subject: 'date',
-      previousConversation: userMessage
-    })
+  const { mutate: ChattingMutation } = useMutation(
+    (userMessage: string) =>
+      Plan_Chatting({
+        id: id,
+        subject: 'date',
+        previousConversation: userMessage
+      }),
+    {
+      onMutate: async () => {
+        setIsWaitingForReply(true);
+      },
+      onSuccess: (response) => {
+        if (response.data.Contents.category === undefined) {
+          CreateMutation({
+            planName: planInfo.title,
+            mainImg:
+              'https://harp-back.hash-squad.kro.kr/common/CommonPlanImg.png',
+            startDate: formatSelectedDate(start),
+            endDate: formatSelectedDate(end),
+            data: response.data.Contents
+          });
+        } else {
+          setChatHistory((prevChat) => [
+            ...prevChat,
+            {
+              role: response.data.role,
+              Contents: response.data.Contents
+            }
+          ]);
+          setStep(step + 1);
+        }
+        setPendingMessage(null);
+        setIsWaitingForReply(false);
+      },
+      onError: (error: unknown) => {
+        console.error('질문 받는 중 에러 ', error);
+        setPendingMessage(null);
+        setIsWaitingForReply(false);
+      }
+    }
   );
+
   const { mutate: CreateMutation } = useMutation((params: CreateParams) =>
     Plan_Create(params)
   );
@@ -63,39 +99,12 @@ const Chat = () => {
       ]);
       setStep(step + 1);
     } else {
-      ChattingMutation(step === 1 ? '일정 짜줘' : message, {
-        onSuccess: (response) => {
-          if (response.data.Contents.category === undefined) {
-            console.log(response.data.Contents);
-            CreateMutation({
-              planName: planInfo.title,
-              mainImg:
-                'https://harp-back.hash-squad.kro.kr/common/CommonPlanImg.png',
-              startDate: formatSelectedDate(start),
-              endDate: formatSelectedDate(end),
-              data: response.data.Contents
-            });
-          } else {
-            setChatHistory((prevChat) => [
-              ...prevChat,
-              {
-                role: response.data.role,
-                Contents: response.data.Contents
-              }
-            ]);
-            setStep(step + 1);
-          }
-        },
-        onError: (error: unknown) => {
-          console.error('질문 받는 중 에러 ', error);
-        }
-      });
+      ChattingMutation(step === 1 ? '일정 짜줘' : message);
     }
   };
 
   const handleSendMessage = useCallback(() => {
-    if (message.trim()) {
-      textareaRef.current?.focus();
+    if (message.trim() && !isWaitingForReply) {
       setChatHistory((prevChat) => [
         ...prevChat,
         {
@@ -111,7 +120,7 @@ const Chat = () => {
       nextStep(message);
       setMessage('');
     }
-  }, [message, nextStep]);
+  }, [message, nextStep, isWaitingForReply]);
 
   const lastChat =
     chatHistory.length > 0 ? chatHistory[chatHistory.length - 1] : null;
@@ -140,7 +149,7 @@ const Chat = () => {
 
   useEffect(() => {
     messageEndRef.current?.scrollIntoView({ behavior: 'smooth' });
-  }, [chatHistory]);
+  }, [chatHistory, pendingMessage]);
 
   return (
     <_.Chat_Layout>
@@ -152,9 +161,19 @@ const Chat = () => {
               key={index}
               message={chat.Contents.question}
               role={chat.role}
-              isLoading={!isLoading}
+              isLoading={false}
             />
           ))}
+          {pendingMessage && (
+            <MessageBox
+              message={pendingMessage.Contents.question}
+              role={pendingMessage.role}
+              isLoading={false}
+            />
+          )}
+          {isWaitingForReply && (
+            <MessageBox message="" role="assistant" isLoading={true} />
+          )}
           {selectOptions.length > 0 && (
             <_.Chat_SelectList>
               {selectOptions.map((option, index) => (
@@ -186,6 +205,7 @@ const Chat = () => {
                   handleSendMessage();
                 }
               }}
+              disabled={isWaitingForReply}
             />
             <_.Chat_SendIcon onClick={handleSendMessage}>
               <Send stroke={message ? theme.primary[7] : theme.gray[2]} />
