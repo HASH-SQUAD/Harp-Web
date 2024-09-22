@@ -1,5 +1,7 @@
 // 라이브러리
 import React, { useEffect, useRef, useState } from 'react';
+import { useParams } from 'react-router-dom';
+import { useMutation } from 'react-query';
 
 // 파일
 import * as _ from './style';
@@ -9,8 +11,10 @@ import { theme } from 'lib/utils/style/theme';
 import MessageBox from 'components/MessageBox';
 import { initialQuestions } from 'data/InitialQuestions';
 import { AIResponse } from 'types/aiResponse';
+import { Plan_Chatting } from 'lib/apis/Plan';
 
 const Chat = () => {
+  const id = useParams().id;
   const messageEndRef = useRef<HTMLDivElement | null>(null);
   const textareaRef = useRef<HTMLTextAreaElement | null>(null);
 
@@ -24,9 +28,16 @@ const Chat = () => {
     type: ''
   });
 
+  const mutation = useMutation((userMessage: string) =>
+    Plan_Chatting({
+      id: id,
+      subject: 'travel',
+      previousConversation: userMessage
+    })
+  );
+
   const handleSendMessage = () => {
     if (message.trim()) {
-      setMessage('');
       textareaRef.current?.focus();
       setChatHistory((prevChat) => [
         ...prevChat,
@@ -41,11 +52,12 @@ const Chat = () => {
         }
       ]);
       nextStep(message);
+      setMessage('');
     }
   };
 
   const nextStep = (userMessage: string) => {
-    if (step == 0) {
+    if (step === 0) {
       setPlanInfo({ ...planInfo, title: userMessage });
       setChatHistory((prevChat) => [
         ...prevChat,
@@ -60,6 +72,22 @@ const Chat = () => {
         }
       ]);
       setStep(step + 1);
+    } else {
+      mutation.mutate(step === 1 ? '일정 짜줘' : message, {
+        onSuccess: (response) => {
+          setChatHistory((prevChat) => [
+            ...prevChat,
+            {
+              role: response.data.role,
+              Contents: response.data.Contents
+            }
+          ]);
+          setStep(step + 1);
+        },
+        onError: (error) => {
+          console.error('질문 받는 중 에러 ', error);
+        }
+      });
     }
   };
 
