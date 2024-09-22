@@ -3,59 +3,72 @@ import React, { useEffect, useRef, useState } from 'react';
 
 // 파일
 import * as _ from './style';
-import useStatusBarHeight from 'hooks/useStatusBarHeight';
 import Header from 'components/Header';
 import Send from 'assets/image/Send';
 import { theme } from 'lib/utils/style/theme';
-import { ChatContent } from 'data/ChatContent';
 import MessageBox from 'components/MessageBox';
+import { initialQuestions } from 'data/InitialQuestions';
+import { AIResponse } from 'types/aiResponse';
 
 const Chat = () => {
-  const [message, setMessage] = useState<string>('');
-  const [isLoading, setIsLoading] = useState<boolean>(true);
   const messageEndRef = useRef<HTMLDivElement | null>(null);
   const textareaRef = useRef<HTMLTextAreaElement | null>(null);
 
+  const [isLoading, setIsLoading] = useState<boolean>(true);
+  const [message, setMessage] = useState<string>('');
+  const [chatHistory, setChatHistory] =
+    useState<AIResponse[]>(initialQuestions);
+  const [step, setStep] = useState<number>(0);
+  const [planInfo, setPlanInfo] = useState<{ title: string; type: string }>({
+    title: '',
+    type: ''
+  });
+
   const handleSendMessage = () => {
-    if (message.trim() !== '') {
+    if (message.trim()) {
       setMessage('');
-      if (textareaRef.current) {
-        textareaRef.current.focus();
-      }
+      textareaRef.current?.focus();
+
+      setChatHistory((prevChat) => [
+        ...prevChat,
+        {
+          role: 'user',
+          Contents: {
+            subject: 'none',
+            category: 'none',
+            question: message,
+            select: []
+          }
+        }
+      ]);
     }
   };
 
-  const resizeHeight = (
-    textarea: React.RefObject<HTMLTextAreaElement>,
-    e: React.ChangeEvent<HTMLTextAreaElement>
-  ) => {
-    if (textarea.current) {
-      textarea.current.style.height = 'auto';
-      textarea.current.style.height = textarea.current.scrollHeight + 'px';
-      setMessage(e.target.value);
+  const resizeHeight = (e: React.ChangeEvent<HTMLTextAreaElement>) => {
+    const textarea = textareaRef.current;
+    if (textarea) {
+      textarea.style.height = 'auto';
+      textarea.style.height = `${textarea.scrollHeight}px`;
     }
+    setMessage(e.target.value);
   };
 
   useEffect(() => {
-    if (messageEndRef.current) {
-      messageEndRef.current.scrollIntoView({ behavior: 'smooth' });
-    }
-  }, [ChatContent]);
+    messageEndRef.current?.scrollIntoView({ behavior: 'smooth' });
+  }, [chatHistory]);
 
   return (
     <_.Chat_Layout>
       <_.Chat_Container>
         <Header title="AI 디토" isOnChatting={true} />
         <_.Chat_Messages>
-          {ChatContent.map((item, index) => (
+          {chatHistory.map((chat, index) => (
             <MessageBox
               key={index}
-              message={item.content.text}
-              role={item.role}
-              isLoading={isLoading}
-            >
-              {item.content.text}
-            </MessageBox>
+              message={chat.Contents.question}
+              role={chat.role}
+              isLoading={!isLoading}
+            />
           ))}
           <div ref={messageEndRef} />
         </_.Chat_Messages>
@@ -67,8 +80,8 @@ const Chat = () => {
               rows={1}
               maxLength={100}
               ref={textareaRef}
-              onChange={(e) => resizeHeight(textareaRef, e)}
-              onKeyDown={(e) => {
+              onChange={resizeHeight}
+              onKeyPress={(e) => {
                 if (e.key === 'Enter') {
                   e.preventDefault();
                   handleSendMessage();
