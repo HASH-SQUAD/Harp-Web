@@ -12,7 +12,6 @@ export const Chat_Container = styled.div<{ StatusBarSize?: string }>`
   height: 100%;
   display: flex;
   flex-direction: column;
-  position: relative;
 `;
 
 export const Chat_Content = styled.div`
@@ -25,11 +24,13 @@ export const Chat_Content = styled.div`
   justify-content: space-between;
 `;
 
-export const Chat_Messages = styled.div`
+export const Chat_Messages = styled.div<{ textareaHeight: number }>`
   padding: 20px 15px 10px 15px;
-  overflow: auto;
+  position: relative;
+  overflow-x: hidden;
+  overflow-y: auto;
   width: 100%;
-  height: 100%;
+  height: calc(100% - ${(props) => props.textareaHeight + 20}px);
   display: flex;
   flex-direction: column;
   scroll-snap-type: y mandatory;
@@ -37,10 +38,11 @@ export const Chat_Messages = styled.div`
 
 export const Chat_SelectList = styled.div`
   position: absolute;
+  width: 100%;
   display: flex;
-  bottom: 60px;
-  left: 50%;
-  transform: translateX(-50%);
+  flex-wrap: wrap;
+  bottom: 0;
+  justify-content: center;
   gap: 10px;
 `;
 
@@ -81,6 +83,7 @@ export const Chat_Textarea = styled.textarea`
   border: none;
   outline: none;
   color: ${theme.gray.black};
+  background-color: ${theme.gray.white};
   &::placeholder {
     color: ${theme.gray[2]};
   }
