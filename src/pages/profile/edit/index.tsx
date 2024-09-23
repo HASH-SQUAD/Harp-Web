@@ -4,7 +4,6 @@ import { useNavigate, useLocation } from 'react-router-dom';
 
 // 파일
 import * as _ from './style';
-import useStatusBarHeight from 'hooks/useStatusBarHeight';
 import Header from 'components/Header';
 import DefaultImg from 'assets/image/DefaultProfile.png';
 import ProfileEdit from 'assets/Icon/ProfileEdit';
@@ -14,7 +13,6 @@ import { formatBirthday } from 'lib/utils/formatBirthday';
 import { handleImageEdit } from 'lib/utils/handleImageEdit';
 
 const Edit = () => {
-  const statusBarHeight = useStatusBarHeight();
   const navigate = useNavigate();
   const location = useLocation();
 
@@ -37,7 +35,6 @@ const Edit = () => {
       setIsChanged(true);
     }
   }, [location.state?.croppedImage]);
-
 
   const handleInfos = useCallback((e: ChangeEvent<HTMLInputElement>) => {
     const { name, value } = e.currentTarget;
@@ -78,53 +75,51 @@ const Edit = () => {
   }, [infos]);
 
   return (
-    <>
-      <_.Edit_Container StatusBarSize={`${statusBarHeight}px`}>
-        <Header title="회원 정보 수정" />
-        <_.Edit_Content>
-          <_.Edit_Profile>
-            <_.Edit_Profile_Img src={profileImage} alt="프로필 이미지" />
-            <_.Edit_Profile_Edit onClick={handleProfileImageEdit}>
-              <ProfileEdit />
-            </_.Edit_Profile_Edit>
-          </_.Edit_Profile>
-          <_.Edit_Infos>
-            <_.Edit_Info>
-              <_.Edit_Info_Label>이메일</_.Edit_Info_Label>
-              <_.Edit_Info_Email>
-                {initialInfos.email}
-                <EmailCopy onClick={handleEmailCopy} />
-              </_.Edit_Info_Email>
-            </_.Edit_Info>
-            <_.Edit_Info>
-              <_.Edit_Info_Label>여행자 닉네임</_.Edit_Info_Label>
-              <_.Edit_Info_Input
-                name="username"
-                value={infos.username}
-                onChange={handleInfos}
-              />
-            </_.Edit_Info>
-            <_.Edit_Info>
-              <_.Edit_Info_Label>생년월일</_.Edit_Info_Label>
-              <_.Edit_Info_Input
-                name="birthday"
-                value={infos.birthday}
-                onChange={handleInfos}
-              />
-            </_.Edit_Info>
-            <_.Edit_Info>
-              <_.Edit_Info_Label>성별</_.Edit_Info_Label>
-              <_.Edit_Info_Input
-                name="gender"
-                value={infos.gender}
-                onChange={handleInfos}
-              />
-            </_.Edit_Info>
-          </_.Edit_Infos>
-        </_.Edit_Content>
-      </_.Edit_Container>
+    <_.Edit_Layout>
+      <Header title="회원 정보 수정" />
+      <_.Edit_Content>
+        <_.Edit_Profile>
+          <_.Edit_Profile_Img src={profileImage} alt="프로필 이미지" />
+          <_.Edit_Profile_Edit onClick={handleProfileImageEdit}>
+            <ProfileEdit />
+          </_.Edit_Profile_Edit>
+        </_.Edit_Profile>
+        <_.Edit_Infos>
+          <_.Edit_Info>
+            <_.Edit_Info_Label>이메일</_.Edit_Info_Label>
+            <_.Edit_Info_Email>
+              {initialInfos.email}
+              <EmailCopy onClick={handleEmailCopy} />
+            </_.Edit_Info_Email>
+          </_.Edit_Info>
+          <_.Edit_Info>
+            <_.Edit_Info_Label>여행자 닉네임</_.Edit_Info_Label>
+            <_.Edit_Info_Input
+              name="username"
+              value={infos.username}
+              onChange={handleInfos}
+            />
+          </_.Edit_Info>
+          <_.Edit_Info>
+            <_.Edit_Info_Label>생년월일</_.Edit_Info_Label>
+            <_.Edit_Info_Input
+              name="birthday"
+              value={infos.birthday}
+              onChange={handleInfos}
+            />
+          </_.Edit_Info>
+          <_.Edit_Info>
+            <_.Edit_Info_Label>성별</_.Edit_Info_Label>
+            <_.Edit_Info_Input
+              name="gender"
+              value={infos.gender}
+              onChange={handleInfos}
+            />
+          </_.Edit_Info>
+        </_.Edit_Infos>
+      </_.Edit_Content>
       <NextButton text="저장하기" state={!!isFormValid() && isChanged} />
-    </>
+    </_.Edit_Layout>
   );
 };
 

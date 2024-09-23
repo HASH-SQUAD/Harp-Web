@@ -1,18 +1,21 @@
 import { theme } from 'lib/utils/style/theme';
 import styled from 'styled-components';
 
-export const Terms_Container = styled.div<{ StatusBarSize?: string }>`
+export const Terms_Layout = styled.div`
+  position: fixed;
   width: 100vw;
   height: 100vh;
-  padding-top: /*${(props) => props.StatusBarSize || '54px'}*/ 54px;
-  display: flex;
-  width: 100%;
-  height: 100%;
-  flex-direction: column;
+  overflow: hidden;
 `;
 
-export const Terms_Content = styled.div`
+export const Terms_Container = styled.div`
+  display: flex;
+  width: 100%;
+  height: calc(100% - 90px);
+  overflow-y: scroll;
   padding: 0 20px;
+  flex-direction: column;
+  overflow: scroll;
 `;
 
 export const Terms_Title = styled.div`
@@ -64,4 +67,5 @@ export const Terms_Deatil = styled.div`
   display: flex;
   flex-direction: column;
   gap: 10px;
+  padding-left: 23px;
 `;

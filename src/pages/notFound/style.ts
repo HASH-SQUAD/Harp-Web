@@ -9,6 +9,7 @@ export const NotFound_Container = styled.div`
   justify-content: center;
   align-items: center;
   gap: 18px;
+  position: fixed;
 `;
 
 export const NotFound_Title = styled.p`

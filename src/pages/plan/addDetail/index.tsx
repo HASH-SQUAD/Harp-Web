@@ -8,7 +8,7 @@ import PlanDate from 'components/PlanDate';
 import Location from 'assets/image/Location';
 import Calendar from 'assets/image/Calendar';
 import TimeCircle from 'assets/image/TimeCircle';
-import WriteIcon from 'assets/image/writeIcon';
+import WriteIcon from 'assets/image/WriteIcon';
 import { hasDateExpired } from 'lib/utils/hasDateExpired';
 import TimePicker from 'components/TimePicker';
 import NextButton from 'components/NextButton';
@@ -55,8 +55,13 @@ const AddDetail = () => {
     };
     setPlans([...plans, newPlan]);
   };
-  
-  const isNextButtonEnabled: boolean = !!(inputValue && isSelected !== null && time.hour && time.minute);
+
+  const isNextButtonEnabled: boolean = !!(
+    inputValue &&
+    isSelected !== null &&
+    time.hour &&
+    time.minute
+  );
   useEffect(() => {
     if (plans.length === 1) {
       setIsSelected(0);
@@ -64,9 +69,9 @@ const AddDetail = () => {
   }, [plans]);
 
   return (
-    <>
+    <_.AddDetail_Layout>
       <Header title="일정추가" />
-      <_.AddDetail_Layout>
+      <_.AddDetail_Container>
         <_.AddDetail_TitleBar>
           <_.AddDetail_Location>
             <Location />
@@ -85,7 +90,7 @@ const AddDetail = () => {
               <WriteIcon />
               <_.AddDetail_Menu>일정 제목</_.AddDetail_Menu>
             </_.AddDetail_Subtitle>
-            <_.AddDetail_Input 
+            <_.AddDetail_Input
               placeholder="일정 제목을 입력하세요! ex) 밥먹기"
               value={inputValue}
               onChange={handleInputChange}
@@ -142,9 +147,9 @@ const AddDetail = () => {
             <_.AddDetail_Overlay />
           </_.AddDetail_TimePickerList>
         </_.AddDetail_SelectTime>
-      </_.AddDetail_Layout>
-        <NextButton text="추가" state={isNextButtonEnabled} />
-    </>
+      </_.AddDetail_Container>
+      <NextButton text="추가" state={isNextButtonEnabled} />
+    </_.AddDetail_Layout>
   );
 };
 

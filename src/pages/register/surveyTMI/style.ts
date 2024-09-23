@@ -1,17 +1,17 @@
 import { theme } from 'lib/utils/style/theme';
 import styled from 'styled-components';
 
-export const SurveyTMI_Container = styled.div<{ StatusBarSize?: string }>`
-  width: 100vw;
-  height: 100vh;
+export const SurveyTMI_Layout = styled.div`
   position: fixed;
-  padding-top: ${(props) => props.StatusBarSize || '54px'};
-  display: flex;
-  flex-direction: column;
 `;
 
-export const SurveyTMI_Content = styled.div`
+export const SurveyTMI_Container = styled.div<{ StatusBarSize?: string }>`
+  width: 100vw;
+  height: calc(100vh - 90px);
   padding: 0 20px;
+  display: flex;
+  position: fixed;
+  flex-direction: column;
 `;
 
 export const SurveyTMI_Title = styled.div`
@@ -57,6 +57,7 @@ export const SurveyTMI_Textarea = styled.textarea`
     color: ${theme.gray['2.5']};
     font-weight: 400;
   }
+  resize: none;
 `;
 
 export const SurveyTMI_Text_Limit = styled.p`

@@ -1,18 +1,14 @@
 import { theme } from 'lib/utils/style/theme';
 import styled from 'styled-components';
 
-export const Edit_Container = styled.div<{ StatusBarSize?: string }>`
-  padding-top: /* ${(props) => props.StatusBarSize || '54px'} */ 54px;
-  width: 100vw;
-  height: 100vh;
-  display: flex;
-  flex-direction: column;
+export const Edit_Layout = styled.div`
+  position: fixed;
 `;
 
 export const Edit_Content = styled.div`
   width: 100%;
-  height: 100%;
-  padding: 20px 20px 0 20px;
+  height: calc(100%-90px);
+  padding: 20px 20px 0;
   display: flex;
   flex-direction: column;
   align-items: center;

@@ -1,19 +1,29 @@
 // 라이브러리
 import React, { useState, useRef, useEffect, useCallback } from 'react';
+import { useRecoilState, useResetRecoilState } from 'recoil';
+import { useLocation, useNavigate } from 'react-router-dom';
 
 // 파일
 import * as _ from './style';
-import useStatusBarHeight from 'hooks/useStatusBarHeight';
 import Header from 'components/Header';
 import NextButton from 'components/NextButton';
 import Calendar from 'components/Calendar';
+import { selectedDaysState } from 'atoms/plan';
+import { Plan_CreatAI } from 'lib/apis/Plan';
 
 const SelectDate = () => {
-  const statusBarHeight = useStatusBarHeight();
-  const [selectedDays, setSelectedDays] = useState<{
-    start: Date | null;
-    end: Date | null;
-  }>({ start: null, end: null });
+  const location = useLocation();
+  const navigate = useNavigate();
+  const isFromHome = location.state?.fromHome || false;
+
+  const [selectedDays, setSelectedDays] = useRecoilState(selectedDaysState);
+  const resetSelectedDays = useResetRecoilState(selectedDaysState);
+
+  useEffect(() => {
+    if (isFromHome) {
+      resetSelectedDays();
+    }
+  }, [isFromHome]);
 
   const [months, setMonths] = useState<Date[]>([
     new Date(new Date().getFullYear(), new Date().getMonth(), 1)
@@ -49,6 +59,11 @@ const SelectDate = () => {
     [months, setMonths]
   );
 
+  const onSubmit = async () => {
+    const response = await Plan_CreatAI();
+    navigate(`/plan/chat/${response?.data?.AI_ID}`);
+  };
+
   useEffect(() => {
     const options = {
       root: null,
@@ -68,24 +83,25 @@ const SelectDate = () => {
 
   return (
     <>
-      <_.SelectDate_Container StatusBarSize={`${statusBarHeight}px`}>
+      <_.SelectDate_Container>
         <Header />
         <_.SelectDate_Months>
-        <_.SelectDate_Title>여행 날짜를 선택해주세요</_.SelectDate_Title>
-        {months.map((month, index) => (
-          <Calendar
-            key={index}
-            selectedDays={selectedDays}
-            setSelectedDays={setSelectedDays}
-            currentMonth={month}
-          />
-        ))}
-        <div ref={loader} />
+          <_.SelectDate_Title>여행 날짜를 선택해주세요</_.SelectDate_Title>
+          {months.map((month, index) => (
+            <Calendar
+              key={index}
+              selectedDays={selectedDays}
+              setSelectedDays={setSelectedDays}
+              currentMonth={month}
+            />
+          ))}
+          <div ref={loader} />
         </_.SelectDate_Months>
       </_.SelectDate_Container>
       <NextButton
         text="다음"
-        state={selectedDays.start && selectedDays.end ? true : false}
+        state={!!selectedDays.start && !!selectedDays.end}
+        onNextClick={onSubmit}
       />
     </>
   );

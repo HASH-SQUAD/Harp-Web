@@ -8,6 +8,7 @@ export const MessageBox_Container = styled.div<{ role?: string }>`
   font-size: 16px;
   font-weight: 400;
   display: flex;
+  white-space: break-spaces;
   align-self: ${(props) =>
     props.role == 'assistant' ? 'self-start' : 'self-end'};
   border-radius: 20px 20px

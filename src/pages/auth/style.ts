@@ -1,19 +1,16 @@
-import styled from "styled-components";
-import { theme } from "lib/utils/style/theme";
+import styled from 'styled-components';
+import { theme } from 'lib/utils/style/theme';
 
 export const Auth_Container = styled.div`
   width: 100vw;
   height: 100vh;
   background: ${theme.special[4]};
   position: relative;
-`;
-
-export const Auth_Layout = styled.div<{ StatusBarSize?: string }>`
-  padding: ${(props) => props.StatusBarSize || "54px"} 40px 52px 40px;
+  padding: 42px 32px 52px;
   display: flex;
-  height: 100%;
   flex-direction: column;
   justify-content: space-between;
+  position: fixed;
 `;
 
 export const Auth_Bubble_1 = styled.div`

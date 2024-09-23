@@ -3,13 +3,14 @@ import React, { useState, useEffect } from 'react';
 
 // 파일
 import * as _ from './style';
-import useStatusBarHeight from 'hooks/useStatusBarHeight';
 import Search from 'assets/image/Search';
-import ChattingStart from 'assets/image/ChattingStart.jpg';
 import ComingPlan from 'data/ComingPlan';
 import RecommendPlan from 'data/RecommendPlan';
 import MenuBar from 'components/MenuBar';
 import calculateDDay from 'lib/utils/D-Day';
+import RightArrow from 'assets/Icon/RightArrow';
+import { theme } from 'lib/utils/style/theme';
+import Robot from 'assets/image/Robot.png';
 
 interface DateData {
   id: number;
@@ -19,32 +20,29 @@ interface DateData {
 }
 
 const Home = () => {
-  const statusBarHeight = useStatusBarHeight();
   const [date, setData] = useState<DateData[]>([]);
 
   useEffect(() => {
     const today = new Date();
     const daysOfWeek = ['일', '월', '화', '수', '목', '금', '토'];
 
-    const dates: DateData[] = [];
-
-    for (let i = -3; i <= 3; i++) {
+    const dates = Array.from({ length: 7 }, (_, i) => {
       const newDate = new Date();
-      newDate.setDate(today.getDate() + i);
+      newDate.setDate(today.getDate() + i - 3);
 
-      dates.push({
+      return {
         id: newDate.getTime(),
         day: daysOfWeek[newDate.getDay()],
         date: newDate.getDate(),
-        state: i === 0
-      });
-    }
+        state: i === 3
+      };
+    });
 
     setData(dates);
   }, []);
 
   return (
-    <_.Home_Container StatusBarSize={`${statusBarHeight}px`}>
+    <_.Home_Container>
       <_.Home_Calendar>
         {date.map((day) => (
           <_.Home_Calendar_Content key={day.id}>
@@ -63,11 +61,18 @@ const Home = () => {
         <Search />
         <_.Home_SearchBar_Input placeholder="목적지를 입력해보세요." />
       </_.Home_SearchBar>
-
-      <_.Home_Chatting src={ChattingStart} />
+      <_.Home_Navigate_Chatting>
+        <_.Home_Navigate_Ul>
+          <_.Home_Navigate_List>AI로 계획</_.Home_Navigate_List>
+          <_.Home_Navigate_List>
+            만들기
+            <RightArrow width="28" height="28" color={theme.gray.white} />
+          </_.Home_Navigate_List>
+        </_.Home_Navigate_Ul>
+        <_.Home_Navigate_Robot src={Robot} />
+      </_.Home_Navigate_Chatting>
 
       <_.Home_Plan_Title>다가오는 일정이 있어요! ✈️</_.Home_Plan_Title>
-
       <_.Home_Plan_Contents>
         {ComingPlan.map((item) => (
           <_.Home_Plan_Content key={item.id}>
@@ -85,7 +90,6 @@ const Home = () => {
       <_.Home_RecommendPlan_Title>
         이번 여행 여기 어때요? 😉
       </_.Home_RecommendPlan_Title>
-
       <_.Home_RecommendPlan_Contents>
         {RecommendPlan.map((item) => (
           <_.Home_RecommendPlan_Content key={item.id} imgUrl={item.img}>

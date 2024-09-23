@@ -2,11 +2,16 @@ import { theme } from 'lib/utils/style/theme';
 import styled from 'styled-components';
 
 export const AddDetail_Layout = styled.div`
+  position: fixed;
+  width: 100%;
+  height: calc(100vh - 40px);
+`;
+
+export const AddDetail_Container = styled.div`
   display: flex;
   flex-direction: column;
   padding: 0 20px;
-  width: 100%;
-  height: 100vh;
+  height: 100%;
 `;
 
 export const AddDetail_TitleBar = styled.div`
@@ -68,7 +73,7 @@ export const AddDetail_Input = styled.input`
   gap: 16px;
   border-radius: 5px;
   border: 1.5px solid ${theme.gray[1]};
-  color:${theme.gray.black};
+  color: ${theme.gray.black};
   font-size: 16px;
   &:focus {
     border-color: ${theme.primary[7]};
@@ -100,12 +105,10 @@ export const AddDetail_AddPlan = styled.button`
   border-radius: 5px;
   border: 1.5px solid ${theme.gray[1]};
   min-width: 75px;
-  color: ${theme.gray[2.5]};;
+  color: ${theme.gray[2.5]};
   background-color: transparent;
   text-align: center;
   white-space: nowrap;
-  
-
 `;
 
 export const AddDetail_AddPlanSpan = styled.span`
@@ -114,7 +117,6 @@ export const AddDetail_AddPlanSpan = styled.span`
   color: ${theme.gray[2.5]};
   white-space: nowrap;
 `;
-
 
 export const AddDetail_SelectTime = styled.div`
   padding-top: 20px;

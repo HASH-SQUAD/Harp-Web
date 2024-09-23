@@ -46,9 +46,9 @@ const Update = () => {
   }, [plans]);
 
   return (
-    <>
+    <_.Update_Layout>
       <Header title="수정" buttonState="완료" />
-      <_.Update_Layout>
+      <_.Update_Container>
         <_.Update_TitleBar>
           <_.Update_Location>
             <Location />
@@ -104,8 +104,8 @@ const Update = () => {
             <_.Update_Overlay />
           </_.Update_TimePickerList>
         </_.Update_SelectTime>
-      </_.Update_Layout>
-    </>
+      </_.Update_Container>
+    </_.Update_Layout>
   );
 };
 

@@ -15,9 +15,9 @@ const Memo = () => {
   };
 
   return (
-    <>
+    <_.Memo_Layout>
       <Header buttonState="수정" buttonColor="purple" />
-      <_.Memo_Layout>
+      <_.Memo_Container>
         <_.Memo_TitleBar>
           <_.Memo_DateAndTime>2023.11.29 오전 11:00</_.Memo_DateAndTime>
           <_.Memo_PlanTitle>쇼핑하기 🛍️</_.Memo_PlanTitle>
@@ -34,8 +34,8 @@ const Memo = () => {
             placeholder="메모를 입력하세요..."
           />
         </_.Memo_Content>
-      </_.Memo_Layout>
-    </>
+      </_.Memo_Container>
+    </_.Memo_Layout>
   );
 };
 
