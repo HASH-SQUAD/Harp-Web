@@ -15,7 +15,7 @@ export const initialQuestions: AIResponse[] = [
     Contents: {
       subject: 'none',
       category: '',
-      question: '저는 인공지능 AI 기태입니다.\n당신의 여행을 도와드리겠습니다.',
+      question: '저는 인공지능 AI 디토입니다.\n당신의 여행을 도와드리겠습니다.',
       select: []
     }
   },

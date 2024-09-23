@@ -6,5 +6,4 @@ export interface AIResponse {
     question: string;
     select: string[];
   };
-  isLoading?: boolean;
 }

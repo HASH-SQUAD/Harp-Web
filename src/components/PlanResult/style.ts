@@ -7,7 +7,7 @@ export const PlanResult_Layout = styled.div`
   gap: 10px;
 `;
 
-export const PlanResult_Container = styled.div`
+export const PlanResult_Container = styled.div<{ imgUrl: string }>`
   display: flex;
   flex-direction: column;
   justify-content: space-between;
@@ -16,8 +16,7 @@ export const PlanResult_Container = styled.div`
   border-radius: 20px 20px 20px 5px;
   background:
     linear-gradient(0deg, rgba(0, 0, 0, 0.2) 0%, rgba(0, 0, 0, 0.2) 100%),
-    url('https://harp-back.hash-squad.kro.kr/common/CommonPlanImg.png')
-      lightgray 50% / cover no-repeat;
+    url(${({ imgUrl }) => imgUrl}) lightgray 50% / cover no-repeat;
   overflow: hidden;
 `;
 

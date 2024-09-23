@@ -11,11 +11,17 @@ import { theme } from 'lib/utils/style/theme';
 import MessageBox from 'components/MessageBox';
 import { initialQuestions } from 'data/InitialQuestions';
 import { AIResponse } from 'types/aiResponse';
-import { CreateParams, Plan_Chatting, Plan_Create } from 'lib/apis/Plan';
+import {
+  CreateParams,
+  Plan_Chatting,
+  Plan_Create,
+  Plan_Result
+} from 'lib/apis/Plan';
 import { formatSelectedDate } from 'lib/utils/formatSelectedDate';
 import { useRecoilValue } from 'recoil';
 import { selectedDaysState } from 'atoms/plan';
 import PlanResult from 'components/PlanResult';
+import { getPlan } from 'types/getPlan';
 
 const Chat = () => {
   const id = useParams().id;
@@ -34,7 +40,8 @@ const Chat = () => {
     title: '',
     type: ''
   });
-  const [textareaHeight, setTextareaHeight] = useState<number>(50);
+  const [planResult, setPlanResult] = useState<getPlan | null>(null);
+
   const { start, end } = useRecoilValue(selectedDaysState);
 
   const { mutate: ChattingMutation } = useMutation(
@@ -54,8 +61,8 @@ const Chat = () => {
             planName: planInfo.title,
             mainImg:
               'https://harp-back.hash-squad.kro.kr/common/CommonPlanImg.png',
-            startDate: formatSelectedDate(start),
-            endDate: formatSelectedDate(end),
+            startDate: formatSelectedDate(start, '/'),
+            endDate: formatSelectedDate(end, '/'),
             data: response.data.Contents
           });
         } else {
@@ -72,15 +79,49 @@ const Chat = () => {
         setIsWaitingForReply(false);
       },
       onError: (error: unknown) => {
-        console.error('질문 받는 중 에러 ', error);
+        console.error('질문 받는 중 에러 발생: ', error);
         setPendingMessage(null);
         setIsWaitingForReply(false);
       }
     }
   );
 
-  const { mutate: CreateMutation } = useMutation((params: CreateParams) =>
-    Plan_Create(params)
+  const { mutate: CreateMutation } = useMutation(
+    (params: CreateParams) => Plan_Create(params),
+    {
+      onSuccess: (response) => {
+        setTimeout(() => {
+          PlanResultMutation(response.data.planId);
+        }, 2000);
+      },
+      onError: (error) => {
+        console.error('Plan_Create 요청 중 에러 발생: ', error);
+      }
+    }
+  );
+
+  const { mutate: PlanResultMutation } = useMutation(
+    (planId: string) => Plan_Result({ id: planId }),
+    {
+      onSuccess: (result: any) => {
+        setChatHistory((prevChat) => [
+          ...prevChat,
+          {
+            role: 'assistant',
+            Contents: {
+              subject: '',
+              category: 'result',
+              question: `${result.data.PlanData.planName} 일정입니다.`,
+              select: ['🚪대화 종료', '💬다시 만들기']
+            }
+          }
+        ]);
+        setPlanResult(result.data.PlanData);
+      },
+      onError: (error) => {
+        console.error('Plan_Result 요청 중 에러 발생: ', error);
+      }
+    }
   );
 
   const nextStep = (userMessage: string) => {
@@ -143,7 +184,6 @@ const Chat = () => {
     if (textarea) {
       textarea.style.height = 'auto';
       textarea.style.height = `${textarea.scrollHeight}px`;
-      setTextareaHeight(textarea.scrollHeight);
     }
     setMessage(e.target.value);
   };
@@ -151,17 +191,12 @@ const Chat = () => {
   useEffect(() => {
     messageEndRef.current?.scrollIntoView({ behavior: 'smooth' });
   }, [chatHistory, pendingMessage]);
-  const chatMessagesHeight =
-    selectOptions.length > 0 ? 'calc(100% - 30px)' : '100%';
 
   return (
     <_.Chat_Layout>
       <_.Chat_Container>
         <Header title="AI 디토" isOnChatting={true} />
-        <_.Chat_Messages
-          style={{ height: chatMessagesHeight }}
-          textareaHeight={textareaHeight}
-        >
+        <_.Chat_Messages>
           {chatHistory.map((chat, index) => (
             <MessageBox
               key={index}
@@ -180,7 +215,14 @@ const Chat = () => {
           {isWaitingForReply && (
             <MessageBox message="" role="assistant" isLoading={true} />
           )}
-          <PlanResult />
+          {planResult && (
+            <PlanResult
+              title={planResult.planName}
+              img={planResult.mainImg}
+              startDate={planResult.startDate}
+              member="2"
+            />
+          )}
 
           <div ref={messageEndRef} />
         </_.Chat_Messages>

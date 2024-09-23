@@ -24,7 +24,7 @@ export const Chat_Content = styled.div`
   justify-content: space-between;
 `;
 
-export const Chat_Messages = styled.div<{ textareaHeight: number }>`
+export const Chat_Messages = styled.div`
   padding: 20px 15px 10px 15px;
   position: relative;
   overflow-x: hidden;

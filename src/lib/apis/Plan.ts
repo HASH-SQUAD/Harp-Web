@@ -53,3 +53,12 @@ export const Plan_Create = async (params: CreateParams) => {
   });
   return data;
 };
+
+interface ResultParams {
+  id: string | undefined;
+}
+
+export const Plan_Result = async (params: ResultParams) => {
+  const { data } = await AuthInstance.get(`plan/getplan/${params.id}`);
+  return data;
+};

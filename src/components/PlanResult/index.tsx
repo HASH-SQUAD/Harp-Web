@@ -5,15 +5,23 @@ import React from 'react';
 import * as _ from './style';
 import Share from 'assets/Icon/Share';
 import { theme } from 'lib/utils/style/theme';
+import { formatSelectedDate } from 'lib/utils/formatSelectedDate';
 
-const PlanResult = () => {
+interface OwnProps {
+  img: string;
+  title: string;
+  startDate: string;
+  member: string;
+}
+
+const PlanResult = ({ img, title, startDate, member }: OwnProps) => {
   return (
     <_.PlanResult_Layout>
-      <_.PlanResult_Container>
-        <_.PlanResult_Title>낭만 가득한 해운대 1박 2일</_.PlanResult_Title>
+      <_.PlanResult_Container imgUrl={img}>
+        <_.PlanResult_Title>{title}</_.PlanResult_Title>
         <_.PlanResult_Info>
           <_.PlanResult_DateAndMember>
-            2024.07.11 · 2명
+            {formatSelectedDate(startDate, '.')} · {member}명
           </_.PlanResult_DateAndMember>
         </_.PlanResult_Info>
       </_.PlanResult_Container>
