@@ -40,7 +40,7 @@ const Chat = () => {
     type: ''
   });
   const [planResult, setPlanResult] = useState<getPlan | null>(null);
-
+  const [isEnded, setIsEnded] = useState(false);
   const { start, end } = useRecoilValue(selectedDaysState);
 
   const { mutate: ChattingMutation } = useMutation(
@@ -109,11 +109,12 @@ const Chat = () => {
               subject: '',
               category: 'result',
               question: `${result.data.PlanData.planName} 일정입니다.`,
-              select: ['🚪대화 종료', '💬다시 만들기']
+              select: []
             }
           }
         ]);
         setPlanResult(result.data.PlanData);
+        setIsEnded(true);
       },
       onError: (error) => {
         console.error('Plan_Result 요청 중 에러 발생: ', error);
@@ -221,7 +222,9 @@ const Chat = () => {
               member="2"
             />
           )}
-
+          {isEnded && (
+            <_.Chat_EndMessage>대화가 종료되었습니다.</_.Chat_EndMessage>
+          )}
           <div ref={messageEndRef} />
         </_.Chat_Messages>
         <_.Chat_Typing_Container>
@@ -253,7 +256,7 @@ const Chat = () => {
                   handleSendMessage();
                 }
               }}
-              disabled={isWaitingForReply}
+              disabled={isWaitingForReply || isEnded}
             />
             <_.Chat_SendIcon onClick={handleSendMessage}>
               <Send stroke={message ? theme.primary[7] : theme.gray[2]} />

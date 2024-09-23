@@ -26,7 +26,9 @@ export const Chat_Content = styled.div`
 
 export const Chat_Messages = styled.div<{ selectOptions: string[] }>`
   padding: ${(props) =>
-    props.selectOptions ? '20px 15px 40px 15px' : '20px 15px 10px 15px'};
+    props.selectOptions.length > 0
+      ? '20px 15px 40px 15px'
+      : '20px 15px 10px 15px'};
   position: relative;
   overflow-x: hidden;
   overflow-y: auto;
@@ -57,6 +59,14 @@ export const Chat_SelectBox = styled.div`
   color: ${theme.gray.black};
   font-size: 16px;
   font-weight: 400;
+`;
+
+export const Chat_EndMessage = styled.div`
+  color: ${theme.gray[3]};
+  font-size: 14px;
+  font-weight: 400;
+  text-align: center;
+  padding-top: 18px;
 `;
 
 export const Chat_Typing_Container = styled.div`
