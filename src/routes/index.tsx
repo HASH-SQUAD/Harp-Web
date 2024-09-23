@@ -55,7 +55,7 @@ export default function Router() {
     {
       path: 'plan',
       children: [
-        { path: 'chat', element: <Chat /> },
+        { path: 'chat/:id', element: <Chat /> },
         { path: 'selectdate', element: <SelectDate /> },
         { path: 'map/:id', element: <Map /> },
         { path: 'info/:id', element: <Info /> },

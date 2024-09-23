@@ -1,5 +1,5 @@
 // 라이브러리
-import React, { useState, useEffect, useRef, useCallback } from 'react';
+import React, { useCallback } from 'react';
 
 // 파일
 import * as _ from './style';

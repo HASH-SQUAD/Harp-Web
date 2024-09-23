@@ -24,14 +24,49 @@ export const Chat_Content = styled.div`
   justify-content: space-between;
 `;
 
-export const Chat_Messages = styled.div`
-  padding: 20px 15px 10px 15px;
-  overflow: auto;
+export const Chat_Messages = styled.div<{ selectOptions: string[] }>`
+  padding: ${(props) =>
+    props.selectOptions.length > 0
+      ? '20px 15px 40px 15px'
+      : '20px 15px 10px 15px'};
+  position: relative;
+  overflow-x: hidden;
+  overflow-y: auto;
   width: 100%;
   height: 100%;
   display: flex;
   flex-direction: column;
   scroll-snap-type: y mandatory;
+`;
+
+export const Chat_SelectList = styled.div`
+  position: absolute;
+  width: 100%;
+  display: flex;
+  flex-wrap: wrap;
+  left: 50%;
+  transform: translateX(-50%);
+  top: -30px;
+  justify-content: center;
+  gap: 10px;
+`;
+
+export const Chat_SelectBox = styled.div`
+  height: 30px;
+  padding: 3px 10px;
+  border-radius: 50px;
+  background: ${theme.sub[1]};
+  color: ${theme.gray.black};
+  font-size: 16px;
+  font-weight: 400;
+`;
+
+export const Chat_EndMessage = styled.div`
+  color: ${theme.gray[3]};
+  font-size: 14px;
+  font-weight: 400;
+  text-align: center;
+  padding-top: 18px;
 `;
 
 export const Chat_Typing_Container = styled.div`
@@ -61,6 +96,7 @@ export const Chat_Textarea = styled.textarea`
   border: none;
   outline: none;
   color: ${theme.gray.black};
+  background-color: ${theme.gray.white};
   &::placeholder {
     color: ${theme.gray[2]};
   }

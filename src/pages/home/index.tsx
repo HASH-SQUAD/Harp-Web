@@ -26,19 +26,17 @@ const Home = () => {
     const today = new Date();
     const daysOfWeek = ['일', '월', '화', '수', '목', '금', '토'];
 
-    const dates: DateData[] = [];
-
-    for (let i = -3; i <= 3; i++) {
+    const dates = Array.from({ length: 7 }, (_, i) => {
       const newDate = new Date();
-      newDate.setDate(today.getDate() + i);
+      newDate.setDate(today.getDate() + i - 3);
 
-      dates.push({
+      return {
         id: newDate.getTime(),
         day: daysOfWeek[newDate.getDay()],
         date: newDate.getDate(),
-        state: i === 0
-      });
-    }
+        state: i === 3
+      };
+    });
 
     setData(dates);
   }, []);
@@ -71,11 +69,10 @@ const Home = () => {
             <RightArrow width="28" height="28" color={theme.gray.white} />
           </_.Home_Navigate_List>
         </_.Home_Navigate_Ul>
-
         <_.Home_Navigate_Robot src={Robot} />
       </_.Home_Navigate_Chatting>
-      <_.Home_Plan_Title>다가오는 일정이 있어요! ✈️</_.Home_Plan_Title>
 
+      <_.Home_Plan_Title>다가오는 일정이 있어요! ✈️</_.Home_Plan_Title>
       <_.Home_Plan_Contents>
         {ComingPlan.map((item) => (
           <_.Home_Plan_Content key={item.id}>
@@ -93,7 +90,6 @@ const Home = () => {
       <_.Home_RecommendPlan_Title>
         이번 여행 여기 어때요? 😉
       </_.Home_RecommendPlan_Title>
-
       <_.Home_RecommendPlan_Contents>
         {RecommendPlan.map((item) => (
           <_.Home_RecommendPlan_Content key={item.id} imgUrl={item.img}>
