@@ -41,6 +41,8 @@ export const Chat_SelectList = styled.div`
   width: 100%;
   display: flex;
   flex-wrap: wrap;
+  left: 50%;
+  transform: translateX(-50%);
   top: -30px;
   justify-content: center;
   gap: 10px;

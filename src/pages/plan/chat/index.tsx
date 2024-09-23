@@ -1,6 +1,6 @@
 // 라이브러리
 import React, { useCallback, useEffect, useRef, useState } from 'react';
-import { useNavigate, useParams } from 'react-router-dom';
+import { useParams } from 'react-router-dom';
 import { useMutation } from 'react-query';
 
 // 파일
@@ -25,7 +25,6 @@ import { getPlan } from 'types/getPlan';
 
 const Chat = () => {
   const id = useParams().id;
-  const navigate = useNavigate();
   const messageEndRef = useRef<HTMLDivElement | null>(null);
   const textareaRef = useRef<HTMLTextAreaElement | null>(null);
 
@@ -48,7 +47,7 @@ const Chat = () => {
     (userMessage: string) =>
       Plan_Chatting({
         id: id,
-        subject: 'date',
+        subject: planInfo.type.includes('숙박') ? 'travel' : 'date',
         previousConversation: userMessage
       }),
     {
@@ -90,9 +89,7 @@ const Chat = () => {
     (params: CreateParams) => Plan_Create(params),
     {
       onSuccess: (response) => {
-        setTimeout(() => {
-          PlanResultMutation(response.data.planId);
-        }, 2000);
+        PlanResultMutation(response.data.planId);
       },
       onError: (error) => {
         console.error('Plan_Create 요청 중 에러 발생: ', error);
@@ -217,6 +214,7 @@ const Chat = () => {
           )}
           {planResult && (
             <PlanResult
+              id={id}
               title={planResult.planName}
               img={planResult.mainImg}
               startDate={planResult.startDate}
