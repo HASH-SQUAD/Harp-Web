@@ -215,7 +215,7 @@ const Chat = () => {
           )}
           {planResult && (
             <PlanResult
-              id={id}
+              id={planResult.planId}
               title={planResult.planName}
               img={planResult.mainImg}
               startDate={planResult.startDate}
