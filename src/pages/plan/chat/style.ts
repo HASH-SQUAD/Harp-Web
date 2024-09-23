@@ -24,8 +24,9 @@ export const Chat_Content = styled.div`
   justify-content: space-between;
 `;
 
-export const Chat_Messages = styled.div`
-  padding: 20px 15px 10px 15px;
+export const Chat_Messages = styled.div<{ selectOptions: string[] }>`
+  padding: ${(props) =>
+    props.selectOptions ? '20px 15px 40px 15px' : '20px 15px 10px 15px'};
   position: relative;
   overflow-x: hidden;
   overflow-y: auto;

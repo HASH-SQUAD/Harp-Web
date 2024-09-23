@@ -193,7 +193,7 @@ const Chat = () => {
     <_.Chat_Layout>
       <_.Chat_Container>
         <Header title="AI 디토" isOnChatting={true} />
-        <_.Chat_Messages>
+        <_.Chat_Messages selectOptions={selectOptions}>
           {chatHistory.map((chat, index) => (
             <MessageBox
               key={index}
