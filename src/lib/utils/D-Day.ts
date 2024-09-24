@@ -1,4 +1,7 @@
-const calculateDDay = (planDate: string) => {
+const calculateDDay = (planDate?: string | null) => {
+  if (!planDate) {
+    return '';
+  }
   const today = new Date();
   const targetDate = new Date(planDate);
   const diffTime = targetDate.getTime() - today.getTime();

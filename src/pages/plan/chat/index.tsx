@@ -11,12 +11,7 @@ import { theme } from 'lib/utils/style/theme';
 import MessageBox from 'components/MessageBox';
 import { initialQuestions } from 'data/InitialQuestions';
 import { AIResponse } from 'types/aiResponse';
-import {
-  CreateParams,
-  Plan_Chatting,
-  Plan_Create,
-  Plan_Result
-} from 'lib/apis/Plan';
+import { Plan_Chatting, Plan_Create, Plan_Result } from 'lib/apis/Plan';
 import { formatSelectedDate } from 'lib/utils/formatSelectedDate';
 import { useRecoilValue } from 'recoil';
 import { selectedDaysState } from 'atoms/plan';

@@ -18,7 +18,7 @@ const DayPlan = ({ isUpdated, day, dayIndex }: DayPlanProps) => {
     <_.DayPlan_Layout>
       <_.DayPlan_Times>
         <_.DayPlan_WhatDay>{dayIndex}일차</_.DayPlan_WhatDay>
-        <_.DayPlan_Date>23.11.29</_.DayPlan_Date>
+        <_.DayPlan_Date>23.11.29.</_.DayPlan_Date>
       </_.DayPlan_Times>
       {day.map((plan, index) => (
         <_.DayPlan_Content key={index}>
@@ -28,7 +28,7 @@ const DayPlan = ({ isUpdated, day, dayIndex }: DayPlanProps) => {
           </_.DayPlan_Left>
           <_.DayPlan_Right>
             <_.DayPlan_Activity>{plan.activity}</_.DayPlan_Activity>
-            <_.DayPlan_StoreName>{plan.storeName}</_.DayPlan_StoreName>
+            <_.DayPlan_StoreName>{plan.location}</_.DayPlan_StoreName>
             {isUpdated && (
               <_.DayPlan_Delete>
                 <Minus />
