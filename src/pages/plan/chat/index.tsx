@@ -70,6 +70,7 @@ const Chat = () => {
         subject: planInfo.type.includes('숙박') ? 'travel' : 'date',
         previousConversation: userMessage
       }),
+
     {
       onMutate: () => setIsWaitingForReply(true),
       onSuccess: handleResponseSuccess,
@@ -125,8 +126,13 @@ const Chat = () => {
           select: ['숙박', '당일치기']
         });
         incrementStep();
+      } else if (step === 1) {
+        setPlanInfo({ ...planInfo, type: userMessage });
+        setTimeout(() => {
+          ChattingMutation('일정 짜줘');
+        }, 100);
       } else {
-        ChattingMutation(step === 1 ? '일정 짜줘' : message);
+        ChattingMutation(userMessage);
       }
     },
     [step, planInfo, message, ChattingMutation]
@@ -245,7 +251,7 @@ const Chat = () => {
                   handleSendMessage();
                 }
               }}
-              disabled={isWaitingForReply || isEnded}
+              disabled={isWaitingForReply || isEnded || step === 1}
             />
             <_.Chat_SendIcon onClick={handleSendMessage}>
               <Send stroke={message ? theme.primary[7] : theme.gray[2]} />

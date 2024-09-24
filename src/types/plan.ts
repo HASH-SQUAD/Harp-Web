@@ -18,7 +18,7 @@ export interface CreateParams {
 
 export interface PlanResult {
   planName: string;
-  mainImg: string;
+  mainImg: string | undefined;
   startDate: string;
   endDate: string;
   data: DynamicDays[];

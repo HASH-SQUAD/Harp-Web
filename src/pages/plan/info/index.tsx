@@ -24,7 +24,6 @@ const Info = () => {
   const navigate = useNavigate();
   const location = useLocation();
   const [planInfos, setPlanInfos] = useState<PlanResult | null>(null);
-  const [planInfoImage, setPlanInfoImage] = useState(PlanInfo);
   const [isModal, setIsModal] = useState(false);
   const [isUpdated, setIsUpdated] = useState(false);
   const [isSuccess, setIsSuccess] = useState(true);
@@ -45,11 +44,7 @@ const Info = () => {
     }
   );
 
-  useEffect(() => {
-    if (location.state?.croppedImage) {
-      setPlanInfoImage(location.state.croppedImage);
-    }
-  }, [location.state?.croppedImage]);
+  console.log(planInfos);
 
   useEffect(() => {
     if (isSuccess) {
@@ -98,8 +93,6 @@ const Info = () => {
 
   const duration = `${formattedStartDate}~${formattedEndDate} (${travelPeriod})`;
 
-  // console.log(planInfos?.data);
-
   return (
     <>
       <Header title="일정" buttonState="닫기" />
@@ -126,7 +119,12 @@ const Info = () => {
                 {Object.keys(planInfos?.data || {}).map(
                   (dayKey: string, index: number) => {
                     const day =
-                      planInfos?.data[dayKey as keyof typeof planInfos.data];
+                      dayKey === 'tips'
+                        ? null
+                        : planInfos?.data[
+                            dayKey as keyof typeof planInfos.data
+                          ];
+
                     if (!Array.isArray(day)) {
                       return null;
                     }
