@@ -67,6 +67,7 @@ export const DayPlan_Right = styled.div`
   display: flex;
   flex-direction: column;
   width: 68%;
+  height: 74.5px;
   padding: 13px 16px;
   margin-top: 12px;
   border-radius: 15px;

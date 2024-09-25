@@ -127,7 +127,6 @@ const Info = () => {
                     if (!Array.isArray(day)) {
                       return null;
                     }
-                    console.log(day);
                     const lineHeight = 80 + 108 * (day.length - 1);
                     return (
                       <_.Info_Date key={index}>
