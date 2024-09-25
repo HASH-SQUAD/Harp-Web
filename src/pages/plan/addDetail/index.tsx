@@ -8,7 +8,7 @@ import PlanDate from 'components/PlanDate';
 import Location from 'assets/image/Location';
 import Calendar from 'assets/image/Calendar';
 import TimeCircle from 'assets/image/TimeCircle';
-import WriteIcon from 'assets/image/WriteIcon';
+import Write from 'assets/image/Write';
 import { hasDateExpired } from 'lib/utils/hasDateExpired';
 import TimePicker from 'components/TimePicker';
 import NextButton from 'components/NextButton';
@@ -87,7 +87,7 @@ const AddDetail = () => {
         <_.AddDetail_SectionLine>
           <_.AddDetail_Box>
             <_.AddDetail_Subtitle>
-              <WriteIcon />
+              <Write />
               <_.AddDetail_Menu>일정 제목</_.AddDetail_Menu>
             </_.AddDetail_Subtitle>
             <_.AddDetail_Input

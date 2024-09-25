@@ -1,6 +1,6 @@
 import React from 'react';
 
-const WriteIcon = () => {
+const Write = () => {
   return (
     <svg
       width="20"
@@ -36,4 +36,4 @@ const WriteIcon = () => {
   );
 };
 
-export default WriteIcon;
+export default Write;
