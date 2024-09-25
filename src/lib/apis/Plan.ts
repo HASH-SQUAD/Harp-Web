@@ -40,7 +40,12 @@ export const Plan_Result = async (params: ResultParams) => {
   return data;
 };
 
-export const Plan_List = async () => {
+export const Plan_UserPlanList = async () => {
   const { data } = await AuthInstance.get(`plan`);
+  return data;
+};
+
+export const Plan_RecommendedPlanList = async () => {
+  const { data } = await AuthInstance.get(`/plan/getrecommend`);
   return data;
 };

@@ -16,15 +16,24 @@ export interface CreateParams {
   data: PlanData[];
 }
 
-export interface PlanResult {
-  planName: string;
-  mainImg: string | undefined;
+// 공통 부분을 정의한 인터페이스
+interface BasePlanResult {
+  mainImg: string;
   startDate: string;
   endDate: string;
   data: DynamicDays[];
   userid: string;
-  planId: string;
   createdAt?: string;
   updatedAt?: string;
   deletedAt?: string | null;
+}
+
+export interface PlanResult extends BasePlanResult {
+  planName: string;
+  planId: string;
+}
+
+export interface RecommendedPlanResult extends BasePlanResult {
+  title: string;
+  RecommendedPlanId: string;
 }

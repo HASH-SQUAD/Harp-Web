@@ -4,15 +4,14 @@ import React, { useState, useEffect } from 'react';
 // 파일
 import * as _ from './style';
 import Search from 'assets/image/Search';
-import RecommendPlan from 'data/RecommendPlan';
 import MenuBar from 'components/MenuBar';
 import calculateDDay from 'lib/utils/D-Day';
 import RightArrow from 'assets/Icon/RightArrow';
 import { theme } from 'lib/utils/style/theme';
 import Robot from 'assets/image/Robot.png';
-import { PlanResult } from 'types/plan';
+import { PlanResult, RecommendedPlanResult } from 'types/plan';
 import { useQuery } from 'react-query';
-import { Plan_List } from 'lib/apis/Plan';
+import { Plan_RecommendedPlanList, Plan_UserPlanList } from 'lib/apis/Plan';
 import { useNavigate } from 'react-router-dom';
 
 interface DateData {
@@ -25,13 +24,16 @@ interface DateData {
 const Home = () => {
   const navigate = useNavigate();
   const [date, setData] = useState<DateData[]>([]);
-  const [plans, setPlans] = useState<PlanResult[] | null>(null);
+  const [userPlans, setUserPlans] = useState<PlanResult[] | null>(null);
+  const [recommendedPlans, setRecommendedPlans] = useState<
+    RecommendedPlanResult[] | null
+  >(null);
 
-  const { isLoading: GetUserPlansLoading } = useQuery(
+  const { isLoading: UserPlansLoading } = useQuery(
     ['userPlans'],
-    Plan_List,
+    Plan_UserPlanList,
     {
-      onSuccess: (response) => {
+      onSuccess: (response: { data: { PlanData: PlanResult[] } }) => {
         const sortedPlans = response.data.PlanData?.sort(
           (a: { startDate: string }, b: { startDate: string }) => {
             return (
@@ -39,7 +41,20 @@ const Home = () => {
             );
           }
         );
-        setPlans(sortedPlans);
+        setUserPlans(sortedPlans);
+      }
+    }
+  );
+
+  const { isLoading: RecommendedPlansLoading } = useQuery(
+    ['recommendedPlans'],
+    Plan_RecommendedPlanList,
+    {
+      onSuccess: (response: {
+        data: { PlanData: RecommendedPlanResult[] };
+      }) => {
+        setRecommendedPlans(response.data.PlanData);
+        console.log(response.data.PlanData);
       }
     }
   );
@@ -100,17 +115,17 @@ const Home = () => {
 
       <_.Home_Plan_Title>다가오는 일정이 있어요! ✈️</_.Home_Plan_Title>
       <_.Home_Plan_Contents>
-        {GetUserPlansLoading ? (
+        {UserPlansLoading ? (
           <p>불러오는 중...</p>
         ) : (
-          plans?.map((item) => (
-            <_.Home_Plan_Content key={item.planId}>
+          userPlans?.map((plan) => (
+            <_.Home_Plan_Content key={plan.planId}>
               <_.Home_Plan_Content_Title>
-                {item.planName}
+                {plan.planName}
               </_.Home_Plan_Content_Title>
               <_.Home_Plan_Content_Date_Content>
                 <_.Home_Plan_Content_Date>
-                  {calculateDDay(item.startDate)}
+                  {calculateDDay(plan.startDate)}
                 </_.Home_Plan_Content_Date>
               </_.Home_Plan_Content_Date_Content>
             </_.Home_Plan_Content>
@@ -122,13 +137,20 @@ const Home = () => {
         이번 여행 여기 어때요? 😉
       </_.Home_RecommendPlan_Title>
       <_.Home_RecommendPlan_Contents>
-        {RecommendPlan.map((item) => (
-          <_.Home_RecommendPlan_Content key={item.id} imgUrl={item.img}>
-            <_.Home_RecommendPlan_Content_Title>
-              {item.title}
-            </_.Home_RecommendPlan_Content_Title>
-          </_.Home_RecommendPlan_Content>
-        ))}
+        {RecommendedPlansLoading ? (
+          <p>불러오는 중...</p>
+        ) : (
+          recommendedPlans?.map((plan) => (
+            <_.Home_RecommendPlan_Content
+              key={plan.RecommendedPlanId}
+              imgUrl={plan.mainImg}
+            >
+              <_.Home_RecommendPlan_Content_Title>
+                {plan.title}
+              </_.Home_RecommendPlan_Content_Title>
+            </_.Home_RecommendPlan_Content>
+          ))
+        )}
       </_.Home_RecommendPlan_Contents>
 
       <MenuBar selectState={1} />
