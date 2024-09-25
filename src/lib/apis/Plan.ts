@@ -39,3 +39,8 @@ export const Plan_Result = async (params: ResultParams) => {
   const { data } = await AuthInstance.get(`plan/getplan/${params.id}`);
   return data;
 };
+
+export const Plan_List = async () => {
+  const { data } = await AuthInstance.get(`plan`);
+  return data;
+};

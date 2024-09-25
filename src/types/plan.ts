@@ -24,4 +24,7 @@ export interface PlanResult {
   data: DynamicDays[];
   userid: string;
   planId: string;
+  createdAt?: string;
+  updatedAt?: string;
+  deletedAt?: string | null;
 }

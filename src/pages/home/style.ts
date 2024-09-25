@@ -158,13 +158,15 @@ export const Home_Plan_Content_Title = styled.div`
   color: ${theme.sub[3]};
   font-weight: 400;
   font-size: 18px;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
 `;
 
 export const Home_Plan_Content_Date_Content = styled.div`
   width: 100%;
   display: flex;
-  flex-direction: row;
-  justify-content: space-between;
+  justify-content: flex-end;
 `;
 
 export const Home_Plan_Content_Icon = styled.div`

@@ -4,13 +4,15 @@ import React, { useState, useEffect } from 'react';
 // 파일
 import * as _ from './style';
 import Search from 'assets/image/Search';
-import ComingPlan from 'data/ComingPlan';
 import RecommendPlan from 'data/RecommendPlan';
 import MenuBar from 'components/MenuBar';
 import calculateDDay from 'lib/utils/D-Day';
 import RightArrow from 'assets/Icon/RightArrow';
 import { theme } from 'lib/utils/style/theme';
 import Robot from 'assets/image/Robot.png';
+import { PlanResult } from 'types/plan';
+import { useQuery } from 'react-query';
+import { Plan_List } from 'lib/apis/Plan';
 
 interface DateData {
   id: number;
@@ -21,6 +23,18 @@ interface DateData {
 
 const Home = () => {
   const [date, setData] = useState<DateData[]>([]);
+  const [plans, setPlans] = useState<PlanResult[] | null>(null);
+
+  const { isLoading: GetUserPlansLoading } = useQuery(
+    ['userPlans'],
+    Plan_List,
+    {
+      onSuccess: (response) => {
+        setPlans(response.data.PlanData);
+        console.log(response.data);
+      }
+    }
+  );
 
   useEffect(() => {
     const today = new Date();
@@ -74,17 +88,22 @@ const Home = () => {
 
       <_.Home_Plan_Title>다가오는 일정이 있어요! ✈️</_.Home_Plan_Title>
       <_.Home_Plan_Contents>
-        {ComingPlan.map((item) => (
-          <_.Home_Plan_Content key={item.id}>
-            <_.Home_Plan_Content_Title>{item.title}</_.Home_Plan_Content_Title>
-            <_.Home_Plan_Content_Date_Content>
-              <_.Home_Plan_Content_Icon>👶🏻</_.Home_Plan_Content_Icon>
-              <_.Home_Plan_Content_Date>
-                {calculateDDay(item.date)}
-              </_.Home_Plan_Content_Date>
-            </_.Home_Plan_Content_Date_Content>
-          </_.Home_Plan_Content>
-        ))}
+        {GetUserPlansLoading ? (
+          <p>불러오는 중...</p>
+        ) : (
+          plans?.map((item) => (
+            <_.Home_Plan_Content key={item.planId}>
+              <_.Home_Plan_Content_Title>
+                {item.planName}
+              </_.Home_Plan_Content_Title>
+              <_.Home_Plan_Content_Date_Content>
+                <_.Home_Plan_Content_Date>
+                  {calculateDDay(item.startDate)}
+                </_.Home_Plan_Content_Date>
+              </_.Home_Plan_Content_Date_Content>
+            </_.Home_Plan_Content>
+          ))
+        )}
       </_.Home_Plan_Contents>
 
       <_.Home_RecommendPlan_Title>
