@@ -1,3 +1,4 @@
+import { CreateParams } from 'types/plan';
 import { AuthInstance } from './Axios';
 
 export const Plan_CreatAI = async () => {
@@ -19,30 +20,6 @@ export const Plan_Chatting = async (params: ChattingParams) => {
   return data;
 };
 
-interface ScheduleItem {
-  time: string;
-  activity: string;
-  recommendation: string;
-  location: string;
-}
-
-interface DynamicDays {
-  [key: string]: ScheduleItem[];
-}
-
-interface PlanData {
-  days: DynamicDays;
-  tips: string[];
-}
-
-export interface CreateParams {
-  planName: string;
-  mainImg: string;
-  startDate: string;
-  endDate: string;
-  data: PlanData;
-}
-
 export const Plan_Create = async (params: CreateParams) => {
   const { data } = await AuthInstance.post(`plan`, {
     planName: params.planName,
@@ -60,5 +37,15 @@ interface ResultParams {
 
 export const Plan_Result = async (params: ResultParams) => {
   const { data } = await AuthInstance.get(`plan/getplan/${params.id}`);
+  return data;
+};
+
+export const Plan_UserPlanList = async () => {
+  const { data } = await AuthInstance.get(`plan`);
+  return data;
+};
+
+export const Plan_RecommendedPlanList = async () => {
+  const { data } = await AuthInstance.get(`/plan/getrecommend`);
   return data;
 };

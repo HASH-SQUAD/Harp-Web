@@ -43,18 +43,21 @@ export const Home_Calendar_Content_Day = styled.div<{ State?: boolean }>`
 `;
 
 export const Home_Calendar_Content_Date = styled.div`
+  position: relative;
   color: ${theme.gray.black};
   font-weight: 400;
   font-size: 20px;
   width: 100%;
   height: 100%;
   display: flex;
-  justify-content: right;
+  justify-content: center;
   align-items: center;
-  gap: 2px;
 `;
 
 export const Home_Calendar_Content_Point = styled.div`
+  position: absolute;
+  right: -2px;
+  top: 2px;
   width: 5px;
   height: 5px;
   background-color: #ff3f9b;
@@ -117,6 +120,16 @@ export const Home_Navigate_Robot = styled.img`
   margin: 3px 11px 0 0;
 `;
 
+export const Home_ErrorOrNothing = styled.div`
+  width: 100%;
+  height: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-size: 18px;
+  color: ${theme.gray[3]};
+`;
+
 //다가오는 일정
 export const Home_Plan_Title = styled.div`
   font-weight: 600;
@@ -127,6 +140,7 @@ export const Home_Plan_Title = styled.div`
 
 export const Home_Plan_Contents = styled.div`
   display: flex;
+  height: 100px;
   flex-direction: row;
   gap: 10px;
   margin-right: -15px;
@@ -158,13 +172,15 @@ export const Home_Plan_Content_Title = styled.div`
   color: ${theme.sub[3]};
   font-weight: 400;
   font-size: 18px;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
 `;
 
 export const Home_Plan_Content_Date_Content = styled.div`
   width: 100%;
   display: flex;
-  flex-direction: row;
-  justify-content: space-between;
+  justify-content: flex-end;
 `;
 
 export const Home_Plan_Content_Icon = styled.div`
@@ -201,6 +217,7 @@ export const Home_RecommendPlan_Title = styled.div`
 
 export const Home_RecommendPlan_Contents = styled.div`
   display: flex;
+  height: 200px;
   gap: 20px;
   margin-top: 10px;
   margin-right: -15px;

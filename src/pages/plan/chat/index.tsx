@@ -1,7 +1,7 @@
 // 라이브러리
 import React, { useCallback, useEffect, useRef, useState } from 'react';
 import { useParams } from 'react-router-dom';
-import { useMutation } from 'react-query';
+import { useMutation, useQuery } from 'react-query';
 
 // 파일
 import * as _ from './style';
@@ -11,17 +11,14 @@ import { theme } from 'lib/utils/style/theme';
 import MessageBox from 'components/MessageBox';
 import { initialQuestions } from 'data/InitialQuestions';
 import { AIResponse } from 'types/aiResponse';
-import {
-  CreateParams,
-  Plan_Chatting,
-  Plan_Create,
-  Plan_Result
-} from 'lib/apis/Plan';
+import { Plan_Chatting, Plan_Create, Plan_Result } from 'lib/apis/Plan';
 import { formatSelectedDate } from 'lib/utils/formatSelectedDate';
 import { useRecoilValue } from 'recoil';
 import { selectedDaysState } from 'atoms/plan';
 import PlanResult from 'components/PlanResult';
-import { getPlan } from 'types/getPlan';
+
+const PLAN_IMAGE =
+  'https://harp-back.hash-squad.kro.kr/common/CommonPlanImg.png';
 
 const Chat = () => {
   const id = useParams().id;
@@ -39,68 +36,59 @@ const Chat = () => {
     title: '',
     type: ''
   });
-  const [planResult, setPlanResult] = useState<getPlan | null>(null);
+  const [planId, setPlanId] = useState('');
   const [isEnded, setIsEnded] = useState(false);
   const { start, end } = useRecoilValue(selectedDaysState);
+
+  const handleResponseSuccess = (response: any) => {
+    if (response.data.Contents.category === undefined) {
+      CreateMutation({
+        planName: planInfo.title,
+        mainImg: PLAN_IMAGE,
+        startDate: formatSelectedDate(start, '/'),
+        endDate: formatSelectedDate(end, '/'),
+        data: response.data.Contents
+      });
+    } else {
+      addChatToHistory(response.data.role, response.data.Contents);
+      incrementStep();
+    }
+    setPendingMessage(null);
+    setIsWaitingForReply(false);
+  };
+
+  const handleChatMutationError = (error: unknown) => {
+    console.error('질문 받는 중 에러 발생: ', error);
+    setPendingMessage(null);
+    setIsWaitingForReply(false);
+  };
 
   const { mutate: ChattingMutation } = useMutation(
     (userMessage: string) =>
       Plan_Chatting({
-        id: id,
+        id,
         subject: planInfo.type.includes('숙박') ? 'travel' : 'date',
         previousConversation: userMessage
       }),
+
     {
-      onMutate: async () => {
-        setIsWaitingForReply(true);
-      },
-      onSuccess: (response) => {
-        if (response.data.Contents.category === undefined) {
-          CreateMutation({
-            planName: planInfo.title,
-            mainImg:
-              'https://harp-back.hash-squad.kro.kr/common/CommonPlanImg.png',
-            startDate: formatSelectedDate(start, '/'),
-            endDate: formatSelectedDate(end, '/'),
-            data: response.data.Contents
-          });
-        } else {
-          setChatHistory((prevChat) => [
-            ...prevChat,
-            {
-              role: response.data.role,
-              Contents: response.data.Contents
-            }
-          ]);
-          setStep(step + 1);
-        }
-        setPendingMessage(null);
-        setIsWaitingForReply(false);
-      },
-      onError: (error: unknown) => {
-        console.error('질문 받는 중 에러 발생: ', error);
-        setPendingMessage(null);
-        setIsWaitingForReply(false);
-      }
+      onMutate: () => setIsWaitingForReply(true),
+      onSuccess: handleResponseSuccess,
+      onError: handleChatMutationError
     }
   );
 
-  const { mutate: CreateMutation } = useMutation(
-    (params: CreateParams) => Plan_Create(params),
-    {
-      onSuccess: (response) => {
-        PlanResultMutation(response.data.planId);
-      },
-      onError: (error) => {
-        console.error('Plan_Create 요청 중 에러 발생: ', error);
-      }
-    }
-  );
+  const { mutate: CreateMutation } = useMutation(Plan_Create, {
+    onSuccess: (response) => setPlanId(response.data.planId),
+    onError: (error) => console.error('Plan_Create 요청 중 에러 발생: ', error)
+  });
 
-  const { mutate: PlanResultMutation } = useMutation(
-    (planId: string) => Plan_Result({ id: planId }),
+  const { data: planResultData } = useQuery(
+    ['planResult', planId],
+    () => Plan_Result({ id: planId || '' }),
     {
-      onSuccess: (result: any) => {
+      enabled: !!planId,
+      onSuccess: (result) => {
         setChatHistory((prevChat) => [
           ...prevChat,
           {
@@ -113,7 +101,6 @@ const Chat = () => {
             }
           }
         ]);
-        setPlanResult(result.data.PlanData);
         setIsEnded(true);
       },
       onError: (error) => {
@@ -122,26 +109,34 @@ const Chat = () => {
     }
   );
 
-  const nextStep = (userMessage: string) => {
-    if (step === 0) {
-      setPlanInfo({ ...planInfo, title: userMessage });
-      setChatHistory((prevChat) => [
-        ...prevChat,
-        {
-          role: 'assistant',
-          Contents: {
-            subject: 'none',
-            category: 'subject',
-            question: '숙박 여행인가요, 당일치기 여행인가요?',
-            select: ['숙박', '당일치기']
-          }
-        }
-      ]);
-      setStep(step + 1);
-    } else {
-      ChattingMutation(step === 1 ? '일정 짜줘' : message);
-    }
-  };
+  const addChatToHistory = useCallback((role: string, Contents: any) => {
+    setChatHistory((prevChat) => [...prevChat, { role, Contents }]);
+  }, []);
+
+  const incrementStep = () => setStep((prevStep) => prevStep + 1);
+
+  const nextStep = useCallback(
+    (userMessage: string) => {
+      if (step === 0) {
+        setPlanInfo({ ...planInfo, title: userMessage });
+        addChatToHistory('assistant', {
+          subject: 'none',
+          category: 'subject',
+          question: '숙박 여행인가요, 당일치기 여행인가요?',
+          select: ['숙박', '당일치기']
+        });
+        incrementStep();
+      } else if (step === 1) {
+        setPlanInfo({ ...planInfo, type: userMessage });
+        setTimeout(() => {
+          ChattingMutation('일정 짜줘');
+        }, 100);
+      } else {
+        ChattingMutation(userMessage);
+      }
+    },
+    [step, planInfo, message, ChattingMutation]
+  );
 
   const handleSendMessage = useCallback(() => {
     if (message.trim() && !isWaitingForReply) {
@@ -175,7 +170,7 @@ const Chat = () => {
       handleSendMessage();
       setSendImmediately(false);
     }
-  }, [message, sendImmediately]);
+  }, [message, sendImmediately, handleSendMessage]);
 
   const resizeHeight = (e: React.ChangeEvent<HTMLTextAreaElement>) => {
     const textarea = textareaRef.current;
@@ -213,12 +208,12 @@ const Chat = () => {
           {isWaitingForReply && (
             <MessageBox message="" role="assistant" isLoading={true} />
           )}
-          {planResult && (
+          {planResultData && (
             <PlanResult
-              id={planResult.planId}
-              title={planResult.planName}
-              img={planResult.mainImg}
-              startDate={planResult.startDate}
+              id={planResultData.data.PlanData.planId}
+              title={planResultData.data.PlanData.planName}
+              img={planResultData.data.PlanData.mainImg}
+              startDate={planResultData.data.PlanData.startDate}
               member="2"
             />
           )}
@@ -256,7 +251,7 @@ const Chat = () => {
                   handleSendMessage();
                 }
               }}
-              disabled={isWaitingForReply || isEnded}
+              disabled={isWaitingForReply || isEnded || step === 1}
             />
             <_.Chat_SendIcon onClick={handleSendMessage}>
               <Send stroke={message ? theme.primary[7] : theme.gray[2]} />

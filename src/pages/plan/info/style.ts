@@ -1,7 +1,7 @@
 import { theme } from 'lib/utils/style/theme';
 import styled from 'styled-components';
 
-export const Info_Layout = styled.div<{ StatusBarSize?: string }>`
+export const Info_Layout = styled.div`
   display: flex;
   width: 100vw;
   height: 100vh;
