@@ -54,7 +54,6 @@ const Home = () => {
         data: { PlanData: RecommendedPlanResult[] };
       }) => {
         setRecommendedPlans(response.data.PlanData);
-        console.log(response.data.PlanData);
       }
     }
   );
@@ -116,9 +115,9 @@ const Home = () => {
       <_.Home_Plan_Title>다가오는 일정이 있어요! ✈️</_.Home_Plan_Title>
       <_.Home_Plan_Contents>
         {UserPlansLoading ? (
-          <p>불러오는 중...</p>
-        ) : (
-          userPlans?.map((plan) => (
+          <_.Home_ErrorOrNothing>불러오는 중...</_.Home_ErrorOrNothing>
+        ) : userPlans && userPlans.length > 0 ? (
+          userPlans.map((plan) => (
             <_.Home_Plan_Content key={plan.planId}>
               <_.Home_Plan_Content_Title>
                 {plan.planName}
@@ -130,6 +129,10 @@ const Home = () => {
               </_.Home_Plan_Content_Date_Content>
             </_.Home_Plan_Content>
           ))
+        ) : (
+          <_.Home_ErrorOrNothing>
+            현재 등록된 일정이 없습니다.
+          </_.Home_ErrorOrNothing>
         )}
       </_.Home_Plan_Contents>
 
@@ -138,9 +141,9 @@ const Home = () => {
       </_.Home_RecommendPlan_Title>
       <_.Home_RecommendPlan_Contents>
         {RecommendedPlansLoading ? (
-          <p>불러오는 중...</p>
-        ) : (
-          recommendedPlans?.map((plan) => (
+          <_.Home_ErrorOrNothing>불러오는 중...</_.Home_ErrorOrNothing>
+        ) : recommendedPlans && recommendedPlans.length > 0 ? (
+          recommendedPlans.map((plan) => (
             <_.Home_RecommendPlan_Content
               key={plan.RecommendedPlanId}
               imgUrl={plan.mainImg}
@@ -150,6 +153,10 @@ const Home = () => {
               </_.Home_RecommendPlan_Content_Title>
             </_.Home_RecommendPlan_Content>
           ))
+        ) : (
+          <_.Home_ErrorOrNothing>
+            현재 등록된 추천 일정이 없습니다.
+          </_.Home_ErrorOrNothing>
         )}
       </_.Home_RecommendPlan_Contents>
 
