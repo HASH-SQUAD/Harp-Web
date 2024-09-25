@@ -6,7 +6,6 @@ import { useQuery } from 'react-query';
 // 파일
 import * as _ from './style';
 import Header from 'components/Header';
-import PlanInfo from 'assets/image/PlanInfo.png';
 import Camera from 'assets/Icon/Camera';
 import calculateDDay from 'lib/utils/D-Day';
 import { handleImageEdit } from 'lib/utils/handleImageEdit';
@@ -128,7 +127,8 @@ const Info = () => {
                     if (!Array.isArray(day)) {
                       return null;
                     }
-                    const lineHeight = 75 + 115 * (day.length - 1);
+                    console.log(day);
+                    const lineHeight = 80 + 108 * (day.length - 1);
                     return (
                       <_.Info_Date key={index}>
                         <_.Info_Line height={lineHeight} />
