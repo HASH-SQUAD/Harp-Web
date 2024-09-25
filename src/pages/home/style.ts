@@ -43,18 +43,21 @@ export const Home_Calendar_Content_Day = styled.div<{ State?: boolean }>`
 `;
 
 export const Home_Calendar_Content_Date = styled.div`
+  position: relative;
   color: ${theme.gray.black};
   font-weight: 400;
   font-size: 20px;
   width: 100%;
   height: 100%;
   display: flex;
-  justify-content: right;
+  justify-content: center;
   align-items: center;
-  gap: 2px;
 `;
 
 export const Home_Calendar_Content_Point = styled.div`
+  position: absolute;
+  right: -2px;
+  top: 2px;
   width: 5px;
   height: 5px;
   background-color: #ff3f9b;

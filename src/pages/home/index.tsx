@@ -13,6 +13,7 @@ import Robot from 'assets/image/Robot.png';
 import { PlanResult } from 'types/plan';
 import { useQuery } from 'react-query';
 import { Plan_List } from 'lib/apis/Plan';
+import { useNavigate } from 'react-router-dom';
 
 interface DateData {
   id: number;
@@ -22,6 +23,7 @@ interface DateData {
 }
 
 const Home = () => {
+  const navigate = useNavigate();
   const [date, setData] = useState<DateData[]>([]);
   const [plans, setPlans] = useState<PlanResult[] | null>(null);
 
@@ -81,7 +83,11 @@ const Home = () => {
         <Search />
         <_.Home_SearchBar_Input placeholder="목적지를 입력해보세요." />
       </_.Home_SearchBar>
-      <_.Home_Navigate_Chatting>
+      <_.Home_Navigate_Chatting
+        onClick={() => {
+          navigate('/plan/selectdate');
+        }}
+      >
         <_.Home_Navigate_Ul>
           <_.Home_Navigate_List>AI로 계획</_.Home_Navigate_List>
           <_.Home_Navigate_List>
