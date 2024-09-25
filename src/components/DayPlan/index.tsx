@@ -10,7 +10,7 @@ interface DayPlanProps {
   dayIndex: number;
 }
 
-const DayPlan: React.FC<DayPlanProps> = ({ isUpdated, day, dayIndex }) => {
+const DayPlan = ({ isUpdated, day, dayIndex }: DayPlanProps) => {
   const rightRefs = useRef<(HTMLDivElement | null)[]>([]);
   const [heights, setHeights] = useState<number[]>([]);
 
