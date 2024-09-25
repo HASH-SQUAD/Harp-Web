@@ -32,6 +32,7 @@ const WriteIcon = () => {
         strokeLinecap="round"
         strokeLinejoin="round"
       />
+      
     </svg>
   );
 };
