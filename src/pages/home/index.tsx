@@ -30,8 +30,14 @@ const Home = () => {
     Plan_List,
     {
       onSuccess: (response) => {
-        setPlans(response.data.PlanData);
-        console.log(response.data);
+        const sortedPlans = response.data.PlanData?.sort(
+          (a: { startDate: string }, b: { startDate: string }) => {
+            return (
+              new Date(a.startDate).getTime() - new Date(b.startDate).getTime()
+            );
+          }
+        );
+        setPlans(sortedPlans);
       }
     }
   );
