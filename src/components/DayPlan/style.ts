@@ -30,6 +30,7 @@ export const DayPlan_Content = styled.div`
   display: flex;
   padding: 20px 0 0 10px;
   justify-content: space-between;
+  align-items: flex-start;
 `;
 
 export const DayPlan_Left = styled.div`
@@ -38,6 +39,7 @@ export const DayPlan_Left = styled.div`
   align-self: flex-start;
   align-items: center;
   justify-content: space-between;
+  align-items: flex-start;
 `;
 
 export const DayPlan_TimeLabel = styled.p`
@@ -65,6 +67,7 @@ export const DayPlan_Right = styled.div`
   display: flex;
   flex-direction: column;
   width: 68%;
+  height: 74.5px;
   padding: 13px 16px;
   margin-top: 12px;
   border-radius: 15px;
@@ -76,12 +79,18 @@ export const DayPlan_Activity = styled.p`
   color: ${theme.gray.black};
   font-size: 16px;
   font-weight: 500;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
 `;
 
-export const DayPlan_StoreName = styled.p`
+export const DayPlan_Location = styled.p`
   color: ${theme.gray[3]};
   font-size: 15px;
   font-weight: 400;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
 `;
 
 export const DayPlan_Delete = styled.div`

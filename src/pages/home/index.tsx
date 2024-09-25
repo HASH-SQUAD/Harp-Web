@@ -4,13 +4,15 @@ import React, { useState, useEffect } from 'react';
 // 파일
 import * as _ from './style';
 import Search from 'assets/image/Search';
-import ComingPlan from 'data/ComingPlan';
-import RecommendPlan from 'data/RecommendPlan';
 import MenuBar from 'components/MenuBar';
 import calculateDDay from 'lib/utils/D-Day';
 import RightArrow from 'assets/Icon/RightArrow';
 import { theme } from 'lib/utils/style/theme';
 import Robot from 'assets/image/Robot.png';
+import { PlanResult, RecommendedPlanResult } from 'types/plan';
+import { useQuery } from 'react-query';
+import { Plan_RecommendedPlanList, Plan_UserPlanList } from 'lib/apis/Plan';
+import { useNavigate } from 'react-router-dom';
 
 interface DateData {
   id: number;
@@ -20,7 +22,41 @@ interface DateData {
 }
 
 const Home = () => {
+  const navigate = useNavigate();
   const [date, setData] = useState<DateData[]>([]);
+  const [userPlans, setUserPlans] = useState<PlanResult[] | null>(null);
+  const [recommendedPlans, setRecommendedPlans] = useState<
+    RecommendedPlanResult[] | null
+  >(null);
+
+  const { isLoading: UserPlansLoading } = useQuery(
+    ['userPlans'],
+    Plan_UserPlanList,
+    {
+      onSuccess: (response: { data: { PlanData: PlanResult[] } }) => {
+        const sortedPlans = response.data.PlanData?.sort(
+          (a: { startDate: string }, b: { startDate: string }) => {
+            return (
+              new Date(a.startDate).getTime() - new Date(b.startDate).getTime()
+            );
+          }
+        );
+        setUserPlans(sortedPlans);
+      }
+    }
+  );
+
+  const { isLoading: RecommendedPlansLoading } = useQuery(
+    ['recommendedPlans'],
+    Plan_RecommendedPlanList,
+    {
+      onSuccess: (response: {
+        data: { PlanData: RecommendedPlanResult[] };
+      }) => {
+        setRecommendedPlans(response.data.PlanData);
+      }
+    }
+  );
 
   useEffect(() => {
     const today = new Date();
@@ -61,7 +97,11 @@ const Home = () => {
         <Search />
         <_.Home_SearchBar_Input placeholder="목적지를 입력해보세요." />
       </_.Home_SearchBar>
-      <_.Home_Navigate_Chatting>
+      <_.Home_Navigate_Chatting
+        onClick={() => {
+          navigate('/plan/selectdate');
+        }}
+      >
         <_.Home_Navigate_Ul>
           <_.Home_Navigate_List>AI로 계획</_.Home_Navigate_List>
           <_.Home_Navigate_List>
@@ -74,30 +114,50 @@ const Home = () => {
 
       <_.Home_Plan_Title>다가오는 일정이 있어요! ✈️</_.Home_Plan_Title>
       <_.Home_Plan_Contents>
-        {ComingPlan.map((item) => (
-          <_.Home_Plan_Content key={item.id}>
-            <_.Home_Plan_Content_Title>{item.title}</_.Home_Plan_Content_Title>
-            <_.Home_Plan_Content_Date_Content>
-              <_.Home_Plan_Content_Icon>👶🏻</_.Home_Plan_Content_Icon>
-              <_.Home_Plan_Content_Date>
-                {calculateDDay(item.date)}
-              </_.Home_Plan_Content_Date>
-            </_.Home_Plan_Content_Date_Content>
-          </_.Home_Plan_Content>
-        ))}
+        {UserPlansLoading ? (
+          <_.Home_ErrorOrNothing>불러오는 중...</_.Home_ErrorOrNothing>
+        ) : userPlans && userPlans.length > 0 ? (
+          userPlans.map((plan) => (
+            <_.Home_Plan_Content key={plan.planId}>
+              <_.Home_Plan_Content_Title>
+                {plan.planName}
+              </_.Home_Plan_Content_Title>
+              <_.Home_Plan_Content_Date_Content>
+                <_.Home_Plan_Content_Date>
+                  {calculateDDay(plan.startDate)}
+                </_.Home_Plan_Content_Date>
+              </_.Home_Plan_Content_Date_Content>
+            </_.Home_Plan_Content>
+          ))
+        ) : (
+          <_.Home_ErrorOrNothing>
+            현재 등록된 일정이 없습니다.
+          </_.Home_ErrorOrNothing>
+        )}
       </_.Home_Plan_Contents>
 
       <_.Home_RecommendPlan_Title>
         이번 여행 여기 어때요? 😉
       </_.Home_RecommendPlan_Title>
       <_.Home_RecommendPlan_Contents>
-        {RecommendPlan.map((item) => (
-          <_.Home_RecommendPlan_Content key={item.id} imgUrl={item.img}>
-            <_.Home_RecommendPlan_Content_Title>
-              {item.title}
-            </_.Home_RecommendPlan_Content_Title>
-          </_.Home_RecommendPlan_Content>
-        ))}
+        {RecommendedPlansLoading ? (
+          <_.Home_ErrorOrNothing>불러오는 중...</_.Home_ErrorOrNothing>
+        ) : recommendedPlans && recommendedPlans.length > 0 ? (
+          recommendedPlans.map((plan) => (
+            <_.Home_RecommendPlan_Content
+              key={plan.RecommendedPlanId}
+              imgUrl={plan.mainImg}
+            >
+              <_.Home_RecommendPlan_Content_Title>
+                {plan.title}
+              </_.Home_RecommendPlan_Content_Title>
+            </_.Home_RecommendPlan_Content>
+          ))
+        ) : (
+          <_.Home_ErrorOrNothing>
+            현재 등록된 추천 일정이 없습니다.
+          </_.Home_ErrorOrNothing>
+        )}
       </_.Home_RecommendPlan_Contents>
 
       <MenuBar selectState={1} />

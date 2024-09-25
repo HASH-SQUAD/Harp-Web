@@ -18,5 +18,5 @@ export const formatSelectedDate = (
   const month = String(parsedDate.getMonth() + 1).padStart(2, '0');
   const day = String(parsedDate.getDate()).padStart(2, '0');
 
-  return `${year}${slice}${month}${slice}${day}`;
+  return `${year}${slice}${month}${slice}${day}${slice === '.' ? '.' : ''}`;
 };
