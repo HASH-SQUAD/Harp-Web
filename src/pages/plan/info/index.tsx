@@ -43,8 +43,6 @@ const Info = () => {
     }
   );
 
-  console.log(planInfos);
-
   useEffect(() => {
     if (isSuccess) {
       const timer = setTimeout(() => {
@@ -99,7 +97,7 @@ const Info = () => {
         <p>Loading...</p>
       ) : (
         <_.Info_Layout>
-          <_.Info_Header BackgroundImage={planInfos?.mainImg ?? ''}>
+          <_.Info_Header $BackgroundImage={planInfos?.mainImg ?? ''}>
             <_.Info_Title>{planInfos?.planName}</_.Info_Title>
             <_.Info_DDay>{calculateDDay(startDate ?? undefined)}</_.Info_DDay>
             <_.Info_Camera onClick={handleImageSelection}>

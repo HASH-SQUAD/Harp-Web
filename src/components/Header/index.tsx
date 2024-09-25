@@ -48,7 +48,7 @@ const Header = ({
   };
 
   return (
-    <_.Header_Container isOnChatting={isOnChatting}>
+    <_.Header_Container $isOnChatting={isOnChatting}>
       <_.Header_BackIcon onClick={handleBackIcon}>
         <BackIcon />
       </_.Header_BackIcon>
@@ -62,7 +62,7 @@ const Header = ({
       {buttonState && (
         <_.Header_Button
           onClick={onClickMethod}
-          ButtonColor={
+          $ButtonColor={
             buttonColor === 'purple' ? theme.primary[7] : theme.sub.red
           }
         >

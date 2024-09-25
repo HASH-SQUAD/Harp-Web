@@ -8,10 +8,10 @@ export const Info_Layout = styled.div`
   flex-direction: column;
 `;
 
-export const Info_Header = styled.div<{ BackgroundImage: string }>`
+export const Info_Header = styled.div<{ $BackgroundImage: string }>`
   background:
     linear-gradient(0deg, rgba(0, 0, 0, 0.4) 0%, rgba(0, 0, 0, 0.4) 100%),
-    url(${(props) => props.BackgroundImage}) lightgray 50% / cover no-repeat;
+    url(${(props) => props.$BackgroundImage}) lightgray 50% / cover no-repeat;
   width: 100%;
   height: 200px;
   padding: 20px;
