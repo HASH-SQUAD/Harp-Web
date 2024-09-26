@@ -131,8 +131,8 @@ const Info = () => {
                           isUpdated={isUpdated}
                           key={index}
                           day={day}
-                          dayIndex={index + 1}
-                          date={planInfos?.startDate ?? ''}
+                          dayIndex={index}
+                          planInfos={planInfos!}
                         />
                       </_.Info_Date>
                     );
