@@ -1,38 +1,50 @@
 // 라이브러리
 import React, { useState, useEffect } from 'react';
 import { useLocation, useParams } from 'react-router-dom';
+import { useMutation } from 'react-query';
 
 // 파일
 import * as _ from './style';
 import Header from 'components/Header';
 import Location from 'assets/image/Location';
 import MiniMap from 'components/Maps/MiniMap';
-import { useMutation } from 'react-query';
 import { Plan_Update } from 'lib/apis/Plan';
+import { formatTime } from 'lib/utils/formatTime';
 
 const Memo = () => {
-  const { id, day, time } = useParams();
+  const { id, dayIndex, timeIndex } = useParams();
   const location = useLocation();
-  const { planInfos } = location.state;
+  const { planInfos, date } = location.state;
+  const [contents, setContents] = useState({
+    time: '',
+    activity: '',
+    location: ''
+  });
   const [memo, setMemo] = useState('');
 
   useEffect(() => {
-    const initialMemo = planInfos?.data[`day${parseInt(day!) + 1}`]?.find(
-      (_: any, index: number) => index === parseInt(time!)
-    )?.memo;
+    const data = planInfos?.data[`day${parseInt(dayIndex!) + 1}`]?.find(
+      (_: any, index: number) => index === parseInt(timeIndex!)
+    );
+    console.log(data);
 
-    if (initialMemo) {
-      setMemo(initialMemo);
+    if (data) {
+      setMemo(data.memo);
+      setContents({
+        time: formatTime(data.time),
+        activity: data.activity,
+        location: data.location
+      });
     }
-  }, [day, time, planInfos]);
+  }, [dayIndex, timeIndex, planInfos]);
 
   const updateMemoContent = (e: React.ChangeEvent<HTMLTextAreaElement>) => {
     setMemo(e.currentTarget.value);
   };
 
-  const selectedPlan = planInfos?.data[`day${parseInt(day!) + 1}`]?.map(
+  const selectedPlan = planInfos?.data[`day${parseInt(dayIndex!) + 1}`]?.map(
     (plan: any, index: number) => {
-      if (index === parseInt(time!)) {
+      if (index === parseInt(timeIndex!)) {
         return { ...plan, memo: memo };
       }
       return plan;
@@ -47,7 +59,7 @@ const Memo = () => {
           ...planInfos,
           data: {
             ...planInfos.data,
-            [`day${parseInt(day!) + 1}`]: selectedPlan
+            [`day${parseInt(dayIndex!) + 1}`]: selectedPlan
           }
         }
       }),
@@ -71,15 +83,17 @@ const Memo = () => {
       />
       <_.Memo_Container>
         <_.Memo_TitleBar>
-          <_.Memo_DateAndTime>2023.11.29 오전 11:00</_.Memo_DateAndTime>
-          <_.Memo_PlanTitle>쇼핑하기 🛍️</_.Memo_PlanTitle>
+          <_.Memo_DateAndTime>
+            {date} {contents.time}
+          </_.Memo_DateAndTime>
+          <_.Memo_PlanTitle>{contents.activity}</_.Memo_PlanTitle>
           <_.Memo_Location>
             <Location />
-            <_.Memo_Address>부산광역시 기장군 기장해안로 147</_.Memo_Address>
+            <_.Memo_Address>{contents.location}</_.Memo_Address>
           </_.Memo_Location>
         </_.Memo_TitleBar>
         <_.Memo_Content>
-          <MiniMap keyword="부산광역시 기장군 기장해안로 147" />
+          <MiniMap keyword={contents.location} />
           <_.Memo_Memo
             onChange={updateMemoContent}
             value={memo || ''}

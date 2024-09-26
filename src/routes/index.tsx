@@ -60,7 +60,7 @@ export default function Router() {
         { path: 'map/:id', element: <Map /> },
         { path: 'info/:id', element: <Info /> },
         { path: 'info/:id/crop', element: <InfoCrop /> },
-        { path: 'info/:id/day/:day/time/:time', element: <Memo /> },
+        { path: 'info/:id/day/:dayIndex/time/:timeIndex', element: <Memo /> },
         { path: 'info/:id/day/:planId/update', element: <Update /> },
         { path: 'info/:id/day/:planId/addsearch', element: <AddSearch /> },
         { path: 'info/:id/day/:planId/addDetail', element: <AddDetail /> }

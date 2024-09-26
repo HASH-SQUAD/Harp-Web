@@ -27,11 +27,14 @@ const DayPlan = ({ isUpdated, day, dayIndex, planInfos }: DayPlanProps) => {
     return formatSelectedDate(start, '.').slice(2);
   };
 
-  const handleUpdatePlan = (time: number) => {
-    navigate(`/plan/info/${id!}/day/${dayIndex}/time/${time}`, {
-      state: { planInfos: planInfos }
+  const date = calculateDate(planInfos?.startDate, dayIndex);
+
+  const handleUpdatePlan = (timeIndex: number) => {
+    navigate(`/plan/info/${id!}/day/${dayIndex}/time/${timeIndex}`, {
+      state: { planInfos: planInfos, date: date }
     });
   };
+  console.log(date);
 
   useEffect(() => {
     const newHeights = rightRefs.current.map((ref) =>
@@ -44,9 +47,7 @@ const DayPlan = ({ isUpdated, day, dayIndex, planInfos }: DayPlanProps) => {
     <_.DayPlan_Layout>
       <_.DayPlan_Times>
         <_.DayPlan_WhatDay>{dayIndex + 1}일차</_.DayPlan_WhatDay>
-        <_.DayPlan_Date>
-          {calculateDate(planInfos?.startDate, dayIndex)}
-        </_.DayPlan_Date>
+        <_.DayPlan_Date>{date}</_.DayPlan_Date>
       </_.DayPlan_Times>
       {day.map((plan, index) => {
         return (
