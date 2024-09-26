@@ -20,7 +20,7 @@ const DayPlan = ({ isUpdated, day, dayIndex, date }: DayPlanProps) => {
     if (!startDate) return '';
     const start = new Date(startDate);
     start.setDate(start.getDate() + dayIndex - 1);
-    return formatSelectedDate(start, '.').slice(2, );
+    return formatSelectedDate(start, '.').slice(2);
   };
 
   useEffect(() => {
@@ -36,27 +36,29 @@ const DayPlan = ({ isUpdated, day, dayIndex, date }: DayPlanProps) => {
         <_.DayPlan_WhatDay>{dayIndex}일차</_.DayPlan_WhatDay>
         <_.DayPlan_Date>{calculateDate(date, dayIndex)}</_.DayPlan_Date>
       </_.DayPlan_Times>
-      {day.map((plan, index) => (
-        <_.DayPlan_Content key={index}>
-          <_.DayPlan_Left>
-            <_.DayPlan_TimeLabel>{formatTime(plan.time)}</_.DayPlan_TimeLabel>
-            <_.DayPlan_Step
-              style={{ marginTop: `${heights[index] / 6 - 10}px` }}
-            >
-              {index + 1}
-            </_.DayPlan_Step>
-          </_.DayPlan_Left>
-          <_.DayPlan_Right ref={(el) => (rightRefs.current[index] = el)}>
-            <_.DayPlan_Activity>{plan.activity}</_.DayPlan_Activity>
-            <_.DayPlan_Location>{plan.location}</_.DayPlan_Location>
-            {isUpdated && (
-              <_.DayPlan_Delete>
-                <Minus />
-              </_.DayPlan_Delete>
-            )}
-          </_.DayPlan_Right>
-        </_.DayPlan_Content>
-      ))}
+      {day.map((plan, index) => {
+        return (
+          <_.DayPlan_Content key={index}>
+            <_.DayPlan_Left>
+              <_.DayPlan_TimeLabel>{formatTime(plan.time)}</_.DayPlan_TimeLabel>
+              <_.DayPlan_Step
+                style={{ marginTop: `${heights[index] / 6 - 10}px` }}
+              >
+                {index + 1}
+              </_.DayPlan_Step>
+            </_.DayPlan_Left>
+            <_.DayPlan_Right ref={(el) => (rightRefs.current[index] = el)}>
+              <_.DayPlan_Activity>{plan.activity}</_.DayPlan_Activity>
+              <_.DayPlan_Location>{plan.location}</_.DayPlan_Location>
+              {isUpdated && (
+                <_.DayPlan_Delete>
+                  <Minus />
+                </_.DayPlan_Delete>
+              )}
+            </_.DayPlan_Right>
+          </_.DayPlan_Content>
+        );
+      })}
     </_.DayPlan_Layout>
   );
 };

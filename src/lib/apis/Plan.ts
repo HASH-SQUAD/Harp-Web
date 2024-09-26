@@ -49,3 +49,8 @@ export const Plan_RecommendedPlanList = async () => {
   const { data } = await AuthInstance.get(`/plan/getrecommend`);
   return data;
 };
+
+export const Plan_Delete = async (id: string) => {
+  const { data } = await AuthInstance.delete(`/plan/deleteplan/${id}`);
+  return data;
+};

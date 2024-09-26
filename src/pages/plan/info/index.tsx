@@ -21,7 +21,6 @@ import { formatSelectedDate } from 'lib/utils/formatSelectedDate';
 const Info = () => {
   const id = useParams().id;
   const navigate = useNavigate();
-  const location = useLocation();
   const [planInfos, setPlanInfos] = useState<PlanResult | null>(null);
   const [isModal, setIsModal] = useState(false);
   const [isUpdated, setIsUpdated] = useState(false);
@@ -89,7 +88,6 @@ const Info = () => {
   const travelPeriod = formatTravelPeriod(startDate ?? '', endDate ?? '');
 
   const duration = `${formattedStartDate}~${formattedEndDate} (${travelPeriod})`;
-  console.log(planInfos);
   return (
     <>
       <Header title="일정" buttonState="닫기" />
