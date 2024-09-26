@@ -14,6 +14,7 @@ interface HeaderProps {
   title?: string;
   buttonState?: string;
   isOnChatting?: boolean;
+  onTapBackIcon?: () => void;
   onClickMethod?: () => void;
   buttonColor?: string;
 }
@@ -22,6 +23,7 @@ const Header = ({
   title = '',
   buttonState = ' ',
   isOnChatting = false,
+  onTapBackIcon = () => {},
   onClickMethod = () => {},
   buttonColor = ''
 }: HeaderProps) => {
@@ -45,6 +47,7 @@ const Header = ({
     } else {
       navigate(-1);
     }
+    onTapBackIcon();
   };
 
   return (

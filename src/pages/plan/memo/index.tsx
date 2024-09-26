@@ -59,7 +59,7 @@ const Memo = () => {
   );
 
   const handleUpdateMemo = async () => {
-    await updateMemo(); // 메모 업데이트 요청
+    await updateMemo();
   };
 
   return (
@@ -67,7 +67,7 @@ const Memo = () => {
       <Header
         buttonState="수정"
         buttonColor="purple"
-        onClickMethod={handleUpdateMemo}
+        onTapBackIcon={handleUpdateMemo}
       />
       <_.Memo_Container>
         <_.Memo_TitleBar>
@@ -82,7 +82,7 @@ const Memo = () => {
           <MiniMap keyword="부산광역시 기장군 기장해안로 147" />
           <_.Memo_Memo
             onChange={updateMemoContent}
-            value={memo || ''} // 방금 추가된 메모가 반영된 상태를 value로 설정
+            value={memo || ''}
             placeholder="메모를 입력하세요..."
           />
         </_.Memo_Content>
