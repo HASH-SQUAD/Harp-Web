@@ -89,7 +89,7 @@ const Info = () => {
   const travelPeriod = formatTravelPeriod(startDate ?? '', endDate ?? '');
 
   const duration = `${formattedStartDate}~${formattedEndDate} (${travelPeriod})`;
-
+  console.log(planInfos);
   return (
     <>
       <Header title="일정" buttonState="닫기" />
@@ -134,6 +134,7 @@ const Info = () => {
                           key={index}
                           day={day}
                           dayIndex={index + 1}
+                          date={planInfos?.startDate ?? ''}
                         />
                       </_.Info_Date>
                     );

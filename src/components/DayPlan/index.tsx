@@ -3,16 +3,25 @@ import Minus from 'assets/Icon/Minus';
 import { schedule } from 'types/schedule';
 import { formatTime } from 'lib/utils/formatTime';
 import * as _ from './style';
+import { formatSelectedDate } from 'lib/utils/formatSelectedDate';
 
 interface DayPlanProps {
   isUpdated?: boolean;
   day: schedule[];
   dayIndex: number;
+  date?: string;
 }
 
-const DayPlan = ({ isUpdated, day, dayIndex }: DayPlanProps) => {
+const DayPlan = ({ isUpdated, day, dayIndex, date }: DayPlanProps) => {
   const rightRefs = useRef<(HTMLDivElement | null)[]>([]);
   const [heights, setHeights] = useState<number[]>([]);
+
+  const calculateDate = (startDate: string | undefined, dayIndex: number) => {
+    if (!startDate) return '';
+    const start = new Date(startDate);
+    start.setDate(start.getDate() + dayIndex - 1);
+    return formatSelectedDate(start, '.').slice(2, );
+  };
 
   useEffect(() => {
     const newHeights = rightRefs.current.map((ref) =>
@@ -25,7 +34,7 @@ const DayPlan = ({ isUpdated, day, dayIndex }: DayPlanProps) => {
     <_.DayPlan_Layout>
       <_.DayPlan_Times>
         <_.DayPlan_WhatDay>{dayIndex}일차</_.DayPlan_WhatDay>
-        <_.DayPlan_Date>23.11.29.</_.DayPlan_Date>
+        <_.DayPlan_Date>{calculateDate(date, dayIndex)}</_.DayPlan_Date>
       </_.DayPlan_Times>
       {day.map((plan, index) => (
         <_.DayPlan_Content key={index}>
