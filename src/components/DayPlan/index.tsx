@@ -34,8 +34,6 @@ const DayPlan = ({ isUpdated, day, dayIndex, planInfos }: DayPlanProps) => {
       state: { planInfos: planInfos, date: date }
     });
   };
-  console.log(date);
-
   useEffect(() => {
     const newHeights = rightRefs.current.map((ref) =>
       ref ? ref.offsetHeight : 0
