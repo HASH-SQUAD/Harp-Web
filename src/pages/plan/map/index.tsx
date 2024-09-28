@@ -1,5 +1,5 @@
 // 라이브러리
-import React, { useEffect } from 'react';
+import React from 'react';
 
 // 파일
 import * as _ from './style';

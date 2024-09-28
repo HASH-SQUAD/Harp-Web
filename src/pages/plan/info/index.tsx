@@ -36,13 +36,12 @@ const Info = () => {
         }
       },
       onError: (error) => {
-        console.error('Error fetching plan result: ', error);
+        console.error('일정 정보 불러오기 실패: ', error);
         setIsSuccess(false);
       }
     }
   );
 
-  console.log(planInfos);
   const { mutate: deletePlanItemMutation } = useMutation(
     () =>
       Plan_Update({
@@ -137,7 +136,13 @@ const Info = () => {
               )}
             </_.Info_Nav>
             <_.Info_Schedule>
-              <_.Info_GoToMap>지도로 보기</_.Info_GoToMap>
+              <_.Info_GoToMap
+                onClick={() => {
+                  navigate(`/plan/map/${id}`);
+                }}
+              >
+                지도로 보기
+              </_.Info_GoToMap>
               <_.Info_DetailList>
                 {Object.keys(planInfos?.data || {}).map(
                   (dayKey: string, index: number) => {
