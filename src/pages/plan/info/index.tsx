@@ -86,7 +86,9 @@ const Info = () => {
 
     const start = new Date(startDate);
     const end = new Date(endDate);
-
+    start.setHours(0, 0, 0, 0);
+    end.setHours(0, 0, 0, 0);
+    
     const timeDiff = end.getTime() - start.getTime();
     const dayDiff = timeDiff / (1000 * 3600 * 24);
 

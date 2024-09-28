@@ -56,6 +56,7 @@ const AddDetail = () => {
 
     const updatedPlans: PlanResult = {
       ...planInfos,
+      endDate: plans[plans.length - 1].date,
       data: {
         ...planInfos.data,
         [selectedDay]: [...existingPlans, newPlanItem]
