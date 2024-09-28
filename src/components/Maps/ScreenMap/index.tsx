@@ -21,6 +21,7 @@ const ScreenMap = () => {
   const id = useParams().id;
 
   const [planInfos, setPlanInfos] = useState<PlanResult | null>(null);
+  const [selectedDay, setSelectedDay] = useState<string>('day1');
 
   useQuery(['planResult', id], () => Plan_Result({ id }), {
     onSuccess: (response) => {
@@ -204,7 +205,24 @@ const ScreenMap = () => {
     }
   }, [createMarkers, planInfos]);
 
-  return <_.ScreenMap_Layout id="map" />;
+  return (
+    <_.ScreenMap_Layout id="map">
+      <_.ScreenMap_DaysSelectList>
+        {planInfos &&
+          Object.keys(planInfos.data)
+            .filter((key) => key.startsWith('day'))
+            .map((dayKey, index) => (
+              <_.ScreenMap_DaySelect
+                key={dayKey}
+                isSelected={selectedDay === dayKey}
+                onClick={() => setSelectedDay(dayKey)}
+              >
+                {index + 1}일차
+              </_.ScreenMap_DaySelect>
+            ))}
+      </_.ScreenMap_DaysSelectList>
+    </_.ScreenMap_Layout>
+  );
 };
 
 export default ScreenMap;

@@ -6,6 +6,29 @@ export const ScreenMap_Layout = styled.div`
   height: 100%;
 `;
 
+export const ScreenMap_DaysSelectList = styled.div`
+  width: 100%;
+  padding: 20px 20px 10px;
+  position: absolute;
+  left: 0;
+  top: 0;
+  z-index: 9999;
+  display: flex;
+  gap: 8px;
+  overflow-x: auto;
+  white-space: nowrap;
+`;
+
+export const ScreenMap_DaySelect = styled.div<{ isSelected: boolean }>`
+  padding: 3px 14px;
+  gap: 10px;
+  border-radius: 500px;
+  color: ${(props) => (props.isSelected ? theme.gray.white : theme.gray.black)};
+  background-color: ${(props) =>
+    props.isSelected ? theme.primary[7] : theme.gray.white};
+  box-shadow: 0px 0px 3px 0px #f1f1f1;
+`;
+
 export const ScreenMap_Overlay = styled.div`
   padding: 2px 9px;
   border-radius: 20px;
