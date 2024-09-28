@@ -1,6 +1,6 @@
 // 라이브러리
 import React, { useState, useEffect } from 'react';
-import { useLocation, useParams } from 'react-router-dom';
+import { useLocation, useNavigate, useParams } from 'react-router-dom';
 import { useMutation } from 'react-query';
 
 // 파일
@@ -12,6 +12,7 @@ import { Plan_Update } from 'lib/apis/Plan';
 import { formatTime } from 'lib/utils/formatTime';
 
 const Memo = () => {
+  const navigate = useNavigate();
   const { id, dayIndex, timeIndex } = useParams();
   const location = useLocation();
   const { planInfos, date } = location.state;
@@ -26,7 +27,6 @@ const Memo = () => {
     const data = planInfos?.data[`day${parseInt(dayIndex!) + 1}`]?.find(
       (_: any, index: number) => index === parseInt(timeIndex!)
     );
-    console.log(data);
 
     if (data) {
       setMemo(data.memo);
@@ -51,7 +51,7 @@ const Memo = () => {
     }
   );
 
-  const { mutate: updateMemo } = useMutation(
+  const { mutate: updateMemoMutation } = useMutation(
     () =>
       Plan_Update({
         id: id!,
@@ -71,7 +71,11 @@ const Memo = () => {
   );
 
   const handleUpdateMemo = async () => {
-    await updateMemo();
+    await updateMemoMutation();
+  };
+
+  const directUpdatePage = () => {
+    navigate('update', { state: { planInfos: planInfos } });
   };
 
   return (
@@ -80,6 +84,7 @@ const Memo = () => {
         buttonState="수정"
         buttonColor="purple"
         onTapBackIcon={handleUpdateMemo}
+        onClickMethod={directUpdatePage}
       />
       <_.Memo_Container>
         <_.Memo_TitleBar>

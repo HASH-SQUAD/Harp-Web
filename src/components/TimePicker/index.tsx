@@ -7,9 +7,14 @@ import * as _ from './style';
 interface TimePickerProps {
   list: string[];
   onSelectedChange?: (selected: string) => void;
+  selectedValue?: string;
 }
 
-const TimePicker = ({ list, onSelectedChange }: TimePickerProps) => {
+const TimePicker = ({
+  list,
+  onSelectedChange,
+  selectedValue
+}: TimePickerProps) => {
   const SCROLL_DEBOUNCE_TIME = 100;
 
   const newList = ['', ...list, ''];
@@ -46,6 +51,16 @@ const TimePicker = ({ list, onSelectedChange }: TimePickerProps) => {
       ref.current.scrollTop = selected * ITEM_HEIGHT;
     }
   }, []);
+
+  useEffect(() => {
+    if (selectedValue) {
+      const initialIndex = newList.indexOf(selectedValue);
+      setSelected(initialIndex !== -1 ? initialIndex : 1);
+      if (ref.current) {
+        ref.current.scrollTop = initialIndex * ITEM_HEIGHT;
+      }
+    }
+  }, [selectedValue, newList]);
 
   return (
     <_.TimePicker_Layout ref={ref} onScroll={handleScroll}>

@@ -24,7 +24,7 @@ const Info = () => {
   const [planInfos, setPlanInfos] = useState<PlanResult | null>(null);
   const [isModal, setIsModal] = useState(false);
   const [isUpdated, setIsUpdated] = useState(false);
-  const [isSuccess, setIsSuccess] = useState(true);
+  const [isSuccess, setIsSuccess] = useState(false);
 
   const { isLoading } = useQuery(
     ['planResult', id],
@@ -41,7 +41,7 @@ const Info = () => {
       }
     }
   );
-  const { mutate: deletePlanItem } = useMutation(
+  const { mutate: deletePlanItemMutation } = useMutation(
     () =>
       Plan_Update({
         id: id!,
@@ -52,7 +52,7 @@ const Info = () => {
         setIsUpdated(false);
       },
       onError: (error) => {
-        console.log('일정 아이템 삭제 실패', error);
+        console.error('일정 아이템 삭제 실패', error);
       }
     }
   );
@@ -105,7 +105,11 @@ const Info = () => {
   const duration = `${formattedStartDate}~${formattedEndDate} (${travelPeriod})`;
   return (
     <>
-      <Header title="일정" buttonState="완료" onClickMethod={deletePlanItem} />
+      <Header
+        title="일정"
+        buttonState="완료"
+        onClickMethod={deletePlanItemMutation}
+      />
       {isLoading ? (
         <p>Loading...</p>
       ) : (
