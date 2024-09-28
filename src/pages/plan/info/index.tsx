@@ -1,7 +1,7 @@
 // 라이브러리
 import React, { useState, useEffect } from 'react';
 import { useNavigate, useLocation, useParams } from 'react-router-dom';
-import { useQuery } from 'react-query';
+import { useMutation, useQuery } from 'react-query';
 
 // 파일
 import * as _ from './style';
@@ -14,7 +14,7 @@ import ControlModal from 'components/Modals/ControlModal';
 import DayPlan from 'components/DayPlan';
 import Plus from 'assets/Icon/Plus';
 import AddSucessModal from 'components/Modals/AddSucessModal';
-import { Plan_Result } from 'lib/apis/Plan';
+import { Plan_Result, Plan_Update } from 'lib/apis/Plan';
 import { PlanResult } from 'types/plan';
 import { formatSelectedDate } from 'lib/utils/formatSelectedDate';
 
@@ -38,6 +38,21 @@ const Info = () => {
       onError: (error) => {
         console.error('Error fetching plan result: ', error);
         setIsSuccess(false);
+      }
+    }
+  );
+  const { mutate: deletePlanItem } = useMutation(
+    () =>
+      Plan_Update({
+        id: id!,
+        data: planInfos!
+      }),
+    {
+      onSuccess: () => {
+        setIsUpdated(false);
+      },
+      onError: (error) => {
+        console.log('일정 아이템 삭제 실패', error);
       }
     }
   );
@@ -90,7 +105,7 @@ const Info = () => {
   const duration = `${formattedStartDate}~${formattedEndDate} (${travelPeriod})`;
   return (
     <>
-      <Header title="일정" buttonState="닫기" />
+      <Header title="일정" buttonState="완료" onClickMethod={deletePlanItem} />
       {isLoading ? (
         <p>Loading...</p>
       ) : (
@@ -106,7 +121,12 @@ const Info = () => {
             <_.Info_Nav>
               <_.Info_Duration>{duration}</_.Info_Duration>
               <KebabMenu onClick={() => setIsModal(true)} />
-              {isModal && <ControlModal onClose={handleCloseModal} />}
+              {isModal && (
+                <ControlModal
+                  setIsUpdated={setIsUpdated}
+                  onClose={handleCloseModal}
+                />
+              )}
             </_.Info_Nav>
             <_.Info_Schedule>
               <_.Info_GoToMap>지도로 보기</_.Info_GoToMap>
@@ -133,6 +153,7 @@ const Info = () => {
                           day={day}
                           dayIndex={index}
                           planInfos={planInfos!}
+                          setPlanInfos={setPlanInfos}
                         />
                       </_.Info_Date>
                     );

@@ -12,9 +12,10 @@ import { useMutation } from 'react-query';
 
 interface ControlModalProps {
   onClose: () => void;
+  setIsUpdated: React.Dispatch<React.SetStateAction<boolean>>;
 }
 
-const ControlModal = ({ onClose }: ControlModalProps) => {
+const ControlModal = ({ onClose, setIsUpdated }: ControlModalProps) => {
   const navigate = useNavigate();
   const id = useParams().id;
   const modalRef = useRef<HTMLDivElement>(null);
@@ -28,6 +29,11 @@ const ControlModal = ({ onClose }: ControlModalProps) => {
       console.error('일정 삭제 실패', error);
     }
   });
+
+  const handleUpdatePlan = () => {
+    setIsUpdated(true);
+    onClose();
+  };
 
   const handleDeletePlan = () => {
     if (confirm('일정을 삭제하시겠습니까?')) {
@@ -52,7 +58,7 @@ const ControlModal = ({ onClose }: ControlModalProps) => {
   }, [onClose]);
 
   return (
-    <_.ControlModal_Layout ref={modalRef}>
+    <_.ControlModal_Layout ref={modalRef} onClick={handleUpdatePlan}>
       <_.ControlModal_Menu>
         수정하기
         <EditSquare />

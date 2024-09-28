@@ -12,9 +12,16 @@ interface DayPlanProps {
   day: schedule[];
   dayIndex: number;
   planInfos?: PlanResult;
+  setPlanInfos?: React.Dispatch<React.SetStateAction<PlanResult | null>>;
 }
 
-const DayPlan = ({ isUpdated, day, dayIndex, planInfos }: DayPlanProps) => {
+const DayPlan = ({
+  isUpdated,
+  day,
+  dayIndex,
+  planInfos,
+  setPlanInfos
+}: DayPlanProps) => {
   const id = useParams().id;
   const navigate = useNavigate();
   const rightRefs = useRef<(HTMLDivElement | null)[]>([]);
@@ -34,6 +41,32 @@ const DayPlan = ({ isUpdated, day, dayIndex, planInfos }: DayPlanProps) => {
       state: { planInfos: planInfos, date: date }
     });
   };
+
+  const handleDeletePlanItem = (dayIndex: number, deletedIndex: number) => {
+    if (!planInfos || !setPlanInfos) return;
+
+    const dayKey = `day${dayIndex + 1}` as keyof typeof planInfos.data;
+
+    const currentDay = planInfos.data[dayKey];
+
+    if (!currentDay) return;
+
+    if (Array.isArray(currentDay)) {
+      const updatedDay = currentDay.filter(
+        (_, index) => index !== deletedIndex
+      );
+      const updatedPlanInfos = {
+        ...planInfos,
+        data: {
+          ...planInfos.data,
+          [dayKey]: updatedDay
+        }
+      };
+
+      setPlanInfos(updatedPlanInfos);
+    }
+  };
+
   useEffect(() => {
     const newHeights = rightRefs.current.map((ref) =>
       ref ? ref.offsetHeight : 0
@@ -60,14 +93,23 @@ const DayPlan = ({ isUpdated, day, dayIndex, planInfos }: DayPlanProps) => {
             </_.DayPlan_Left>
             <_.DayPlan_Right
               onClick={() => {
-                handleUpdatePlan(index);
+                if (!isUpdated) {
+                  handleUpdatePlan(index);
+                }
               }}
               ref={(el) => (rightRefs.current[index] = el)}
             >
               <_.DayPlan_Activity>{plan.activity}</_.DayPlan_Activity>
               <_.DayPlan_Location>{plan.location}</_.DayPlan_Location>
               {isUpdated && (
-                <_.DayPlan_Delete>
+                <_.DayPlan_Delete
+                  onClick={(e) => {
+                    e.stopPropagation();
+                    if (handleDeletePlanItem) {
+                      handleDeletePlanItem(dayIndex, index);
+                    }
+                  }}
+                >
                   <Minus />
                 </_.DayPlan_Delete>
               )}
