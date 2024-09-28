@@ -1,4 +1,4 @@
-import React, { useRef, useEffect, useState } from 'react';
+import React, { useRef, useEffect, useState, useCallback } from 'react';
 import Minus from 'assets/Icon/Minus';
 import { schedule } from 'types/schedule';
 import { formatTime } from 'lib/utils/formatTime';
@@ -42,30 +42,33 @@ const DayPlan = ({
     });
   };
 
-  const handleDeletePlanItem = (dayIndex: number, deletedIndex: number) => {
-    if (!planInfos || !setPlanInfos) return;
+  const handleDeletePlanItem = useCallback(
+    (dayIndex: number, deletedIndex: number) => {
+      if (!planInfos || !setPlanInfos) return;
 
-    const dayKey = `day${dayIndex + 1}` as keyof typeof planInfos.data;
+      const dayKey = `day${dayIndex + 1}` as keyof typeof planInfos.data;
 
-    const currentDay = planInfos.data[dayKey];
+      const currentDay = planInfos.data[dayKey];
 
-    if (!currentDay) return;
+      if (!currentDay) return;
 
-    if (Array.isArray(currentDay)) {
-      const updatedDay = currentDay.filter(
-        (_, index) => index !== deletedIndex
-      );
-      const updatedPlanInfos = {
-        ...planInfos,
-        data: {
-          ...planInfos.data,
-          [dayKey]: updatedDay
-        }
-      };
+      if (Array.isArray(currentDay)) {
+        const updatedDay = currentDay.filter(
+          (_, index) => index !== deletedIndex
+        );
+        const updatedPlanInfos = {
+          ...planInfos,
+          data: {
+            ...planInfos.data,
+            [dayKey]: updatedDay
+          }
+        };
 
-      setPlanInfos(updatedPlanInfos);
-    }
-  };
+        setPlanInfos(updatedPlanInfos);
+      }
+    },
+    [planInfos, setPlanInfos]
+  );
 
   useEffect(() => {
     const newHeights = rightRefs.current.map((ref) =>

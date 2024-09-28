@@ -58,8 +58,8 @@ const ControlModal = ({ onClose, setIsUpdated }: ControlModalProps) => {
   }, [onClose]);
 
   return (
-    <_.ControlModal_Layout ref={modalRef} onClick={handleUpdatePlan}>
-      <_.ControlModal_Menu>
+    <_.ControlModal_Layout ref={modalRef}>
+      <_.ControlModal_Menu onClick={handleUpdatePlan}>
         수정하기
         <EditSquare />
       </_.ControlModal_Menu>
