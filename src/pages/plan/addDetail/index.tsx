@@ -23,6 +23,7 @@ const AddDetail = () => {
   const { id } = useParams();
   const location = useLocation();
   const { address, planInfos } = location.state;
+  const [isAdded, setIsAdded] = useState(false);
   const [isSelected, setIsSelected] = useState<number | null>(null);
   const [inputValue, setInputValue] = useState('');
   const [time, setTime] = useState({
@@ -102,6 +103,8 @@ const AddDetail = () => {
       date: newDate.toISOString().split('T')[0]
     };
     setPlans([...plans, newPlan]);
+    setIsAdded(true);
+    setIsSelected(plans.length);
   };
 
   const isNextButtonEnabled: boolean = !!(
@@ -161,10 +164,12 @@ const AddDetail = () => {
                 }}
               />
             ))}
-            <_.AddDetail_AddPlan onClick={addPlan}>
-              <_.AddDetail_AddPlanSpan>일정</_.AddDetail_AddPlanSpan>
-              <_.AddDetail_AddPlanSpan>추가</_.AddDetail_AddPlanSpan>
-            </_.AddDetail_AddPlan>
+            {!isAdded && (
+              <_.AddDetail_AddPlan onClick={addPlan}>
+                <_.AddDetail_AddPlanSpan>일정</_.AddDetail_AddPlanSpan>
+                <_.AddDetail_AddPlanSpan>추가</_.AddDetail_AddPlanSpan>
+              </_.AddDetail_AddPlan>
+            )}
           </_.AddDetail_PlanDates>
         </_.AddDetail_SectionLine>
         <_.AddDetail_SelectTime>
