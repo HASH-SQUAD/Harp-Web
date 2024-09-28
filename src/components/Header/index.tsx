@@ -14,6 +14,7 @@ interface HeaderProps {
   title?: string;
   buttonState?: string;
   isOnChatting?: boolean;
+  onTapBackIcon?: () => void;
   onClickMethod?: () => void;
   buttonColor?: string;
 }
@@ -22,6 +23,7 @@ const Header = ({
   title = '',
   buttonState = ' ',
   isOnChatting = false,
+  onTapBackIcon = () => {},
   onClickMethod = () => {},
   buttonColor = ''
 }: HeaderProps) => {
@@ -45,10 +47,11 @@ const Header = ({
     } else {
       navigate(-1);
     }
+    onTapBackIcon();
   };
 
   return (
-    <_.Header_Container isOnChatting={isOnChatting}>
+    <_.Header_Container $isOnChatting={isOnChatting}>
       <_.Header_BackIcon onClick={handleBackIcon}>
         <BackIcon />
       </_.Header_BackIcon>
@@ -62,7 +65,7 @@ const Header = ({
       {buttonState && (
         <_.Header_Button
           onClick={onClickMethod}
-          ButtonColor={
+          $ButtonColor={
             buttonColor === 'purple' ? theme.primary[7] : theme.sub.red
           }
         >

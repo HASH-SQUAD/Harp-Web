@@ -4,17 +4,17 @@ import styled from 'styled-components';
 export const Info_Layout = styled.div`
   display: flex;
   width: 100vw;
-  height: 100vh;
+  height: calc(100vh - 40px);
   flex-direction: column;
 `;
 
-export const Info_Header = styled.div<{ BackgroundImage: string }>`
+export const Info_Header = styled.div<{ $BackgroundImage: string }>`
   background:
     linear-gradient(0deg, rgba(0, 0, 0, 0.4) 0%, rgba(0, 0, 0, 0.4) 100%),
-    url(${(props) => props.BackgroundImage}) lightgray 50% / cover no-repeat;
+    url(${(props) => props.$BackgroundImage}) lightgray 50% / cover no-repeat;
   width: 100%;
   height: 200px;
-  padding: 20px;
+  padding: 20px 20px 0;
   border-radius: 0 0 10px 10px;
   background-repeat: no-repeat;
   background-size: cover;
@@ -47,7 +47,7 @@ export const Info_DDay = styled.div`
 export const Info_Content = styled.div`
   display: flex;
   flex-direction: column;
-  padding: 15px 20px 0 20px;
+  padding: 15px 20px 40px 20px;
   width: 100%;
 `;
 

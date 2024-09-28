@@ -1,6 +1,6 @@
 // 라이브러리
 import React from 'react';
-import { useLocation, useNavigate } from 'react-router-dom';
+import { useLocation, useNavigate, useParams } from 'react-router-dom';
 
 // 파일
 import CropImage from 'components/CropImage';
@@ -8,6 +8,7 @@ import Header from 'components/Header';
 import * as _ from './style';
 
 const CropPage = () => {
+  const id = useParams().id;
   const location = useLocation();
   const navigate = useNavigate();
   const { imageSrc } = location.state || {};
@@ -17,17 +18,17 @@ const CropPage = () => {
   }
 
   const handleCropComplete = (croppedImage: string) => {
-    navigate('/plan/info/1', { state: { croppedImage } });
+    navigate(`/plan/info/${id}`, { state: { croppedImage } });
   };
 
   return (
     <_.Crop_Layout>
       <Header title="자르기" />
       <_.Crop_Container>
-        <CropImage 
-          imageSrc={imageSrc} 
-          cropShape="rect" 
-          aspectRatio={12 / 5} 
+        <CropImage
+          imageSrc={imageSrc}
+          cropShape="rect"
+          aspectRatio={12 / 5}
           nextPagePath="/plan/info/:id"
           onCropComplete={handleCropComplete}
         />

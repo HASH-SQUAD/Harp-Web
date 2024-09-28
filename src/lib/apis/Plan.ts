@@ -1,4 +1,4 @@
-import { CreateParams } from 'types/plan';
+import { CreateParams, PlanResult } from 'types/plan';
 import { AuthInstance } from './Axios';
 
 export const Plan_CreatAI = async () => {
@@ -47,5 +47,23 @@ export const Plan_UserPlanList = async () => {
 
 export const Plan_RecommendedPlanList = async () => {
   const { data } = await AuthInstance.get(`/plan/getrecommend`);
+  return data;
+};
+
+export const Plan_Delete = async (id: string) => {
+  const { data } = await AuthInstance.delete(`/plan/deleteplan/${id}`);
+  return data;
+};
+
+interface UpdateParams {
+  id: string;
+  data: PlanResult;
+}
+
+export const Plan_Update = async (params: UpdateParams) => {
+  const { data } = await AuthInstance.put(
+    `/plan/putplan/${params.id}`,
+    params.data
+  );
   return data;
 };

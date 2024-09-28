@@ -15,15 +15,21 @@ export const AddSearch_Container = styled.div`
 
 export const AddSearch_SearchBar = styled.div`
   display: flex;
-  flex-direction: row;
-  justify-content: center;
+  justify-content: space-between;
   align-items: center;
   width: 100%;
   height: 50px;
   background-color: ${theme.gray[0]};
   border-radius: 10px;
-  gap: 10px;
   margin-top: 20px;
+  padding: 20px 15px;
+`;
+
+export const AddSearch_SearchBar_Left = styled.div`
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  width: 100%;
 `;
 
 export const AddSearch_SearchBar_Input = styled.input`
@@ -33,6 +39,7 @@ export const AddSearch_SearchBar_Input = styled.input`
   font-size: 16px;
   font-weight: 400;
   outline: none;
+  width: 100%;
 `;
 
 export const AddSearch_SearchBar_ClearIcon = styled.div`
@@ -95,7 +102,6 @@ export const AddSearch_NoCotent_SubTitle = styled.div`
 `;
 
 export const AddSearch_NoCotent_RestartButton = styled.button`
-  width: 100px;
   height: 30px;
   padding: 10px 20px;
   background: transparent;

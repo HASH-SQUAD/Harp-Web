@@ -8,20 +8,19 @@ import Location from 'assets/Icon/Location';
 type OwnProps = {
   Title?: string;
   Address?: string;
-  Time?: string;
+  onClickIcon: () => void;
 };
 
-const AddPlanContent = ({ Title, Address, Time }: OwnProps) => {
+const AddPlanContent = ({ Title, Address, onClickIcon }: OwnProps) => {
   return (
     <_.AddPlanContent_Container>
       <_.AddPlanContent_Info>
         <_.AddPlanContent_Title>{Title}</_.AddPlanContent_Title>
         <_.AddPlanContent_Address>{Address}</_.AddPlanContent_Address>
-        <_.AddPanContent>{Time}</_.AddPanContent>
       </_.AddPlanContent_Info>
 
       <_.AddPlanContent_Button>
-        <_.AddPlanContent_Button_Loction>
+        <_.AddPlanContent_Button_Loction onClick={onClickIcon}>
           <Location />
         </_.AddPlanContent_Button_Loction>
 
