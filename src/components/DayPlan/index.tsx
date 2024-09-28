@@ -77,13 +77,24 @@ const DayPlan = ({
     setHeights(newHeights);
   }, [day]);
 
+  const sortedDay = [...day].sort((a, b) => {
+    const [hourA, minuteA] = a.time.split(':').map(Number);
+    const [hourB, minuteB] = b.time.split(':').map(Number);
+
+    if (hourA === hourB) {
+      return minuteA - minuteB;
+    } else {
+      return hourA - hourB;
+    }
+  });
+
   return (
     <_.DayPlan_Layout>
       <_.DayPlan_Times>
         <_.DayPlan_WhatDay>{dayIndex + 1}일차</_.DayPlan_WhatDay>
         <_.DayPlan_Date>{date}</_.DayPlan_Date>
       </_.DayPlan_Times>
-      {day.map((plan, index) => {
+      {sortedDay.map((plan, index) => {
         return (
           <_.DayPlan_Content key={index}>
             <_.DayPlan_Left>
