@@ -1,5 +1,5 @@
 // 라이브러리
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 import { useLocation, useNavigate, useParams } from 'react-router-dom';
 
 // 파일
@@ -32,6 +32,7 @@ const AddDetail = () => {
     minute: ''
   });
   const selectedDay = `day${isSelected! + 1}`;
+  const newPlanRef = useRef<HTMLDivElement | null>(null);
 
   const { mutate: addPlanItemMutation } = useMutation(Plan_Update, {
     onSuccess: () => {
@@ -120,6 +121,12 @@ const AddDetail = () => {
     }
   }, [plans]);
 
+  useEffect(() => {
+    if (isAdded && newPlanRef.current) {
+      newPlanRef.current.scrollIntoView({ behavior: 'smooth', block: 'end' });
+    }
+  }, [isAdded]);
+
   return (
     <_.AddDetail_Layout>
       <Header title="일정추가" />
@@ -154,15 +161,20 @@ const AddDetail = () => {
           </_.AddDetail_Subtitle>
           <_.AddDetail_PlanDates>
             {plans.map((plan, index) => (
-              <PlanDate
+              <div
                 key={plan.day}
-                day={index + 1}
-                date={plan.date}
-                isSelected={isSelected === index}
-                onSelect={() => {
-                  handleSelectDay(index, plan.date);
-                }}
-              />
+                ref={index === plans.length - 1 ? newPlanRef : null}
+              >
+                <PlanDate
+                  key={plan.day}
+                  day={index + 1}
+                  date={plan.date}
+                  isSelected={isSelected === index}
+                  onSelect={() => {
+                    handleSelectDay(index, plan.date);
+                  }}
+                />
+              </div>
             ))}
             {!isAdded && (
               <_.AddDetail_AddPlan onClick={addPlan}>
