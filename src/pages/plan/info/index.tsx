@@ -1,6 +1,6 @@
 // 라이브러리
 import React, { useState, useEffect } from 'react';
-import { useNavigate, useLocation, useParams } from 'react-router-dom';
+import { useNavigate, useParams } from 'react-router-dom';
 import { useMutation, useQuery } from 'react-query';
 
 // 파일
@@ -88,7 +88,7 @@ const Info = () => {
     const end = new Date(endDate);
     start.setHours(0, 0, 0, 0);
     end.setHours(0, 0, 0, 0);
-    
+
     const timeDiff = end.getTime() - start.getTime();
     const dayDiff = timeDiff / (1000 * 3600 * 24);
 
