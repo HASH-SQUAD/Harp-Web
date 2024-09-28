@@ -1,4 +1,3 @@
-// 라이브러리
 import React, { useCallback, useEffect, useRef, useState } from 'react';
 import ReactDOMServer from 'react-dom/server';
 
@@ -19,24 +18,39 @@ declare global {
 
 const ScreenMap = () => {
   const id = useParams().id;
-
-  const [planInfos, setPlanInfos] = useState<PlanResult | null>(null);
-  const [selectedDay, setSelectedDay] = useState<string>('day1');
-
-  useQuery(['planResult', id], () => Plan_Result({ id }), {
-    onSuccess: (response) => {
-      if (response?.data?.PlanData) {
-        setPlanInfos(response.data.PlanData);
-      }
-    },
-    onError: (error) => {
-      console.error('일정 정보 불러오기 실패: ', error);
-    }
-  });
+  const [selectedDay, setSelectedDay] = useState<string>('day1'); // 선택된 날짜 관리
 
   const currentOverlay = useRef<any>(null);
 
-  const getPositions = useCallback(async (locations: any) => {
+  // 하드코딩된 일정 데이터
+  const day1Data = [
+    {
+      time: '10:00',
+      activity: '해운대 도착 후 체크인',
+      location: '부산광역시 동구 중앙대로533번길 4',
+      recommendation: '해운대 펜션에서 편안한 휴식'
+    },
+    {
+      time: '11:00',
+      activity: '해운대 해변 산책',
+      location: '부산광역시 부산진구 성지로 50',
+      recommendation: '바다의 경치를 즐기며 산책하기'
+    },
+    {
+      time: '12:00',
+      activity: '점심 식사',
+      location: '부산광역시 부산진구 서면로68번길 11',
+      recommendation: '해운대 맛집에서 해물 파전'
+    },
+    {
+      time: '14:00',
+      activity: '해운대 아쿠아리움 관람',
+      location: '부산광역시 부산진구 서면로68번길 33',
+      recommendation: '다양한 해양 생물 관람하기'
+    }
+  ];
+
+  const getPositions = useCallback(async (locations: any[]) => {
     const geocoder = new window.kakao.maps.services.Geocoder();
     const promises = locations.map((location: string) => {
       return new Promise((resolve, reject) => {
@@ -47,7 +61,7 @@ const ScreenMap = () => {
               title: location
             });
           } else {
-            reject(new Error('좌표를 찾을 수 없습니다.'));
+            reject(new Error(`좌표를 찾을 수 없습니다: ${location}`));
           }
         });
       });
@@ -79,47 +93,20 @@ const ScreenMap = () => {
   }, []);
 
   const createMarkers = useCallback(
-    async (map: any, planData: any) => {
-      const locations = [
-        [
-          {
-            time: '10:00',
-            activity: '해운대 도착 후 체크인',
-            location: '부산광역시 동구 중앙대로533번길 4',
-            recommendation: '해운대 펜션에서 편안한 휴식'
-          },
-          {
-            time: '11:00',
-            activity: '해운대 해변 산책',
-            location: '부산광역시 부산진구 성지로 50',
-            recommendation: '바다의 경치를 즐기며 산책하기'
-          },
-          {
-            time: '12:00',
-            activity: '점심 식사',
-            location: '부산광역시 부산진구 서면로68번길 11',
-            recommendation: '해운대 맛집에서 해물 파전'
-          },
-          {
-            time: '14:00',
-            activity: '해운대 아쿠아리움 관람',
-            location: '부산광역시 부산진구 서면로68번길 33',
-            recommendation: '다양한 해양 생물 관람하기'
-          }
-        ].map((item: any) => item.location)
-      ];
+    async (map: any, dayData: any) => {
+      const locations = dayData.map((item: any) => item.location);
 
       if (locations.length === 0) {
         console.error('위치 정보가 없습니다.');
         return;
       }
 
-      const positions = await getPositions(locations[0]);
+      const positions = await getPositions(locations);
       const center = calculateCenter(positions);
 
       const newMap = createMap(center);
 
-      const linePath = positions.map((position) => position.latlng);
+      const linePath = positions.map((position: any) => position.latlng);
 
       const polyline = new window.kakao.maps.Polyline({
         path: linePath,
@@ -130,7 +117,7 @@ const ScreenMap = () => {
       });
       polyline.setMap(newMap);
 
-      positions.forEach((position, index) => {
+      positions.forEach((position: any, index) => {
         const imageSize = new window.kakao.maps.Size(30, 37);
         const markerImage = new window.kakao.maps.MarkerImage(
           Marker,
@@ -143,26 +130,15 @@ const ScreenMap = () => {
           image: markerImage
         });
 
-        const sequenceOverlayContent = ReactDOMServer.renderToString(
-          <_.ScreenMap_Overlay>{`${index + 1}번째`}</_.ScreenMap_Overlay>
-        );
-
-        const sequenceOverlay = new window.kakao.maps.CustomOverlay({
-          map: newMap,
-          position: position.latlng,
-          content: sequenceOverlayContent,
-          yAnchor: 3
-        });
-
-        sequenceOverlay.setMap(newMap);
+        const currentPlan = dayData[index];
 
         const infoOverlayContent = ReactDOMServer.renderToString(
           <_.ScreenMap_InfoWindow>
             <_.ScreenMap_Header>
-              <_.ScreenMap_Title>만나기</_.ScreenMap_Title>
-              <_.ScreenMap_Time>· 오전 11시</_.ScreenMap_Time>
+              <_.ScreenMap_Title>{currentPlan.activity}</_.ScreenMap_Title>
+              <_.ScreenMap_Time>{currentPlan.time}</_.ScreenMap_Time>
             </_.ScreenMap_Header>
-            <_.ScreenMap_Location>맥도날드 김해삼정DT점</_.ScreenMap_Location>
+            <_.ScreenMap_Location>{currentPlan.location}</_.ScreenMap_Location>
           </_.ScreenMap_InfoWindow>
         );
 
@@ -200,26 +176,25 @@ const ScreenMap = () => {
       return;
     }
 
-    if (planInfos) {
-      createMarkers(null, planInfos);
-    }
-  }, [createMarkers, planInfos]);
+    const selectedDayData = day1Data;
+    createMarkers(null, selectedDayData);
+  }, [createMarkers, selectedDay]);
 
   return (
     <_.ScreenMap_Layout id="map">
       <_.ScreenMap_DaysSelectList>
-        {planInfos &&
-          Object.keys(planInfos.data)
-            .filter((key) => key.startsWith('day'))
-            .map((dayKey, index) => (
-              <_.ScreenMap_DaySelect
-                key={dayKey}
-                isSelected={selectedDay === dayKey}
-                onClick={() => setSelectedDay(dayKey)}
-              >
-                {index + 1}일차
-              </_.ScreenMap_DaySelect>
-            ))}
+        <_.ScreenMap_DaySelect
+          isSelected={selectedDay === 'day1'}
+          onClick={() => setSelectedDay('day1')}
+        >
+          1일차
+        </_.ScreenMap_DaySelect>
+        <_.ScreenMap_DaySelect
+          isSelected={selectedDay === 'day2'}
+          onClick={() => setSelectedDay('day2')}
+        >
+          2일차
+        </_.ScreenMap_DaySelect>
       </_.ScreenMap_DaysSelectList>
     </_.ScreenMap_Layout>
   );
