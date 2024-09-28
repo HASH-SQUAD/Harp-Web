@@ -1,5 +1,6 @@
 // 라이브러리
 import React, { useEffect, useState } from 'react';
+import { useLocation, useNavigate, useParams } from 'react-router-dom';
 
 // 파일
 import * as _ from './style';
@@ -12,22 +13,69 @@ import Write from 'assets/image/Write';
 import { hasDateExpired } from 'lib/utils/hasDateExpired';
 import TimePicker from 'components/TimePicker';
 import NextButton from 'components/NextButton';
+import { useMutation } from 'react-query';
+import { Plan_Update } from 'lib/apis/Plan';
+import { schedule } from 'types/schedule';
+import { PlanResult } from 'types/plan';
 
 const AddDetail = () => {
+  const navigate = useNavigate();
+  const { id } = useParams();
+  const location = useLocation();
+  const { address, planInfos } = location.state;
   const [isSelected, setIsSelected] = useState<number | null>(null);
   const [inputValue, setInputValue] = useState('');
   const [time, setTime] = useState({
-    period: '오전',
-    hour: '1',
-    minute: '00'
+    period: '',
+    hour: '',
+    minute: ''
   });
-  const [plans, setPlans] = useState([
-    { day: 'day1', date: '2024-08-06' },
-    { day: 'day2', date: '2024-11-26' },
-    { day: 'day3', date: '2024-11-27' },
-    { day: 'day4', date: '2024-11-28' },
-    { day: 'day5', date: '2024-11-29' }
-  ]);
+  const selectedDay = `day${isSelected! + 1}`;
+
+  const { mutate: addPlanItemMutation } = useMutation(Plan_Update, {
+    onSuccess: () => {
+      alert('일정 추가 성공!');
+      navigate(`/plan/info/${id}`);
+    },
+    onError: (error) => {
+      console.error('일정 추가 실패', error);
+    }
+  });
+
+  const handleAddPlan = async () => {
+    const newPlanItem = {
+      time: `${time.hour}:${time.minute}`,
+      activity: inputValue,
+      location: address,
+      recommendation: ''
+    };
+
+    const existingPlans = planInfos.data[selectedDay] || [];
+
+    const updatedPlans: PlanResult = {
+      ...planInfos,
+      data: {
+        ...planInfos.data,
+        [selectedDay]: [...existingPlans, newPlanItem]
+      }
+    };
+
+    addPlanItemMutation({ id: id!, data: updatedPlans });
+  };
+
+  const startDate = new Date(planInfos.startDate);
+  const [plans, setPlans] = useState(
+    Object.keys(planInfos?.data)
+      .filter((key) => key !== 'tips')
+      .map((key, index) => {
+        const date = new Date(startDate);
+        date.setDate(startDate.getDate() + index);
+        return {
+          day: key,
+          date: date.toISOString().split('T')[0]
+        };
+      })
+  );
 
   const periods = ['오전', '오후'];
   const hours = Array.from({ length: 12 }, (_, i) => String(i + 1));
@@ -62,6 +110,7 @@ const AddDetail = () => {
     time.hour &&
     time.minute
   );
+
   useEffect(() => {
     if (plans.length === 1) {
       setIsSelected(0);
@@ -75,9 +124,7 @@ const AddDetail = () => {
         <_.AddDetail_TitleBar>
           <_.AddDetail_Location>
             <Location />
-            <_.AddDetail_Address>
-              부산광역시 기장군 기장해안로 147
-            </_.AddDetail_Address>
+            <_.AddDetail_Address>{address}</_.AddDetail_Address>
           </_.AddDetail_Location>
           <_.AddDetail_PlanTitle>일정을 추가해볼까요?</_.AddDetail_PlanTitle>
           <_.AddDetail_Caption>
@@ -148,7 +195,11 @@ const AddDetail = () => {
           </_.AddDetail_TimePickerList>
         </_.AddDetail_SelectTime>
       </_.AddDetail_Container>
-      <NextButton text="추가" state={isNextButtonEnabled} />
+      <NextButton
+        text="추가"
+        state={isNextButtonEnabled}
+        onNextClick={handleAddPlan}
+      />
     </_.AddDetail_Layout>
   );
 };

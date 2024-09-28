@@ -1,6 +1,7 @@
 //라이브러리
 import React, { useState } from 'react';
 import { useQuery } from 'react-query';
+import { useLocation, useNavigate, useParams } from 'react-router-dom';
 
 //파일
 import * as _ from './style';
@@ -14,6 +15,10 @@ import SearchError from 'assets/Icon/SearchError';
 import SearchLoading from 'assets/image/SearchLoading.gif';
 
 const AddSearch = () => {
+  const navigate = useNavigate();
+  const id = useParams().id;
+  const location = useLocation();
+  const { planInfos } = location.state;
   const [query, setQuery] = useState<string>('');
 
   const debouncedQuery = useDebounce({ value: query, delay: 200 });
@@ -35,17 +40,25 @@ const AddSearch = () => {
     setQuery(e.currentTarget.value);
   };
 
+  const onClickIcon = (address: string) => {
+    navigate(`/plan/info/${id!}/add`, {
+      state: { address: address, planInfos: planInfos }
+    });
+  };
+
   return (
     <_.AddSearch_Layout>
       <Header title="일정추가" />
       <_.AddSearch_Container>
         <_.AddSearch_SearchBar>
-          <Search />
-          <_.AddSearch_SearchBar_Input
-            placeholder="목적지를 입력해보세요."
-            value={query}
-            onChange={handleInputChange}
-          />
+          <_.AddSearch_SearchBar_Left>
+            <Search />
+            <_.AddSearch_SearchBar_Input
+              placeholder="목적지를 입력해보세요."
+              value={query}
+              onChange={handleInputChange}
+            />
+          </_.AddSearch_SearchBar_Left>
           <_.AddSearch_SearchBar_ClearIcon onClick={() => setQuery('')}>
             <SearchBarX />
           </_.AddSearch_SearchBar_ClearIcon>
@@ -78,10 +91,12 @@ const AddSearch = () => {
           ) : data && data.documents.length > 0 ? (
             data.documents.map((item: Document) => (
               <AddPlanContent
+                onClickIcon={() => {
+                  onClickIcon(item.road_address_name);
+                }}
                 key={item.id}
                 Title={item.place_name}
                 Address={item.road_address_name || item.address_name}
-                Time="시간 정보를 여기에 추가하세요."
               />
             ))
           ) : (

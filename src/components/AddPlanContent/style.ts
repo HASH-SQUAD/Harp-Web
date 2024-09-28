@@ -6,15 +6,14 @@ export const AddPlanContent_Container = styled.div`
   flex-direction: row;
   justify-content: space-between;
   align-items: center;
-  padding: 20px 20px 20px 20px;
+  padding: 20px;
   border-bottom: 1px solid ${theme.sub[1]};
 `;
 
 export const AddPlanContent_Info = styled.div`
   display: flex;
   flex-direction: column;
-  height: 80px;
-  justify-content: space-between;
+  gap: 4px;
 `;
 
 export const AddPlanContent_Title = styled.div`

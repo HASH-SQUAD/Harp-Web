@@ -41,6 +41,8 @@ const Info = () => {
       }
     }
   );
+
+  console.log(planInfos);
   const { mutate: deletePlanItemMutation } = useMutation(
     () =>
       Plan_Update({
@@ -166,7 +168,13 @@ const Info = () => {
               </_.Info_DetailList>
             </_.Info_Schedule>
           </_.Info_Content>
-          <_.Info_Add_Schedule>
+          <_.Info_Add_Schedule
+            onClick={() => {
+              navigate(`/plan/info/${id}/addsearch`, {
+                state: { planInfos: planInfos }
+              });
+            }}
+          >
             <Plus />
           </_.Info_Add_Schedule>
           {isSuccess && <AddSucessModal />}
