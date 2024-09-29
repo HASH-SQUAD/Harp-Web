@@ -87,7 +87,7 @@ const Home = () => {
             </_.Home_Calendar_Content_Day>
             <_.Home_Calendar_Content_Date>
               {day.date}
-              <_.Home_Calendar_Content_Point />
+              {/* <_.Home_Calendar_Content_Point /> */}
             </_.Home_Calendar_Content_Date>
           </_.Home_Calendar_Content>
         ))}

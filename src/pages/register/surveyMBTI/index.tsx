@@ -1,5 +1,5 @@
 // 라이브러리
-import React, { useCallback, useState } from 'react';
+import React, { useCallback } from 'react';
 import { useRecoilState } from 'recoil';
 
 // 파일
@@ -20,15 +20,15 @@ const SurveyMBTI = () => {
       const updatedMbti = selectedMbti.mbti.map((item) =>
         item.id === id ? { ...item, state: selectedState } : item
       );
-      setSelectedMbti({ mbti: updatedMbti });
+      setSelectedMbti((prev) => ({ ...prev, mbti: updatedMbti }));
 
-      const mbti = updatedMbti
+      const mbtiString = updatedMbti
         .map((item) => (item.state ? item.right : item.left))
         .join('');
 
-      setStringMbti(mbti);
+      setStringMbti(mbtiString);
     },
-    [setSelectedMbti]
+    [selectedMbti, setSelectedMbti, setStringMbti]
   );
 
   const handleSkip = () => {
