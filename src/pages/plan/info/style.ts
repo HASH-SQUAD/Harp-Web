@@ -103,6 +103,7 @@ export const Info_GoToMap = styled.p`
   font-weight: 400;
   top: 13px;
   right: 7px;
+  z-index: 1;
 `;
 
 export const Info_Add_Schedule = styled.div`

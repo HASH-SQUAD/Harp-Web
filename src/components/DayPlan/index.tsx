@@ -78,8 +78,8 @@ const DayPlan = ({
   }, [day]);
 
   const sortedDay = [...day].sort((a, b) => {
-    const [hourA, minuteA] = a.time.split(':').map(Number);
-    const [hourB, minuteB] = b.time.split(':').map(Number);
+    const [hourA, minuteA] = (a.time || '00:00').split(':').map(Number);
+    const [hourB, minuteB] = (b.time || '00:00').split(':').map(Number);
 
     if (hourA === hourB) {
       return minuteA - minuteB;
