@@ -1,6 +1,6 @@
 // 라이브러리
 import React, { useEffect, useState } from 'react';
-import { useLocation, useParams } from 'react-router-dom';
+import { useLocation, useNavigate, useParams } from 'react-router-dom';
 
 // 파일
 import * as _ from './style';
@@ -16,6 +16,7 @@ import { Plan_Update } from 'lib/apis/Plan';
 import Write from 'assets/image/Write';
 
 const Update = () => {
+  const navigate = useNavigate();
   const { id, dayIndex, timeIndex } = useParams();
   const location = useLocation();
   const { planInfos } = location.state;
@@ -66,6 +67,7 @@ const Update = () => {
   const { mutate: updatedPlanItemMutation } = useMutation(Plan_Update, {
     onSuccess: () => {
       alert('수정 성공!');
+      navigate(`/plan/info/${id}`);
     },
     onError: (error) => {
       console.error('일정 아이템 수정 실패', error);
