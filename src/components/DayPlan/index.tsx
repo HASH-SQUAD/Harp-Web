@@ -29,8 +29,12 @@ const DayPlan = ({
 
   const calculateDate = (startDate: string | undefined, dayIndex: number) => {
     if (!startDate) return '';
-    const start = new Date(startDate);
-    start.setDate(start.getDate() + dayIndex - 1);
+
+    const [year, month, day] = startDate.split('/').map(Number);
+    const start = new Date(year, month - 1, day);
+
+    start.setDate(start.getDate() + dayIndex);
+
     return formatSelectedDate(start, '.').slice(2);
   };
 

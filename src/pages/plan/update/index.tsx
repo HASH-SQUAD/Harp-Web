@@ -25,7 +25,7 @@ const Update = () => {
     )
   );
   const [isSelected, setIsSelected] = useState<number | null>(
-    parseInt(dayIndex! + 1)
+    parseInt(dayIndex!)
   );
   const [inputValue, setInputValue] = useState(planItem.activity);
 
@@ -74,9 +74,7 @@ const Update = () => {
 
   const handleUpdatePlan = () => {
     const selectedDay = `day${isSelected! + 1}`;
-    console.log(selectedDay);
     const oldDay = `day${parseInt(dayIndex!) + 1}`;
-    console.log(oldDay);
 
     const isSameDay = selectedDay === oldDay;
 
@@ -93,13 +91,18 @@ const Update = () => {
         ...planInfos,
         data: {
           ...planInfos.data,
-          [selectedDay]: planInfos.data[selectedDay].map(
-            (plan: any, index: number) =>
+          [selectedDay]:
+            planInfos.data[selectedDay]?.map((plan: any, index: number) =>
               index === parseInt(timeIndex!) ? newPlanItem : plan
-          )
+            ) || [] // undefined인 경우 빈 배열로 처리하지 않음
         }
       };
     } else {
+      if (!planInfos.data[oldDay] || !planInfos.data[selectedDay]) {
+        console.error('해당 날짜에 데이터가 없습니다.');
+        return;
+      }
+
       updatedPlans = {
         ...planInfos,
         data: {
