@@ -10,7 +10,7 @@ const App = () => {
     if (location.pathname === '/splash') {
       const timer = setTimeout(() => {
         navigate('/auth');
-      }, 2500);
+      }, 1500);
 
       return () => clearTimeout(timer);
     }
