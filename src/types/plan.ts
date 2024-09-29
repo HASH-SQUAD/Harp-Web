@@ -1,11 +1,12 @@
 import { schedule } from './schedule';
 
 interface DynamicDays {
-  days: schedule[];
+  [key: string]: schedule[];
 }
 
-interface PlanData extends DynamicDays {
-  tips: string[];
+interface PlanData {
+  days: DynamicDays;
+  tips: schedule[];
 }
 
 export interface CreateParams {
@@ -13,15 +14,14 @@ export interface CreateParams {
   mainImg: string;
   startDate: string;
   endDate: string;
-  data: PlanData[];
+  data: PlanData;
 }
 
-// 공통 부분을 정의한 인터페이스
 interface BasePlanResult {
   mainImg: string;
   startDate: string;
   endDate: string;
-  data: DynamicDays[];
+  data: PlanData;
   userid: string;
   createdAt?: string;
   updatedAt?: string;
