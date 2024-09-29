@@ -37,7 +37,6 @@ export default function Router() {
         { index: true, element: <Home /> },
         { path: 'splash', element: <Splash /> },
         { path: 'auth', element: <Auth /> },
-        { path: 'auth/google/callback', element: <Callback /> }
       ]
     },
     {
