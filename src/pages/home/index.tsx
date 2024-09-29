@@ -118,7 +118,12 @@ const Home = () => {
           <_.Home_ErrorOrNothing>불러오는 중...</_.Home_ErrorOrNothing>
         ) : userPlans && userPlans.length > 0 ? (
           userPlans.map((plan) => (
-            <_.Home_Plan_Content key={plan.planId}>
+            <_.Home_Plan_Content
+              key={plan.planId}
+              onClick={() => {
+                navigate(`/plan/info/${plan.planId}`);
+              }}
+            >
               <_.Home_Plan_Content_Title>
                 {plan.planName}
               </_.Home_Plan_Content_Title>
