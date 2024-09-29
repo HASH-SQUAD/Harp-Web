@@ -12,7 +12,7 @@ interface AuthResponse {
 
 export const AuthInstance = axios.create({
   baseURL: AUTH_URL,
-  timeout: 10000,
+  timeout: 60000,
   headers: {
     referrerPolicy: 'no-referrer'
   }

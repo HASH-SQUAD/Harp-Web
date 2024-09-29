@@ -1,7 +1,7 @@
 // 라이브러리
 import React, { useState, useEffect } from 'react';
-import { useNavigate, useLocation, useParams } from 'react-router-dom';
-import { useQuery } from 'react-query';
+import { useNavigate, useParams } from 'react-router-dom';
+import { useMutation, useQuery } from 'react-query';
 
 // 파일
 import * as _ from './style';
@@ -14,18 +14,18 @@ import ControlModal from 'components/Modals/ControlModal';
 import DayPlan from 'components/DayPlan';
 import Plus from 'assets/Icon/Plus';
 import AddSucessModal from 'components/Modals/AddSucessModal';
-import { Plan_Result } from 'lib/apis/Plan';
+import { Plan_Result, Plan_Update } from 'lib/apis/Plan';
 import { PlanResult } from 'types/plan';
 import { formatSelectedDate } from 'lib/utils/formatSelectedDate';
+import { formatTravelPeriod } from 'lib/utils/formatTravelPeriod';
 
 const Info = () => {
   const id = useParams().id;
   const navigate = useNavigate();
-  const location = useLocation();
   const [planInfos, setPlanInfos] = useState<PlanResult | null>(null);
   const [isModal, setIsModal] = useState(false);
   const [isUpdated, setIsUpdated] = useState(false);
-  const [isSuccess, setIsSuccess] = useState(true);
+  const [isSuccess, setIsSuccess] = useState(false);
 
   const { isLoading } = useQuery(
     ['planResult', id],
@@ -37,8 +37,24 @@ const Info = () => {
         }
       },
       onError: (error) => {
-        console.error('Error fetching plan result: ', error);
+        console.error('일정 정보 불러오기 실패: ', error);
         setIsSuccess(false);
+      }
+    }
+  );
+
+  const { mutate: deletePlanItemMutation } = useMutation(
+    () =>
+      Plan_Update({
+        id: id!,
+        data: planInfos!
+      }),
+    {
+      onSuccess: () => {
+        setIsUpdated(false);
+      },
+      onError: (error) => {
+        console.error('일정 아이템 삭제 실패', error);
       }
     }
   );
@@ -65,22 +81,6 @@ const Info = () => {
     });
   };
 
-  const formatTravelPeriod = (startDate: string, endDate: string) => {
-    if (!startDate || !endDate) return '';
-
-    const start = new Date(startDate);
-    const end = new Date(endDate);
-
-    const timeDiff = end.getTime() - start.getTime();
-    const dayDiff = timeDiff / (1000 * 3600 * 24);
-
-    if (dayDiff === 0) {
-      return '당일치기';
-    } else {
-      return `${dayDiff}박 ${dayDiff + 1}일`;
-    }
-  };
-
   const startDate = planInfos?.startDate ?? null;
   const endDate = planInfos?.endDate ?? null;
 
@@ -89,10 +89,13 @@ const Info = () => {
   const travelPeriod = formatTravelPeriod(startDate ?? '', endDate ?? '');
 
   const duration = `${formattedStartDate}~${formattedEndDate} (${travelPeriod})`;
-
   return (
     <>
-      <Header title="일정" buttonState="닫기" />
+      <Header
+        title="일정"
+        buttonState="완료"
+        onClickMethod={deletePlanItemMutation}
+      />
       {isLoading ? (
         <p>Loading...</p>
       ) : (
@@ -108,10 +111,21 @@ const Info = () => {
             <_.Info_Nav>
               <_.Info_Duration>{duration}</_.Info_Duration>
               <KebabMenu onClick={() => setIsModal(true)} />
-              {isModal && <ControlModal onClose={handleCloseModal} />}
+              {isModal && (
+                <ControlModal
+                  setIsUpdated={setIsUpdated}
+                  onClose={handleCloseModal}
+                />
+              )}
             </_.Info_Nav>
             <_.Info_Schedule>
-              <_.Info_GoToMap>지도로 보기</_.Info_GoToMap>
+              <_.Info_GoToMap
+                onClick={() => {
+                  navigate(`/plan/map/${id}`);
+                }}
+              >
+                지도로 보기
+              </_.Info_GoToMap>
               <_.Info_DetailList>
                 {Object.keys(planInfos?.data || {}).map(
                   (dayKey: string, index: number) => {
@@ -133,7 +147,9 @@ const Info = () => {
                           isUpdated={isUpdated}
                           key={index}
                           day={day}
-                          dayIndex={index + 1}
+                          dayIndex={index}
+                          planInfos={planInfos!}
+                          setPlanInfos={setPlanInfos}
                         />
                       </_.Info_Date>
                     );
@@ -142,7 +158,13 @@ const Info = () => {
               </_.Info_DetailList>
             </_.Info_Schedule>
           </_.Info_Content>
-          <_.Info_Add_Schedule>
+          <_.Info_Add_Schedule
+            onClick={() => {
+              navigate(`/plan/info/${id}/addsearch`, {
+                state: { planInfos: planInfos }
+              });
+            }}
+          >
             <Plus />
           </_.Info_Add_Schedule>
           {isSuccess && <AddSucessModal />}

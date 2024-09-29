@@ -1,33 +1,105 @@
 // 라이브러리
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
+import { useLocation, useNavigate, useParams } from 'react-router-dom';
+import { useMutation } from 'react-query';
 
 // 파일
 import * as _ from './style';
 import Header from 'components/Header';
 import Location from 'assets/image/Location';
 import MiniMap from 'components/Maps/MiniMap';
+import { Plan_Update } from 'lib/apis/Plan';
+import { formatTime } from 'lib/utils/formatTime';
 
 const Memo = () => {
+  const navigate = useNavigate();
+  const { id, dayIndex, timeIndex } = useParams();
+  const location = useLocation();
+  const { planInfos, date } = location.state;
+  const [contents, setContents] = useState({
+    time: '',
+    activity: '',
+    location: ''
+  });
   const [memo, setMemo] = useState('');
+
+  useEffect(() => {
+    const data = planInfos?.data[`day${parseInt(dayIndex!) + 1}`]?.find(
+      (_: any, index: number) => index === parseInt(timeIndex!)
+    );
+
+    if (data) {
+      setMemo(data.memo);
+      setContents({
+        time: formatTime(data.time),
+        activity: data.activity,
+        location: data.location
+      });
+    }
+  }, [dayIndex, timeIndex, planInfos]);
 
   const updateMemoContent = (e: React.ChangeEvent<HTMLTextAreaElement>) => {
     setMemo(e.currentTarget.value);
   };
 
+
+  const selectedPlan = planInfos?.data[`day${parseInt(dayIndex!) + 1}`]?.map(
+    (plan: any, index: number) => {
+      if (index === parseInt(timeIndex!)) {
+        return { ...plan, memo: memo };
+      }
+      return plan;
+    }
+  );
+
+  const { mutate: updateMemoMutation } = useMutation(
+    () =>
+      Plan_Update({
+        id: id!,
+        data: {
+          ...planInfos,
+          data: {
+            ...planInfos.data,
+            [`day${parseInt(dayIndex!) + 1}`]: selectedPlan
+          }
+        }
+      }),
+    {
+      onError: (error) => {
+        console.log('메모 추가 실패', error);
+      }
+    }
+  );
+
+  const handleUpdateMemo = async () => {
+    await updateMemoMutation();
+  };
+
+  const directUpdatePage = () => {
+    navigate('update', { state: { planInfos: planInfos } });
+  };
+
   return (
     <_.Memo_Layout>
-      <Header buttonState="수정" buttonColor="purple" />
+      <Header
+        buttonState="수정"
+        buttonColor="purple"
+        onTapBackIcon={handleUpdateMemo}
+        onClickMethod={directUpdatePage}
+      />
       <_.Memo_Container>
         <_.Memo_TitleBar>
-          <_.Memo_DateAndTime>2023.11.29 오전 11:00</_.Memo_DateAndTime>
-          <_.Memo_PlanTitle>쇼핑하기 🛍️</_.Memo_PlanTitle>
+          <_.Memo_DateAndTime>
+            {date} {contents.time}
+          </_.Memo_DateAndTime>
+          <_.Memo_PlanTitle>{contents.activity}</_.Memo_PlanTitle>
           <_.Memo_Location>
             <Location />
-            <_.Memo_Address>부산광역시 기장군 기장해안로 147</_.Memo_Address>
+            <_.Memo_Address>{contents.location}</_.Memo_Address>
           </_.Memo_Location>
         </_.Memo_TitleBar>
         <_.Memo_Content>
-          <MiniMap keyword="부산광역시 기장군 기장해안로 147" />
+          <MiniMap keyword={contents.location} />
           <_.Memo_Memo
             onChange={updateMemoContent}
             value={memo || ''}
