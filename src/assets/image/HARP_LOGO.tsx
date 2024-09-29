@@ -1,6 +1,6 @@
 import PropTypes from 'prop-types';
 
-export const Harp_Logo = ({ width = '200', height = '981' }) => (
+export const Harp_Logo = ({ width = '150', height = '123' }) => (
     <svg
         width={width}
         height={height}
