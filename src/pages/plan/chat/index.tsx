@@ -242,7 +242,7 @@ const Chat = () => {
               value={message}
               placeholder="메시지 보내기..."
               rows={1}
-              maxLength={100}
+              maxLength={50}
               ref={textareaRef}
               onChange={resizeHeight}
               onKeyPress={(e) => {

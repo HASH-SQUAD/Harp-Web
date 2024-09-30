@@ -1,9 +1,11 @@
 import React, { useCallback, useEffect, useRef, useState } from 'react';
 import ReactDOMServer from 'react-dom/server';
+
 import * as _ from './style';
 import { theme } from 'lib/utils/style/theme';
 import Marker from 'assets/image/Marker.svg';
 import { PlanResult } from 'types/plan';
+import { formatTime } from 'lib/utils/formatTime';
 
 declare global {
   interface Window {
@@ -11,133 +13,119 @@ declare global {
   }
 }
 
-interface ScreenMapProps {
-  planInfos: PlanResult | null; // 초기값이 null일 수 있음
+interface OwnProps {
+  planInfos: PlanResult | null;
 }
 
-const ScreenMap = ({ planInfos }: ScreenMapProps) => {
+const ScreenMap = ({ planInfos }: OwnProps) => {
   const currentOverlay = useRef<any>(null);
-  const geocoder = new window.kakao.maps.services.Geocoder();
-  const [selectedDay, setSelectedDay] = useState('day1');
-  const [loading, setLoading] = useState(true); // 로딩 상태 추가
+  const [selectedDay, setSelectedDay] = useState<string | null>('day1');
 
-  const createMap = useCallback(() => {
+  const createMap = useCallback((center: any) => {
     const mapContainer = document.getElementById('map');
     const mapOption = {
-      center: new window.kakao.maps.LatLng(33.450701, 126.570667),
+      center,
       level: 3
     };
     return new window.kakao.maps.Map(mapContainer, mapOption);
   }, []);
 
-  const createMarkersAndPolyline = useCallback(
-    (map: any, dayData: any[]) => {
-      const promises = dayData.map((activity) => {
-        return new Promise((resolve, reject) => {
-          geocoder.addressSearch(
-            activity.location,
-            (result: any, status: any) => {
-              if (status === window.kakao.maps.services.Status.OK) {
-                const coords = new window.kakao.maps.LatLng(
-                  result[0].y,
-                  result[0].x
-                );
-                resolve({ coords, activity });
-              } else {
-                reject(new Error('주소 검색 실패'));
-              }
-            }
-          );
+  const createMarkers = useCallback(
+    (planData: any, day: string) => {
+      const locations = planData[day]?.map((item: any) => ({
+        time: item.time,
+        activity: item.activity,
+        location: item.location,
+        recommendation: item.recommendation,
+        x: parseFloat(item.x),
+        y: parseFloat(item.y)
+      }));
+
+      if (!locations || locations.length === 0) {
+        console.error('위치 정보가 없습니다.');
+        return;
+      }
+
+      const newMap = createMap(
+        new window.kakao.maps.LatLng(locations[0].y, locations[0].x)
+      );
+
+      const linePath = locations.map(
+        (loc: { x: number; y: number }) =>
+          new window.kakao.maps.LatLng(loc.y, loc.x)
+      );
+
+      const polyline = new window.kakao.maps.Polyline({
+        path: linePath,
+        strokeWeight: 2,
+        strokeColor: theme.primary[6],
+        strokeOpacity: 1,
+        strokeStyle: 'solid'
+      });
+      polyline.setMap(newMap);
+
+      locations.forEach((loc: any, index: number) => {
+        const imageSize = new window.kakao.maps.Size(30, 37);
+        const markerImage = new window.kakao.maps.MarkerImage(
+          Marker,
+          imageSize
+        );
+        const marker = new window.kakao.maps.Marker({
+          map: newMap,
+          position: new window.kakao.maps.LatLng(loc.y, loc.x),
+          title: loc.activity,
+          image: markerImage
+        });
+
+        const sequenceOverlayContent = ReactDOMServer.renderToString(
+          <_.ScreenMap_Overlay>{`${index + 1}번째`}</_.ScreenMap_Overlay>
+        );
+
+        const sequenceOverlay = new window.kakao.maps.CustomOverlay({
+          map: newMap,
+          position: new window.kakao.maps.LatLng(loc.y, loc.x),
+          content: sequenceOverlayContent,
+          yAnchor: 3
+        });
+
+        sequenceOverlay.setMap(newMap);
+
+        const infoOverlayContent = ReactDOMServer.renderToString(
+          <_.ScreenMap_InfoWindow>
+            <_.ScreenMap_Header>
+              <_.ScreenMap_Title>{loc.activity}</_.ScreenMap_Title>
+              <_.ScreenMap_Time>· {formatTime(loc.time)}</_.ScreenMap_Time>
+            </_.ScreenMap_Header>
+            <_.ScreenMap_Location>{loc.location}</_.ScreenMap_Location>
+          </_.ScreenMap_InfoWindow>
+        );
+
+        const infoOverlay = new window.kakao.maps.CustomOverlay({
+          map: newMap,
+          position: new window.kakao.maps.LatLng(loc.y, loc.x),
+          content: infoOverlayContent,
+          yAnchor: -0.2
+        });
+
+        infoOverlay.setMap(null);
+
+        window.kakao.maps.event.addListener(marker, 'click', () => {
+          if (currentOverlay.current) {
+            currentOverlay.current.setMap(null);
+          }
+          infoOverlay.setMap(newMap);
+          currentOverlay.current = infoOverlay;
+        });
+
+        window.kakao.maps.event.addListener(newMap, 'click', () => {
+          if (currentOverlay.current) {
+            currentOverlay.current.setMap(null);
+            currentOverlay.current = null;
+          }
         });
       });
-
-      Promise.all(promises)
-        .then((results: any[]) => {
-          const linePath: any[] = [];
-
-          results.forEach(({ coords, activity }, index) => {
-            linePath.push(coords);
-
-            const imageSize = new window.kakao.maps.Size(30, 37);
-            const markerImage = new window.kakao.maps.MarkerImage(
-              Marker,
-              imageSize
-            );
-            const marker = new window.kakao.maps.Marker({
-              map: map,
-              position: coords,
-              title: activity.recommendation,
-              image: markerImage
-            });
-
-            const sequenceOverlayContent = ReactDOMServer.renderToString(
-              <_.ScreenMap_Overlay>{`${index + 1}번째`}</_.ScreenMap_Overlay>
-            );
-
-            const sequenceOverlay = new window.kakao.maps.CustomOverlay({
-              map: map,
-              position: coords,
-              content: sequenceOverlayContent,
-              yAnchor: 3
-            });
-
-            sequenceOverlay.setMap(map);
-
-            const infoOverlayContent = ReactDOMServer.renderToString(
-              <_.ScreenMap_InfoWindow>
-                <_.ScreenMap_Header>
-                  <_.ScreenMap_Title>{activity.activity}</_.ScreenMap_Title>
-                  <_.ScreenMap_Time>{activity.time}</_.ScreenMap_Time>
-                </_.ScreenMap_Header>
-                <_.ScreenMap_Location>
-                  {activity.recommendation}
-                </_.ScreenMap_Location>
-              </_.ScreenMap_InfoWindow>
-            );
-
-            const infoOverlay = new window.kakao.maps.CustomOverlay({
-              map: map,
-              position: coords,
-              content: infoOverlayContent,
-              yAnchor: -0.2
-            });
-
-            infoOverlay.setMap(null);
-
-            window.kakao.maps.event.addListener(marker, 'click', () => {
-              if (currentOverlay.current) {
-                currentOverlay.current.setMap(null);
-              }
-              infoOverlay.setMap(map);
-              currentOverlay.current = infoOverlay;
-            });
-
-            window.kakao.maps.event.addListener(map, 'click', () => {
-              if (currentOverlay.current) {
-                currentOverlay.current.setMap(null);
-                currentOverlay.current = null;
-              }
-            });
-
-            if (index === 0) {
-              map.setCenter(coords);
-            }
-          });
-
-          const polyline = new window.kakao.maps.Polyline({
-            path: linePath,
-            strokeWeight: 2,
-            strokeColor: theme.primary[6],
-            strokeOpacity: 1,
-            strokeStyle: 'solid'
-          });
-          polyline.setMap(map);
-        })
-        .catch((error) => {
-          console.error('마커 및 폴리라인 생성 중 에러 발생:', error);
-        });
     },
-    [geocoder]
+    [createMap]
   );
 
   useEffect(() => {
@@ -146,36 +134,30 @@ const ScreenMap = ({ planInfos }: ScreenMapProps) => {
       return;
     }
 
-    if (planInfos && planInfos.data && planInfos.data.days) {
-      const map = createMap();
-      createMarkersAndPolyline(map, planInfos.data.days[selectedDay]);
-      setLoading(false);
+    if (planInfos && selectedDay) {
+      createMarkers(planInfos.data, selectedDay);
     }
-  }, [createMap, createMarkersAndPolyline, selectedDay, planInfos]);
-
-  if (loading) {
-    return <div>로딩 중...</div>;
-  }
-
-  if (!planInfos || !planInfos.data || !planInfos.data.days) {
-    return <div>데이터가 없습니다.</div>;
-  }
+  }, [createMarkers, planInfos, selectedDay]);
 
   return (
     <_.ScreenMap_Layout id="map">
-      <_.ScreenMap_DaysSelectList>
-        {Object.keys(planInfos.data.days).map(
-          (dayKey: string, index: number) => (
-            <_.ScreenMap_DaySelect
-              key={dayKey}
-              isSelected={selectedDay === dayKey}
-              onClick={() => setSelectedDay(dayKey)}
-            >
-              {index + 1}일차
-            </_.ScreenMap_DaySelect>
-          )
-        )}
-      </_.ScreenMap_DaysSelectList>
+      {planInfos ? (
+        <_.ScreenMap_DaysSelectList>
+          {Object.keys(planInfos.data)
+            .filter((key) => key !== 'tips')
+            .map((day) => (
+              <_.ScreenMap_DaySelect
+                key={day}
+                isSelected={selectedDay === day}
+                onClick={() => setSelectedDay(day)}
+              >
+                {day}
+              </_.ScreenMap_DaySelect>
+            ))}
+        </_.ScreenMap_DaysSelectList>
+      ) : (
+        <div>데이터를 불러오는 중입니다...</div>
+      )}
     </_.ScreenMap_Layout>
   );
 };

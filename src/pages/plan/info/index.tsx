@@ -88,7 +88,11 @@ const Info = () => {
   const formattedEndDate = formatSelectedDate(endDate, '.');
   const travelPeriod = formatTravelPeriod(startDate ?? '', endDate ?? '');
 
-  const duration = `${formattedStartDate}~${formattedEndDate} (${travelPeriod})`;
+  const duration =
+    formattedStartDate === formattedEndDate
+      ? `${formattedStartDate} (${travelPeriod})`
+      : `${formattedStartDate}~${formattedEndDate} (${travelPeriod})`;
+
   return (
     <>
       <Header
