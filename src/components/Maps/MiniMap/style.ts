@@ -3,7 +3,7 @@ import styled from 'styled-components';
 
 export const MiniMap_Layout = styled.div`
   width: 100%;
-  height: 280px;
+  height: 400px;
 `;
 
 export const MiniMap_Error = styled.p`

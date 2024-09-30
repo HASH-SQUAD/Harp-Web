@@ -1,4 +1,3 @@
-// 라이브러리
 import React, { useCallback, useEffect, useState } from 'react';
 
 // 파일
@@ -23,7 +22,17 @@ const MiniMap = ({ keyword }: MiniMapProps) => {
   const [errorMessage, setErrorMessage] = useState<string | null>(null);
 
   const searchPlace = useCallback(() => {
+    if (!keyword) {
+      setErrorMessage('검색 키워드를 입력해 주세요.');
+      return;
+    }
+
     const container = document.getElementById('map');
+    if (!container) {
+      setErrorMessage('지도를 표시할 컨테이너가 없습니다.');
+      return;
+    }
+
     const options = {
       center: new window.kakao.maps.LatLng(0, 0),
       level: 3
@@ -48,16 +57,16 @@ const MiniMap = ({ keyword }: MiniMapProps) => {
   }, [keyword]);
 
   useEffect(() => {
-    if (window.kakao) {
+    if (window.kakao && window.kakao.maps) {
       searchPlace();
     } else {
-      console.log('카카오맵 스크립트 에러');
+      setErrorMessage('카카오 맵 스크립트 로드에 실패했습니다.');
     }
   }, [searchPlace]);
 
   return (
     <>
-      <_.MiniMap_Layout id="map" style={{ width: '100%', height: '400px' }} />
+      <_.MiniMap_Layout id="map" />
       {errorMessage && <_.MiniMap_Error>{errorMessage}</_.MiniMap_Error>}
     </>
   );
