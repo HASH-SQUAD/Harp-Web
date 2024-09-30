@@ -47,7 +47,10 @@ const ScreenMap = ({ planInfos }: OwnProps) => {
       }
 
       const newMap = createMap(
-        new window.kakao.maps.LatLng(locations[0].y, locations[0].x)
+        new window.kakao.maps.LatLng(
+          locations[0 || 1 || 2 || 3 || 4].y,
+          locations[0 || 1 || 2 || 3 || 4].x
+        )
       );
 
       const linePath = locations.map(
