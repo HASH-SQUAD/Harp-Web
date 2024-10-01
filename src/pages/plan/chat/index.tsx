@@ -128,9 +128,10 @@ const Chat = () => {
 
   const incrementStep = () => setStep((prevStep) => prevStep + 1);
 
+  console.log(step);
   const nextStep = useCallback(
     (userMessage: string) => {
-      if (step === 0) {
+      if (step === 3) {
         setPlanInfo({ ...planInfo, title: userMessage });
         addChatToHistory('assistant', {
           subject: 'none',
@@ -139,7 +140,7 @@ const Chat = () => {
           select: ['숙박', '당일치기']
         });
         incrementStep();
-      } else if (step === 1) {
+      } else if (step === 4) {
         setPlanInfo({ ...planInfo, type: userMessage });
         setTimeout(() => {
           ChattingMutation('일정 짜줘');
