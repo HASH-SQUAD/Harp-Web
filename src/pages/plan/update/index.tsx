@@ -96,7 +96,7 @@ const Update = () => {
           [selectedDay]:
             planInfos.data[selectedDay]?.map((plan: any, index: number) =>
               index === parseInt(timeIndex!) ? newPlanItem : plan
-            ) || [] // undefined인 경우 빈 배열로 처리하지 않음
+            ) || []
         }
       };
     } else {

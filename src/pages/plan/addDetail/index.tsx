@@ -15,7 +15,6 @@ import TimePicker from 'components/TimePicker';
 import NextButton from 'components/NextButton';
 import { useMutation } from 'react-query';
 import { Plan_Update } from 'lib/apis/Plan';
-import { schedule } from 'types/schedule';
 import { PlanResult } from 'types/plan';
 
 const AddDetail = () => {
@@ -72,13 +71,14 @@ const AddDetail = () => {
       .filter((key) => key !== 'tips')
       .map((key, index) => {
         const date = new Date(startDate);
-        date.setDate(startDate.getDate() + index);
+        date.setDate(startDate.getDate() + index + 1);
         return {
           day: key,
           date: date.toISOString().split('T')[0]
         };
       })
   );
+  console.log(plans);
 
   const periods = ['오전', '오후'];
   const hours = Array.from({ length: 12 }, (_, i) => String(i + 1));
