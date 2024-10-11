@@ -1,7 +1,9 @@
 import { AuthInstance } from './Axios';
 
-export const Auth_KakaoLogin = async () => {
-  const { data } = await AuthInstance.get(`/auth/kakao/authstate`);
+export const Auth_KakaoLogin = async (code: string) => {
+  const { data } = await AuthInstance.post(
+    `/api/auth/login/kakao?code=${code}`
+  );
   return data;
 };
 
