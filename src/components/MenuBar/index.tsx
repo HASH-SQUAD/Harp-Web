@@ -9,8 +9,6 @@ import Travel from 'assets/Icon/MenuBar/Select/Travel';
 import Travel_Not from 'assets/Icon/MenuBar/NotSelect/Travel';
 import Community from 'assets/Icon/MenuBar/Select/Community';
 import Community_Not from 'assets/Icon/MenuBar/NotSelect/Community';
-import Wish from 'assets/Icon/MenuBar/Select/Wish';
-import Wish_Not from 'assets/Icon/MenuBar/NotSelect/Wish';
 import All from 'assets/Icon/MenuBar/Select/All';
 import All_Not from 'assets/Icon/MenuBar/NotSelect/All';
 import { useNavigate } from 'react-router-dom';
@@ -33,7 +31,6 @@ const icons = [
     title: '커뮤니티',
     location: '/community'
   },
-  { selected: Wish, notSelected: Wish_Not, title: '찜', location: '/wish' },
   { selected: All, notSelected: All_Not, title: '전체', location: '/all' }
 ];
 
