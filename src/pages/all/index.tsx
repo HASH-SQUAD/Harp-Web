@@ -1,5 +1,6 @@
 // 라이브러리
 import React from 'react';
+import { useNavigate } from 'react-router-dom';
 
 // 파일
 import * as _ from './style';
@@ -11,11 +12,12 @@ import { theme } from 'lib/utils/style/theme';
 import { AllPageMenu } from 'data/AllPageMenu';
 
 const All = () => {
+  const navigate = useNavigate();
   return (
     <_.All_Layout>
       <_.All_Header>
         <_.All_Name>전체</_.All_Name>
-        <SettingIcon />
+        <SettingIcon onClick={() => navigate(`/setting`)} />
       </_.All_Header>
       <_.All_Profile>
         <_.All_Profile_Image url={DefaultImage} />

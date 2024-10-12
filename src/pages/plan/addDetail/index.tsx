@@ -157,7 +157,7 @@ const AddDetail = () => {
         </_.AddDetail_SectionLine>
         <_.AddDetail_SectionLine>
           <_.AddDetail_Subtitle>
-            <Calendar />
+            <Calendar color="black" />
             <_.AddDetail_Menu>날짜 선택</_.AddDetail_Menu>
           </_.AddDetail_Subtitle>
           <_.AddDetail_PlanDates>

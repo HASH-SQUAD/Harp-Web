@@ -29,6 +29,7 @@ import AddDetail from 'pages/plan/addDetail';
 import Edit from 'pages/profile/edit';
 import CropPage from 'pages/profile/crop';
 import All from 'pages/all';
+import Setting from 'pages/setting';
 
 export default function Router() {
   return useRoutes([
@@ -37,6 +38,7 @@ export default function Router() {
       children: [
         { index: true, element: <Home /> },
         { path: 'all', element: <All /> },
+        { path: 'setting', element: <Setting /> },
         { path: 'splash', element: <Splash /> },
         { path: 'auth', element: <Auth /> },
         { path: 'auth/kakao/callback', element: <Callback /> },
