@@ -14,7 +14,7 @@ export const initialQuestions: AIResponse[] = [
     role: 'assistant',
     Contents: {
       subject: 'none',
-      category: '',
+      category: 'introduction',
       question: '저는 인공지능 AI 디토입니다.\n당신의 여행을 도와드리겠습니다.',
       select: []
     }
@@ -23,8 +23,8 @@ export const initialQuestions: AIResponse[] = [
     role: 'assistant',
     Contents: {
       subject: 'none',
-      category: 'title',
-      question: '이번 계획의 제목을 알려주세요!',
+      category: 'title_request',
+      question: '이번 계획의 제목을 알려주세요.',
       select: []
     }
   }

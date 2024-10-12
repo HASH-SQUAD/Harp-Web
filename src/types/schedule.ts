@@ -3,4 +3,6 @@ export interface schedule {
   activity: string;
   location: string;
   recommendation: string;
+  x: string;
+  y: string;
 }

@@ -29,8 +29,7 @@ const Chat = () => {
   const [message, setMessage] = useState<string>('');
   const [pendingMessage, setPendingMessage] = useState<AIResponse | null>(null);
   const [isWaitingForReply, setIsWaitingForReply] = useState(false);
-  const [chatHistory, setChatHistory] =
-    useState<AIResponse[]>(initialQuestions);
+  const [chatHistory, setChatHistory] = useState<AIResponse[]>([]);
   const [step, setStep] = useState<number>(0);
   const [planInfo, setPlanInfo] = useState<{ title: string; type: string }>({
     title: '',
@@ -39,6 +38,20 @@ const Chat = () => {
   const [planId, setPlanId] = useState('');
   const [isEnded, setIsEnded] = useState(false);
   const { start, end } = useRecoilValue(selectedDaysState);
+
+  useEffect(() => {
+    if (step < initialQuestions.length) {
+      setIsWaitingForReply(true);
+
+      const timer = setTimeout(() => {
+        setChatHistory((prevChat) => [...prevChat, initialQuestions[step]]);
+        setStep((prevStep) => prevStep + 1);
+        setIsWaitingForReply(false);
+      }, 800);
+
+      return () => clearTimeout(timer);
+    }
+  }, [step]);
 
   const handleResponseSuccess = (response: any) => {
     if (response.data.Contents.category === undefined) {
@@ -115,9 +128,10 @@ const Chat = () => {
 
   const incrementStep = () => setStep((prevStep) => prevStep + 1);
 
+  console.log(step);
   const nextStep = useCallback(
     (userMessage: string) => {
-      if (step === 0) {
+      if (step === 3) {
         setPlanInfo({ ...planInfo, title: userMessage });
         addChatToHistory('assistant', {
           subject: 'none',
@@ -126,7 +140,7 @@ const Chat = () => {
           select: ['숙박', '당일치기']
         });
         incrementStep();
-      } else if (step === 1) {
+      } else if (step === 4) {
         setPlanInfo({ ...planInfo, type: userMessage });
         setTimeout(() => {
           ChattingMutation('일정 짜줘');
@@ -190,14 +204,17 @@ const Chat = () => {
       <_.Chat_Container>
         <Header title="AI 디토" isOnChatting={true} />
         <_.Chat_Messages selectOptions={selectOptions}>
-          {chatHistory.map((chat, index) => (
-            <MessageBox
-              key={index}
-              message={chat.Contents.question}
-              role={chat.role}
-              isLoading={false}
-            />
-          ))}
+          {chatHistory.map((chat, index) =>
+            chat && chat.Contents ? (
+              <MessageBox
+                key={index}
+                message={chat.Contents.question}
+                role={chat.role}
+                isLoading={false}
+              />
+            ) : null
+          )}
+
           {pendingMessage && (
             <MessageBox
               message={pendingMessage.Contents.question}
@@ -242,7 +259,7 @@ const Chat = () => {
               value={message}
               placeholder="메시지 보내기..."
               rows={1}
-              maxLength={100}
+              maxLength={50}
               ref={textareaRef}
               onChange={resizeHeight}
               onKeyPress={(e) => {

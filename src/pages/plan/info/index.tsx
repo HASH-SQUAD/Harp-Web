@@ -88,13 +88,20 @@ const Info = () => {
   const formattedEndDate = formatSelectedDate(endDate, '.');
   const travelPeriod = formatTravelPeriod(startDate ?? '', endDate ?? '');
 
-  const duration = `${formattedStartDate}~${formattedEndDate} (${travelPeriod})`;
+  const duration =
+    formattedStartDate === formattedEndDate
+      ? `${formattedStartDate} (${travelPeriod})`
+      : `${formattedStartDate}~${formattedEndDate} (${travelPeriod})`;
+
   return (
     <>
       <Header
         title="일정"
-        buttonState="완료"
-        onClickMethod={deletePlanItemMutation}
+        buttonState={isUpdated ? '완료' : '닫기'}
+        onClickMethod={() => {
+          if (isUpdated) deletePlanItemMutation;
+          else navigate(`/`);
+        }}
       />
       {isLoading ? (
         <p>Loading...</p>

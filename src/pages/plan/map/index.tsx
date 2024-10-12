@@ -34,7 +34,11 @@ const Map = () => {
   const formattedEndDate = formatSelectedDate(endDate, '.');
   const travelPeriod = formatTravelPeriod(startDate ?? '', endDate ?? '');
 
-  const duration = `${formattedStartDate}~${formattedEndDate} (${travelPeriod})`;
+  const duration =
+    formattedStartDate === formattedEndDate
+      ? `${formattedStartDate} (${travelPeriod})`
+      : `${formattedStartDate}~${formattedEndDate} (${travelPeriod})`;
+
   return (
     <_.Map_Layout>
       <Header title="지도" buttonState="완료" />
