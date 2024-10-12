@@ -6,7 +6,7 @@ export const Header_Container = styled.div<{ $isOnChatting?: boolean }>`
   height: 40px;
   display: flex;
   justify-content: space-between;
-  padding: 0 30px;
+  padding: 0 20px;
   align-items: center;
   border-bottom: 1px solid
     ${(props) => (props.$isOnChatting ? theme.gray[1] : 'none ')};
